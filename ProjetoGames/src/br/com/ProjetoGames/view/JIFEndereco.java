@@ -11,19 +11,24 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import org.geonames.Toponym;
+import org.geonames.ToponymSearchCriteria;
+import org.geonames.ToponymSearchResult;
+import org.geonames.WebService;
 
 /**
  *
  * @author Pedro
  */
 public class JIFEndereco extends javax.swing.JInternalFrame {
-
+    
     public JIFEndereco() {
         initComponents();
         this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        localizacao();
     }
 
     /**
@@ -103,11 +108,21 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                 jtNumeroActionPerformed(evt);
             }
         });
+        jtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtNumeroKeyTyped(evt);
+            }
+        });
 
         jtBairro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jtBairro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtBairroActionPerformed(evt);
+            }
+        });
+        jtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtBairroKeyTyped(evt);
             }
         });
 
@@ -117,11 +132,21 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                 jtCidadeActionPerformed(evt);
             }
         });
+        jtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtCidadeKeyTyped(evt);
+            }
+        });
 
         jtRua.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jtRua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtRuaActionPerformed(evt);
+            }
+        });
+        jtRua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtRuaKeyTyped(evt);
             }
         });
 
@@ -301,6 +326,22 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         sair();
     }//GEN-LAST:event_formInternalFrameClosing
 
+    private void jtNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNumeroKeyTyped
+        campoComNumero(evt);
+    }//GEN-LAST:event_jtNumeroKeyTyped
+
+    private void jtCidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCidadeKeyTyped
+        campoSemNumero(evt);
+    }//GEN-LAST:event_jtCidadeKeyTyped
+
+    private void jtBairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtBairroKeyTyped
+        campoSemNumero(evt);
+    }//GEN-LAST:event_jtBairroKeyTyped
+
+    private void jtRuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtRuaKeyTyped
+        campoSemNumero(evt);
+    }//GEN-LAST:event_jtRuaKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbSalvar;
@@ -326,7 +367,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         String msg = new String();
         if (jtRua.getText().equals("")) {
             msg = "O campo rua deve ser preenchido\n";
-        } else {//Não pode ser <3 ou >40( varchar(40) )
+        } else {
             if (jtRua.getText().length() < 3 || jtRua.getText().length() > 40) {
                 msg = "A rua deve ter entre 3 e 40 caracteres\n";
             }
@@ -336,66 +377,36 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         } else {
             if (jtBairro.getText().length() < 3 || jtBairro.getText().length() > 40) {
                 msg += "O bairro deve ser entre 5 e 40 caracteres\n";
-            } 
+            }
         }
         if (jtCidade.getText().equals("")) {
             msg += "O bairro deve ser preenchido\n";
         } else {
             if (jtBairro.getText().length() < 3 || jtBairro.getText().length() > 40) {
                 msg += "O bairro deve ser entre 5 e 40 caracteres\n";
-            } 
+            }
         }
-        if (jftCpf.getText().equals("   .   .   -  ")) {
-            msg += "O CPF deve ser preenchido\n";
+        if (jftCep.getText().equals("     -   ")) {
+            msg += "O CEP deve ser preenchido\n";
         } else {
-            if (jftCpf.getText().contains(" ")) {
-                msg += "Há campos vazios no CPF\n";
+            if (jftCep.getText().contains(" ")) {
+                msg += "Há campos vazios no CEP\n";
             }
         }
-        if (jtTelefone.getText().equals("")) {
-            msg += "O Telefone deve ser preenchido\n";
-        } else {
-            if (jtTelefone.getText().length() < 10 || jtTelefone.getText().length() > 11) {
-                msg += "O Telefone deve conter DDD + número(entre 10 e 11 caracteres)\n";
-            }
-        }
-        if (jtEndereco.getText().equals("Clique aqui!")) {
-            msg += "O Endereço deve ser preenchido\n";
-        }
-        if(jtUsuario.getText().equals("")){
-            msg += "O Usuário deve ser preenchido\n";
-        } else {
-            if (jtUsuario.getText().length() < 3 || jtUsuario.getText().length() > 40) {
-                msg += "O Usuário deve ter entre 3 e 40 caracteres\n";
-            }
-        }
-        if(jpfSenha.getText().equals("")){
-            msg += "A senha deve ser preenchida\n";
-        }else{
-            if(jpfSenha.getText().length() <= 8 || jpfSenha.getText().length() > 50){
-                msg += "A senha deve conter entre 8 e 50 caracteres\n";
-            }
-        }
-        if(jftDataNasc.getText().equals("  /  /    ")){
-           msg += "A data de nascimento deve ser preenchido\n";
-        } else {
-            if (jftDataNasc.getText().contains(" ")) {
-                msg += "Há campos vazios na data de nascimento\n";
-            }
-        } 
-        if(jcbSexo.getSelectedIndex() == 0){
+        
+        if (jcbPais.getSelectedIndex() == 0) {
             msg += "Selecione um sexo\n";
         }
-        if(jcbTipo.getSelectedIndex() == 0){
+        if (jcbUf.getSelectedIndex() == 0) {
             msg += "Selecione um tipo de usuário\n";
         }
-        if(msg.length() == 0){
-        return true;
-        }else{
+        if (msg.length() == 0) {
+            return true;
+        } else {
             throw new Exception(msg);
         }
     }
-
+    
     public EnderecoModel preencherObjeto() {
         EnderecoModel end = new EnderecoModel();
         end.setBairro(jtBairro.getText());
@@ -408,7 +419,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         end.setComplemento(jtComplemento.getText());
         return end;
     }
-
+    
     public void sair() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
@@ -419,9 +430,39 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao validar os dados","Sair",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erro ao validar os dados", "Sair", JOptionPane.ERROR_MESSAGE);
             }
-
+            
         }
+    }
+    
+    private void campoSemNumero(java.awt.event.KeyEvent evt) {
+        String caracteres = "0987654321";
+        if (caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
+    private void campoComNumero(java.awt.event.KeyEvent evt) {
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
+    public void localizacao() {
+        try {
+            WebService.setUserName("pedrotaha");
+            ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
+            
+            searchCriteria.setQ("Brazil");
+            ToponymSearchResult searchResult = WebService.search(searchCriteria);
+            for (Toponym toponym : searchResult.getToponyms()) {
+                System.out.println(toponym.getName() + " " + toponym.getCountryName());
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Localizar", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }
 }
