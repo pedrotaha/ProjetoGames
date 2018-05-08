@@ -32,8 +32,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jcbUf" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jlUf" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jcbEstado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jlEstado" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -125,7 +125,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jlUf" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlEstado" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -136,7 +136,7 @@
                       </Group>
                       <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jcbUf" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jcbEstado" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="jcbPais" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jftCep" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -193,12 +193,12 @@
         <Property name="text" type="java.lang.String" value="Cidade:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jlUf">
+    <Component class="javax.swing.JLabel" name="jlEstado">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="UF:"/>
+        <Property name="text" type="java.lang.String" value="Estado:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlPais">
@@ -279,7 +279,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtComplementoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JComboBox" name="jcbUf">
+    <Component class="javax.swing.JComboBox" name="jcbEstado">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>

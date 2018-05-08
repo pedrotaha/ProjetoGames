@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import org.geonames.InvalidParameterException;
 import org.geonames.Toponym;
 import org.geonames.ToponymSearchCriteria;
 import org.geonames.ToponymSearchResult;
@@ -21,14 +22,19 @@ import org.geonames.WebService;
  * @author Pedro
  */
 public class JIFEndereco extends javax.swing.JInternalFrame {
-    
+
     public JIFEndereco() {
         initComponents();
         this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
-        localizacao();
+        try {
+            local();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro: "+e.getMessage());
+        }
+        
     }
 
     /**
@@ -44,7 +50,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         jlNumero = new javax.swing.JLabel();
         jlBairro = new javax.swing.JLabel();
         jlCidade = new javax.swing.JLabel();
-        jlUf = new javax.swing.JLabel();
+        jlEstado = new javax.swing.JLabel();
         jlPais = new javax.swing.JLabel();
         jlCep = new javax.swing.JLabel();
         jlComplemento = new javax.swing.JLabel();
@@ -53,7 +59,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         jtCidade = new javax.swing.JTextField();
         jtRua = new javax.swing.JTextField();
         jtComplemento = new javax.swing.JTextField();
-        jcbUf = new javax.swing.JComboBox<>();
+        jcbEstado = new javax.swing.JComboBox<>();
         jcbPais = new javax.swing.JComboBox<>();
         jftCep = new javax.swing.JFormattedTextField();
         jbSalvar = new javax.swing.JButton();
@@ -90,8 +96,8 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         jlCidade.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlCidade.setText("Cidade:");
 
-        jlUf.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jlUf.setText("UF:");
+        jlEstado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlEstado.setText("Estado:");
 
         jlPais.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlPais.setText("Pais:");
@@ -157,8 +163,8 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
             }
         });
 
-        jcbUf.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jcbUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
+        jcbEstado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jcbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
 
         jcbPais.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jcbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
@@ -199,8 +205,8 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcbUf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlUf))
+                                    .addComponent(jcbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlEstado))
                                 .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -267,7 +273,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlUf)
+                            .addComponent(jlEstado)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -275,7 +281,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                                     .addComponent(jlPais))))
                         .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbUf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jcbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jftCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -346,17 +352,17 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbSalvar;
     private javax.swing.JButton jbVoltar;
+    private javax.swing.JComboBox<String> jcbEstado;
     private javax.swing.JComboBox<String> jcbPais;
-    private javax.swing.JComboBox<String> jcbUf;
     private javax.swing.JFormattedTextField jftCep;
     private javax.swing.JLabel jlBairro;
     private javax.swing.JLabel jlCep;
     private javax.swing.JLabel jlCidade;
     private javax.swing.JLabel jlComplemento;
+    private javax.swing.JLabel jlEstado;
     private javax.swing.JLabel jlNumero;
     private javax.swing.JLabel jlPais;
     private javax.swing.JLabel jlRua;
-    private javax.swing.JLabel jlUf;
     private javax.swing.JTextField jtBairro;
     private javax.swing.JTextField jtCidade;
     private javax.swing.JTextField jtComplemento;
@@ -393,11 +399,11 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                 msg += "Há campos vazios no CEP\n";
             }
         }
-        
+
         if (jcbPais.getSelectedIndex() == 0) {
             msg += "Selecione um sexo\n";
         }
-        if (jcbUf.getSelectedIndex() == 0) {
+        if (jcbEstado.getSelectedIndex() == 0) {
             msg += "Selecione um tipo de usuário\n";
         }
         if (msg.length() == 0) {
@@ -406,11 +412,11 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
             throw new Exception(msg);
         }
     }
-    
+
     public EnderecoModel preencherObjeto() {
         EnderecoModel end = new EnderecoModel();
         end.setBairro(jtBairro.getText());
-        end.setUf(jcbUf.getItemAt(jcbUf.getSelectedIndex()));
+        end.setEstado(jcbEstado.getItemAt(jcbEstado.getSelectedIndex()));
         end.setPais(jcbPais.getItemAt(jcbPais.getSelectedIndex()));
         end.setCidade(jtCidade.getText());
         end.setRua(jtRua.getText());
@@ -419,7 +425,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         end.setComplemento(jtComplemento.getText());
         return end;
     }
-    
+
     public void sair() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
@@ -432,37 +438,62 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Erro ao validar os dados", "Sair", JOptionPane.ERROR_MESSAGE);
             }
-            
+
         }
     }
-    
+
     private void campoSemNumero(java.awt.event.KeyEvent evt) {
         String caracteres = "0987654321";
         if (caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }
-    
+
     private void campoComNumero(java.awt.event.KeyEvent evt) {
         String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }
-    
+
     public void localizacao() {
         try {
             WebService.setUserName("pedrotaha");
             ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
-            
-            searchCriteria.setQ("Brazil");
+
+            searchCriteria.setQ("Country");
             ToponymSearchResult searchResult = WebService.search(searchCriteria);
             for (Toponym toponym : searchResult.getToponyms()) {
-                System.out.println(toponym.getName() + " " + toponym.getCountryName());
+                System.out.println(toponym.getName() + " ");
+                jcbEstado.addItem(toponym.getName());
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Localizar", JOptionPane.ERROR_MESSAGE);
         }
-        
+
+    }
+
+    public void  local() throws org.geonames.InvalidParameterException, Exception {
+
+        ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
+
+        WebService.setUserName("demo"); //username
+        try {
+
+            searchCriteria.setCountryCode("DO"); //Country
+            searchCriteria.setLanguage("ES");  //Language
+
+            searchCriteria.setNameEquals("Rio de Janeiro"); //Location
+            searchCriteria.setMaxRows(1);
+            ToponymSearchResult searchResult = WebService.search(searchCriteria);
+
+            for (Toponym toponym : searchResult.getToponyms()) {
+
+                System.out.println(toponym.getName() + " " + toponym.getCountryName() + " Lat: " + toponym.getLatitude() + " Lon " + toponym.getLongitude());
+            }
+
+        } catch (InvalidParameterException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }

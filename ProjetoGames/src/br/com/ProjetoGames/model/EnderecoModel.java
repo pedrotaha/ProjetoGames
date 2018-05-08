@@ -2,7 +2,7 @@ package br.com.ProjetoGames.model;
 
 public class EnderecoModel {
     private String pais;
-    private String uf;
+    private String estado;
     private String cidade;
     private String bairro;
     private String rua;
@@ -12,7 +12,7 @@ public class EnderecoModel {
 
     public EnderecoModel() {
         pais = new String();
-        uf = new String();
+        estado = new String();
         cidade = new String();
         bairro = new String();
         rua = new String();
@@ -21,9 +21,9 @@ public class EnderecoModel {
         complemento = new String();
     }
 
-    public EnderecoModel( String pais, String uf, String cidade, String bairro, String rua, int numero, String cep, String complemento) {
+    public EnderecoModel( String pais, String estado, String cidade, String bairro, String rua, int numero, String cep, String complemento) {
         this.pais = pais;
-        this.uf = uf;
+        this.estado = estado;
         this.cidade = cidade;
         this.bairro = bairro;
         this.rua = rua;
@@ -39,12 +39,12 @@ public class EnderecoModel {
         this.pais = pais;
     }
 
-    public String getUf() {
-        return uf;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getCidade() {

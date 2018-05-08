@@ -75,7 +75,7 @@ create table if not exists tbvendas(
 create table if not exists tbendereco(
  idUsuario integer primary key not null,
  pais varchar(40) not null,
- uf char(2) not null,
+ estado char(40) not null,
  cidade varchar(40) not null,
  bairro varchar(40) not null,
  rua varchar(40) not null,
