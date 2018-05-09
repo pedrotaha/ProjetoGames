@@ -5,8 +5,11 @@
  */
 package br.com.ProjetoGames.view;
 
+import br.com.ProjetoGames.data.localizar.LocalData;
 import br.com.ProjetoGames.model.EnderecoModel;
+import br.com.ProjetoGames.model.localizar.LocalModel;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -492,6 +495,8 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
 //        }
 //    }
     void local() throws Exception{
-        
+        LocalData DAO = new LocalData();
+        ArrayList<LocalModel> lista = new ArrayList<>();
+        lista = DAO.pesquisarPais();
     }
 }
