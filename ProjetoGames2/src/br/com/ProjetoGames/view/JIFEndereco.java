@@ -11,11 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import org.geonames.InvalidParameterException;
-import org.geonames.Toponym;
-import org.geonames.ToponymSearchCriteria;
-import org.geonames.ToponymSearchResult;
-import org.geonames.WebService;
 
 /**
  *
@@ -456,44 +451,47 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         }
     }
 
-    public void localizacao() {
-        try {
-            WebService.setUserName("pedrotaha");
-            ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
-
-            searchCriteria.setQ("Country");
-            ToponymSearchResult searchResult = WebService.search(searchCriteria);
-            for (Toponym toponym : searchResult.getToponyms()) {
-                System.out.println(toponym.getName() + " ");
-                jcbEstado.addItem(toponym.getName());
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Localizar", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }
-
-    public void  local() throws org.geonames.InvalidParameterException, Exception {
-
-        ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
-
-        WebService.setUserName("demo"); //username
-        try {
-
-            searchCriteria.setCountryCode("DO"); //Country
-            searchCriteria.setLanguage("ES");  //Language
-
-            searchCriteria.setNameEquals("Rio de Janeiro"); //Location
-            searchCriteria.setMaxRows(1);
-            ToponymSearchResult searchResult = WebService.search(searchCriteria);
-
-            for (Toponym toponym : searchResult.getToponyms()) {
-
-                System.out.println(toponym.getName() + " " + toponym.getCountryName() + " Lat: " + toponym.getLatitude() + " Lon " + toponym.getLongitude());
-            }
-
-        } catch (InvalidParameterException ex) {
-            System.out.println(ex.getMessage());
-        }
+//    public void localizacao() {
+//        try {
+//            WebService.setUserName("pedrotaha");
+//            ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
+//
+//            searchCriteria.setQ("all countries");
+//            ToponymSearchResult searchResult = WebService.search(searchCriteria);
+//            for (Toponym toponym : searchResult.getToponyms()) {
+//                System.out.println(toponym.getName() + " ");
+//                jcbEstado.addItem(toponym.getName());
+//            }
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Localizar", JOptionPane.ERROR_MESSAGE);
+//        }
+//
+//    }
+//
+//    public void  local() throws org.geonames.InvalidParameterException, Exception {
+//
+//        ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
+//
+//        WebService.setUserName("pedrotaha"); //username
+//        try {
+//
+//            searchCriteria.setCountryCode("DO"); //Country
+//            searchCriteria.setLanguage("ES");  //Language
+//
+//            searchCriteria.setNameEquals("All Countries"); //Location
+//            searchCriteria.setMaxRows(1);
+//            ToponymSearchResult searchResult = WebService.search(searchCriteria);
+//
+//            for (Toponym toponym : searchResult.getToponyms()) {
+//
+//                System.out.println(toponym.getName() + " " + toponym.getCountryName() + " Lat: " + toponym.getLatitude() + " Lon " + toponym.getLongitude());
+//            }
+//
+//        } catch (InvalidParameterException ex) {
+//            System.out.println(ex.getMessage());
+//        }
+//    }
+    void local() throws Exception{
+        
     }
 }

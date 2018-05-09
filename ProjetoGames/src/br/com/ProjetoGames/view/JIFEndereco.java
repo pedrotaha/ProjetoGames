@@ -483,7 +483,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
             searchCriteria.setCountryCode("DO"); //Country
             searchCriteria.setLanguage("ES");  //Language
 
-            searchCriteria.setNameEquals("Rio de Janeiro"); //Location
+            searchCriteria.setNameEquals("all countries"); //Location
             searchCriteria.setMaxRows(1);
             ToponymSearchResult searchResult = WebService.search(searchCriteria);
 
