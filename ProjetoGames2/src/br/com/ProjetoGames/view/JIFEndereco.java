@@ -32,6 +32,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        mudarIcon();
         jtCidade.setVisible(false);
         jtEstado.setVisible(false);
         jcbCidade.setVisible(false);
@@ -72,10 +73,12 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         jftCep = new javax.swing.JFormattedTextField();
         jtComplemento = new javax.swing.JTextField();
         jbVoltar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setMinimumSize(new java.awt.Dimension(656, 402));
         setName(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(656, 402));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -233,7 +236,10 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                 jbVoltarActionPerformed(evt);
             }
         });
-        getContentPane().add(jbVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 128, -1, -1));
+        getContentPane().add(jbVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/icons8_Map_Pokemon_210px.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 240, 210));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -335,6 +341,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jbVoltar;
     private javax.swing.JComboBox<String> jcbCidade;
     private javax.swing.JComboBox<String> jcbEstado;
@@ -355,6 +362,11 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtNumero;
     private javax.swing.JTextField jtRua;
     // End of variables declaration//GEN-END:variables
+   public void mudarIcon(){
+       ImageIcon icon = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\icons8_Map_Pokemon_144px.png");
+       this.setFrameIcon(icon);
+   }
+    
     public boolean validar() throws Exception {
         String msg = new String();
         if (jtRua.getText().equals("")) {

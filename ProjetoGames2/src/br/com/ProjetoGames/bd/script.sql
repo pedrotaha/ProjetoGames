@@ -46,30 +46,30 @@ create table if not exists tblocacao(
  idLocacao serial primary key not null,
  idCli integer not null,
  idFunc integer not null,
- idJogo integer not null,
+ --idJogo integer not null,
  dataLocacao date not null,
  hora time not null,
  dataDevolucao date not null,
  valor float not null,
  formaPagamento varchar(40) not null,
  constraint fk_tblocacao_tbusuario foreign key (idCli) references tbUsuarios,
- constraint fk_tblocacao_tbfuncionario foreign key (idFunc) references tbFuncionarios,
- constraint fk_tblocacao_tbjogos foreign key (idJogo) references tbJogos
+ constraint fk_tblocacao_tbfuncionario foreign key (idFunc) references tbFuncionarios
+ --,constraint fk_tblocacao_tbjogos foreign key (idJogo) references tbJogos
 );
 
 create table if not exists tbvendas(
  idVenda serial primary key not null,
  idCli integer not null,
  idFunc integer not null,
- idJogo integer not null,
+ --idJogo integer not null,
  dataCompra date not null,
  hora time not null,
  valor float not null,
  formaPagamento varchar(40) not null,
  tipo varchar(20) not null,
  constraint fk_tblocacao_tbusuario foreign key (idCli) references tbUsuarios,
- constraint fk_tblocacao_tbfuncionario foreign key (idFunc) references tbFuncionarios,
- constraint fk_tblocacao_tbjogos foreign key (idJogo) references tbJogos
+ constraint fk_tblocacao_tbfuncionario foreign key (idFunc) references tbFuncionarios
+ --,constraint fk_tblocacao_tbjogos foreign key (idJogo) references tbJogos
 );
 
 create table if not exists tbendereco(
@@ -94,10 +94,19 @@ create table if not exists tbQuantidade(
  constraint fk_tbQuantidade_tbJogos foreign key (idJogo) references tbJogos
  );
 
-create table if not exists tbProdComp(
- 
+create table if not exists tbJogoVend(
+ idVenda integer not null,
+ idJogo integer not null,
+ quantidade integer not null,
+ constraint fk_tbProdComp_tbvendas foreign key (idVenda) references tbvendas
 );
 
+create table if not exists tbJogoLocad(
+ idLocacao integer not null,
+ idJogo integer not null,
+ quantidade integer not null,
+ constraint fk_tbProdComp_tblocacao foreign key (idLocacao) references tblocacao
+);
  
  insert into tbtipousuarios (descricao, nivel) values ('Cliente',0);
  insert into tbtipousuarios (descricao, nivel) values ('Funcionario',1);

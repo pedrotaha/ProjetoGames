@@ -9,7 +9,7 @@ public class TipoUsuarioData {
     public ArrayList<TipoUsuarioModel> carregarCombo() throws Exception{
         Conexao c = new Conexao();
         ArrayList<TipoUsuarioModel> dados = new ArrayList<>();
-        String sql="Select * from tbtipousuarios order by descricao";
+        String sql="Select * from tbtipousuarios order by nivel";
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while(rs.next()){

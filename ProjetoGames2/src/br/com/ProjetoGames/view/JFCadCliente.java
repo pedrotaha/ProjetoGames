@@ -38,11 +38,12 @@ public class JFCadCliente extends javax.swing.JFrame {
     UsuarioModel obj;
     private ArrayList<TipoUsuarioModel> dadosTipoUsuario;
     Calendar cal = Calendar.getInstance();
-
+    
     public JFCadCliente() {
         initComponents();
         frameCount = 0;
         jtEndereco.setText("Clique aqui!");
+        jbFuncionario.setVisible(false);
         loge = 0;
         setIcon();
         windowsClosing();
@@ -58,6 +59,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         initComponents();
         frameCount = 0;
         jtEndereco.setText("Clique aqui!");
+        jbFuncionario.setVisible(false);
         loge = log;
         setIcon();
         windowsClosing();
@@ -72,6 +74,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         initComponents();
         frameCount = 0;
         jtEndereco.setText("Clique aqui!");
+        jbFuncionario.setVisible(false);
         loge = log;
         this.obj = obj;
         setIcon();
@@ -117,6 +120,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         jcbTipo = new javax.swing.JComboBox<>();
         jlNome = new javax.swing.JLabel();
         jtNome = new javax.swing.JTextField();
+        jbFuncionario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Usuário");
@@ -278,6 +282,11 @@ public class JFCadCliente extends javax.swing.JFrame {
 
         jcbTipo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jcbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
+        jcbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTipoActionPerformed(evt);
+            }
+        });
         jdpPrincipal.add(jcbTipo);
         jcbTipo.setBounds(12, 290, 130, 30);
 
@@ -295,6 +304,11 @@ public class JFCadCliente extends javax.swing.JFrame {
         });
         jdpPrincipal.add(jtNome);
         jtNome.setBounds(200, 290, 135, 31);
+
+        jbFuncionario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbFuncionario.setText("Funcionário");
+        jdpPrincipal.add(jbFuncionario);
+        jbFuncionario.setBounds(380, 290, 130, 30);
 
         getContentPane().add(jdpPrincipal);
         jdpPrincipal.setBounds(0, 0, 900, 460);
@@ -370,6 +384,12 @@ public class JFCadCliente extends javax.swing.JFrame {
         campoSemNumero(evt);
     }//GEN-LAST:event_jtNomeKeyTyped
 
+    private void jcbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoActionPerformed
+        if(jcbTipo.getSelectedIndex() > 1){
+            
+        }
+    }//GEN-LAST:event_jcbTipoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -407,6 +427,7 @@ public class JFCadCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbFuncionario;
     private javax.swing.JButton jbLimpar;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JLabel jbShiro;
