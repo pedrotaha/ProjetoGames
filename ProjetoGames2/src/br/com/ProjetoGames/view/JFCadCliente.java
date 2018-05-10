@@ -30,6 +30,7 @@ import javax.swing.event.InternalFrameEvent;
  * @author Pedro
  */
 public class JFCadCliente extends javax.swing.JFrame {
+
     EnderecoModel end = new EnderecoModel();
     int frameCount = 0;
     JIFEndereco janela = new JIFEndereco();
@@ -355,6 +356,9 @@ public class JFCadCliente extends javax.swing.JFrame {
             jdpPrincipal.add(janela);
             janela.setVisible(true);
             frameCount++;
+            jbCancelar.setEnabled(false);
+            jbSalvar.setEnabled(false);
+            jbLimpar.setEnabled(false);
         }
     }//GEN-LAST:event_jtEnderecoMouseClicked
 
@@ -451,6 +455,9 @@ public class JFCadCliente extends javax.swing.JFrame {
             public void internalFrameClosed(InternalFrameEvent e) {
                 frameCount--;
                 jtEndereco.setText("Registrado com sucesso!");
+                jbCancelar.setEnabled(true);
+                jbSalvar.setEnabled(true);
+                jbLimpar.setEnabled(true);
             }
         });
 //    public void vetoableChange(PropertyChangeEvent pce) throws PropertyVetoException {
@@ -550,31 +557,31 @@ public class JFCadCliente extends javax.swing.JFrame {
         if (jtEndereco.getText().equals("Clique aqui!")) {
             msg += "O Endereço deve ser preenchido\n";
         }
-        if(jtUsuario.getText().equals("")){
+        if (jtUsuario.getText().equals("")) {
             msg += "O Usuário deve ser preenchido\n";
         } else {
             if (jtUsuario.getText().length() < 3 || jtUsuario.getText().length() > 40) {
                 msg += "O Usuário deve ter entre 3 e 40 caracteres\n";
             }
         }
-        if(jpfSenha.getText().equals("")){
+        if (jpfSenha.getText().equals("")) {
             msg += "A senha deve ser preenchida\n";
-        }else{
-            if(jpfSenha.getText().length() <= 8 || jpfSenha.getText().length() > 50){
+        } else {
+            if (jpfSenha.getText().length() <= 8 || jpfSenha.getText().length() > 50) {
                 msg += "A senha deve conter entre 8 e 50 caracteres\n";
             }
         }
-        if(jftDataNasc.getText().equals("  /  /    ")){
-           msg += "A data de nascimento deve ser preenchido\n";
+        if (jftDataNasc.getText().equals("  /  /    ")) {
+            msg += "A data de nascimento deve ser preenchido\n";
         } else {
             if (jftDataNasc.getText().contains(" ")) {
                 msg += "Há campos vazios na data de nascimento\n";
             }
-        } 
-        if(jcbSexo.getSelectedIndex() == 0){
+        }
+        if (jcbSexo.getSelectedIndex() == 0) {
             msg += "Selecione um sexo\n";
         }
-        if(jcbTipo.getSelectedIndex() == 0){
+        if (jcbTipo.getSelectedIndex() == 0) {
             msg += "Selecione um tipo de usuário\n";
         }
         if (msg.length() == 0) {
