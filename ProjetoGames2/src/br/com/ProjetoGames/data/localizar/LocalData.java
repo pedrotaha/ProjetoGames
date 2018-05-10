@@ -41,15 +41,15 @@ public class LocalData {
     
         public ArrayList<LocalModel> pesquisarCidade(int id) throws Exception {
         ArrayList<LocalModel> dados = new ArrayList<>();
-        String sql = "Select * from cidade where ct_uf = "+id+"order by uf_nome";
+        String sql = "Select * from cidade where ct_uf = "+id+" order by ct_nome";
         ConectLocal c = new ConectLocal();
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             LocalModel obj = new LocalModel();
-            obj.setNome(rs.getString("uf_nome"));
-            obj.setId(rs.getInt("uf_id"));
-            obj.setSigla("uf_sigla");
+            obj.setNome(rs.getString("ct_nome"));
+            obj.setId(rs.getInt("ct_id"));
+            obj.setSigla("ct_sigla");
             dados.add(obj);
         }
         return dados;
