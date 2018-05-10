@@ -193,6 +193,11 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         getContentPane().add(jcbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 312, -1, -1));
 
         jtEstado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtEstadoKeyTyped(evt);
+            }
+        });
         getContentPane().add(jtEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 151, -1));
 
         jcbPais.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -324,6 +329,10 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jcbEstadoActionPerformed
 
+    private void jtEstadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtEstadoKeyTyped
+        campoSemNumero(evt);
+    }//GEN-LAST:event_jtEstadoKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbVoltar;
@@ -358,14 +367,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         if (jtBairro.getText().equals("")) {
             msg += "O bairro deve ser preenchido\n";
         } else {
-            if (jtBairro.getText().length() < 3 || jtBairro.getText().length() > 40) {
-                msg += "O bairro deve ser entre 5 e 40 caracteres\n";
-            }
-        }
-        if (jtCidade.getText().equals("")) {
-            msg += "O bairro deve ser preenchido\n";
-        } else {
-            if (jtBairro.getText().length() < 3 || jtBairro.getText().length() > 40) {
+            if (jtBairro.getText().length() < 5 || jtBairro.getText().length() > 40) {
                 msg += "O bairro deve ser entre 5 e 40 caracteres\n";
             }
         }
@@ -392,10 +394,10 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
             }
         }
         if (!jcbPais.getSelectedItem().equals("Brazil") && jcbPais.getSelectedIndex() != 0) {
-            if(jtEstado.getText().length() < 5 || jtEstado.getText().length() > 40){
+            if (jtEstado.getText().length() < 5 || jtEstado.getText().length() > 40) {
                 msg += "O Estado deve ser entre 5 e 40 caracteres\n";
             }
-            if(jtCidade.getText().length() < 5 || jtCidade.getText().length() > 40){
+            if (jtCidade.getText().length() < 5 || jtCidade.getText().length() > 40) {
                 msg += "A Cidade deve ser entre 5 e 40 caracteres\n";
             }
         }
@@ -409,19 +411,24 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
     public EnderecoModel preencherObjeto() {
         EnderecoModel end = new EnderecoModel();
         end.setBairro(jtBairro.getText());
-        end.setEstado(jcbEstado.getItemAt(jcbEstado.getSelectedIndex()));
-        end.setPais(jcbPais.getItemAt(jcbPais.getSelectedIndex()));
-        end.setCidade(jtCidade.getText());
         end.setRua(jtRua.getText());
         end.setNumero(Integer.parseInt(jtNumero.getText()));
         end.setCep(jftCep.getText());
         end.setComplemento(jtComplemento.getText());
+        end.setPais(jcbPais.getItemAt(jcbPais.getSelectedIndex()));
+        if (jcbPais.getSelectedItem().equals("Brazil")) {
+            end.setEstado(jcbEstado.getItemAt(jcbEstado.getSelectedIndex()));
+            end.setCidade(jcbCidade.getItemAt(jcbCidade.getSelectedIndex()));
+        }else{
+            end.setEstado(jtEstado.getText());
+            end.setCidade(jtCidade.getText());
+        }
         return end;
     }
 
     public void sair() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
-        if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nVoltar?", "Botão Voltar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
             try {
                 if (validar()) {
                     dispose();
@@ -429,7 +436,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao validar os dados", "Sair", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erro ao validar: "+e.getMessage(), "Voltar", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -449,46 +456,6 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         }
     }
 
-//    public void localizacao() {
-//        try {
-//            WebService.setUserName("pedrotaha");
-//            ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
-//
-//            searchCriteria.setQ("all countries");
-//            ToponymSearchResult searchResult = WebService.search(searchCriteria);
-//            for (Toponym toponym : searchResult.getToponyms()) {
-//                System.out.println(toponym.getName() + " ");
-//                jcbEstado.addItem(toponym.getName());
-//            }
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Localizar", JOptionPane.ERROR_MESSAGE);
-//        }
-//
-//    }
-//
-//    public void  local() throws org.geonames.InvalidParameterException, Exception {
-//
-//        ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
-//
-//        WebService.setUserName("pedrotaha"); //username
-//        try {
-//
-//            searchCriteria.setCountryCode("DO"); //Country
-//            searchCriteria.setLanguage("ES");  //Language
-//
-//            searchCriteria.setNameEquals("All Countries"); //Location
-//            searchCriteria.setMaxRows(1);
-//            ToponymSearchResult searchResult = WebService.search(searchCriteria);
-//
-//            for (Toponym toponym : searchResult.getToponyms()) {
-//
-//                System.out.println(toponym.getName() + " " + toponym.getCountryName() + " Lat: " + toponym.getLatitude() + " Lon " + toponym.getLongitude());
-//            }
-//
-//        } catch (InvalidParameterException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//    }
     void local() throws Exception {
         listaP = DAO.pesquisarPais();
         for (LocalModel local : listaP) {

@@ -338,7 +338,7 @@ public class JFCadCliente extends javax.swing.JFrame {
                     }
                     sair();
                 }
-            }
+           }
         } catch (Exception e) {
             if (obj.getId() <= 0) {
                 JOptionPane.showMessageDialog(this, "Falha ao Salvar\n" + e.getMessage(),
@@ -460,22 +460,6 @@ public class JFCadCliente extends javax.swing.JFrame {
                 jbLimpar.setEnabled(true);
             }
         });
-//    public void vetoableChange(PropertyChangeEvent pce) throws PropertyVetoException {
-//        if (pce.getPropertyName().equals(IS_CLOSED_PROPERTY)) {
-//            boolean changed = ((Boolean) pce.getNewValue()).booleanValue();
-//            if (changed) {
-//                int option = JOptionPane.showOptionDialog(this, "Close "
-//                        + getTitle() + "?",
-//                        "Close Confirmation",
-//                        JOptionPane.YES_NO_OPTION,
-//                        JOptionPane.QUESTION_MESSAGE,
-//                        null, null, null);
-//                if (option != JOptionPane.YES_OPTION) {
-//                    throw new PropertyVetoException("Cancelled", null);
-//                }
-//            }
-//        }
-//    }
     }
 
     public void sair() {
@@ -643,3 +627,20 @@ public class JFCadCliente extends javax.swing.JFrame {
         }
     }
 }
+
+//    public void vetoableChange(PropertyChangeEvent pce) throws PropertyVetoException {
+//        if (pce.getPropertyName().equals(IS_CLOSED_PROPERTY)) {
+//            boolean changed = ((Boolean) pce.getNewValue()).booleanValue();
+//            if (changed) {
+//                int option = JOptionPane.showOptionDialog(this, "Close "
+//                        + getTitle() + "?",
+//                        "Close Confirmation",
+//                        JOptionPane.YES_NO_OPTION,
+//                        JOptionPane.QUESTION_MESSAGE,
+//                        null, null, null);
+//                if (option != JOptionPane.YES_OPTION) {
+//                    throw new PropertyVetoException("Cancelled", null);
+//                }
+//            }
+//        }
+//    }

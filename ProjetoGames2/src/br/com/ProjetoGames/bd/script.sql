@@ -94,6 +94,10 @@ create table if not exists tbQuantidade(
  constraint fk_tbQuantidade_tbJogos foreign key (idJogo) references tbJogos
  );
 
+create table if not exists tbProdComp(
+ 
+);
+
  
  insert into tbtipousuarios (descricao, nivel) values ('Cliente',0);
  insert into tbtipousuarios (descricao, nivel) values ('Funcionario',1);
