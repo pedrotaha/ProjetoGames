@@ -501,7 +501,7 @@ public class JFCadCliente extends javax.swing.JFrame {
             public void internalFrameClosed(InternalFrameEvent e) {
                 frameCount--;
                 jlFuncionario.setText("Dados registrados!");
-                tratarCampos(true);
+                tratarCampos(true); 
             }
         });
         janela.addInternalFrameListener(new InternalFrameAdapter() {
