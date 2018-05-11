@@ -33,7 +33,8 @@ import javax.swing.event.InternalFrameEvent;
 public class JFCadCliente extends javax.swing.JFrame {
 
     EnderecoModel end = new EnderecoModel();
-    int frameCount = 0;
+    int frameCount;
+    int frameCountF;
     JIFEndereco janela = new JIFEndereco();
     JIFFuncionario janelaF = new JIFFuncionario();
     int loge;
@@ -45,6 +46,7 @@ public class JFCadCliente extends javax.swing.JFrame {
     public JFCadCliente() {
         initComponents();
         frameCount = 0;
+        frameCountF = 0;
         jtEndereco.setText("Clique aqui!");
         jbFuncionario.setVisible(false);
         loge = 0;
@@ -62,6 +64,7 @@ public class JFCadCliente extends javax.swing.JFrame {
     public JFCadCliente(int log) {
         initComponents();
         frameCount = 0;
+        frameCountF = 0;
         jtEndereco.setText("Clique aqui!");
         jbFuncionario.setVisible(false);
         loge = log;
@@ -78,6 +81,7 @@ public class JFCadCliente extends javax.swing.JFrame {
     public JFCadCliente(UsuarioModel obj, int log) {
         initComponents();
         frameCount = 0;
+        frameCountF = 0;
         jtEndereco.setText("Clique aqui!");
         jbFuncionario.setVisible(false);
         loge = log;
@@ -406,10 +410,10 @@ public class JFCadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jcbTipoActionPerformed
 
     private void jbFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFuncionarioActionPerformed
-        if (frameCount == 0) {
+        if (frameCountF == 0) {
             jdpPrincipal.add(janelaF);
             janelaF.setVisible(true);
-            frameCount++;
+            frameCountF++;
             tratarCampos(false);
         }
     }//GEN-LAST:event_jbFuncionarioActionPerformed
@@ -499,16 +503,16 @@ public class JFCadCliente extends javax.swing.JFrame {
     public void internoClosed() {
         janelaF.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
-                frameCount--;
-                jlFuncionario.setText("Dados registrados!");
-                tratarCampos(true); 
+                    frameCountF--;
+                    jlFuncionario.setText("Dados registrados!");
+                    tratarCampos(true);
             }
         });
         janela.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
-                frameCount--;
-                jtEndereco.setText("Registrado com sucesso!");
-                tratarCampos(true);
+                    frameCount--;
+                    jtEndereco.setText("Registrado com sucesso!");
+                    tratarCampos(true);
             }
         });
     }
@@ -551,6 +555,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         jpfSenha.setText("");
         jftCpf.setText("");
         jftDataNasc.setText("");
+        jlFuncionario.setText("");
         jcbSexo.setSelectedIndex(0);
         jcbTipo.setSelectedIndex(0);
         jbFuncionario.setVisible(false);
@@ -642,8 +647,8 @@ public class JFCadCliente extends javax.swing.JFrame {
         obj.setTipoUsuarioModel(dadosTipoUsuario.get(jcbTipo.getSelectedIndex()));
         obj.setEnderecoModel(janela.preencherObjeto());
         if (obj.getTipoUsuarioModel().getNivel() == 1) {
-            objFunc = new FuncionarioModel(0, obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(),0, "", "", "");
-             
+            objFunc = new FuncionarioModel(0, obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(), 0, "", "", "");
+
         }
 
         return true;
@@ -684,8 +689,8 @@ public class JFCadCliente extends javax.swing.JFrame {
             evt.consume();
         }
     }
-    
-    public void tratarCampos(boolean n){
+
+    public void tratarCampos(boolean n) {
         jtEmail.setEnabled(n);
         jtNome.setEnabled(n);
         jtTelefone.setEnabled(n);

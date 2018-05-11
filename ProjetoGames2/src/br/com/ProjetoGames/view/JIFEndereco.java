@@ -482,6 +482,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         jtEstado.setText("");
         jtNumero.setText("");
         jtRua.setText("");
+        jftCep.setText("");
         jcbCidade.setSelectedIndex(0);
         jcbEstado.setSelectedIndex(0);
         jcbPais.setSelectedIndex(0);
