@@ -76,6 +76,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
+        setTitle("Dados de Endereço");
         setMinimumSize(new java.awt.Dimension(656, 402));
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(656, 402));
@@ -448,7 +449,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao validar: "+e.getMessage(), "Voltar", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erro ao validar: \n"+e.getMessage(), "Voltar", JOptionPane.ERROR_MESSAGE);
             }
 
         }

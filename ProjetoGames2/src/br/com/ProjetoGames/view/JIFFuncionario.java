@@ -6,6 +6,11 @@
 package br.com.ProjetoGames.view;
 
 import br.com.ProjetoGames.model.FuncionarioModel;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -17,7 +22,12 @@ public class JIFFuncionario extends javax.swing.JInternalFrame {
      * Creates new form JIFFuncionario
      */
     public JIFFuncionario() {
-        initComponents();
+        initComponents();        
+        this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+        mudarIcon();
     }
 
     /**
@@ -29,24 +39,201 @@ public class JIFFuncionario extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setMinimumSize(new java.awt.Dimension(656, 402));
-        setPreferredSize(new java.awt.Dimension(656, 402));
+        jlCargo = new javax.swing.JLabel();
+        jlSalario = new javax.swing.JLabel();
+        jlCargaHoraria = new javax.swing.JLabel();
+        jlEstadoCivil = new javax.swing.JLabel();
+        jtCargo = new javax.swing.JTextField();
+        jtSalario = new javax.swing.JTextField();
+        jtCargaHoraria = new javax.swing.JTextField();
+        jbVoltar = new javax.swing.JButton();
+        jcbEstadoCivil = new javax.swing.JComboBox<>();
+        jlNewChallenger = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 648, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 375, Short.MAX_VALUE)
-        );
+        setClosable(true);
+        setTitle("Dados de Funcionário");
+        setMaximumSize(new java.awt.Dimension(517, 318));
+        setMinimumSize(new java.awt.Dimension(517, 318));
+        setName(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(517, 318));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
+        getContentPane().setLayout(null);
+
+        jlCargo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlCargo.setForeground(new java.awt.Color(255, 255, 255));
+        jlCargo.setText("Cargo:");
+        getContentPane().add(jlCargo);
+        jlCargo.setBounds(30, 10, 46, 17);
+
+        jlSalario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlSalario.setForeground(new java.awt.Color(255, 255, 255));
+        jlSalario.setText("Salário:");
+        getContentPane().add(jlSalario);
+        jlSalario.setBounds(30, 210, 60, 17);
+
+        jlCargaHoraria.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlCargaHoraria.setForeground(new java.awt.Color(255, 255, 255));
+        jlCargaHoraria.setText("Carga Horária:");
+        getContentPane().add(jlCargaHoraria);
+        jlCargaHoraria.setBounds(190, 10, 100, 17);
+
+        jlEstadoCivil.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlEstadoCivil.setForeground(new java.awt.Color(255, 255, 255));
+        jlEstadoCivil.setText("Estado Civil:");
+        getContentPane().add(jlEstadoCivil);
+        jlEstadoCivil.setBounds(180, 210, 90, 20);
+
+        jtCargo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        getContentPane().add(jtCargo);
+        jtCargo.setBounds(30, 40, 120, 20);
+
+        jtSalario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtSalario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtSalarioKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtSalario);
+        jtSalario.setBounds(30, 240, 120, 20);
+
+        jtCargaHoraria.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        getContentPane().add(jtCargaHoraria);
+        jtCargaHoraria.setBounds(190, 40, 120, 20);
+
+        jbVoltar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Undo_48px.png"))); // NOI18N
+        jbVoltar.setText("Voltar");
+        jbVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbVoltarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbVoltar);
+        jbVoltar.setBounds(330, 220, 160, 50);
+
+        jcbEstadoCivil.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jcbEstadoCivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>", "Solteiro(a)", "Casado(a)", "Divorciado(a)", "Viúvo(a)", "Separado(a)" }));
+        getContentPane().add(jcbEstadoCivil);
+        jcbEstadoCivil.setBounds(180, 240, 122, 23);
+
+        jlNewChallenger.setForeground(new java.awt.Color(255, 255, 255));
+        jlNewChallenger.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/super-smash-bros-wii-u-3ds-new-challenger-approaching.gif"))); // NOI18N
+        getContentPane().add(jlNewChallenger);
+        jlNewChallenger.setBounds(0, 0, 500, 280);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
+        sair();
+    }//GEN-LAST:event_jbVoltarActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        sair();
+    }//GEN-LAST:event_formInternalFrameClosing
+
+    private void jtSalarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtSalarioKeyTyped
+        campoComNumero(evt);
+    }//GEN-LAST:event_jtSalarioKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbVoltar;
+    private javax.swing.JComboBox<String> jcbEstadoCivil;
+    private javax.swing.JLabel jlCargaHoraria;
+    private javax.swing.JLabel jlCargo;
+    private javax.swing.JLabel jlEstadoCivil;
+    private javax.swing.JLabel jlNewChallenger;
+    private javax.swing.JLabel jlSalario;
+    private javax.swing.JTextField jtCargaHoraria;
+    private javax.swing.JTextField jtCargo;
+    private javax.swing.JTextField jtSalario;
     // End of variables declaration//GEN-END:variables
+    public void mudarIcon(){
+       ImageIcon icon = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\icons8_Map_Pokemon_144px.png");
+       this.setFrameIcon(icon);
+   }
+    public void sair() {
+        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nVoltar?", "Botão Voltar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+            try {
+                if (validar()) {
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao validar: \n"+e.getMessage(), "Voltar", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+    }
+    
+    public boolean validar() throws Exception{
+        String msg = new String();
+        if (jtCargaHoraria.getText().equals("")) {
+            msg = "O campo Carga Horária deve ser preenchido\n";
+        } else {
+            if (jtCargaHoraria.getText().length() < 3 || jtCargaHoraria.getText().length() > 40) {
+                msg = "A Carga Horária deve ter entre 3 e 40 caracteres\n";
+            }
+        }
+        if (jtCargo.getText().equals("")) {
+            msg += "O Cargo deve ser preenchido\n";
+        } else {
+            if (jtCargo.getText().length() < 5 || jtCargo.getText().length() > 40) {
+                msg += "O Cargo deve ser entre 5 e 40 caracteres\n";
+            }
+        }
+        if (jtSalario.getText().length() < 2) {
+            msg += "O Salário deve conter pelo menos 3 caracteres\n";
+        }
+        if (jcbEstadoCivil.getSelectedIndex() == 0) {
+            msg += "Selecione um Estado Civil\n";
+        }
+        if (msg.length() == 0) {
+            return true;
+        } else {
+            throw new Exception(msg);
+        }
+    }
+    
+    public FuncionarioModel preencherObjeto(){
+        FuncionarioModel func = new FuncionarioModel();
+        func.setCargo(jtCargo.getText());
+        func.setSalario(Float.parseFloat(jtSalario.getText()));
+        func.setCargaHoraria(jtCargaHoraria.getText());
+        func.setEstadoCivil(jcbEstadoCivil.getItemAt(jcbEstadoCivil.getSelectedIndex()));
+        return func;
+    }
+    
+    private void campoSemNumero(java.awt.event.KeyEvent evt) {
+        String caracteres = "0987654321";
+        if (caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+
+    private void campoComNumero(java.awt.event.KeyEvent evt) {
+        String caracteres = "0987654321.";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
 }

@@ -8,6 +8,7 @@ package br.com.ProjetoGames.view;
 import br.com.ProjetoGames.data.TipoUsuarioData;
 import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.EnderecoModel;
+import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.TipoUsuarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import java.awt.Font;
@@ -34,17 +35,20 @@ public class JFCadCliente extends javax.swing.JFrame {
     EnderecoModel end = new EnderecoModel();
     int frameCount = 0;
     JIFEndereco janela = new JIFEndereco();
+    JIFFuncionario janelaF = new JIFFuncionario();
     int loge;
     UsuarioModel obj;
+    FuncionarioModel objFunc;
     private ArrayList<TipoUsuarioModel> dadosTipoUsuario;
     Calendar cal = Calendar.getInstance();
-    
+
     public JFCadCliente() {
         initComponents();
         frameCount = 0;
         jtEndereco.setText("Clique aqui!");
         jbFuncionario.setVisible(false);
         loge = 0;
+        obj = new UsuarioModel();
         setIcon();
         windowsClosing();
         internoClosed();
@@ -61,6 +65,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         jtEndereco.setText("Clique aqui!");
         jbFuncionario.setVisible(false);
         loge = log;
+        obj = new UsuarioModel();
         setIcon();
         windowsClosing();
         internoClosed();
@@ -115,12 +120,13 @@ public class JFCadCliente extends javax.swing.JFrame {
         jbLimpar = new javax.swing.JButton();
         jlSexo = new javax.swing.JLabel();
         jcbSexo = new javax.swing.JComboBox<>();
-        jbShiro = new javax.swing.JLabel();
-        jbTipo = new javax.swing.JLabel();
+        jlShiro = new javax.swing.JLabel();
+        jlTipo = new javax.swing.JLabel();
         jcbTipo = new javax.swing.JComboBox<>();
         jlNome = new javax.swing.JLabel();
         jtNome = new javax.swing.JTextField();
         jbFuncionario = new javax.swing.JButton();
+        jlFuncionario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Usuário");
@@ -271,14 +277,14 @@ public class JFCadCliente extends javax.swing.JFrame {
         jdpPrincipal.add(jcbSexo);
         jcbSexo.setBounds(743, 67, 114, 32);
 
-        jbShiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/53dd6dc8578795657635e45c5aaf18a2.jpg"))); // NOI18N
-        jdpPrincipal.add(jbShiro);
-        jbShiro.setBounds(520, 50, 380, 440);
+        jlShiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/53dd6dc8578795657635e45c5aaf18a2.jpg"))); // NOI18N
+        jdpPrincipal.add(jlShiro);
+        jlShiro.setBounds(520, 50, 380, 440);
 
-        jbTipo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jbTipo.setText("Tipo:");
-        jdpPrincipal.add(jbTipo);
-        jbTipo.setBounds(12, 250, 60, 20);
+        jlTipo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlTipo.setText("Tipo:");
+        jdpPrincipal.add(jlTipo);
+        jlTipo.setBounds(12, 250, 60, 20);
 
         jcbTipo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jcbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
@@ -307,8 +313,17 @@ public class JFCadCliente extends javax.swing.JFrame {
 
         jbFuncionario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jbFuncionario.setText("Funcionário");
+        jbFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFuncionarioActionPerformed(evt);
+            }
+        });
         jdpPrincipal.add(jbFuncionario);
         jbFuncionario.setBounds(380, 290, 130, 30);
+
+        jlFuncionario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jdpPrincipal.add(jlFuncionario);
+        jlFuncionario.setBounds(380, 250, 150, 20);
 
         getContentPane().add(jdpPrincipal);
         jdpPrincipal.setBounds(0, 0, 900, 460);
@@ -352,7 +367,7 @@ public class JFCadCliente extends javax.swing.JFrame {
                     }
                     sair();
                 }
-           }
+            }
         } catch (Exception e) {
             if (obj.getId() <= 0) {
                 JOptionPane.showMessageDialog(this, "Falha ao Salvar\n" + e.getMessage(),
@@ -370,9 +385,7 @@ public class JFCadCliente extends javax.swing.JFrame {
             jdpPrincipal.add(janela);
             janela.setVisible(true);
             frameCount++;
-            jbCancelar.setEnabled(false);
-            jbSalvar.setEnabled(false);
-            jbLimpar.setEnabled(false);
+            tratarCampos(false);
         }
     }//GEN-LAST:event_jtEnderecoMouseClicked
 
@@ -385,10 +398,21 @@ public class JFCadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jtNomeKeyTyped
 
     private void jcbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoActionPerformed
-        if(jcbTipo.getSelectedIndex() > 1){
-            
+        if (jcbTipo.getSelectedIndex() > 1) {
+            jbFuncionario.setVisible(true);
+        } else {
+            jbFuncionario.setVisible(false);
         }
     }//GEN-LAST:event_jcbTipoActionPerformed
+
+    private void jbFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFuncionarioActionPerformed
+        if (frameCount == 0) {
+            jdpPrincipal.add(janelaF);
+            janelaF.setVisible(true);
+            frameCount++;
+            tratarCampos(false);
+        }
+    }//GEN-LAST:event_jbFuncionarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -430,8 +454,6 @@ public class JFCadCliente extends javax.swing.JFrame {
     private javax.swing.JButton jbFuncionario;
     private javax.swing.JButton jbLimpar;
     private javax.swing.JButton jbSalvar;
-    private javax.swing.JLabel jbShiro;
-    private javax.swing.JLabel jbTipo;
     private javax.swing.JComboBox<String> jcbSexo;
     private javax.swing.JComboBox<String> jcbTipo;
     private javax.swing.JDesktopPane jdpPrincipal;
@@ -441,10 +463,13 @@ public class JFCadCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jlDataNasc;
     private javax.swing.JLabel jlEmail;
     private javax.swing.JLabel jlEndereco;
+    private javax.swing.JLabel jlFuncionario;
     private javax.swing.JLabel jlNome;
     private javax.swing.JLabel jlSenha;
     private javax.swing.JLabel jlSexo;
+    private javax.swing.JLabel jlShiro;
     private javax.swing.JLabel jlTelefone;
+    private javax.swing.JLabel jlTipo;
     private javax.swing.JLabel jlUsuario;
     private javax.swing.JPasswordField jpfSenha;
     private javax.swing.JTextField jtEmail;
@@ -472,6 +497,13 @@ public class JFCadCliente extends javax.swing.JFrame {
     }
 
     public void internoClosed() {
+        janelaF.addInternalFrameListener(new InternalFrameAdapter() {
+            public void internalFrameClosed(InternalFrameEvent e) {
+                frameCount--;
+                jlFuncionario.setText("Dados registrados!");
+                tratarCampos(true);
+            }
+        });
         janela.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
                 frameCount--;
@@ -607,7 +639,11 @@ public class JFCadCliente extends javax.swing.JFrame {
         obj.setSenha(jpfSenha.getText());
         obj.setDataCadastro(dataAtual());
         obj.setTipoUsuarioModel(dadosTipoUsuario.get(jcbTipo.getSelectedIndex()));
-        obj.setEnderecoModel(janela.preencherObjeto());//Fazer o insert correto
+        obj.setEnderecoModel(janela.preencherObjeto());
+        if (obj.getTipoUsuarioModel().getNivel() == 1) {
+            objFunc = new FuncionarioModel(0, obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(),0, "", "", "");
+             
+        }
 
         return true;
     }
@@ -646,6 +682,23 @@ public class JFCadCliente extends javax.swing.JFrame {
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
+    }
+    
+    public void tratarCampos(boolean n){
+        jtEmail.setEnabled(n);
+        jtNome.setEnabled(n);
+        jtTelefone.setEnabled(n);
+        jtUsuario.setEnabled(n);
+        jftCpf.setEnabled(n);
+        jftDataNasc.setEnabled(n);
+        jcbSexo.setEnabled(n);
+        jcbTipo.setEnabled(n);
+        jpfSenha.setEnabled(n);
+        jbCancelar.setEnabled(n);
+        jbFuncionario.setEnabled(n);
+        jbLimpar.setEnabled(n);
+        jbSalvar.setEnabled(n);
+        jlTipo.setEnabled(n);
     }
 }
 

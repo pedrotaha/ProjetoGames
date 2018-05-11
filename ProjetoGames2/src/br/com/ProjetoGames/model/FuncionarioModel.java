@@ -23,7 +23,7 @@ public class FuncionarioModel extends UsuarioModel {
         this.cargaHoraria = cargaHoraria;
         this.estadoCivil = estadoCivil;
     }
-
+    
     public float getSalario() {
         return salario;
     }
