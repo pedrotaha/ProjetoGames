@@ -214,8 +214,7 @@ public class JIFFuncionario extends javax.swing.JInternalFrame {
         }
     }
     
-    public FuncionarioModel preencherObjeto(){
-        FuncionarioModel func = new FuncionarioModel();
+    public FuncionarioModel preencherObjeto(FuncionarioModel func){
         func.setCargo(jtCargo.getText());
         func.setSalario(Float.parseFloat(jtSalario.getText()));
         func.setCargaHoraria(jtCargaHoraria.getText());

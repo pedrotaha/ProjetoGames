@@ -1,5 +1,5 @@
 package br.com.ProjetoGames.data;
 
-public class FuncionarioData {
+public class FuncionarioData extends UsuarioData{
     
 }

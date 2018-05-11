@@ -6,7 +6,6 @@
 package br.com.ProjetoGames.view;
 
 import br.com.ProjetoGames.data.TipoUsuarioData;
-import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.EnderecoModel;
 import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.TipoUsuarioModel;
@@ -17,8 +16,6 @@ import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -355,13 +352,13 @@ public class JFCadCliente extends javax.swing.JFrame {
         try {
             if (validarCampos()) {
                 if (preencherObjeto()) {
-                    UsuarioData DAO = new UsuarioData();
-                    if (obj.getId() <= 0) {
+//                    UsuarioData DAO = new UsuarioData();
+//                    if (obj.getId() <= 0) {
 //                        if (DAO.incluir(obj)) {
 //                            JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
 //                            jbLimparActionPerformed(evt);
 //                        }
-                    }
+//                    }
                     if (obj.getId() >= 1) {
 //                        if (DAO.editar(obj)) {
 //                            JOptionPane.showMessageDialog(this, "Editado com Sucesso", "Editar", JOptionPane.INFORMATION_MESSAGE);
@@ -503,16 +500,16 @@ public class JFCadCliente extends javax.swing.JFrame {
     public void internoClosed() {
         janelaF.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
-                    frameCountF--;
-                    jlFuncionario.setText("Dados registrados!");
-                    tratarCampos(true);
+                frameCountF--;
+                jlFuncionario.setText("Dados registrados!");
+                tratarCampos(true);
             }
         });
         janela.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
-                    frameCount--;
-                    jtEndereco.setText("Registrado com sucesso!");
-                    tratarCampos(true);
+                frameCount--;
+                jtEndereco.setText("Registrado com sucesso!");
+                tratarCampos(true);
             }
         });
     }
@@ -644,11 +641,11 @@ public class JFCadCliente extends javax.swing.JFrame {
         obj.setLogin(jtUsuario.getText());
         obj.setSenha(jpfSenha.getText());
         obj.setDataCadastro(dataAtual());
-        obj.setTipoUsuarioModel(dadosTipoUsuario.get(jcbTipo.getSelectedIndex()));
+        obj.setTipoUsuarioModel(dadosTipoUsuario.get(jcbTipo.getSelectedIndex() - 1));
         obj.setEnderecoModel(janela.preencherObjeto());
         if (obj.getTipoUsuarioModel().getNivel() == 1) {
-            objFunc = new FuncionarioModel(0, obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(), 0, "", "", "");
-
+            objFunc = new FuncionarioModel(obj.getId(), obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(), 0, "", "", "");
+            objFunc = janelaF.preencherObjeto(objFunc);
         }
 
         return true;
@@ -656,7 +653,7 @@ public class JFCadCliente extends javax.swing.JFrame {
 
     public Calendar calendario(String data) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY", Locale.ENGLISH);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");// , Locale.ENGLISH
             cal.setTime(sdf.parse(data));// all done
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Data de Nascimento", JOptionPane.ERROR_MESSAGE);
@@ -665,15 +662,8 @@ public class JFCadCliente extends javax.swing.JFrame {
     }
 
     public Calendar dataAtual() {
-        Calendar cal = new GregorianCalendar();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        int second = cal.get(Calendar.SECOND);
-        int minute = cal.get(Calendar.MINUTE);
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
-        cal.set(year, month, hour, minute, second);
-        return cal;
+        Calendar calen = Calendar.getInstance();
+        return calen;
     }
 
     private void campoSemNumero(java.awt.event.KeyEvent evt) {
