@@ -55,5 +55,5 @@ public class FuncionarioModel extends UsuarioModel {
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
-
+    
 }

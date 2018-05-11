@@ -474,6 +474,16 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         for (LocalModel local : listaP) {
             jcbPais.addItem(local.getNome());
         }
-
+    }
+    void limparCampos(){
+        jtBairro.setText("");
+        jtCidade.setText("");
+        jtComplemento.setText("");
+        jtEstado.setText("");
+        jtNumero.setText("");
+        jtRua.setText("");
+        jcbCidade.setSelectedIndex(0);
+        jcbEstado.setSelectedIndex(0);
+        jcbPais.setSelectedIndex(0);
     }
 }

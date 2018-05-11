@@ -236,4 +236,11 @@ public class JIFFuncionario extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }
+    
+    public void limparCampos(){
+        jtCargaHoraria.setText("");
+        jtCargo.setText("");
+        jtSalario.setText("");
+        jcbEstadoCivil.setSelectedIndex(0);
+    }
 }

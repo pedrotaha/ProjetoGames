@@ -508,9 +508,7 @@ public class JFCadCliente extends javax.swing.JFrame {
             public void internalFrameClosed(InternalFrameEvent e) {
                 frameCount--;
                 jtEndereco.setText("Registrado com sucesso!");
-                jbCancelar.setEnabled(true);
-                jbSalvar.setEnabled(true);
-                jbLimpar.setEnabled(true);
+                tratarCampos(true);
             }
         });
     }
@@ -555,6 +553,9 @@ public class JFCadCliente extends javax.swing.JFrame {
         jftDataNasc.setText("");
         jcbSexo.setSelectedIndex(0);
         jcbTipo.setSelectedIndex(0);
+        jbFuncionario.setVisible(false);
+        janela.limparCampos();
+        janelaF.limparCampos();
     }
 
     private boolean validarCampos() throws Exception {
