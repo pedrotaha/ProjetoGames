@@ -1,0 +1,16 @@
+registrar endereco, fazer verificacao, true = editar texto para sucesso
+false = try again
+
+fazer o data
+fazer cadastro jogos
+fazer tela de pesquisa jogos, data, registro de operação
+linkar o objeto do user logado de login ate principal e pesquisa e de pesquisa para cadastro (caso editar)
+colocar balão shiro "welcome"?
+imagem para os jogos - java e banco, armazenar, recuperar e mostrar
+Date e Time ou Calendar (instegração na hora de renovar .after e .before)
+combobox tipouser bloquear para clientes, deixar só com cliente para func e tudo para adm
+JInternalFrame para dados específicos do funcionário
+
+esquema para bloquear campos de end fora do brasil(deixar só o país informado)
+
+arrumar banco e model de vendas (tabela extra?, arraylist?) para venda com mais de um produto diferente
