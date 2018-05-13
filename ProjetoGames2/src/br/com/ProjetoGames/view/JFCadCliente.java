@@ -16,6 +16,7 @@ import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -616,6 +617,13 @@ public class JFCadCliente extends javax.swing.JFrame {
         } else {
             if (jftDataNasc.getText().contains(" ")) {
                 msg += "Há campos vazios na data de nascimento\n";
+            } else {
+                if(!validaData(jftDataNasc.getText())){
+                    msg += "Data Inválida\n";
+                }
+                //if(Character.getNumericValue(jftDataNasc.getText().charAt(0)) < 4){
+
+                //}
             }
         }
         if (jcbSexo.getSelectedIndex() == 0) {
@@ -695,6 +703,54 @@ public class JFCadCliente extends javax.swing.JFrame {
         jbLimpar.setEnabled(n);
         jbSalvar.setEnabled(n);
         jlTipo.setEnabled(n);
+    }
+
+    public static boolean validaData(String data) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        int dia = 0, mes = 0, ano = 0;
+        String diaStr = data.substring(0, 2);
+        String mesStr = data.substring(3, 5);
+        String anoStr = data.substring(6, 10);
+        try {
+            dia = Integer.parseInt(diaStr);
+            mes = Integer.parseInt(mesStr);
+            ano = Integer.parseInt(anoStr);
+        } catch (Exception e) {
+            return false;
+        }
+        if (dia < 1 || mes < 1 || ano < 1) {
+            return false;
+        } else if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) {
+            if (dia <= 31) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+            if (dia <= 30) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (mes == 2) {
+            if (calendar.isLeapYear(ano)) {
+                if (dia <= 29) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (dia <= 28) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (mes > 12) {
+            return false;
+        }
+        if(ano > 2017){
+            return false;
+        }
+        return true;
     }
 }
 
