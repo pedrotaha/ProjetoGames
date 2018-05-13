@@ -23,7 +23,7 @@ public class FuncionarioModel extends UsuarioModel {
         this.cargaHoraria = cargaHoraria;
         this.estadoCivil = estadoCivil;
     }
-
+    
     public float getSalario() {
         return salario;
     }
@@ -55,5 +55,5 @@ public class FuncionarioModel extends UsuarioModel {
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
-
+    
 }

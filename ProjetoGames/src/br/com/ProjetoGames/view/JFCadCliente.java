@@ -6,8 +6,8 @@
 package br.com.ProjetoGames.view;
 
 import br.com.ProjetoGames.data.TipoUsuarioData;
-import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.EnderecoModel;
+import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.TipoUsuarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import java.awt.Font;
@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -30,19 +29,26 @@ import javax.swing.event.InternalFrameEvent;
  * @author Pedro
  */
 public class JFCadCliente extends javax.swing.JFrame {
+
     EnderecoModel end = new EnderecoModel();
-    int frameCount = 0;
+    int frameCount;
+    int frameCountF;
     JIFEndereco janela = new JIFEndereco();
+    JIFFuncionario janelaF = new JIFFuncionario();
     int loge;
     UsuarioModel obj;
+    FuncionarioModel objFunc;
     private ArrayList<TipoUsuarioModel> dadosTipoUsuario;
     Calendar cal = Calendar.getInstance();
 
     public JFCadCliente() {
         initComponents();
         frameCount = 0;
+        frameCountF = 0;
         jtEndereco.setText("Clique aqui!");
+        jbFuncionario.setVisible(false);
         loge = 0;
+        obj = new UsuarioModel();
         setIcon();
         windowsClosing();
         internoClosed();
@@ -56,8 +62,11 @@ public class JFCadCliente extends javax.swing.JFrame {
     public JFCadCliente(int log) {
         initComponents();
         frameCount = 0;
+        frameCountF = 0;
         jtEndereco.setText("Clique aqui!");
+        jbFuncionario.setVisible(false);
         loge = log;
+        obj = new UsuarioModel();
         setIcon();
         windowsClosing();
         internoClosed();
@@ -70,7 +79,9 @@ public class JFCadCliente extends javax.swing.JFrame {
     public JFCadCliente(UsuarioModel obj, int log) {
         initComponents();
         frameCount = 0;
+        frameCountF = 0;
         jtEndereco.setText("Clique aqui!");
+        jbFuncionario.setVisible(false);
         loge = log;
         this.obj = obj;
         setIcon();
@@ -111,11 +122,13 @@ public class JFCadCliente extends javax.swing.JFrame {
         jbLimpar = new javax.swing.JButton();
         jlSexo = new javax.swing.JLabel();
         jcbSexo = new javax.swing.JComboBox<>();
-        jbShiro = new javax.swing.JLabel();
-        jbTipo = new javax.swing.JLabel();
+        jlShiro = new javax.swing.JLabel();
+        jlTipo = new javax.swing.JLabel();
         jcbTipo = new javax.swing.JComboBox<>();
         jlNome = new javax.swing.JLabel();
         jtNome = new javax.swing.JTextField();
+        jbFuncionario = new javax.swing.JButton();
+        jlFuncionario = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Usuário");
@@ -266,17 +279,22 @@ public class JFCadCliente extends javax.swing.JFrame {
         jdpPrincipal.add(jcbSexo);
         jcbSexo.setBounds(743, 67, 114, 32);
 
-        jbShiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/53dd6dc8578795657635e45c5aaf18a2.jpg"))); // NOI18N
-        jdpPrincipal.add(jbShiro);
-        jbShiro.setBounds(520, 50, 380, 440);
+        jlShiro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/53dd6dc8578795657635e45c5aaf18a2.jpg"))); // NOI18N
+        jdpPrincipal.add(jlShiro);
+        jlShiro.setBounds(520, 50, 380, 440);
 
-        jbTipo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jbTipo.setText("Tipo:");
-        jdpPrincipal.add(jbTipo);
-        jbTipo.setBounds(12, 250, 60, 20);
+        jlTipo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jlTipo.setText("Tipo:");
+        jdpPrincipal.add(jlTipo);
+        jlTipo.setBounds(12, 250, 60, 20);
 
         jcbTipo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jcbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
+        jcbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTipoActionPerformed(evt);
+            }
+        });
         jdpPrincipal.add(jcbTipo);
         jcbTipo.setBounds(12, 290, 130, 30);
 
@@ -294,6 +312,20 @@ public class JFCadCliente extends javax.swing.JFrame {
         });
         jdpPrincipal.add(jtNome);
         jtNome.setBounds(200, 290, 135, 31);
+
+        jbFuncionario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jbFuncionario.setText("Funcionário");
+        jbFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFuncionarioActionPerformed(evt);
+            }
+        });
+        jdpPrincipal.add(jbFuncionario);
+        jbFuncionario.setBounds(380, 290, 130, 30);
+
+        jlFuncionario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jdpPrincipal.add(jlFuncionario);
+        jlFuncionario.setBounds(380, 250, 150, 20);
 
         getContentPane().add(jdpPrincipal);
         jdpPrincipal.setBounds(0, 0, 900, 460);
@@ -321,13 +353,13 @@ public class JFCadCliente extends javax.swing.JFrame {
         try {
             if (validarCampos()) {
                 if (preencherObjeto()) {
-                    UsuarioData DAO = new UsuarioData();
-                    if (obj.getId() <= 0) {
+//                    UsuarioData DAO = new UsuarioData();
+//                    if (obj.getId() <= 0) {
 //                        if (DAO.incluir(obj)) {
 //                            JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
 //                            jbLimparActionPerformed(evt);
 //                        }
-                    }
+//                    }
                     if (obj.getId() >= 1) {
 //                        if (DAO.editar(obj)) {
 //                            JOptionPane.showMessageDialog(this, "Editado com Sucesso", "Editar", JOptionPane.INFORMATION_MESSAGE);
@@ -355,6 +387,7 @@ public class JFCadCliente extends javax.swing.JFrame {
             jdpPrincipal.add(janela);
             janela.setVisible(true);
             frameCount++;
+            tratarCampos(false);
         }
     }//GEN-LAST:event_jtEnderecoMouseClicked
 
@@ -365,6 +398,23 @@ public class JFCadCliente extends javax.swing.JFrame {
     private void jtNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNomeKeyTyped
         campoSemNumero(evt);
     }//GEN-LAST:event_jtNomeKeyTyped
+
+    private void jcbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoActionPerformed
+        if (jcbTipo.getSelectedIndex() > 1) {
+            jbFuncionario.setVisible(true);
+        } else {
+            jbFuncionario.setVisible(false);
+        }
+    }//GEN-LAST:event_jcbTipoActionPerformed
+
+    private void jbFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFuncionarioActionPerformed
+        if (frameCountF == 0) {
+            jdpPrincipal.add(janelaF);
+            janelaF.setVisible(true);
+            frameCountF++;
+            tratarCampos(false);
+        }
+    }//GEN-LAST:event_jbFuncionarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -403,10 +453,9 @@ public class JFCadCliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbFuncionario;
     private javax.swing.JButton jbLimpar;
     private javax.swing.JButton jbSalvar;
-    private javax.swing.JLabel jbShiro;
-    private javax.swing.JLabel jbTipo;
     private javax.swing.JComboBox<String> jcbSexo;
     private javax.swing.JComboBox<String> jcbTipo;
     private javax.swing.JDesktopPane jdpPrincipal;
@@ -416,10 +465,13 @@ public class JFCadCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jlDataNasc;
     private javax.swing.JLabel jlEmail;
     private javax.swing.JLabel jlEndereco;
+    private javax.swing.JLabel jlFuncionario;
     private javax.swing.JLabel jlNome;
     private javax.swing.JLabel jlSenha;
     private javax.swing.JLabel jlSexo;
+    private javax.swing.JLabel jlShiro;
     private javax.swing.JLabel jlTelefone;
+    private javax.swing.JLabel jlTipo;
     private javax.swing.JLabel jlUsuario;
     private javax.swing.JPasswordField jpfSenha;
     private javax.swing.JTextField jtEmail;
@@ -447,28 +499,20 @@ public class JFCadCliente extends javax.swing.JFrame {
     }
 
     public void internoClosed() {
+        janelaF.addInternalFrameListener(new InternalFrameAdapter() {
+            public void internalFrameClosed(InternalFrameEvent e) {
+                frameCountF--;
+                jlFuncionario.setText("Dados registrados!");
+                tratarCampos(true);
+            }
+        });
         janela.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
                 frameCount--;
                 jtEndereco.setText("Registrado com sucesso!");
+                tratarCampos(true);
             }
         });
-//    public void vetoableChange(PropertyChangeEvent pce) throws PropertyVetoException {
-//        if (pce.getPropertyName().equals(IS_CLOSED_PROPERTY)) {
-//            boolean changed = ((Boolean) pce.getNewValue()).booleanValue();
-//            if (changed) {
-//                int option = JOptionPane.showOptionDialog(this, "Close "
-//                        + getTitle() + "?",
-//                        "Close Confirmation",
-//                        JOptionPane.YES_NO_OPTION,
-//                        JOptionPane.QUESTION_MESSAGE,
-//                        null, null, null);
-//                if (option != JOptionPane.YES_OPTION) {
-//                    throw new PropertyVetoException("Cancelled", null);
-//                }
-//            }
-//        }
-//    }
     }
 
     public void sair() {
@@ -509,8 +553,12 @@ public class JFCadCliente extends javax.swing.JFrame {
         jpfSenha.setText("");
         jftCpf.setText("");
         jftDataNasc.setText("");
+        jlFuncionario.setText("");
         jcbSexo.setSelectedIndex(0);
         jcbTipo.setSelectedIndex(0);
+        jbFuncionario.setVisible(false);
+        janela.limparCampos();
+        janelaF.limparCampos();
     }
 
     private boolean validarCampos() throws Exception {
@@ -550,31 +598,35 @@ public class JFCadCliente extends javax.swing.JFrame {
         if (jtEndereco.getText().equals("Clique aqui!")) {
             msg += "O Endereço deve ser preenchido\n";
         }
-        if(jtUsuario.getText().equals("")){
+        if (jtUsuario.getText().equals("")) {
             msg += "O Usuário deve ser preenchido\n";
         } else {
             if (jtUsuario.getText().length() < 3 || jtUsuario.getText().length() > 40) {
                 msg += "O Usuário deve ter entre 3 e 40 caracteres\n";
             }
         }
-        if(jpfSenha.getText().equals("")){
+        if (jpfSenha.getText().equals("")) {
             msg += "A senha deve ser preenchida\n";
-        }else{
-            if(jpfSenha.getText().length() <= 8 || jpfSenha.getText().length() > 50){
+        } else {
+            if (jpfSenha.getText().length() <= 8 || jpfSenha.getText().length() > 50) {
                 msg += "A senha deve conter entre 8 e 50 caracteres\n";
             }
         }
-        if(jftDataNasc.getText().equals("  /  /    ")){
-           msg += "A data de nascimento deve ser preenchido\n";
+        if (jftDataNasc.getText().equals("  /  /    ")) {
+            msg += "A data de nascimento deve ser preenchido\n";
         } else {
             if (jftDataNasc.getText().contains(" ")) {
                 msg += "Há campos vazios na data de nascimento\n";
+            } else {
+                if(!validaData(jftDataNasc.getText())){
+                    msg += "Data Inválida\n";
+                }
             }
-        } 
-        if(jcbSexo.getSelectedIndex() == 0){
+        }
+        if (jcbSexo.getSelectedIndex() == 0) {
             msg += "Selecione um sexo\n";
         }
-        if(jcbTipo.getSelectedIndex() == 0){
+        if (jcbTipo.getSelectedIndex() == 0) {
             msg += "Selecione um tipo de usuário\n";
         }
         if (msg.length() == 0) {
@@ -594,15 +646,19 @@ public class JFCadCliente extends javax.swing.JFrame {
         obj.setLogin(jtUsuario.getText());
         obj.setSenha(jpfSenha.getText());
         obj.setDataCadastro(dataAtual());
-        obj.setTipoUsuarioModel(dadosTipoUsuario.get(jcbTipo.getSelectedIndex()));
-        obj.setEnderecoModel(janela.preencherObjeto());//Fazer o insert correto
+        obj.setTipoUsuarioModel(dadosTipoUsuario.get(jcbTipo.getSelectedIndex() - 1));
+        obj.setEnderecoModel(janela.preencherObjeto());
+        if (obj.getTipoUsuarioModel().getNivel() == 1) {
+            objFunc = new FuncionarioModel(obj.getId(), obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(), 0, "", "", "");
+            objFunc = janelaF.preencherObjeto(objFunc);
+        }
 
         return true;
     }
 
     public Calendar calendario(String data) {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY", Locale.ENGLISH);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");// , Locale.ENGLISH
             cal.setTime(sdf.parse(data));// all done
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Data de Nascimento", JOptionPane.ERROR_MESSAGE);
@@ -611,15 +667,8 @@ public class JFCadCliente extends javax.swing.JFrame {
     }
 
     public Calendar dataAtual() {
-        Calendar cal = new GregorianCalendar();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        int second = cal.get(Calendar.SECOND);
-        int minute = cal.get(Calendar.MINUTE);
-        int hour = cal.get(Calendar.HOUR_OF_DAY);
-        cal.set(year, month, hour, minute, second);
-        return cal;
+        Calendar calen = Calendar.getInstance();
+        return calen;
     }
 
     private void campoSemNumero(java.awt.event.KeyEvent evt) {
@@ -635,4 +684,86 @@ public class JFCadCliente extends javax.swing.JFrame {
             evt.consume();
         }
     }
+
+    public void tratarCampos(boolean n) {
+        jtEmail.setEnabled(n);
+        jtNome.setEnabled(n);
+        jtTelefone.setEnabled(n);
+        jtUsuario.setEnabled(n);
+        jftCpf.setEnabled(n);
+        jftDataNasc.setEnabled(n);
+        jcbSexo.setEnabled(n);
+        jcbTipo.setEnabled(n);
+        jpfSenha.setEnabled(n);
+        jbCancelar.setEnabled(n);
+        jbFuncionario.setEnabled(n);
+        jbLimpar.setEnabled(n);
+        jbSalvar.setEnabled(n);
+        jlTipo.setEnabled(n);
+    }
+
+    public static boolean validaData(String data) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        int dia = 0, mes = 0, ano = 0;
+        String diaStr = data.substring(0, 2);
+        String mesStr = data.substring(3, 5);
+        String anoStr = data.substring(6, 10);
+        try {
+            dia = Integer.parseInt(diaStr);
+            mes = Integer.parseInt(mesStr);
+            ano = Integer.parseInt(anoStr);
+        } catch (Exception e) {
+            return false;
+        }
+        if(ano > 2017){
+            return false;
+        }else if (dia < 1 || mes < 1 || ano < 1) {
+            return false;
+        } else if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) {
+            if (dia <= 31) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+            if (dia <= 30) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (mes == 2) {
+            if (calendar.isLeapYear(ano)) {
+                if (dia <= 29) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (dia <= 28) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (mes > 12) {
+            return false;
+        }
+        
+        return true;
+    }
 }
+
+//    public void vetoableChange(PropertyChangeEvent pce) throws PropertyVetoException {
+//        if (pce.getPropertyName().equals(IS_CLOSED_PROPERTY)) {
+//            boolean changed = ((Boolean) pce.getNewValue()).booleanValue();
+//            if (changed) {
+//                int option = JOptionPane.showOptionDialog(this, "Close "
+//                        + getTitle() + "?",
+//                        "Close Confirmation",
+//                        JOptionPane.YES_NO_OPTION,
+//                        JOptionPane.QUESTION_MESSAGE,
+//                        null, null, null);
+//                if (option != JOptionPane.YES_OPTION) {
+//                    throw new PropertyVetoException("Cancelled", null);
+//                }
+//            }
+//        }
+//    }

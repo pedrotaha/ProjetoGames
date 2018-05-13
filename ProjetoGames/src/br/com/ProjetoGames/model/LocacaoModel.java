@@ -1,9 +1,10 @@
 package br.com.ProjetoGames.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class LocacaoModel extends Operacao{
+public class LocacaoModel extends OperacaoModel{
     private Calendar dataDevolucao;
 
     public LocacaoModel() {
@@ -11,8 +12,8 @@ public class LocacaoModel extends Operacao{
         dataDevolucao = new GregorianCalendar();
     }
 
-    public LocacaoModel(int id, UsuarioModel clienteModel, FuncionarioModel funcionarioModel, JogosModel jogosModel, Calendar dataOperacao, float valor, String formaPagamento, Calendar dataDevolucao) {
-        super(id, clienteModel, funcionarioModel, jogosModel, dataOperacao, valor, formaPagamento);
+    public LocacaoModel(int id, UsuarioModel clienteModel, FuncionarioModel funcionarioModel, JogosModel jogosModel, Calendar dataOperacao, float valor, String formaPagamento, ArrayList<JogosOperacaoModel> jogosOperacaoModel,Calendar dataDevolucao) {
+        super(id, clienteModel, funcionarioModel, jogosModel, dataOperacao, valor, formaPagamento, jogosOperacaoModel);
         this.dataDevolucao = dataDevolucao;
     }
 

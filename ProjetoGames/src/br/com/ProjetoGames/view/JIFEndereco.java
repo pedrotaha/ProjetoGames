@@ -5,17 +5,15 @@
  */
 package br.com.ProjetoGames.view;
 
+import br.com.ProjetoGames.data.localizar.LocalData;
 import br.com.ProjetoGames.model.EnderecoModel;
+import br.com.ProjetoGames.model.localizar.LocalModel;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import org.geonames.InvalidParameterException;
-import org.geonames.Toponym;
-import org.geonames.ToponymSearchCriteria;
-import org.geonames.ToponymSearchResult;
-import org.geonames.WebService;
 
 /**
  *
@@ -23,18 +21,28 @@ import org.geonames.WebService;
  */
 public class JIFEndereco extends javax.swing.JInternalFrame {
 
+    ArrayList<LocalModel> listaP = new ArrayList<>();
+    ArrayList<LocalModel> listaE = new ArrayList<>();
+    ArrayList<LocalModel> listaC = new ArrayList<>();
+    LocalData DAO = new LocalData();
+
     public JIFEndereco() {
         initComponents();
         this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        mudarIcon();
+        jtCidade.setVisible(false);
+        jtEstado.setVisible(false);
+        jcbCidade.setVisible(false);
+        jcbEstado.setVisible(false);
         try {
             local();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro: "+e.getMessage());
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
         }
-        
+
     }
 
     /**
@@ -54,18 +62,24 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         jlPais = new javax.swing.JLabel();
         jlCep = new javax.swing.JLabel();
         jlComplemento = new javax.swing.JLabel();
+        jtRua = new javax.swing.JTextField();
         jtNumero = new javax.swing.JTextField();
         jtBairro = new javax.swing.JTextField();
+        jcbCidade = new javax.swing.JComboBox<>();
         jtCidade = new javax.swing.JTextField();
-        jtRua = new javax.swing.JTextField();
-        jtComplemento = new javax.swing.JTextField();
         jcbEstado = new javax.swing.JComboBox<>();
+        jtEstado = new javax.swing.JTextField();
         jcbPais = new javax.swing.JComboBox<>();
         jftCep = new javax.swing.JFormattedTextField();
-        jbSalvar = new javax.swing.JButton();
+        jtComplemento = new javax.swing.JTextField();
         jbVoltar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
+        setTitle("Dados de Endereço");
+        setMinimumSize(new java.awt.Dimension(656, 402));
+        setName(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(656, 402));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -83,66 +97,39 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jlRua.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlRua.setText("Rua:");
+        getContentPane().add(jlRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 34, -1, -1));
 
         jlNumero.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlNumero.setText("N°:");
+        getContentPane().add(jlNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 34, -1, -1));
 
         jlBairro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlBairro.setText("Bairro:");
+        getContentPane().add(jlBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 34, -1, -1));
 
         jlCidade.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlCidade.setText("Cidade:");
+        getContentPane().add(jlCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 276, -1, -1));
 
         jlEstado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlEstado.setText("Estado:");
+        getContentPane().add(jlEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 278, -1, -1));
 
         jlPais.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlPais.setText("Pais:");
+        getContentPane().add(jlPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 203, -1, -1));
 
         jlCep.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlCep.setText("CEP:");
+        getContentPane().add(jlCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(461, 35, -1, -1));
 
         jlComplemento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlComplemento.setText("Complemento:");
-
-        jtNumero.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jtNumero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtNumeroActionPerformed(evt);
-            }
-        });
-        jtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtNumeroKeyTyped(evt);
-            }
-        });
-
-        jtBairro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jtBairro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtBairroActionPerformed(evt);
-            }
-        });
-        jtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtBairroKeyTyped(evt);
-            }
-        });
-
-        jtCidade.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jtCidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtCidadeActionPerformed(evt);
-            }
-        });
-        jtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtCidadeKeyTyped(evt);
-            }
-        });
+        getContentPane().add(jlComplemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 132, -1, -1));
 
         jtRua.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jtRua.addActionListener(new java.awt.event.ActionListener() {
@@ -155,19 +142,76 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                 jtRuaKeyTyped(evt);
             }
         });
+        getContentPane().add(jtRua, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 69, 132, -1));
 
-        jtComplemento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jtComplemento.addActionListener(new java.awt.event.ActionListener() {
+        jtNumero.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtComplementoActionPerformed(evt);
+                jtNumeroActionPerformed(evt);
             }
         });
+        jtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtNumeroKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 69, 42, -1));
+
+        jtBairro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtBairro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtBairroActionPerformed(evt);
+            }
+        });
+        jtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtBairroKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 69, 144, -1));
+
+        jcbCidade.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jcbCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
+        getContentPane().add(jcbCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, -1, -1));
+
+        jtCidade.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtCidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtCidadeActionPerformed(evt);
+            }
+        });
+        jtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtCidadeKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 312, 151, -1));
 
         jcbEstado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jcbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
+        jcbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbEstadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jcbEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 312, -1, -1));
+
+        jtEstado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtEstadoKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 151, -1));
 
         jcbPais.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jcbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
+        jcbPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbPaisActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jcbPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 237, -1, -1));
 
         try {
             jftCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -175,15 +219,15 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
         jftCep.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        getContentPane().add(jftCep, new org.netbeans.lib.awtextra.AbsoluteConstraints(461, 69, 92, -1));
 
-        jbSalvar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Save_48px.png"))); // NOI18N
-        jbSalvar.setText("Salvar");
-        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
+        jtComplemento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtComplemento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalvarActionPerformed(evt);
+                jtComplementoActionPerformed(evt);
             }
         });
+        getContentPane().add(jtComplemento, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 162, 151, -1));
 
         jbVoltar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Undo_48px.png"))); // NOI18N
@@ -193,109 +237,10 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                 jbVoltarActionPerformed(evt);
             }
         });
+        getContentPane().add(jbVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 290, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlEstado))
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jcbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(jftCep, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jlPais)
-                                        .addGap(116, 116, 116)
-                                        .addComponent(jlCep)))
-                                .addGap(41, 41, 41)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlComplemento)
-                                    .addComponent(jtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(jtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jlRua)
-                                        .addGap(139, 139, 139)
-                                        .addComponent(jlNumero)))
-                                .addGap(48, 48, 48)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlBairro))
-                                .addGap(47, 47, 47)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlCidade)
-                                    .addComponent(jtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jbSalvar)
-                        .addGap(83, 83, 83)
-                        .addComponent(jbVoltar)))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlRua)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jlNumero)
-                                .addComponent(jlBairro)))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jlCidade)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlEstado)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jlCep)
-                                    .addComponent(jlPais))))
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jcbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jftCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jlComplemento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbSalvar)
-                    .addComponent(jbVoltar))
-                .addContainerGap())
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/icons8_Map_Pokemon_210px.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 240, 210));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -319,10 +264,6 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
     private void jtComplementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtComplementoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtComplementoActionPerformed
-
-    private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
-
-    }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVoltarActionPerformed
         sair();
@@ -348,10 +289,62 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         campoSemNumero(evt);
     }//GEN-LAST:event_jtRuaKeyTyped
 
+    private void jcbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbPaisActionPerformed
+        try {
+            if (jcbPais.getSelectedItem().equals("Brazil")) {
+                jtEstado.setVisible(false);
+                jtCidade.setVisible(false);
+                jcbEstado.setVisible(true);
+                listaE = DAO.pesquisarEstado();
+                for (LocalModel local : listaE) {
+                    jcbEstado.addItem(local.getNome());
+                }
+            }
+            if (!jcbPais.getSelectedItem().equals("Brazil") && jcbPais.getSelectedIndex() != 0) {
+                jtEstado.setVisible(true);
+                jtCidade.setVisible(true);
+                jcbEstado.setSelectedIndex(0);
+                jcbCidade.setSelectedIndex(0);
+                jcbEstado.setVisible(false);
+                jcbCidade.setVisible(false);
+            }
+            if (jcbPais.getSelectedIndex() == 0) {
+                jtCidade.setVisible(false);
+                jtEstado.setVisible(false);
+                jcbCidade.setVisible(false);
+                jcbEstado.setVisible(false);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Pesquisar Estados", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_jcbPaisActionPerformed
+
+    private void jcbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEstadoActionPerformed
+        try {
+            if (jcbEstado.getSelectedIndex() != 0) {
+                jcbCidade.setVisible(true);
+                jcbCidade.removeAllItems();
+                jcbCidade.addItem("<Selecione>");
+                listaC = DAO.pesquisarCidade(listaE.get(jcbEstado.getSelectedIndex() - 1).getId());
+                for (LocalModel local : listaC) {
+                    jcbCidade.addItem(local.getNome());
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Pesquisar Cidades", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jcbEstadoActionPerformed
+
+    private void jtEstadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtEstadoKeyTyped
+        campoSemNumero(evt);
+    }//GEN-LAST:event_jtEstadoKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbSalvar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jbVoltar;
+    private javax.swing.JComboBox<String> jcbCidade;
     private javax.swing.JComboBox<String> jcbEstado;
     private javax.swing.JComboBox<String> jcbPais;
     private javax.swing.JFormattedTextField jftCep;
@@ -366,9 +359,15 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtBairro;
     private javax.swing.JTextField jtCidade;
     private javax.swing.JTextField jtComplemento;
+    private javax.swing.JTextField jtEstado;
     private javax.swing.JTextField jtNumero;
     private javax.swing.JTextField jtRua;
     // End of variables declaration//GEN-END:variables
+   public void mudarIcon(){
+       ImageIcon icon = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\icons8_Map_Pokemon_144px.png");
+       this.setFrameIcon(icon);
+   }
+    
     public boolean validar() throws Exception {
         String msg = new String();
         if (jtRua.getText().equals("")) {
@@ -381,14 +380,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         if (jtBairro.getText().equals("")) {
             msg += "O bairro deve ser preenchido\n";
         } else {
-            if (jtBairro.getText().length() < 3 || jtBairro.getText().length() > 40) {
-                msg += "O bairro deve ser entre 5 e 40 caracteres\n";
-            }
-        }
-        if (jtCidade.getText().equals("")) {
-            msg += "O bairro deve ser preenchido\n";
-        } else {
-            if (jtBairro.getText().length() < 3 || jtBairro.getText().length() > 40) {
+            if (jtBairro.getText().length() < 5 || jtBairro.getText().length() > 40) {
                 msg += "O bairro deve ser entre 5 e 40 caracteres\n";
             }
         }
@@ -399,12 +391,28 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                 msg += "Há campos vazios no CEP\n";
             }
         }
-
-        if (jcbPais.getSelectedIndex() == 0) {
-            msg += "Selecione um sexo\n";
+        if (jtNumero.getText().length() != 4) {
+            msg += "O número da casa deve conter 4 caracteres\n";
         }
-        if (jcbEstado.getSelectedIndex() == 0) {
-            msg += "Selecione um tipo de usuário\n";
+        if (jcbPais.getSelectedIndex() == 0) {
+            msg += "Selecione um Pais\n";
+        }
+        if (jcbPais.getSelectedItem().equals("Brazil")) {
+            if (jcbEstado.getSelectedIndex() == 0) {
+                msg += "Selecione um Estado\n";
+            } else {
+                if (jcbCidade.getSelectedIndex() == 0) {
+                    msg += "Selecione uma Cidade\n";
+                }
+            }
+        }
+        if (!jcbPais.getSelectedItem().equals("Brazil") && jcbPais.getSelectedIndex() != 0) {
+            if (jtEstado.getText().length() < 5 || jtEstado.getText().length() > 40) {
+                msg += "O Estado deve ser entre 5 e 40 caracteres\n";
+            }
+            if (jtCidade.getText().length() < 5 || jtCidade.getText().length() > 40) {
+                msg += "A Cidade deve ser entre 5 e 40 caracteres\n";
+            }
         }
         if (msg.length() == 0) {
             return true;
@@ -416,19 +424,24 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
     public EnderecoModel preencherObjeto() {
         EnderecoModel end = new EnderecoModel();
         end.setBairro(jtBairro.getText());
-        end.setEstado(jcbEstado.getItemAt(jcbEstado.getSelectedIndex()));
-        end.setPais(jcbPais.getItemAt(jcbPais.getSelectedIndex()));
-        end.setCidade(jtCidade.getText());
         end.setRua(jtRua.getText());
         end.setNumero(Integer.parseInt(jtNumero.getText()));
         end.setCep(jftCep.getText());
         end.setComplemento(jtComplemento.getText());
+        end.setPais(jcbPais.getItemAt(jcbPais.getSelectedIndex()));
+        if (jcbPais.getSelectedItem().equals("Brazil")) {
+            end.setEstado(jcbEstado.getItemAt(jcbEstado.getSelectedIndex()));
+            end.setCidade(jcbCidade.getItemAt(jcbCidade.getSelectedIndex()));
+        }else{
+            end.setEstado(jtEstado.getText());
+            end.setCidade(jtCidade.getText());
+        }
         return end;
     }
 
     public void sair() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
-        if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+        if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nVoltar?", "Botão Voltar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
             try {
                 if (validar()) {
                     dispose();
@@ -436,7 +449,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao validar os dados", "Sair", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erro ao validar: \n"+e.getMessage(), "Voltar", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -456,44 +469,22 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         }
     }
 
-    public void localizacao() {
-        try {
-            WebService.setUserName("pedrotaha");
-            ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
-
-            searchCriteria.setQ("Country");
-            ToponymSearchResult searchResult = WebService.search(searchCriteria);
-            for (Toponym toponym : searchResult.getToponyms()) {
-                System.out.println(toponym.getName() + " ");
-                jcbEstado.addItem(toponym.getName());
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Localizar", JOptionPane.ERROR_MESSAGE);
+    void local() throws Exception {
+        listaP = DAO.pesquisarPais();
+        for (LocalModel local : listaP) {
+            jcbPais.addItem(local.getNome());
         }
-
     }
-
-    public void  local() throws org.geonames.InvalidParameterException, Exception {
-
-        ToponymSearchCriteria searchCriteria = new ToponymSearchCriteria();
-
-        WebService.setUserName("demo"); //username
-        try {
-
-            searchCriteria.setCountryCode("DO"); //Country
-            searchCriteria.setLanguage("ES");  //Language
-
-            searchCriteria.setNameEquals("all countries"); //Location
-            searchCriteria.setMaxRows(1);
-            ToponymSearchResult searchResult = WebService.search(searchCriteria);
-
-            for (Toponym toponym : searchResult.getToponyms()) {
-
-                System.out.println(toponym.getName() + " " + toponym.getCountryName() + " Lat: " + toponym.getLatitude() + " Lon " + toponym.getLongitude());
-            }
-
-        } catch (InvalidParameterException ex) {
-            System.out.println(ex.getMessage());
-        }
+    void limparCampos(){
+        jtBairro.setText("");
+        jtCidade.setText("");
+        jtComplemento.setText("");
+        jtEstado.setText("");
+        jtNumero.setText("");
+        jtRua.setText("");
+        jftCep.setText("");
+        jcbCidade.setSelectedIndex(0);
+        jcbEstado.setSelectedIndex(0);
+        jcbPais.setSelectedIndex(0);
     }
 }
