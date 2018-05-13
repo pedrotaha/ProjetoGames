@@ -621,9 +621,6 @@ public class JFCadCliente extends javax.swing.JFrame {
                 if(!validaData(jftDataNasc.getText())){
                     msg += "Data Inválida\n";
                 }
-                //if(Character.getNumericValue(jftDataNasc.getText().charAt(0)) < 4){
-
-                //}
             }
         }
         if (jcbSexo.getSelectedIndex() == 0) {
@@ -718,7 +715,9 @@ public class JFCadCliente extends javax.swing.JFrame {
         } catch (Exception e) {
             return false;
         }
-        if (dia < 1 || mes < 1 || ano < 1) {
+        if(ano > 2017){
+            return false;
+        }else if (dia < 1 || mes < 1 || ano < 1) {
             return false;
         } else if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) {
             if (dia <= 31) {
@@ -747,9 +746,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         } else if (mes > 12) {
             return false;
         }
-        if(ano > 2017){
-            return false;
-        }
+        
         return true;
     }
 }
