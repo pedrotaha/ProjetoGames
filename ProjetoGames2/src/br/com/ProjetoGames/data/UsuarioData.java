@@ -111,19 +111,45 @@ public class UsuarioData {
     }
 
     public boolean editar(UsuarioModel obj) throws Exception {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
-        String sql = "Update tbpessoas set nome=?, email=?, cpf=?, rg=?, endereco=?, telefone=? where id=?";
-        PreparedStatement ps = c.getConexao().prepareStatement(sql);
-        ps.setString(1, obj.getNome());
-        ps.setString(2, obj.getEmail());
-        ps.setString(3, obj.getCpf());
-        ps.setString(6, obj.getTelefone());
-        ps.setInt(7, obj.getId());
-        if (ps.executeUpdate() > 0) {
-            return true;
+        String sql1 = "Update tbendereco set pais=?, estado=?, cidade=?,bairro=?, rua=?, numero=?, cep=?, complemento=? where idusuario=?";
+        PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
+        ps1.setString(1, obj.getEnderecoModel().getPais());
+        ps1.setString(2, obj.getEnderecoModel().getEstado());
+        ps1.setString(3, obj.getEnderecoModel().getCidade());
+        ps1.setString(4, obj.getEnderecoModel().getBairro());
+        ps1.setString(5, obj.getEnderecoModel().getRua());
+        ps1.setInt(6, obj.getEnderecoModel().getNumero());
+        ps1.setString(7, obj.getEnderecoModel().getCep());
+        ps1.setString(8, obj.getEnderecoModel().getComplemento());
+        ps1.setInt(9, obj.getId());
+        if (ps1.executeUpdate() > 0) {
+            String sql2 = "Update tbusuarios set nome=?, cpf=?, telefone=?, email=?, sexo=?, datanasc=?, login=?, senha=?, datacadastro=? where id=?";
+            PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
+            ps2.setString(1, obj.getNome());
+            ps2.setString(2, obj.getCpf());
+            ps2.setString(3, obj.getTelefone());
+            ps2.setString(4, obj.getSexo());
+            ps2.setString(5, dateFormat.format(obj.getDataNasc().getTime()));
+            ps2.setString(6, obj.getLogin());
+            ps2.setString(7, obj.getSenha());
+            ps2.setString(8, dateFormat.format(obj.getDataCadastro().getTime()));
+            ps2.setInt(9, obj.getId());
+            if (ps2.executeUpdate() > 0) {
+                c.getConexao().commit();
+                c.getConexao().setAutoCommit(true);
+                return true;
+            } else {
+                c.getConexao().rollback();
+                c.getConexao().setAutoCommit(true);
+                throw new Exception("Não foi possível atualizar.");
+            }
         } else {
-            throw new Exception("Não foi possível atualizar.");
+            c.getConexao().rollback();
+            c.getConexao().setAutoCommit(true);
+            throw new Exception("Não foi possível atualizar, erro no Endereço.");
         }
     }
 
