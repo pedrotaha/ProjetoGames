@@ -52,10 +52,13 @@ public class UsuarioData {
                 c.getConexao().rollback();
                 c.getConexao().setAutoCommit(true);
                 throw new Exception("Ocorreu erro ao salvar o Endereço");
+            } else {
+                if (obj.getTipoUsuarioModel().getNivel() < 1) {
+                    c.getConexao().commit();
+                    c.getConexao().setAutoCommit(true);
+                }
+                return true;
             }
-            c.getConexao().commit();
-            c.getConexao().setAutoCommit(true);
-            return true;
         } else {
             throw new Exception("Erro ao salvar");
         }
