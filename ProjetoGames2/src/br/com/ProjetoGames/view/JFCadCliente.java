@@ -6,6 +6,7 @@
 package br.com.ProjetoGames.view;
 
 import br.com.ProjetoGames.data.TipoUsuarioData;
+import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.EnderecoModel;
 import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.TipoUsuarioModel;
@@ -353,19 +354,19 @@ public class JFCadCliente extends javax.swing.JFrame {
         try {
             if (validarCampos()) {
                 if (preencherObjeto()) {
-//                    UsuarioData DAO = new UsuarioData();
-//                    if (obj.getId() <= 0) {
-//                        if (DAO.incluir(obj)) {
-//                            JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
-//                            jbLimparActionPerformed(evt);
-//                        }
-//                    }
+                    UsuarioData DAO = new UsuarioData();
+                    if (obj.getId() <= 0) {
+                        if (DAO.incluir(obj)) {
+                            JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
+                            jbLimparActionPerformed(evt);
+                        }
+                    }
                     if (obj.getId() >= 1) {
-//                        if (DAO.editar(obj)) {
-//                            JOptionPane.showMessageDialog(this, "Editado com Sucesso", "Editar", JOptionPane.INFORMATION_MESSAGE);
-//                            limparCampos();
-//                            atualizarTabela();
-//                        }
+                        if (DAO.editar(obj)) {
+                            JOptionPane.showMessageDialog(this, "Editado com Sucesso", "Editar", JOptionPane.INFORMATION_MESSAGE);
+                            limparCampos();
+                            //atualizarTabela();
+                        }
                     }
                     sair();
                 }

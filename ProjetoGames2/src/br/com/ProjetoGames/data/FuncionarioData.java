@@ -1,8 +1,6 @@
 package br.com.ProjetoGames.data;
 
-import br.com.ProjetoGames.model.EnderecoModel;
 import br.com.ProjetoGames.model.FuncionarioModel;
-import br.com.ProjetoGames.model.TipoUsuarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,55 +34,85 @@ public class FuncionarioData extends UsuarioData {
     }
 
     public ArrayList<FuncionarioModel> pesquisarF(String pesq) throws Exception {
+        Conexao c = new Conexao();
         ArrayList<FuncionarioModel> listaF = new ArrayList<>();
         ArrayList<UsuarioModel> lista = super.pesquisar(pesq);
         for (UsuarioModel list : lista) {
             if (list.getTipoUsuarioModel().getId() < 1) {
                 lista.remove(list);
-            }else{
+            } else {
                 FuncionarioModel obj = new FuncionarioModel();
+                obj.setId(list.getId());
                 obj.setNome(list.getNome());
                 obj.setCpf(list.getCpf());
                 obj.setEmail(list.getEmail());
                 obj.setEnderecoModel(list.getEnderecoModel());
-                obj.setId(list.getId());
                 obj.setLogin(list.getLogin());
                 obj.setSexo(list.getSexo());
                 obj.setTelefone(list.getTelefone());
                 obj.setTipoUsuarioModel(list.getTipoUsuarioModel());
                 obj.setDataCadastro(list.getDataCadastro());
                 obj.setDataNasc(list.getDataNasc());
+                String sql = "Select * from tbusuarios u, tbfuncionarios f where u.id = f.idusuario and u.id = " + list.getId() + " order by nome";
+                PreparedStatement ps = c.getConexao().prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    obj.setCargaHoraria(rs.getString("cargahoraria"));
+                    obj.setCargo(rs.getString("cargo"));
+                    obj.setEstadoCivil(rs.getString("estadocivil"));
+                    obj.setSalario(rs.getFloat("salario"));
+                }
                 listaF.add(obj);
             }
-        }
-        S
-        Conexao c = new Conexao();
-        PreparedStatement ps = c.getConexao().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            UsuarioModel obj = new UsuarioModel();
-            obj.setId(rs.getInt("id"));
-            obj.setNome(rs.getString("nome"));
-            obj.setCpf(rs.getString("cpf"));
-            obj.setEmail(rs.getString("email"));
-            obj.setLogin(rs.getString("login"));
-            obj.setSenha("");
-            obj.setSexo(rs.getString("sexo"));
-            obj.setTelefone(rs.getString("telefone"));
-            obj.setDataCadastro(calendario(rs.getString("datacadastro")));//Testar e corrigir
-            obj.setDataNasc(calendario(rs.getString("dataNasc")));
-            obj.setTipoUsuarioModel(new TipoUsuarioModel(rs.getInt("idTipo"), rs.getString("descricao"), rs.getInt("nivel")));
-            obj.setEnderecoModel(new EnderecoModel(rs.getString("pais"), rs.getString("estado"), rs.getString("cidade"), rs.getString("bairro"), rs.getString("rua"), rs.getInt("numero"), rs.getString("cep"), rs.getString("complemento")));
-            dados.add(obj);
         }
         return listaF;
     }
 
     public boolean excluir(int id) throws Exception {
-        return true;
+        if (super.excluir(id)) {
+            Conexao c = new Conexao();
+            c.getConexao().setAutoCommit(false);
+            String sql = "Delete from tbfuncionarios where idusuario=?";
+            PreparedStatement ps = c.getConexao().prepareStatement(sql);
+            ps.setInt(1, id);
+            if (ps.executeUpdate() > 0) {
+                c.getConexao().commit();
+                c.getConexao().setAutoCommit(true);
+                return true;
+            } else {
+                c.getConexao().rollback();
+                c.getConexao().setAutoCommit(true);
+                throw new Exception("Não foi possível excluir o Funcionário.");
+            }
+        } else {
+            throw new Exception("Não foi possível excluir.");
+        }
     }
 
     public boolean editar(FuncionarioModel obj) throws Exception {
-        return true;
+        Conexao c = new Conexao();
+        c.getConexao().setAutoCommit(false);
+        if (super.editar(obj)) {
+            String sql = "Update tbfuncionarios set cargo=?, cargahoraria=?, estadocivil=?, salario=? where idusuario=?";
+            PreparedStatement ps = c.getConexao().prepareStatement(sql);
+            ps.setString(1, obj.getCargo());
+            ps.setString(2, obj.getCargaHoraria());
+            ps.setString(3, obj.getEstadoCivil());
+            ps.setFloat(4, obj.getSalario());
+            ps.setInt(5, obj.getId());
+            if (ps.executeUpdate() > 0) {
+                c.getConexao().commit();
+                c.getConexao().setAutoCommit(true);
+                return true;
+            } else {
+                c.getConexao().rollback();
+                c.getConexao().setAutoCommit(true);
+                throw new Exception("Não foi possível atualizar o Funcionário.");
+            }
+        } else {
+            c.getConexao().rollback();
+            c.getConexao().setAutoCommit(true);
+            throw new Exception("Não foi possível atualizar.");
+        }
     }
 }
