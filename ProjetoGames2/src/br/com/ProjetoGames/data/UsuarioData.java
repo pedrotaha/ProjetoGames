@@ -1,6 +1,7 @@
 package br.com.ProjetoGames.data;
 
 import br.com.ProjetoGames.model.EnderecoModel;
+import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.TipoUsuarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import java.sql.PreparedStatement;
@@ -17,7 +18,7 @@ public class UsuarioData {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
-        String sql = "Insert into tbusuario (nome,cpf,telefone,email,sexo,datanasc,login,senha,datacadastro,idtipo) values (?,?,?,?,?,?,?,?,?,?)";
+        String sql = "Insert into tbusuarios (nome,cpf,telefone,email,sexo,datanasc,login,senha,datacadastro,idtipo) values (?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
         ps.setString(1, obj.getNome());
         ps.setString(2, obj.getCpf());
@@ -153,6 +154,27 @@ public class UsuarioData {
             c.getConexao().rollback();
             c.getConexao().setAutoCommit(true);
             throw new Exception("Não foi possível atualizar, erro no Endereço.");
+        }
+    }
+
+    public UsuarioModel validarUsuario(String user, String senha) throws Exception {
+        UsuarioModel obj = null;
+        FuncionarioModel func = null;
+        Conexao c = new Conexao();
+        String sql = "Select * from tbusuarios u, tbendereco e, tbtipousuario t where u.id = e.idusuario "
+                + "and u.idtipo = t.idtipo and login=? and senha=?";
+        PreparedStatement ps = c.getConexao().prepareStatement(sql);
+        ps.setString(1, user);
+        ps.setString(2, senha);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            TipoUsuarioModel tp = new TipoUsuarioModel(rs.getInt("idtipo"), rs.getString("descricao"), rs.getInt("nivel"));
+            EnderecoModel end = new EnderecoModel(rs.getString("pais"), rs.getString("estado"), rs.getString("cidade"), rs.getString("bairro"), rs.getString("rua"), rs.getInt("numero"), rs.getString("cep"), rs.getString("complemento"));
+            obj = new UsuarioModel(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("email"),
+                    rs.getString("sexo"), end, calendario(rs.getString("datanascimento")), rs.getString("login"), "", calendario(rs.getString("datacadastro")), tp);
+            return obj;
+        } else {
+            throw new Exception("Login Inválido.");
         }
     }
 

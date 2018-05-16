@@ -5,12 +5,14 @@
  */
 package br.com.ProjetoGames.view;
 
+import br.com.ProjetoGames.data.FuncionarioData;
 import br.com.ProjetoGames.data.TipoUsuarioData;
 import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.EnderecoModel;
 import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.TipoUsuarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
+import br.com.ProjetoGames.view.control.Criptografar;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -41,6 +43,7 @@ public class JFCadCliente extends javax.swing.JFrame {
     FuncionarioModel objFunc;
     private ArrayList<TipoUsuarioModel> dadosTipoUsuario;
     Calendar cal = Calendar.getInstance();
+    int anoAtual = cal.get(Calendar.YEAR);
 
     public JFCadCliente() {
         initComponents();
@@ -355,17 +358,33 @@ public class JFCadCliente extends javax.swing.JFrame {
             if (validarCampos()) {
                 if (preencherObjeto()) {
                     UsuarioData DAO = new UsuarioData();
+                    FuncionarioData DAOF = new FuncionarioData();
                     if (obj.getId() <= 0) {
-                        if (DAO.incluir(obj)) {
-                            JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
-                            jbLimparActionPerformed(evt);
+                        if (obj.getTipoUsuarioModel().getNivel() <= 1) {
+                            if (DAO.incluir(obj)) {
+                                JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
+                                jbLimparActionPerformed(evt);
+                            }
+                        } else {
+                            if (DAOF.incluir(obj)) {
+                                JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
+                                jbLimparActionPerformed(evt);
+                            }
                         }
                     }
                     if (obj.getId() >= 1) {
-                        if (DAO.editar(obj)) {
-                            JOptionPane.showMessageDialog(this, "Editado com Sucesso", "Editar", JOptionPane.INFORMATION_MESSAGE);
-                            limparCampos();
-                            //atualizarTabela();
+                        if (obj.getTipoUsuarioModel().getNivel() <= 1) {
+                            if (DAO.editar(obj)) {
+                                JOptionPane.showMessageDialog(this, "Editado com Sucesso", "Editar", JOptionPane.INFORMATION_MESSAGE);
+                                limparCampos();
+                                //atualizarTabela();
+                            }
+                        } else {
+                            if (DAOF.editar(obj)) {
+                                JOptionPane.showMessageDialog(this, "Editado com Sucesso", "Editar", JOptionPane.INFORMATION_MESSAGE);
+                                limparCampos();
+                                //atualizarTabela();
+                            }
                         }
                     }
                     sair();
@@ -609,7 +628,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         if (jpfSenha.getText().equals("")) {
             msg += "A senha deve ser preenchida\n";
         } else {
-            if (jpfSenha.getText().length() <= 8 || jpfSenha.getText().length() > 50) {
+            if (jpfSenha.getText().length() < 8 || jpfSenha.getText().length() > 50) {
                 msg += "A senha deve conter entre 8 e 50 caracteres\n";
             }
         }
@@ -619,7 +638,7 @@ public class JFCadCliente extends javax.swing.JFrame {
             if (jftDataNasc.getText().contains(" ")) {
                 msg += "Há campos vazios na data de nascimento\n";
             } else {
-                if(!validaData(jftDataNasc.getText())){
+                if (!validaData(jftDataNasc.getText())) {
                     msg += "Data Inválida\n";
                 }
             }
@@ -645,12 +664,12 @@ public class JFCadCliente extends javax.swing.JFrame {
         obj.setSexo(jcbSexo.getItemAt(jcbSexo.getSelectedIndex()));
         obj.setDataNasc(calendario(jftDataNasc.getText()));
         obj.setLogin(jtUsuario.getText());
-        obj.setSenha(jpfSenha.getText());
+        obj.setSenha(Criptografar.encriptografar(jpfSenha.getText()));
         obj.setDataCadastro(dataAtual());
         obj.setTipoUsuarioModel(dadosTipoUsuario.get(jcbTipo.getSelectedIndex() - 1));
         obj.setEnderecoModel(janela.preencherObjeto());
         if (obj.getTipoUsuarioModel().getNivel() == 1) {
-            objFunc = new FuncionarioModel(obj.getId(), obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(), 0, "", "", "");
+            objFunc = objFunc.setFuncionarioModel(obj);//new FuncionarioModel(obj.getId(), obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(), 0, "", "", "");
             objFunc = janelaF.preencherObjeto(objFunc);
         }
 
@@ -703,7 +722,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         jlTipo.setEnabled(n);
     }
 
-    public static boolean validaData(String data) {
+    public boolean validaData(String data) {
         GregorianCalendar calendar = new GregorianCalendar();
         int dia = 0, mes = 0, ano = 0;
         String diaStr = data.substring(0, 2);
@@ -716,9 +735,9 @@ public class JFCadCliente extends javax.swing.JFrame {
         } catch (Exception e) {
             return false;
         }
-        if(ano > 2017){
+        if (ano > (anoAtual - 1)) {
             return false;
-        }else if (dia < 1 || mes < 1 || ano < 1) {
+        } else if (dia < 1 || mes < 1 || ano < 1) {
             return false;
         } else if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) {
             if (dia <= 31) {
@@ -747,7 +766,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         } else if (mes > 12) {
             return false;
         }
-        
+
         return true;
     }
 }

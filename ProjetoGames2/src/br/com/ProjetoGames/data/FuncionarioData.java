@@ -12,7 +12,7 @@ public class FuncionarioData extends UsuarioData {
         if (super.incluir(obj)) {
             Conexao c = new Conexao();
             c.getConexao().setAutoCommit(false);
-            String sql = "Insert into tbusuario (idusuario,salario,cargo,cargahoraria,estadocivil) values (?,?,?,?,?)";
+            String sql = "Insert into tbfuncionarios (idusuario,salario,cargo,cargahoraria,estadocivil) values (?,?,?,?,?)";
             PreparedStatement ps = c.getConexao().prepareStatement(sql);
             ps.setInt(1, obj.getId());
             ps.setFloat(2, obj.getSalario());
@@ -114,5 +114,23 @@ public class FuncionarioData extends UsuarioData {
             c.getConexao().setAutoCommit(true);
             throw new Exception("Não foi possível atualizar.");
         }
+
+    }
+
+    public void validarFuncionario(String user, String senha) throws Exception{
+        try {
+            Conexao c = new Conexao();
+            UsuarioModel obj = super.validarUsuario(user, senha);
+            String sql = "select * from tbfuncionarios where id=?";
+            PreparedStatement ps = c.getConexao().prepareStatement(sql);
+            ps.setInt(1, obj.getId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                
+            }
+        } catch (Exception e) {
+            throw new Exception("Login Inválido.");
+        }
+        
     }
 }

@@ -55,5 +55,8 @@ public class FuncionarioModel extends UsuarioModel {
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
     }
-    
+    public FuncionarioModel setFuncionarioModel(UsuarioModel obj){
+        FuncionarioModel func = new FuncionarioModel(obj.getId(), obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(), 0, "", "", "");
+        return func;
+    }
 }

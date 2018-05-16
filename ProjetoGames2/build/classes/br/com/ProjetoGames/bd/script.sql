@@ -5,10 +5,10 @@
  telefone varchar(13) not null,
  email varchar(40) not null,
  sexo varchar(9) not null,
- dataNasc date not null,
+ dataNasc varchar(12) not null, -- date
  login varchar(40) not null,
  senha varchar(40) not null,
- dataCadastro date not null,
+ dataCadastro varchar(12) not null, -- date
  idTipo integer not null,
  constraint fk_tbusuarios_tbtipousuarios foreign key (idTipo) references tbTipoUsuarios
 );
