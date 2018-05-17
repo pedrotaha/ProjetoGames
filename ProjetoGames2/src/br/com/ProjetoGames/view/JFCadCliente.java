@@ -537,6 +537,7 @@ public class JFCadCliente extends javax.swing.JFrame {
                 frameCountF--;
                 jlFuncionario.setText("Dados registrados!");
                 tratarCampos(true);
+                jdpPrincipal.remove(janelaF);
             }
         });
         janela.addInternalFrameListener(new InternalFrameAdapter() {
@@ -544,6 +545,7 @@ public class JFCadCliente extends javax.swing.JFrame {
                 frameCount--;
                 jtEndereco.setText("Registrado com sucesso!");
                 tratarCampos(true);
+                jdpPrincipal.remove(janela);
             }
         });
     }
@@ -559,10 +561,6 @@ public class JFCadCliente extends javax.swing.JFrame {
                 //new JFPesquisarUser().setVisible(true);
             }
         }
-    }
-
-    public boolean salvar() {
-        return true;
     }
 
     public void carregarTipo() {

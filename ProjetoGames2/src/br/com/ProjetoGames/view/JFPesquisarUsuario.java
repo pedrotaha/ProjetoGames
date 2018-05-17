@@ -12,20 +12,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 /**
  *
  * @author Pedro
  */
 public class JFPesquisarUsuario extends javax.swing.JFrame {
-
-    /**
-     * Creates new form JFPesquisarUsuario
-     */
+    int frameCount;
+    JIFDetalhesUsuarios janela = new JIFDetalhesUsuarios();
     public JFPesquisarUsuario() {
         initComponents();
+        frameCount = 0;
         setIcon();
         windowsClosing();
+        internoClosed();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
@@ -62,6 +64,11 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         jbDetalhes.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbDetalhes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Pokedex_48px_1.png"))); // NOI18N
         jbDetalhes.setText("Detalhes");
+        jbDetalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDetalhesActionPerformed(evt);
+            }
+        });
 
         jlPesquisar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlPesquisar.setText("Pesquisar:");
@@ -162,6 +169,14 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalhesActionPerformed
+        if(frameCount == 0){
+            jdpPesquisarUser.add(janela);
+            janela.setVisible(true);
+            frameCount++;
+        }
+    }//GEN-LAST:event_jbDetalhesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -221,6 +236,15 @@ private void setIcon() {
                     dispose();
                     new JFPrincipal().setVisible(true);
                 }
+            }
+        });
+    }
+    
+    public void internoClosed() {
+        janela.addInternalFrameListener(new InternalFrameAdapter() {
+            public void internalFrameClosed(InternalFrameEvent e) {
+                frameCount--;
+                jdpPesquisarUser.remove(janela);
             }
         });
     }
