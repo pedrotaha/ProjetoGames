@@ -9,7 +9,8 @@ import java.util.ArrayList;
 public class FuncionarioData extends UsuarioData {
 
     public boolean incluir(FuncionarioModel obj) throws Exception {
-        if (super.incluir(obj)) {
+        UsuarioData DAO = new UsuarioData();
+        if (DAO.incluir(obj)) {
             Conexao c = new Conexao();
             c.getConexao().setAutoCommit(false);
             String sql = "Insert into tbfuncionarios (idusuario,salario,cargo,cargahoraria,estadocivil) values (?,?,?,?,?)";
@@ -139,6 +140,7 @@ public class FuncionarioData extends UsuarioData {
         }
         throw new Exception("Login Inválido.");
     }
+    
     public FuncionarioModel validarFuncionarioObj(UsuarioModel obj) throws Exception {
         try {
             FuncionarioModel func = null;

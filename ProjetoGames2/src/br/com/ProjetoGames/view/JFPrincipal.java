@@ -5,6 +5,7 @@
  */
 package br.com.ProjetoGames.view;
 
+import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -23,6 +24,7 @@ import javax.swing.UIManager;
  * @author Pedro
  */
 public class JFPrincipal extends javax.swing.JFrame {
+    
     UsuarioModel obj;
     
     public JFPrincipal() {
@@ -34,10 +36,23 @@ public class JFPrincipal extends javax.swing.JFrame {
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
     }
+    
     public JFPrincipal(UsuarioModel obj) {
         initComponents();
         this.obj = obj;
         jlInfo.setText("Login : "+obj.getNome()+"\nTipo: "+obj.getTipoUsuarioModel().getDescricao());
+        setIcon();
+        tempo();
+        windowsClosing();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+    }
+    
+    public JFPrincipal(FuncionarioModel obj) {
+        initComponents();
+        this.obj = obj;
+        jlInfo.setText("Login : "+obj.getNome()+" Tipo: "+obj.getTipoUsuarioModel().getDescricao()+" salario: " + obj.getSalario());
         setIcon();
         tempo();
         windowsClosing();
