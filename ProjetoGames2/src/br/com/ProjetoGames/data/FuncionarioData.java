@@ -8,18 +8,25 @@ import java.util.ArrayList;
 
 public class FuncionarioData extends UsuarioData {
 
-    public boolean incluir(FuncionarioModel obj) throws Exception {
-        UsuarioData DAO = new UsuarioData();
-        if (DAO.incluir(obj)) {
-            Conexao c = new Conexao();
-            c.getConexao().setAutoCommit(false);
+    public boolean incluirF(FuncionarioModel objFunc) throws Exception {
+        UsuarioModel obj = new UsuarioModel(objFunc);
+        //if (super.incluir(obj)) {
+        try {
+            Conexao c = super.incluirC(obj);
+            String sql2 = "select max(id) as id from tbusuarios";
+            PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
+            ResultSet rs = ps2.executeQuery();
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
             String sql = "Insert into tbfuncionarios (idusuario,salario,cargo,cargahoraria,estadocivil) values (?,?,?,?,?)";
             PreparedStatement ps = c.getConexao().prepareStatement(sql);
-            ps.setInt(1, obj.getId());
-            ps.setFloat(2, obj.getSalario());
-            ps.setString(3, obj.getCargo());
-            ps.setString(4, obj.getCargaHoraria());
-            ps.setString(5, obj.getEstadoCivil());
+            ps.setInt(1, id);
+            ps.setFloat(2, objFunc.getSalario());
+            ps.setString(3, objFunc.getCargo());
+            ps.setString(4, objFunc.getCargaHoraria());
+            ps.setString(5, objFunc.getEstadoCivil());
             if (ps.executeUpdate() > 0) {
                 c.getConexao().commit();
                 c.getConexao().setAutoCommit(true);
@@ -29,9 +36,13 @@ public class FuncionarioData extends UsuarioData {
                 c.getConexao().setAutoCommit(true);
                 throw new Exception("Ocorreu erro ao salvar o Funcionário");
             }
-        } else {
-            throw new Exception("Ocorreu erro ao salvar");
+        } catch (Exception e) {
+            throw new Exception("Ocorreu erro ao salvar"+e.getMessage());
         }
+            
+        //} else {
+            
+        //}
     }
 
     public ArrayList<FuncionarioModel> pesquisarF(String pesq) throws Exception {
@@ -69,7 +80,7 @@ public class FuncionarioData extends UsuarioData {
         return listaF;
     }
 
-    public boolean excluir(int id) throws Exception {
+    public boolean excluirF(int id) throws Exception {
         if (super.excluir(id)) {
             Conexao c = new Conexao();
             c.getConexao().setAutoCommit(false);
@@ -90,17 +101,19 @@ public class FuncionarioData extends UsuarioData {
         }
     }
 
-    public boolean editar(FuncionarioModel obj) throws Exception {
+    public boolean editarF(FuncionarioModel objFunc) throws Exception {
+        FuncionarioModel obj1 = new FuncionarioModel();
+        UsuarioModel obj = new UsuarioModel(objFunc);
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
         if (super.editar(obj)) {
             String sql = "Update tbfuncionarios set cargo=?, cargahoraria=?, estadocivil=?, salario=? where idusuario=?";
             PreparedStatement ps = c.getConexao().prepareStatement(sql);
-            ps.setString(1, obj.getCargo());
-            ps.setString(2, obj.getCargaHoraria());
-            ps.setString(3, obj.getEstadoCivil());
-            ps.setFloat(4, obj.getSalario());
-            ps.setInt(5, obj.getId());
+            ps.setString(1, objFunc.getCargo());
+            ps.setString(2, objFunc.getCargaHoraria());
+            ps.setString(3, objFunc.getEstadoCivil());
+            ps.setFloat(4, objFunc.getSalario());
+            ps.setInt(5, objFunc.getId());
             if (ps.executeUpdate() > 0) {
                 c.getConexao().commit();
                 c.getConexao().setAutoCommit(true);
@@ -143,18 +156,14 @@ public class FuncionarioData extends UsuarioData {
     
     public FuncionarioModel validarFuncionarioObj(UsuarioModel obj) throws Exception {
         try {
-            FuncionarioModel func = null;
+            FuncionarioModel func;
             Conexao c = new Conexao();
-            String sql = "select * from tbfuncionarios where id=?";
+            String sql = "select * from tbfuncionarios where idusuario=?";
             PreparedStatement ps = c.getConexao().prepareStatement(sql);
             ps.setInt(1, obj.getId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                func = new FuncionarioModel(obj, 0, "", "", "");
-                func.setCargaHoraria(rs.getString("cargahoraria"));
-                func.setCargo(rs.getString("cargo"));
-                func.setEstadoCivil(rs.getString("estadocivil"));
-                func.setSalario(rs.getFloat("salario"));
+                func = new FuncionarioModel(obj, rs.getFloat("salario"), rs.getString("cargo"), rs.getString("cargahoraria"), rs.getString("estadocivil"));
                 return func;
             }
         } catch (Exception e) {

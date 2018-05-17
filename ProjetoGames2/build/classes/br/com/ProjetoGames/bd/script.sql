@@ -7,19 +7,17 @@
  sexo varchar(9) not null,
  dataNasc varchar(12) not null, -- date
  login varchar(40) not null,
- senha varchar(40) not null,
+ senha varchar(300) not null,
  dataCadastro varchar(12) not null, -- date
- idTipo integer not null,
- constraint fk_tbusuarios_tbtipousuarios foreign key (idTipo) references tbTipoUsuarios
+ idTipo integer not null references tbTipoUsuarios ON DELETE CASCADE
 );
 
 create table if not exists tbFuncionarios(
- idUsuario integer primary key not null,
+ idUsuario integer primary key not null references tbUsuarios ON DELETE CASCADE,
  salario float not null,
  cargo varchar(40) not null,
  cargaHoraria varchar(40) not null,
- estadoCivil varchar(10) not null,
- constraint fk_tbfuncionarios_tbusuarios foreign key (idUsuario) references tbUsuarios
+ estadoCivil varchar(30) not null
 );
 
 create table if not exists tbTipoUsuarios(
@@ -36,7 +34,7 @@ create table if not exists tbJogos(
  situacao varchar(20) not null,
  descricao varchar(900) not null,
  plataforma varchar(13) not null,
- dataLancamento date not null,
+ dataLancamento varchar(12) not null,
  publisher varchar(40) not null,
  faixaEtaria varchar(10) not null,
  imagem bytea not null
@@ -44,36 +42,32 @@ create table if not exists tbJogos(
 
 create table if not exists tblocacao(
  idLocacao serial primary key not null,
- idCli integer not null,
- idFunc integer not null,
+ idCli integer not null references tbUsuarios ON DELETE CASCADE,
+ idFunc integer not null references tbFuncionarios,
  --idJogo integer not null,
- dataLocacao date not null,
- hora time not null,
- dataDevolucao date not null,
+ dataLocacao varchar(12) not null,
+ hora varchar(12) not null,
+ dataDevolucao varchar(12) not null,
  valor float not null,
- formaPagamento varchar(40) not null,
- constraint fk_tblocacao_tbusuario foreign key (idCli) references tbUsuarios,
- constraint fk_tblocacao_tbfuncionario foreign key (idFunc) references tbFuncionarios
+ formaPagamento varchar(40) not null
  --,constraint fk_tblocacao_tbjogos foreign key (idJogo) references tbJogos
 );
 
 create table if not exists tbvendas(
  idVenda serial primary key not null,
- idCli integer not null,
- idFunc integer not null,
+ idCli integer not null references tbUsuarios ON DELETE CASCADE,
+ idFunc integer not null references tbFuncionarios ON DELETE CASCADE,
  --idJogo integer not null,
- dataCompra date not null,
- hora time not null,
+ dataCompra varchar(12) not null,
+ hora varchar(12) not null,
  valor float not null,
  formaPagamento varchar(40) not null,
- tipo varchar(20) not null,
- constraint fk_tblocacao_tbusuario foreign key (idCli) references tbUsuarios,
- constraint fk_tblocacao_tbfuncionario foreign key (idFunc) references tbFuncionarios
+ tipo varchar(20) not null
  --,constraint fk_tblocacao_tbjogos foreign key (idJogo) references tbJogos
 );
 
 create table if not exists tbendereco(
- idUsuario integer primary key not null,
+ idUsuario integer primary key not null references tbUsuarios ON DELETE CASCADE,
  pais varchar(40) not null,
  estado char(40) not null,
  cidade varchar(40) not null,
@@ -81,31 +75,27 @@ create table if not exists tbendereco(
  rua varchar(40) not null,
  numero integer not null,
  cep varchar(9) not null,
- complemento varchar(40) null,
- constraint fk_tbendereco_tbusuario foreign key (idUsuario) references tbUsuarios
+ complemento varchar(40) null
 );
 
 create table if not exists tbQuantidade(
- idJogo integer primary key not null,
+ idJogo integer primary key not null references tbJogos ON DELETE CASCADE,
  quantidadeAlugar integer not null,
  quantidadeVender integer not null,
  valorAlugar float not null,
- valorVender float not null,
- constraint fk_tbQuantidade_tbJogos foreign key (idJogo) references tbJogos
+ valorVender float not null 
  );
 
 create table if not exists tbJogoVend(
- idVenda integer not null,
- idJogo integer not null,
- quantidade integer not null,
- constraint fk_tbProdComp_tbvendas foreign key (idVenda) references tbvendas
+ idVenda integer not null references tbvendas ON DELETE CASCADE,
+ idJogo integer not null references tbjogos ON DELETE CASCADE,
+ quantidade integer not null
 );
 
 create table if not exists tbJogoLocad(
- idLocacao integer not null,
- idJogo integer not null,
- quantidade integer not null,
- constraint fk_tbProdComp_tblocacao foreign key (idLocacao) references tblocacao
+ idLocacao integer not null references tblocacao ON DELETE CASCADE,
+ idJogo integer not null references tbjogos ON DELETE CASCADE,
+ quantidade integer not null
 );
  
  insert into tbtipousuarios (descricao, nivel) values ('Cliente',0);

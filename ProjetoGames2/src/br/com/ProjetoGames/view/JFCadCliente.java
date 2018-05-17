@@ -361,13 +361,13 @@ public class JFCadCliente extends javax.swing.JFrame {
                     FuncionarioData DAOF = new FuncionarioData();
                     if (obj.getId() <= 0) {
                         if (DAO.usuarioUnico(obj)) {
-                            if (obj.getTipoUsuarioModel().getNivel() <= 1) {
+                            if(jcbTipo.getSelectedIndex() <= 1){//if (obj.getTipoUsuarioModel().getNivel() <= 1) {
                                 if (DAO.incluir(obj)) {
                                     JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
                                     jbLimparActionPerformed(evt);
                                 }
                             } else {
-                                if (DAOF.incluir(obj)) {
+                                if (DAOF.incluirF(objFunc)) {
                                     JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
                                     jbLimparActionPerformed(evt);
                                 }
@@ -382,7 +382,7 @@ public class JFCadCliente extends javax.swing.JFrame {
                                 //atualizarTabela();
                             }
                         } else {
-                            if (DAOF.editar(obj)) {
+                            if (DAOF.editarF(objFunc)) {
                                 JOptionPane.showMessageDialog(this, "Editado com Sucesso", "Editar", JOptionPane.INFORMATION_MESSAGE);
                                 limparCampos();
                                 //atualizarTabela();
