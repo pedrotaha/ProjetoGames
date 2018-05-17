@@ -27,14 +27,126 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jlNome = new javax.swing.JLabel();
+        jlCpf = new javax.swing.JLabel();
         jlId = new javax.swing.JLabel();
+        jlTelefone = new javax.swing.JLabel();
+        jlNome = new javax.swing.JLabel();
+        jlSexo = new javax.swing.JLabel();
+        jlDataCadastro = new javax.swing.JLabel();
+        jlDataNasc = new javax.swing.JLabel();
+        jlTipo = new javax.swing.JLabel();
+        jlCargo = new javax.swing.JLabel();
+        jlCargaHoraria = new javax.swing.JLabel();
+        jlSalario = new javax.swing.JLabel();
+        jlEstadoCivil = new javax.swing.JLabel();
+        jtId = new javax.swing.JTextField();
+        jtNome = new javax.swing.JTextField();
+        jtCpf = new javax.swing.JTextField();
+        jtTelefone = new javax.swing.JTextField();
+        jtSexo = new javax.swing.JTextField();
+        jtDataNasc = new javax.swing.JTextField();
+        jtDataCadastro = new javax.swing.JTextField();
+        jtTipo = new javax.swing.JTextField();
+        jtCargo = new javax.swing.JTextField();
+        jtCargaHoraria = new javax.swing.JTextField();
+        jtEstadoCivil = new javax.swing.JTextField();
+        jtSalario = new javax.swing.JTextField();
+
+        jlCpf.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlCpf.setText("CPF:");
+
+        jlId.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlId.setText("ID:");
+
+        jlTelefone.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlTelefone.setText("Telefone:");
 
         jlNome.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlNome.setText("Nome:");
 
-        jlId.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jlId.setText("ID:");
+        jlSexo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlSexo.setText("Sexo:");
+
+        jlDataCadastro.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlDataCadastro.setText("Data Cadastro:");
+
+        jlDataNasc.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlDataNasc.setText("Data Nascimento:");
+
+        jlTipo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlTipo.setText("Tipo:");
+
+        jlCargo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlCargo.setText("Cargo:");
+
+        jlCargaHoraria.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlCargaHoraria.setText("Carga Horária:");
+
+        jlSalario.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlSalario.setText("Salário:");
+
+        jlEstadoCivil.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlEstadoCivil.setText("Estado Civil:");
+
+        jtId.setEditable(false);
+        jtId.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtId.setToolTipText("");
+        jtId.setEnabled(false);
+
+        jtNome.setEditable(false);
+        jtNome.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtNome.setToolTipText("");
+        jtNome.setEnabled(false);
+
+        jtCpf.setEditable(false);
+        jtCpf.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtCpf.setToolTipText("");
+        jtCpf.setEnabled(false);
+
+        jtTelefone.setEditable(false);
+        jtTelefone.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtTelefone.setToolTipText("");
+        jtTelefone.setEnabled(false);
+
+        jtSexo.setEditable(false);
+        jtSexo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtSexo.setToolTipText("");
+        jtSexo.setEnabled(false);
+
+        jtDataNasc.setEditable(false);
+        jtDataNasc.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtDataNasc.setToolTipText("");
+        jtDataNasc.setEnabled(false);
+
+        jtDataCadastro.setEditable(false);
+        jtDataCadastro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtDataCadastro.setToolTipText("");
+        jtDataCadastro.setEnabled(false);
+
+        jtTipo.setEditable(false);
+        jtTipo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtTipo.setToolTipText("");
+        jtTipo.setEnabled(false);
+
+        jtCargo.setEditable(false);
+        jtCargo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtCargo.setToolTipText("");
+        jtCargo.setEnabled(false);
+
+        jtCargaHoraria.setEditable(false);
+        jtCargaHoraria.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtCargaHoraria.setToolTipText("");
+        jtCargaHoraria.setEnabled(false);
+
+        jtEstadoCivil.setEditable(false);
+        jtEstadoCivil.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtEstadoCivil.setToolTipText("");
+        jtEstadoCivil.setEnabled(false);
+
+        jtSalario.setEditable(false);
+        jtSalario.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jtSalario.setToolTipText("");
+        jtSalario.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -42,18 +154,101 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jlNome, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlId))
-                .addContainerGap(700, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlCargaHoraria, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                            .addComponent(jtCargaHoraria))
+                        .addGap(68, 68, 68)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlEstadoCivil, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(jtEstadoCivil))
+                        .addGap(107, 107, 107)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlSalario)
+                            .addComponent(jtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlDataNasc)
+                            .addComponent(jtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlId, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlNome, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jlTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+                            .addComponent(jtTelefone))
+                        .addGap(76, 76, 76)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jlId)
-                .addGap(16, 16, 16)
-                .addComponent(jlNome)
-                .addContainerGap(513, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlId)
+                    .addComponent(jlNome)
+                    .addComponent(jlCpf)
+                    .addComponent(jlTelefone)
+                    .addComponent(jlSexo))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlDataNasc)
+                    .addComponent(jlDataCadastro)
+                    .addComponent(jlTipo)
+                    .addComponent(jlCargo))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(76, 76, 76)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlCargaHoraria)
+                    .addComponent(jlEstadoCivil)
+                    .addComponent(jlSalario))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtCargaHoraria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
 
         pack();
@@ -61,7 +256,29 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jlCargaHoraria;
+    private javax.swing.JLabel jlCargo;
+    private javax.swing.JLabel jlCpf;
+    private javax.swing.JLabel jlDataCadastro;
+    private javax.swing.JLabel jlDataNasc;
+    private javax.swing.JLabel jlEstadoCivil;
     private javax.swing.JLabel jlId;
     private javax.swing.JLabel jlNome;
+    private javax.swing.JLabel jlSalario;
+    private javax.swing.JLabel jlSexo;
+    private javax.swing.JLabel jlTelefone;
+    private javax.swing.JLabel jlTipo;
+    private javax.swing.JTextField jtCargaHoraria;
+    private javax.swing.JTextField jtCargo;
+    private javax.swing.JTextField jtCpf;
+    private javax.swing.JTextField jtDataCadastro;
+    private javax.swing.JTextField jtDataNasc;
+    private javax.swing.JTextField jtEstadoCivil;
+    private javax.swing.JTextField jtId;
+    private javax.swing.JTextField jtNome;
+    private javax.swing.JTextField jtSalario;
+    private javax.swing.JTextField jtSexo;
+    private javax.swing.JTextField jtTelefone;
+    private javax.swing.JTextField jtTipo;
     // End of variables declaration//GEN-END:variables
 }

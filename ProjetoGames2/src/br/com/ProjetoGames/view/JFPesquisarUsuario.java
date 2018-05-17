@@ -119,7 +119,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
                 .addContainerGap(361, Short.MAX_VALUE))
             .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 16, Short.MAX_VALUE)
                     .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
                             .addComponent(jlPesquisar)
@@ -130,7 +130,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
                             .addComponent(jbEditar)
                             .addGap(539, 539, 539)
                             .addComponent(jbExcluir)))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 17, Short.MAX_VALUE)))
         );
         jdpPesquisarUserLayout.setVerticalGroup(
             jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,7 +140,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 16, Short.MAX_VALUE)
                     .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
                             .addGap(3, 3, 3)
@@ -152,7 +152,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
                     .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jbEditar)
                         .addComponent(jbExcluir))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 16, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jdpPesquisarUser);
