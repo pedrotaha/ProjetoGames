@@ -113,3 +113,6 @@ create table if not exists tbJogoLocad(
  insert into tbtipousuarios (descricao, nivel) values ('Administrador',2);
  select * from tbtipousuarios
  Select * from tbtipousuarios order by descricao
+
+truncate table tbusuarios; 
+ALTER SEQUENCE tbusuario_id_seq RESTART WITH 1;

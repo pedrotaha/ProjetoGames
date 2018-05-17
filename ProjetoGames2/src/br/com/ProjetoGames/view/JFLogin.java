@@ -5,6 +5,11 @@
  */
 package br.com.ProjetoGames.view;
 
+import br.com.ProjetoGames.data.FuncionarioData;
+import br.com.ProjetoGames.data.UsuarioData;
+import br.com.ProjetoGames.model.FuncionarioModel;
+import br.com.ProjetoGames.model.UsuarioModel;
+import br.com.ProjetoGames.view.control.Criptografar;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -20,10 +25,19 @@ import javax.swing.UIManager;
  * @author Pedro
  */
 public class JFLogin extends javax.swing.JFrame {
-    
+
+    UsuarioData DAO;
+    UsuarioModel obj;
+    FuncionarioModel objF;
+    FuncionarioData DAOF;
+
     public JFLogin() {
         initComponents();
         setIcon();
+        obj = new UsuarioModel();
+        DAO = new UsuarioData();
+        objF = new FuncionarioModel();
+        DAOF = new FuncionarioData();
         windowsClosing();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
@@ -175,8 +189,7 @@ public class JFLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jtUsuarioActionPerformed
 
     private void jlLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlLoginMouseClicked
-        new JFPrincipal().setVisible(true);
-        dispose();
+        login();
     }//GEN-LAST:event_jlLoginMouseClicked
 
     private void jlLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlLoginMouseEntered
@@ -299,10 +312,21 @@ private void setIcon() {
     }
 
     private void login() {
-        new JFPrincipal().setVisible(true);
-        dispose();
+        try {
+            obj = DAO.validarUsuario(jtUsuario.getText(), Criptografar.encriptografar(jpfSenha.getText()));
+            if (obj.getTipoUsuarioModel().getNivel() > 0) {
+                objF = DAOF.validarFuncionarioObj(obj);
+                new JFPrincipal(objF).setVisible(true);
+            } else {
+                new JFPrincipal(obj).setVisible(true);
+            }
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Falha no Login: \n" + e.getMessage(),
+                    "Botão Acessar", JOptionPane.ERROR_MESSAGE);
+        }
     }
-    
+
     public void windowsClosing() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

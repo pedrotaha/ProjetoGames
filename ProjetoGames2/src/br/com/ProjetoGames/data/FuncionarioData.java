@@ -117,8 +117,9 @@ public class FuncionarioData extends UsuarioData {
 
     }
 
-    public void validarFuncionario(String user, String senha) throws Exception{
+    public FuncionarioModel validarFuncionario(String user, String senha) throws Exception {
         try {
+            FuncionarioModel func = null;
             Conexao c = new Conexao();
             UsuarioModel obj = super.validarUsuario(user, senha);
             String sql = "select * from tbfuncionarios where id=?";
@@ -126,11 +127,37 @@ public class FuncionarioData extends UsuarioData {
             ps.setInt(1, obj.getId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                
+                func = func.setFuncionarioModel(obj);
+                func.setCargaHoraria(rs.getString("cargahoraria"));
+                func.setCargo(rs.getString("cargo"));
+                func.setEstadoCivil(rs.getString("estadocivil"));
+                func.setSalario(rs.getFloat("salario"));
+                return func;
             }
         } catch (Exception e) {
             throw new Exception("Login Inválido.");
         }
-        
+        throw new Exception("Login Inválido.");
+    }
+    public FuncionarioModel validarFuncionarioObj(UsuarioModel obj) throws Exception {
+        try {
+            FuncionarioModel func = null;
+            Conexao c = new Conexao();
+            String sql = "select * from tbfuncionarios where id=?";
+            PreparedStatement ps = c.getConexao().prepareStatement(sql);
+            ps.setInt(1, obj.getId());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                func = func.setFuncionarioModel(obj);
+                func.setCargaHoraria(rs.getString("cargahoraria"));
+                func.setCargo(rs.getString("cargo"));
+                func.setEstadoCivil(rs.getString("estadocivil"));
+                func.setSalario(rs.getFloat("salario"));
+                return func;
+            }
+        } catch (Exception e) {
+            throw new Exception("Login Inválido.");
+        }
+        throw new Exception("Login Inválido.");
     }
 }
