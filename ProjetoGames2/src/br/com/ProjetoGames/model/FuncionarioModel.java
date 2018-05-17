@@ -23,6 +23,13 @@ public class FuncionarioModel extends UsuarioModel {
         this.cargaHoraria = cargaHoraria;
         this.estadoCivil = estadoCivil;
     }
+    public FuncionarioModel(UsuarioModel obj, float salario, String cargo, String cargaHoraria, String estadoCivil){
+        super(obj.getId(), obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel());
+        this.salario = salario;
+        this.cargo = cargo;
+        this.cargaHoraria = cargaHoraria;
+        this.estadoCivil = estadoCivil;
+    }
     
     public float getSalario() {
         return salario;

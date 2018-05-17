@@ -360,15 +360,17 @@ public class JFCadCliente extends javax.swing.JFrame {
                     UsuarioData DAO = new UsuarioData();
                     FuncionarioData DAOF = new FuncionarioData();
                     if (obj.getId() <= 0) {
-                        if (obj.getTipoUsuarioModel().getNivel() <= 1) {
-                            if (DAO.incluir(obj)) {
-                                JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
-                                jbLimparActionPerformed(evt);
-                            }
-                        } else {
-                            if (DAOF.incluir(obj)) {
-                                JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
-                                jbLimparActionPerformed(evt);
+                        if (DAO.usuarioUnico(obj)) {
+                            if (obj.getTipoUsuarioModel().getNivel() <= 1) {
+                                if (DAO.incluir(obj)) {
+                                    JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
+                                    jbLimparActionPerformed(evt);
+                                }
+                            } else {
+                                if (DAOF.incluir(obj)) {
+                                    JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
+                                    jbLimparActionPerformed(evt);
+                                }
                             }
                         }
                     }
@@ -420,11 +422,22 @@ public class JFCadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jtNomeKeyTyped
 
     private void jcbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbTipoActionPerformed
-        if (jcbTipo.getSelectedIndex() > 1) {
-            jbFuncionario.setVisible(true);
-        } else {
-            jbFuncionario.setVisible(false);
+        try {
+            if (jcbTipo.getSelectedIndex() > 1) {
+                jbFuncionario.setVisible(true);
+                if (janelaF.validar()) {
+                    jlFuncionario.setText("Dados registrados!");
+                } else {
+                    jlFuncionario.setText("");
+                }
+            } else {
+                jbFuncionario.setVisible(false);
+                jlFuncionario.setText("");
+            }
+        } catch (Exception e) {
+            //JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Combo Tipo", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_jcbTipoActionPerformed
 
     private void jbFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFuncionarioActionPerformed
@@ -668,8 +681,10 @@ public class JFCadCliente extends javax.swing.JFrame {
         obj.setDataCadastro(dataAtual());
         obj.setTipoUsuarioModel(dadosTipoUsuario.get(jcbTipo.getSelectedIndex() - 1));
         obj.setEnderecoModel(janela.preencherObjeto());
-        if (obj.getTipoUsuarioModel().getNivel() == 1) {
-            objFunc = objFunc.setFuncionarioModel(obj);//new FuncionarioModel(obj.getId(), obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(), 0, "", "", "");
+        if (obj.getTipoUsuarioModel().getNivel() >= 1) {
+            //objFunc = objFunc.setFuncionarioModel(obj);
+            //objFunc = new FuncionarioModel(obj.getId(), obj.getNome(), obj.getCpf(), obj.getTelefone(), obj.getEmail(), obj.getSexo(), obj.getEnderecoModel(), obj.getDataNasc(), obj.getLogin(), obj.getSenha(), obj.getDataCadastro(), obj.getTipoUsuarioModel(), 0, "", "", "");
+            objFunc = new FuncionarioModel(obj, 0, "", "", "");
             objFunc = janelaF.preencherObjeto(objFunc);
         }
 

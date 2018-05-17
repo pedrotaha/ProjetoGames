@@ -90,6 +90,24 @@ public class UsuarioData {
         return dados;
     }
 
+    public ArrayList<UsuarioModel> pesquisarTudo() throws Exception {
+        ArrayList<UsuarioModel> dados = new ArrayList<>();
+        String sql = "Select * from tbusuarios";
+        Conexao c = new Conexao();
+        PreparedStatement ps = c.getConexao().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            UsuarioModel obj = new UsuarioModel();
+            obj.setId(rs.getInt("id"));
+            obj.setNome(rs.getString("nome"));
+            obj.setCpf(rs.getString("cpf"));
+            obj.setEmail(rs.getString("email"));
+            obj.setLogin(rs.getString("login"));
+            dados.add(obj);
+        }
+        return dados;
+    }
+
     public boolean excluir(int id) throws Exception {
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
@@ -174,6 +192,29 @@ public class UsuarioData {
         } else {
             throw new Exception("Login Inválido.");
         }
+    }
+
+    public boolean usuarioUnico(UsuarioModel obj) throws Exception {
+        ArrayList<UsuarioModel> lista = pesquisarTudo();
+        String msg = new String();
+        for (UsuarioModel list : lista) {
+            if (list.getLogin().equals(obj.getLogin())) {
+                msg += "Login já cadastrado!\n";
+                if (list.getEmail().equals(obj.getEmail())) {
+                    msg += "E-mail já cadastrado!\n";
+                }
+                throw new Exception(msg);
+            } else {
+                if (list.getEmail().equals(obj.getEmail())) {
+                    msg += "E-mail já cadastrado!\n";
+                    if (list.getLogin().equals(obj.getLogin())) {
+                        msg += "Login já cadastrado!\n";
+                    }
+                    throw new Exception(msg);
+                }
+            }
+        }
+        return true;
     }
 
     public Calendar calendario(String data) throws Exception {

@@ -127,7 +127,7 @@ public class FuncionarioData extends UsuarioData {
             ps.setInt(1, obj.getId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                func = func.setFuncionarioModel(obj);
+                func = new FuncionarioModel(obj, 0, "", "", "");
                 func.setCargaHoraria(rs.getString("cargahoraria"));
                 func.setCargo(rs.getString("cargo"));
                 func.setEstadoCivil(rs.getString("estadocivil"));
@@ -148,7 +148,7 @@ public class FuncionarioData extends UsuarioData {
             ps.setInt(1, obj.getId());
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                func = func.setFuncionarioModel(obj);
+                func = new FuncionarioModel(obj, 0, "", "", "");
                 func.setCargaHoraria(rs.getString("cargahoraria"));
                 func.setCargo(rs.getString("cargo"));
                 func.setEstadoCivil(rs.getString("estadocivil"));
