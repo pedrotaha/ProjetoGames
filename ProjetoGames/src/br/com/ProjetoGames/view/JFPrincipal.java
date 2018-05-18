@@ -5,6 +5,8 @@
  */
 package br.com.ProjetoGames.view;
 
+import br.com.ProjetoGames.model.FuncionarioModel;
+import br.com.ProjetoGames.model.UsuarioModel;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -22,9 +24,35 @@ import javax.swing.UIManager;
  * @author Pedro
  */
 public class JFPrincipal extends javax.swing.JFrame {
-
+    
+    UsuarioModel obj;
+    
     public JFPrincipal() {
         initComponents();
+        setIcon();
+        tempo();
+        windowsClosing();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+    }
+    
+    public JFPrincipal(UsuarioModel obj) {
+        initComponents();
+        this.obj = obj;
+        jlInfo.setText("Login : "+obj.getNome()+"\nTipo: "+obj.getTipoUsuarioModel().getDescricao());
+        setIcon();
+        tempo();
+        windowsClosing();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+    }
+    
+    public JFPrincipal(FuncionarioModel obj) {
+        initComponents();
+        this.obj = obj;
+        jlInfo.setText("Login : "+obj.getNome()+" Tipo: "+obj.getTipoUsuarioModel().getDescricao()+" salario: " + obj.getSalario());
         setIcon();
         tempo();
         windowsClosing();
@@ -43,13 +71,14 @@ public class JFPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jdpPrincipal = new javax.swing.JDesktopPane();
-        jlInfo = new javax.swing.JLabel();
+        jlTime = new javax.swing.JLabel();
         jbRenovar = new javax.swing.JButton();
         jbRegistro = new javax.swing.JButton();
         jbLocacao = new javax.swing.JButton();
         jbVenda = new javax.swing.JButton();
         jbCadJogo = new javax.swing.JButton();
         jbCadUsuario = new javax.swing.JButton();
+        jlInfo = new javax.swing.JLabel();
         jlFFxv = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -64,9 +93,9 @@ public class JFPrincipal extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jlInfo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jdpPrincipal.add(jlInfo);
-        jlInfo.setBounds(450, 0, 390, 70);
+        jlTime.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jdpPrincipal.add(jlTime);
+        jlTime.setBounds(450, 0, 390, 70);
 
         jbRenovar.setBackground(new java.awt.Color(107, 164, 194));
         jbRenovar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -139,6 +168,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         });
         jdpPrincipal.add(jbCadUsuario);
         jbCadUsuario.setBounds(0, 0, 250, 50);
+
+        jlInfo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlInfo.setText("Login: ");
+        jdpPrincipal.add(jlInfo);
+        jlInfo.setBounds(540, 180, 290, 370);
 
         jlFFxv.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jlFFxv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/cxdkpvuxuaazxj8_8h6c.jpg"))); // NOI18N
@@ -250,6 +284,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jdpPrincipal;
     private javax.swing.JLabel jlFFxv;
     private javax.swing.JLabel jlInfo;
+    private javax.swing.JLabel jlTime;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\video-game-controller-icon.png");
@@ -293,7 +328,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                     } else {
                         ssecond = "" + second;
                     }
-                    jlInfo.setText("Time: " + sday + "/" + smonth + "/" + year + " " + shour + ":" + sminute + ":" + ssecond);
+                    jlTime.setText("Time: " + sday + "/" + smonth + "/" + year + " " + shour + ":" + sminute + ":" + ssecond);
                     try {
                         sleep(1000);
                     } catch (InterruptedException ex) {

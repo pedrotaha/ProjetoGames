@@ -45,6 +45,20 @@ public class UsuarioModel {
         this.dataCadastro = dataCadastro;
         this.tipoUsuarioModel = tipoUsuarioModel;
     }
+    public UsuarioModel(FuncionarioModel objFunc){
+        this.id = objFunc.getId();
+        this.nome = objFunc.getNome();
+        this.cpf = objFunc.getCpf();
+        this.telefone = objFunc.getTelefone();
+        this.email = objFunc.getEmail();
+        this.sexo = objFunc.getSexo();
+        this.enderecoModel = objFunc.getEnderecoModel();
+        this.dataNasc = objFunc.getDataNasc();
+        this.login = objFunc.getLogin();
+        this.senha = objFunc.getSenha();
+        this.dataCadastro = objFunc.getDataCadastro();
+        this.tipoUsuarioModel = objFunc.getTipoUsuarioModel();
+    }
 
     public int getId() {
         return id;
