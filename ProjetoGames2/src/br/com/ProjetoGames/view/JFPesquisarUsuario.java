@@ -5,26 +5,59 @@
  */
 package br.com.ProjetoGames.view;
 
+import br.com.ProjetoGames.data.FuncionarioData;
+import br.com.ProjetoGames.data.UsuarioData;
+import br.com.ProjetoGames.model.FuncionarioModel;
+import br.com.ProjetoGames.model.UsuarioModel;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Pedro
  */
 public class JFPesquisarUsuario extends javax.swing.JFrame {
+
     int frameCount;
     JIFDetalhesUsuarios janela = new JIFDetalhesUsuarios();
+    ArrayList<UsuarioModel> dados;
+    ArrayList<FuncionarioModel> dadosF;
+    UsuarioModel obj, selecionado;
+    FuncionarioModel selecionadoF;
+
     public JFPesquisarUsuario() {
         initComponents();
         frameCount = 0;
+        dados = new ArrayList<>();
+        this.obj = new UsuarioModel();
+        selecionado = new UsuarioModel();
+        selecionadoF = new FuncionarioModel();
+        dadosF = new ArrayList<>();
+        setIcon();
+        windowsClosing();
+        internoClosed();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+    }
+
+    public JFPesquisarUsuario(UsuarioModel obj) {
+        initComponents();
+        frameCount = 0;
+        dados = new ArrayList<>();
+        this.obj = obj;
+        selecionado = new UsuarioModel();
+        selecionadoF = new FuncionarioModel();
+        dadosF = new ArrayList<>();
         setIcon();
         windowsClosing();
         internoClosed();
@@ -74,6 +107,11 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         jlPesquisar.setText("Pesquisar:");
 
         jtPesquisar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtPesquisarKeyReleased(evt);
+            }
+        });
 
         jtbUsuario.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jtbUsuario.setModel(new javax.swing.table.DefaultTableModel(
@@ -97,6 +135,11 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jtbUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtbUsuarioMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jtbUsuario);
@@ -170,12 +213,54 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalhesActionPerformed
-        if(frameCount == 0){
-            jdpPesquisarUser.add(janela);
-            janela.setVisible(true);
-            frameCount++;
+        if (frameCount == 0) {
+            if (selecionado.getId() > 0) {
+                jdpPesquisarUser.add(janela);
+                janela.setVisible(true);
+                frameCount++;
+                tratarCampos(false);
+            }
         }
     }//GEN-LAST:event_jbDetalhesActionPerformed
+
+    private void jtbUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbUsuarioMouseClicked
+        selecionado = dados.get(jtbUsuario.getSelectedRow());
+        if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
+            janela = new JIFDetalhesUsuarios(selecionado);
+        } else {
+            try {
+                FuncionarioData DAOF = new FuncionarioData();
+                selecionadoF = DAOF.pesquisarObj(selecionado);
+                janela = new JIFDetalhesUsuarios(selecionadoF);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jtbUsuarioMouseClicked
+
+    private void jtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPesquisarKeyReleased
+        if (obj.getTipoUsuarioModel().getNivel() == 0) {
+            try {
+                UsuarioData DAO = new UsuarioData();
+                dados = DAO.pesquisar(jtPesquisar.getText());
+                DefaultTableModel mp = (DefaultTableModel) jtbUsuario.getModel();
+                mp.setNumRows(0);
+                if (jtPesquisar.getText().length() > 1) {
+                    jbEditar.setEnabled(true);
+                    jbExcluir.setEnabled(true);
+                    for (UsuarioModel usuario : dados) {
+                        mp.addRow(new String[]{usuario.getNome(), usuario.getEmail(), usuario.getTelefone(), usuario.getTipoUsuarioModel().getDescricao()});
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
+            }
+        }
+        if (jtPesquisar.getText().length() == 0) {
+            jbEditar.setEnabled(false);
+            jbExcluir.setEnabled(false);
+        }
+    }//GEN-LAST:event_jtPesquisarKeyReleased
 
     /**
      * @param args the command line arguments
@@ -239,13 +324,23 @@ private void setIcon() {
             }
         });
     }
-    
+
     public void internoClosed() {
         janela.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
+                tratarCampos(true);
                 frameCount--;
                 jdpPesquisarUser.remove(janela);
             }
         });
+    }
+
+    public void tratarCampos(boolean n) {
+        jtPesquisar.setEnabled(n);
+        jtbUsuario.setEnabled(n);
+        jScrollPane1.setEnabled(n);
+        jbDetalhes.setEnabled(n);
+        jbEditar.setEnabled(n);
+        jbExcluir.setEnabled(n);
     }
 }

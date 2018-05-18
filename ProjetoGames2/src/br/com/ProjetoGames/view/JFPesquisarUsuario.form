@@ -136,6 +136,9 @@
               <Font name="Arial" size="18" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtPesquisarKeyReleased"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -158,6 +161,9 @@
                   </Table>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jtbUsuarioMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

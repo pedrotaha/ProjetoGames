@@ -37,11 +37,10 @@ public class FuncionarioData extends UsuarioData {
                 throw new Exception("Ocorreu erro ao salvar o Funcionário");
             }
         } catch (Exception e) {
-            throw new Exception("Ocorreu erro ao salvar"+e.getMessage());
+            throw new Exception("Ocorreu erro ao salvar" + e.getMessage());
         }
-            
+
         //} else {
-            
         //}
     }
 
@@ -78,6 +77,21 @@ public class FuncionarioData extends UsuarioData {
             }
         }
         return listaF;
+    }
+
+    public FuncionarioModel pesquisarObj(UsuarioModel objU) throws Exception {
+        Conexao c = new Conexao();
+        FuncionarioModel obj = new FuncionarioModel(objU, 0, "", "", "");
+        String sql = "Select * from tbusuarios u, tbfuncionarios f where u.id = f.idusuario and u.id = " + objU.getId() + " order by nome";
+        PreparedStatement ps = c.getConexao().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            obj.setCargaHoraria(rs.getString("cargahoraria"));
+            obj.setCargo(rs.getString("cargo"));
+            obj.setEstadoCivil(rs.getString("estadocivil"));
+            obj.setSalario(rs.getFloat("salario"));
+        }
+        return obj;
     }
 
     public boolean excluirF(int id) throws Exception {
@@ -153,7 +167,7 @@ public class FuncionarioData extends UsuarioData {
         }
         throw new Exception("Login Inválido.");
     }
-    
+
     public FuncionarioModel validarFuncionarioObj(UsuarioModel obj) throws Exception {
         try {
             FuncionarioModel func;
