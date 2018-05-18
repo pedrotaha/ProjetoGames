@@ -218,7 +218,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
                 jdpPesquisarUser.add(janela);
                 janela.setVisible(true);
                 frameCount++;
-                tratarCampos(false);
+                //tratarCampos(false);
             }
         }
     }//GEN-LAST:event_jbDetalhesActionPerformed
@@ -328,6 +328,7 @@ private void setIcon() {
     public void internoClosed() {
         janela.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
+                JOptionPane.showMessageDialog(null, "opa meu");
                 tratarCampos(true);
                 frameCount--;
                 jdpPesquisarUser.remove(janela);

@@ -27,17 +27,16 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
 
     public JIFDetalhesUsuarios() {
         initComponents();
-        mudarIcon();
         obj = new UsuarioModel();
         this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        mudarIcon();
     }
 
     public JIFDetalhesUsuarios(UsuarioModel obj) {
         initComponents();
-        mudarIcon();
         this.obj = obj;
         tratarCampos(false);
         preencherCampos();
@@ -45,11 +44,11 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        mudarIcon();
     }
 
     public JIFDetalhesUsuarios(FuncionarioModel obj) {
         initComponents();
-        mudarIcon();
         this.objFunc = obj;
         this.obj = new UsuarioModel(objFunc);
         tratarCampos(true);
@@ -58,6 +57,7 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        mudarIcon();
     }
 
     /**
