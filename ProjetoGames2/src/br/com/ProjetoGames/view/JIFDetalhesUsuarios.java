@@ -431,8 +431,9 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
         jtTelefone.setText(obj.getTelefone());
         jtDataCadastro.setText(dateFormat.format(obj.getDataCadastro().getTime()));
         jtSexo.setText(obj.getSexo());
+        String estado = obj.getEnderecoModel().getEstado().trim();
         jtEndereco.setText("R. " + obj.getEnderecoModel().getRua() + ", " + obj.getEnderecoModel().getNumero() + " - " + obj.getEnderecoModel().getBairro() + ", " + obj.getEnderecoModel().getCidade() + " - "
-                + obj.getEnderecoModel().getEstado() + "" + obj.getEnderecoModel().getCep());
+                + estado + "  " + obj.getEnderecoModel().getCep());
         if (objFunc.getId() > 0) {
             jtCargaHoraria.setText(objFunc.getCargaHoraria());
             jtCargo.setText(objFunc.getCargo());
