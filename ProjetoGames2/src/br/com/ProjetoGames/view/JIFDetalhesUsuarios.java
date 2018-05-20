@@ -21,8 +21,8 @@ import javax.swing.UIManager;
  */
 public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
 
-    UsuarioModel obj;
-    FuncionarioModel objFunc;
+    UsuarioModel obj = new UsuarioModel();
+    FuncionarioModel objFunc = new FuncionarioModel();
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     public JIFDetalhesUsuarios() {
@@ -98,6 +98,7 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
         jtEndereco = new javax.swing.JTextField();
 
         setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -248,8 +249,8 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
                                     .addComponent(jtEstadoCivil))
                                 .addGap(107, 107, 107)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlSalario)
-                                    .addComponent(jtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlSalario)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -286,7 +287,7 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 64, Short.MAX_VALUE))
+                        .addContainerGap(76, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -295,8 +296,8 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jtEndereco)
                                 .addGap(47, 47, 47)))
-                        .addComponent(jbVoltar)))
-                .addContainerGap())
+                        .addComponent(jbVoltar)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,7 +326,6 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jlTipo)
                             .addComponent(jlCargo))))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,7 +348,7 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jbVoltar))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
@@ -399,11 +399,15 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
     }
 
     public void sair() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
-        if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nVoltar?", "Botão Voltar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
-            obj = new UsuarioModel();
-            objFunc = new FuncionarioModel();
-            dispose();
+        try {
+            ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+            if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nVoltar?", "Botão Voltar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+                obj = new UsuarioModel();
+                objFunc = new FuncionarioModel();
+                dispose();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
 
@@ -427,8 +431,8 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
         jtTelefone.setText(obj.getTelefone());
         jtDataCadastro.setText(dateFormat.format(obj.getDataCadastro().getTime()));
         jtSexo.setText(obj.getSexo());
-        jtEndereco.setText("R. "+obj.getEnderecoModel().getRua()+", "+obj.getEnderecoModel().getNumero()+" - "+obj.getEnderecoModel().getBairro()+", "+obj.getEnderecoModel().getCidade()+" - "
-                +obj.getEnderecoModel().getEstado()+""+obj.getEnderecoModel().getCep());
+        jtEndereco.setText("R. " + obj.getEnderecoModel().getRua() + ", " + obj.getEnderecoModel().getNumero() + " - " + obj.getEnderecoModel().getBairro() + ", " + obj.getEnderecoModel().getCidade() + " - "
+                + obj.getEnderecoModel().getEstado() + "" + obj.getEnderecoModel().getCep());
         if (objFunc.getId() > 0) {
             jtCargaHoraria.setText(objFunc.getCargaHoraria());
             jtCargo.setText(objFunc.getCargo());

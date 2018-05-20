@@ -28,11 +28,11 @@ import javax.swing.table.DefaultTableModel;
 public class JFPesquisarUsuario extends javax.swing.JFrame {
 
     int frameCount;
-    JIFDetalhesUsuarios janela = new JIFDetalhesUsuarios();
+    JIFDetalhesUsuarios janelaP = new JIFDetalhesUsuarios();
     ArrayList<UsuarioModel> dados;
     ArrayList<FuncionarioModel> dadosF;
     UsuarioModel obj, selecionado;
-    FuncionarioModel selecionadoF;
+    FuncionarioModel objF, selecionadoF;
 
     public JFPesquisarUsuario() {
         initComponents();
@@ -44,7 +44,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         dadosF = new ArrayList<>();
         setIcon();
         windowsClosing();
-        internoClosed();
+        //internoClosed();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
@@ -60,7 +60,23 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         dadosF = new ArrayList<>();
         setIcon();
         windowsClosing();
-        internoClosed();
+        //internoClosed();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+    }
+
+    public JFPesquisarUsuario(FuncionarioModel objF) {
+        initComponents();
+        frameCount = 0;
+        dados = new ArrayList<>();
+        dadosF = new ArrayList<>();
+        this.objF = objF;
+        selecionado = new UsuarioModel();
+        selecionadoF = new FuncionarioModel();
+        setIcon();
+        windowsClosing();
+        //internoClosed();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
@@ -76,13 +92,13 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jdpPesquisarUser = new javax.swing.JDesktopPane();
+        jbEditar = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
         jbDetalhes = new javax.swing.JButton();
         jlPesquisar = new javax.swing.JLabel();
         jtPesquisar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbUsuario = new javax.swing.JTable();
-        jbEditar = new javax.swing.JButton();
-        jbExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisar Usuário");
@@ -94,9 +110,20 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         jdpPesquisarUser.setBackground(new java.awt.Color(255, 255, 255));
         jdpPesquisarUser.setForeground(new java.awt.Color(255, 255, 255));
 
+        jbEditar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Edit_Property_48px.png"))); // NOI18N
+        jbEditar.setText("Editar");
+        jbEditar.setEnabled(false);
+
+        jbExcluir.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Trash_Can_48px.png"))); // NOI18N
+        jbExcluir.setText("Excluir");
+        jbExcluir.setEnabled(false);
+
         jbDetalhes.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbDetalhes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Pokedex_48px_1.png"))); // NOI18N
         jbDetalhes.setText("Detalhes");
+        jbDetalhes.setEnabled(false);
         jbDetalhes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbDetalhesActionPerformed(evt);
@@ -144,20 +171,12 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbUsuario);
 
-        jbEditar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jbEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Edit_Property_48px.png"))); // NOI18N
-        jbEditar.setText("Editar");
-
-        jbExcluir.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jbExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Trash_Can_48px.png"))); // NOI18N
-        jbExcluir.setText("Excluir");
-
+        jdpPesquisarUser.setLayer(jbEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpPesquisarUser.setLayer(jbExcluir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jbDetalhes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jlPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jtPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpPesquisarUser.setLayer(jbEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpPesquisarUser.setLayer(jbExcluir, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jdpPesquisarUserLayout = new javax.swing.GroupLayout(jdpPesquisarUser);
         jdpPesquisarUser.setLayout(jdpPesquisarUserLayout);
@@ -215,27 +234,30 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     private void jbDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalhesActionPerformed
         if (frameCount == 0) {
             if (selecionado.getId() > 0) {
-                jdpPesquisarUser.add(janela);
-                janela.setVisible(true);
+                jdpPesquisarUser.add(janelaP);
+                //internoClosed();
+                janelaP.setVisible(true);
                 frameCount++;
-                //tratarCampos(false);
+                tratarCampos(false);
             }
         }
     }//GEN-LAST:event_jbDetalhesActionPerformed
 
     private void jtbUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbUsuarioMouseClicked
-        selecionado = dados.get(jtbUsuario.getSelectedRow());
-        if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
-            janela = new JIFDetalhesUsuarios(selecionado);
-        } else {
-            try {
+        try {
+            selecionado = dados.get(jtbUsuario.getSelectedRow());
+            if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
+                janelaP = new JIFDetalhesUsuarios(selecionado);
+            } else {
                 FuncionarioData DAOF = new FuncionarioData();
                 selecionadoF = DAOF.pesquisarObj(selecionado);
-                janela = new JIFDetalhesUsuarios(selecionadoF);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
+                janelaP = new JIFDetalhesUsuarios(selecionadoF);
             }
+            internoClosed();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
         }
+
     }//GEN-LAST:event_jtbUsuarioMouseClicked
 
     private void jtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPesquisarKeyReleased
@@ -248,6 +270,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
                 if (jtPesquisar.getText().length() > 1) {
                     jbEditar.setEnabled(true);
                     jbExcluir.setEnabled(true);
+                    jbDetalhes.setEnabled(true);
                     for (UsuarioModel usuario : dados) {
                         mp.addRow(new String[]{usuario.getNome(), usuario.getEmail(), usuario.getTelefone(), usuario.getTipoUsuarioModel().getDescricao()});
                     }
@@ -259,6 +282,9 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         if (jtPesquisar.getText().length() == 0) {
             jbEditar.setEnabled(false);
             jbExcluir.setEnabled(false);
+            jbDetalhes.setEnabled(false);
+            selecionado = new UsuarioModel();
+            selecionadoF = new FuncionarioModel();
         }
     }//GEN-LAST:event_jtPesquisarKeyReleased
 
@@ -308,16 +334,16 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jtbUsuario;
     // End of variables declaration//GEN-END:variables
 private void setIcon() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
-        setIconImage(imagemTituloJanela.getImage());
+        ImageIcon imagemTituloJanelaP = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
+        setIconImage(imagemTituloJanelaP.getImage());
     }
 
     public void windowsClosing() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTituloJanelaP = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {
-                if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanelaP) == JOptionPane.YES_OPTION) {
                     dispose();
                     new JFPrincipal().setVisible(true);
                 }
@@ -326,12 +352,11 @@ private void setIcon() {
     }
 
     public void internoClosed() {
-        janela.addInternalFrameListener(new InternalFrameAdapter() {
+        janelaP.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
-                JOptionPane.showMessageDialog(null, "opa meu");
                 tratarCampos(true);
                 frameCount--;
-                jdpPesquisarUser.remove(janela);
+                jdpPesquisarUser.remove(janelaP);
             }
         });
     }

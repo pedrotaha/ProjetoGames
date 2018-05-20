@@ -82,8 +82,8 @@ public class JFPrincipal extends javax.swing.JFrame {
         jlFFxv = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jmUsuario = new javax.swing.JMenuItem();
+        jmJogo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Garnet Games");
@@ -185,18 +185,18 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Pesquisar");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setText("Usuário");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        jmUsuario.setText("Usuário");
+        jmUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmUsuarioActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(jmUsuario);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem2.setText("Jogo");
-        jMenu1.add(jMenuItem2);
+        jmJogo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.ALT_MASK));
+        jmJogo.setText("Jogo");
+        jMenu1.add(jmJogo);
 
         jMenuBar1.add(jMenu1);
 
@@ -231,9 +231,10 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jbRenovarActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void jmUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUsuarioActionPerformed
+        new JFPesquisarUsuario().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jmUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,8 +274,6 @@ public class JFPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JButton jbCadJogo;
     private javax.swing.JButton jbCadUsuario;
     private javax.swing.JButton jbLocacao;
@@ -285,6 +284,8 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jlFFxv;
     private javax.swing.JLabel jlInfo;
     private javax.swing.JLabel jlTime;
+    private javax.swing.JMenuItem jmJogo;
+    private javax.swing.JMenuItem jmUsuario;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\video-game-controller-icon.png");
