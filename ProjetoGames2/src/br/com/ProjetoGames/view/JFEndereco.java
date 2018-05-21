@@ -16,16 +16,12 @@ import javax.swing.JOptionPane;
  * @author Pedro
  */
 public class JFEndereco extends javax.swing.JFrame {
-
-    /**
-     * Creates new form JFEndereco
-     */
+    
     public JFEndereco() {
         initComponents();
         setIcon();
         windowsClosing();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

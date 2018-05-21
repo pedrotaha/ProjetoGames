@@ -50,7 +50,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         UIManager.put("OptionPane.buttonFont", font);
     }
 
-    public JFPesquisarUsuario(UsuarioModel obj) {
+    public JFPesquisarUsuario(UsuarioModel obj) {//Atual
         initComponents();
         frameCount = 0;
         dados = new ArrayList<>();
@@ -58,22 +58,6 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         selecionado = new UsuarioModel();
         selecionadoF = new FuncionarioModel();
         dadosF = new ArrayList<>();
-        setIcon();
-        windowsClosing();
-        //internoClosed();
-        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
-        UIManager.put("OptionPane.messageFont", font);
-        UIManager.put("OptionPane.buttonFont", font);
-    }
-
-    public JFPesquisarUsuario(FuncionarioModel objF) {
-        initComponents();
-        frameCount = 0;
-        dados = new ArrayList<>();
-        dadosF = new ArrayList<>();
-        this.objF = objF;
-        selecionado = new UsuarioModel();
-        selecionadoF = new FuncionarioModel();
         setIcon();
         windowsClosing();
         //internoClosed();
@@ -114,11 +98,21 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         jbEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Edit_Property_48px.png"))); // NOI18N
         jbEditar.setText("Editar");
         jbEditar.setEnabled(false);
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
 
         jbExcluir.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Trash_Can_48px.png"))); // NOI18N
         jbExcluir.setText("Excluir");
         jbExcluir.setEnabled(false);
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
 
         jbDetalhes.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbDetalhes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Pokedex_48px_1.png"))); // NOI18N
@@ -287,6 +281,46 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
             selecionadoF = new FuncionarioModel();
         }
     }//GEN-LAST:event_jtPesquisarKeyReleased
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        try {
+            selecionado = dados.get(jtbUsuario.getSelectedRow());
+            if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
+                new JFCadCliente(selecionado, 2).setVisible(true);
+            } else {
+                FuncionarioData DAOF = new FuncionarioData();
+                selecionadoF = DAOF.pesquisarObj(selecionado);
+                new JFCadCliente(obj, selecionadoF, 2).setVisible(true);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
+        }
+        dispose();
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        ImageIcon imagemTituloJanelaP = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        try {
+            if (JOptionPane.showConfirmDialog(this, "Deseja Realmente excluir o registro?",
+                    "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanelaP) == JOptionPane.YES_OPTION) {
+                if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
+                    selecionado = dados.get(jtbUsuario.getSelectedRow());
+                    UsuarioData DAO = new UsuarioData();
+                    if (DAO.excluir(selecionado.getId())) {
+                        JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                    }
+                } else {
+                    FuncionarioData DAOF = new FuncionarioData();
+                    selecionadoF = DAOF.pesquisarObj(selecionado);
+                    if (DAOF.excluirF(selecionadoF.getId())) {
+                        JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir:" + e.getMessage());
+        }
+    }//GEN-LAST:event_jbExcluirActionPerformed
 
     /**
      * @param args the command line arguments

@@ -8,8 +8,12 @@ package br.com.ProjetoGames.view;
 import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import java.awt.Font;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Random;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -28,6 +32,7 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
     public JIFDetalhesUsuarios() {
         initComponents();
         obj = new UsuarioModel();
+        randomImages();
         this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
@@ -38,6 +43,7 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
     public JIFDetalhesUsuarios(UsuarioModel obj) {
         initComponents();
         this.obj = obj;
+        randomImages();
         tratarCampos(false);
         preencherCampos();
         this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
@@ -50,6 +56,7 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
     public JIFDetalhesUsuarios(FuncionarioModel obj) {
         initComponents();
         this.objFunc = obj;
+        randomImages();
         this.obj = new UsuarioModel(objFunc);
         tratarCampos(true);
         preencherCampos();
@@ -96,6 +103,7 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
         jbVoltar = new javax.swing.JButton();
         jlEndereco = new javax.swing.JLabel();
         jtEndereco = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -287,17 +295,21 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(76, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                .addComponent(jlEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(444, 444, 444))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jtEndereco)
                                 .addGap(47, 47, 47)))
-                        .addComponent(jbVoltar)
-                        .addContainerGap())))
+                        .addComponent(jbVoltar)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(74, 74, 74))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,7 +343,9 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
                     .addComponent(jtDataCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(85, 85, 85)
+                .addGap(51, 51, 51)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlCargaHoraria)
                     .addComponent(jlEstadoCivil)
@@ -348,7 +362,7 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jbVoltar))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         pack();
@@ -364,6 +378,7 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jbVoltar;
     private javax.swing.JLabel jlCargaHoraria;
     private javax.swing.JLabel jlCargo;
@@ -442,4 +457,22 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
         }
     }
 
+    public void randomImages() {
+        try {
+            File dir = new File("C:\\Users\\Pedro\\Downloads\\pokedex\\pokemon\\main-sprites\\black-white\\");
+            File[] files = dir.listFiles();
+
+            Random rand = new Random();
+
+            File file = files[obj.getId()];//files[rand.nextInt(files.length)];
+            BufferedImage img = ImageIO.read(file);
+            jLabel1.setIcon(new javax.swing.ImageIcon(img));
+            //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/1490974935_Nier.gif")));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+
+//        String[] filess = File.listFiles();
+//        List shuffled = Collections.shuffle( Arrays.asList( filess ) );
+    }
 }

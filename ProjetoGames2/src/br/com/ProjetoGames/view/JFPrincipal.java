@@ -5,7 +5,6 @@
  */
 package br.com.ProjetoGames.view;
 
-import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -40,7 +39,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     public JFPrincipal(UsuarioModel obj) {
         initComponents();
         this.obj = obj;
-        jlInfo.setText("Login : "+obj.getNome()+"\nTipo: "+obj.getTipoUsuarioModel().getDescricao());
+        jlInfo.setText("Login : "+obj.getNome()+"Tipo: "+obj.getTipoUsuarioModel().getDescricao());
         setIcon();
         tempo();
         windowsClosing();
@@ -49,18 +48,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         UIManager.put("OptionPane.buttonFont", font);
     }
     
-    public JFPrincipal(FuncionarioModel obj) {
-        initComponents();
-        this.obj = obj;
-        jlInfo.setText("Login : "+obj.getNome()+" Tipo: "+obj.getTipoUsuarioModel().getDescricao()+" salario: " + obj.getSalario());
-        setIcon();
-        tempo();
-        windowsClosing();
-        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
-        UIManager.put("OptionPane.messageFont", font);
-        UIManager.put("OptionPane.buttonFont", font);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -172,7 +159,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         jlInfo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlInfo.setText("Login: ");
         jdpPrincipal.add(jlInfo);
-        jlInfo.setBounds(540, 180, 290, 370);
+        jlInfo.setBounds(340, 510, 490, 30);
 
         jlFFxv.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jlFFxv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/cxdkpvuxuaazxj8_8h6c.jpg"))); // NOI18N
@@ -232,7 +219,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jbRenovarActionPerformed
 
     private void jmUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUsuarioActionPerformed
-        new JFPesquisarUsuario().setVisible(true);
+        new JFPesquisarUsuario(obj).setVisible(true);
         dispose();
     }//GEN-LAST:event_jmUsuarioActionPerformed
 
