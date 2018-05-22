@@ -7,7 +7,6 @@ package br.com.ProjetoGames.view;
 
 import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.UsuarioModel;
-import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ public class JFEndereco extends javax.swing.JFrame {
     String[] codig;
     ArrayList<UsuarioModel> lista = new ArrayList<>();
     UsuarioModel selecionado = new UsuarioModel();
+    UsuarioModel selecionadoKey = new UsuarioModel();
 
     public JFEndereco() {
         initComponents();
@@ -292,15 +292,15 @@ public class JFEndereco extends javax.swing.JFrame {
     }//GEN-LAST:event_ListaMousePressed
 
     private void ListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ListaValueChanged
-        Lista.setSelectionBackground(Color.yellow);
+
     }//GEN-LAST:event_ListaValueChanged
 
     private void ListaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaMouseEntered
-        Lista.setSelectionBackground(Color.yellow);
+
     }//GEN-LAST:event_ListaMouseEntered
 
     private void ListaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaMouseExited
-        Lista.setSelectionBackground(Color.BLACK);
+
     }//GEN-LAST:event_ListaMouseExited
 
     /**
@@ -389,14 +389,12 @@ public class JFEndereco extends javax.swing.JFrame {
         if (jtPesquisar.getText().length() > 1) {
             try {
                 MODELO.removeAllElements();
-                int v = 0;
                 codig = new String[4];
                 lista = DAO.pesquisar(jtPesquisar.getText());
-                v = lista.size();
                 for (UsuarioModel list : lista) {
                     MODELO.addElement(list.getNome());
                 }
-                if (v >= 1) {
+                if (lista.size() >= 1) {
                     Lista.setVisible(true);
                 } else {
                     Lista.setVisible(false);
@@ -405,7 +403,7 @@ public class JFEndereco extends javax.swing.JFrame {
             } catch (Exception e) {
 
             }
-        }else{
+        } else {
             MODELO.removeAllElements();
             Lista.setVisible(false);
             Enter = 1;
