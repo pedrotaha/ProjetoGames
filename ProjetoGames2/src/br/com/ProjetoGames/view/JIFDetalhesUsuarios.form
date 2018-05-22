@@ -4,6 +4,9 @@
   <Properties>
     <Property name="closable" type="boolean" value="true"/>
     <Property name="defaultCloseOperation" type="int" value="0"/>
+    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[731, 547]"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -27,163 +30,157 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jlCargaHoraria" pref="158" max="32767" attributes="0"/>
-                                  <Component id="jtCargaHoraria" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jlEstadoCivil" pref="126" max="32767" attributes="0"/>
-                                  <Component id="jtEstadoCivil" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jtSalario" min="-2" pref="108" max="-2" attributes="0"/>
-                                  <Component id="jlSalario" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlDataNasc" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jtDataNasc" min="-2" pref="82" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jtDataCadastro" max="32767" attributes="0"/>
-                                  <Component id="jlDataCadastro" pref="86" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jtTipo" min="-2" pref="163" max="-2" attributes="0"/>
-                                  <Component id="jlTipo" min="-2" pref="67" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jtCargo" min="-2" pref="194" max="-2" attributes="0"/>
-                                  <Component id="jlCargo" min="-2" pref="67" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlId" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jtId" alignment="0" min="-2" pref="25" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlNome" min="-2" pref="67" max="-2" attributes="0"/>
-                                  <Component id="jtNome" min="-2" pref="132" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlCpf" min="-2" pref="67" max="-2" attributes="0"/>
-                                  <Component id="jtCpf" min="-2" pref="117" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jlTelefone" pref="107" max="32767" attributes="0"/>
-                                  <Component id="jtTelefone" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jlSexo" min="-2" pref="67" max="-2" attributes="0"/>
-                                  <Component id="jtSexo" min="-2" pref="113" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jlCpf" min="-2" pref="67" max="-2" attributes="0"/>
+                      <EmptySpace min="123" pref="123" max="-2" attributes="0"/>
+                      <Component id="jlTelefone" min="-2" pref="107" max="-2" attributes="0"/>
+                      <EmptySpace min="53" pref="53" max="-2" attributes="0"/>
+                      <Component id="jlDataNasc" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="49" pref="49" max="-2" attributes="0"/>
+                      <Component id="jlEstadoCivil" min="-2" pref="126" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jtCpf" min="-2" pref="117" max="-2" attributes="0"/>
+                      <EmptySpace min="73" pref="73" max="-2" attributes="0"/>
+                      <Component id="jtTelefone" min="-2" pref="107" max="-2" attributes="0"/>
+                      <EmptySpace min="53" pref="53" max="-2" attributes="0"/>
+                      <Component id="jtDataNasc" min="-2" pref="82" max="-2" attributes="0"/>
+                      <EmptySpace min="78" pref="78" max="-2" attributes="0"/>
+                      <Component id="jtEstadoCivil" min="-2" pref="126" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jlEndereco" min="-2" pref="94" max="-2" attributes="0"/>
+                  <Component id="jtEndereco" min="-2" pref="491" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jlEndereco" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="444" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jtEndereco" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="jlDataCadastro" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Component id="jtDataCadastro" min="-2" pref="86" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace min="44" pref="44" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jlCargo" min="-2" pref="67" max="-2" attributes="0"/>
+                          <Component id="jtCargo" min="-2" pref="194" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="56" pref="56" max="-2" attributes="0"/>
                       <Component id="jbVoltar" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jlCargaHoraria" min="-2" pref="158" max="-2" attributes="0"/>
+                      <EmptySpace min="52" pref="52" max="-2" attributes="0"/>
+                      <Component id="jlSalario" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="jtCargaHoraria" min="-2" pref="158" max="-2" attributes="0"/>
+                      <EmptySpace min="52" pref="52" max="-2" attributes="0"/>
+                      <Component id="jtSalario" min="-2" pref="108" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jlPokemon" min="-2" pref="86" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jlId" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="45" pref="45" max="-2" attributes="0"/>
+                              <Component id="jlNome" min="-2" pref="67" max="-2" attributes="0"/>
+                              <EmptySpace min="103" pref="103" max="-2" attributes="0"/>
+                              <Component id="jlTipo" min="-2" pref="67" max="-2" attributes="0"/>
+                              <EmptySpace min="133" pref="133" max="-2" attributes="0"/>
+                              <Component id="jlSexo" min="-2" pref="67" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jtId" min="-2" pref="25" max="-2" attributes="0"/>
+                              <EmptySpace min="45" pref="45" max="-2" attributes="0"/>
+                              <Component id="jtNome" min="-2" pref="132" max="-2" attributes="0"/>
+                              <EmptySpace min="38" pref="38" max="-2" attributes="0"/>
+                              <Component id="jtTipo" min="-2" pref="163" max="-2" attributes="0"/>
+                              <EmptySpace min="37" pref="37" max="-2" attributes="0"/>
+                              <Component id="jtSexo" min="-2" pref="113" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jlId" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlCpf" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlSexo" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jtNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtCpf" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtSexo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtId" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jlDataNasc" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlDataCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jlId" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlNome" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlTipo" min="-2" max="-2" attributes="0"/>
+                          <Component id="jlSexo" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jtId" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtNome" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtTipo" min="-2" max="-2" attributes="0"/>
+                          <Component id="jtSexo" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                              <Component id="jlTelefone" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jlDataNasc" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                              <Component id="jlEstadoCivil" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jlTipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jlCargo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-              </Group>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jtDataNasc" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtDataCadastro" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtTipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtCargo" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jlCargaHoraria" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlEstadoCivil" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jlSalario" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jtCargaHoraria" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtEstadoCivil" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jtSalario" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jlEndereco" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlPokemon" min="-2" pref="82" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jtEndereco" min="-2" max="-2" attributes="0"/>
+                      <Component id="jlCpf" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jbVoltar" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="85" max="32767" attributes="0"/>
+              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jtCpf" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtTelefone" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtDataNasc" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtEstadoCivil" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
+              <Component id="jlEndereco" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+              <Component id="jtEndereco" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="jlDataCadastro" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <Component id="jtDataCadastro" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="jlCargo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                              <Component id="jtCargo" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jbVoltar" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jlCargaHoraria" min="-2" max="-2" attributes="0"/>
+                  <Component id="jlSalario" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jtCargaHoraria" min="-2" max="-2" attributes="0"/>
+                  <Component id="jtSalario" min="-2" max="-2" attributes="0"/>
+              </Group>
           </Group>
       </Group>
     </DimensionLayout>
@@ -437,7 +434,7 @@
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="jlPokemon">
     </Component>
   </SubComponents>
 </Form>

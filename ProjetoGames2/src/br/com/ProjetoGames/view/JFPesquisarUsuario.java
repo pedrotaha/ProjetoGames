@@ -251,74 +251,62 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
         }
-
     }//GEN-LAST:event_jtbUsuarioMouseClicked
 
     private void jtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPesquisarKeyReleased
-        if (obj.getTipoUsuarioModel().getNivel() == 0) {
+        try {
+            atualizarTabela();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
+        }
+    }//GEN-LAST:event_jtPesquisarKeyReleased
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        if (selecionado.getId() > 0 || selecionadoF.getId() > 0) {
             try {
-                UsuarioData DAO = new UsuarioData();
-                dados = DAO.pesquisar(jtPesquisar.getText());
-                DefaultTableModel mp = (DefaultTableModel) jtbUsuario.getModel();
-                mp.setNumRows(0);
-                if (jtPesquisar.getText().length() > 1) {
-                    jbEditar.setEnabled(true);
-                    jbExcluir.setEnabled(true);
-                    jbDetalhes.setEnabled(true);
-                    for (UsuarioModel usuario : dados) {
-                        mp.addRow(new String[]{usuario.getNome(), usuario.getEmail(), usuario.getTelefone(), usuario.getTipoUsuarioModel().getDescricao()});
+                selecionado = dados.get(jtbUsuario.getSelectedRow());
+                if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() <= 0) {
+                    new JFCadCliente(obj, selecionado, 2).setVisible(true);
+                } else {
+                    if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() > 0) {
+                        FuncionarioData DAOF = new FuncionarioData();
+                        selecionadoF = DAOF.pesquisarObj(selecionado);
+                        new JFCadCliente(obj, selecionadoF, 2).setVisible(true);
                     }
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
             }
+            dispose();
         }
-        if (jtPesquisar.getText().length() == 0) {
-            jbEditar.setEnabled(false);
-            jbExcluir.setEnabled(false);
-            jbDetalhes.setEnabled(false);
-            selecionado = new UsuarioModel();
-            selecionadoF = new FuncionarioModel();
-        }
-    }//GEN-LAST:event_jtPesquisarKeyReleased
-
-    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
-        try {
-            selecionado = dados.get(jtbUsuario.getSelectedRow());
-            if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
-                new JFCadCliente(obj, selecionado, 2).setVisible(true);
-            } else {
-                FuncionarioData DAOF = new FuncionarioData();
-                selecionadoF = DAOF.pesquisarObj(selecionado);
-                new JFCadCliente(obj, selecionadoF, 2).setVisible(true);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
-        }
-        dispose();
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
         ImageIcon imagemTituloJanelaP = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
-        try {
-            if (JOptionPane.showConfirmDialog(this, "Deseja Realmente excluir o registro?",
-                    "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanelaP) == JOptionPane.YES_OPTION) {
-                if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
-                    selecionado = dados.get(jtbUsuario.getSelectedRow());
-                    UsuarioData DAO = new UsuarioData();
-                    if (DAO.excluir(selecionado.getId())) {
-                        JOptionPane.showMessageDialog(this, "Excluido com sucesso");
-                    }
-                } else {
-                    FuncionarioData DAOF = new FuncionarioData();
-                    selecionadoF = DAOF.pesquisarObj(selecionado);
-                    if (DAOF.excluirF(selecionadoF.getId())) {
-                        JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+        if (selecionado.getId() > 0 || selecionadoF.getId() > 0) {
+            try {
+                if (JOptionPane.showConfirmDialog(this, "Deseja Realmente excluir o registro?",
+                        "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanelaP) == JOptionPane.YES_OPTION) {
+                    if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
+                        selecionado = dados.get(jtbUsuario.getSelectedRow());
+                        UsuarioData DAO = new UsuarioData();
+                        if (DAO.excluir(selecionado.getId())) {
+                            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                        }
+                    } else {
+                        FuncionarioData DAOF = new FuncionarioData();
+                        selecionadoF = DAOF.pesquisarObj(selecionado);
+                        if (DAOF.excluirF(selecionadoF.getId())) {
+                            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                        }
                     }
                 }
+                selecionado = new UsuarioModel();
+                selecionadoF = new FuncionarioModel();
+                atualizarTabela();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir:" + e.getMessage());
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao excluir:" + e.getMessage());
         }
     }//GEN-LAST:event_jbExcluirActionPerformed
 
@@ -379,7 +367,7 @@ private void setIcon() {
             public void windowClosing(WindowEvent we) {
                 if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanelaP) == JOptionPane.YES_OPTION) {
                     dispose();
-                    new JFPrincipal().setVisible(true);
+                    new JFPrincipal(obj).setVisible(true);
                 }
             }
         });
@@ -402,5 +390,36 @@ private void setIcon() {
         jbDetalhes.setEnabled(n);
         jbEditar.setEnabled(n);
         jbExcluir.setEnabled(n);
+    }
+
+    public void atualizarTabela() throws Exception {
+        UsuarioData DAO = new UsuarioData();
+        dados = DAO.pesquisar(jtPesquisar.getText());
+        DefaultTableModel mp = (DefaultTableModel) jtbUsuario.getModel();
+        mp.setNumRows(0);
+        if (jtPesquisar.getText().length() > 1) {
+            jbEditar.setEnabled(true);
+            jbExcluir.setEnabled(true);
+            jbDetalhes.setEnabled(true);
+            for (int i = 0; i < dados.size(); i++) {
+                if (obj.getTipoUsuarioModel().getNivel() > 0) {
+                    mp.addRow(new String[]{dados.get(i).getNome(), dados.get(i).getEmail(), dados.get(i).getTelefone(), dados.get(i).getTipoUsuarioModel().getDescricao()});
+                } else {
+                    if (dados.get(i).getTipoUsuarioModel().getNivel() <= 0) {
+                        mp.addRow(new String[]{dados.get(i).getNome(), dados.get(i).getEmail(), dados.get(i).getTelefone(), dados.get(i).getTipoUsuarioModel().getDescricao()});
+                    } else {
+                        dados.remove(i);
+                        i--;
+                    }
+                }
+            }
+        }
+        if (jtPesquisar.getText().length() == 0) {
+            jbEditar.setEnabled(false);
+            jbExcluir.setEnabled(false);
+            jbDetalhes.setEnabled(false);
+            selecionado = new UsuarioModel();
+            selecionadoF = new FuncionarioModel();
+        }
     }
 }

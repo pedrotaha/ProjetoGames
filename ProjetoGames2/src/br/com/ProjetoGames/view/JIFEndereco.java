@@ -21,7 +21,7 @@ import javax.swing.UIManager;
  * @author Pedro
  */
 public class JIFEndereco extends javax.swing.JInternalFrame {
-    
+
     UsuarioModel obj;
     ArrayList<LocalModel> listaP = new ArrayList<>();
     ArrayList<LocalModel> listaE = new ArrayList<>();
@@ -45,7 +45,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
         }
-        
+
     }
 
     public JIFEndereco(UsuarioModel obj) {
@@ -523,9 +523,10 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         if (obj.getEnderecoModel().getPais().equals("Brazil")) {
             jcbEstado.setSelectedItem(obj.getEnderecoModel().getEstado());
             jcbCidade.setSelectedItem(obj.getEnderecoModel().getCidade());
-        }else{
+        } else {
             jtEstado.setText(obj.getEnderecoModel().getEstado());
             jtCidade.setText(obj.getEnderecoModel().getCidade());
         }
+
     }
 }

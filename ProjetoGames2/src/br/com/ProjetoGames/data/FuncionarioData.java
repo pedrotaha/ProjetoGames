@@ -98,21 +98,27 @@ public class FuncionarioData extends UsuarioData {
         if (super.excluir(id)) {
             Conexao c = new Conexao();
             c.getConexao().setAutoCommit(false);
-            String sql = "Delete from tbfuncionarios where idusuario=?";
+            String sql = "Select * from tbusuarios u, tbfuncionarios f where u.id = f.idusuario and u.id = " + id + " order by nome";
             PreparedStatement ps = c.getConexao().prepareStatement(sql);
-            ps.setInt(1, id);
-            if (ps.executeUpdate() > 0) {
-                c.getConexao().commit();
-                c.getConexao().setAutoCommit(true);
-                return true;
-            } else {
-                c.getConexao().rollback();
-                c.getConexao().setAutoCommit(true);
-                throw new Exception("Não foi possível excluir o Funcionário.");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String sql1 = "Delete from tbfuncionarios where idusuario=?";
+                PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
+                ps1.setInt(1, id);
+                if (ps1.executeUpdate() > 0) {
+                    c.getConexao().commit();
+                    c.getConexao().setAutoCommit(true);
+                    return true;
+                } else {
+                    c.getConexao().rollback();
+                    c.getConexao().setAutoCommit(true);
+                    throw new Exception("Não foi possível excluir o Funcionário.");
+                }
             }
         } else {
             throw new Exception("Não foi possível excluir.");
         }
+        return true;
     }
 
     public boolean editarF(FuncionarioModel objFunc) throws Exception {
