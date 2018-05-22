@@ -23,13 +23,13 @@ import javax.swing.UIManager;
  *
  * @author Pedro
  */
-public class JIFTeste extends javax.swing.JInternalFrame {
-    
+public class JIFDetalhesPokedex extends javax.swing.JInternalFrame {
+
     UsuarioModel obj = new UsuarioModel();
     FuncionarioModel objFunc = new FuncionarioModel();
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    
-    public JIFTeste() {
+
+    public JIFDetalhesPokedex() {
         initComponents();
         obj = new UsuarioModel();
         randomImages();
@@ -39,8 +39,8 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         UIManager.put("OptionPane.buttonFont", font);
         mudarIcon();
     }
-    
-    public JIFTeste(UsuarioModel obj) {
+
+    public JIFDetalhesPokedex(UsuarioModel obj) {
         initComponents();
         this.obj = obj;
         randomImages();
@@ -53,7 +53,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         mudarIcon();
     }
 
-    public JIFTeste(FuncionarioModel obj) {
+    public JIFDetalhesPokedex(FuncionarioModel obj) {
         initComponents();
         this.objFunc = obj;
         randomImages();
@@ -106,6 +106,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jlPokemon = new javax.swing.JLabel();
         jlPokedex = new javax.swing.JLabel();
 
+        setClosable(true);
         setMinimumSize(new java.awt.Dimension(1032, 660));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -190,6 +191,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtId.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtId.setToolTipText("");
         jtId.setBorder(null);
+        jtId.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtId.setEnabled(false);
         getContentPane().add(jtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 25, -1));
 
@@ -198,6 +200,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtNome.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtNome.setToolTipText("");
         jtNome.setBorder(null);
+        jtNome.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtNome.setEnabled(false);
         getContentPane().add(jtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 80, 132, -1));
 
@@ -206,6 +209,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtCpf.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtCpf.setToolTipText("");
         jtCpf.setBorder(null);
+        jtCpf.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtCpf.setEnabled(false);
         getContentPane().add(jtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 130, 117, -1));
 
@@ -214,6 +218,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtTelefone.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtTelefone.setToolTipText("");
         jtTelefone.setBorder(null);
+        jtTelefone.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtTelefone.setEnabled(false);
         getContentPane().add(jtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 270, 120, -1));
 
@@ -222,6 +227,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtSexo.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtSexo.setToolTipText("");
         jtSexo.setBorder(null);
+        jtSexo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtSexo.setEnabled(false);
         getContentPane().add(jtSexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 113, -1));
 
@@ -230,6 +236,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtDataNasc.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtDataNasc.setToolTipText("");
         jtDataNasc.setBorder(null);
+        jtDataNasc.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtDataNasc.setEnabled(false);
         getContentPane().add(jtDataNasc, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 90, 30));
 
@@ -238,6 +245,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtDataCadastro.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtDataCadastro.setToolTipText("");
         jtDataCadastro.setBorder(null);
+        jtDataCadastro.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtDataCadastro.setEnabled(false);
         getContentPane().add(jtDataCadastro, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 320, 120, -1));
 
@@ -246,6 +254,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtTipo.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtTipo.setToolTipText("");
         jtTipo.setBorder(null);
+        jtTipo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtTipo.setEnabled(false);
         getContentPane().add(jtTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 163, -1));
 
@@ -254,6 +263,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtCargo.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtCargo.setToolTipText("");
         jtCargo.setBorder(null);
+        jtCargo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtCargo.setEnabled(false);
         getContentPane().add(jtCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 510, 194, -1));
 
@@ -262,6 +272,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtCargaHoraria.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtCargaHoraria.setToolTipText("");
         jtCargaHoraria.setBorder(null);
+        jtCargaHoraria.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtCargaHoraria.setEnabled(false);
         getContentPane().add(jtCargaHoraria, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 510, 158, -1));
 
@@ -270,6 +281,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtEstadoCivil.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtEstadoCivil.setToolTipText("");
         jtEstadoCivil.setBorder(null);
+        jtEstadoCivil.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtEstadoCivil.setEnabled(false);
         getContentPane().add(jtEstadoCivil, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 510, 126, -1));
 
@@ -278,6 +290,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtSalario.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtSalario.setToolTipText("");
         jtSalario.setBorder(null);
+        jtSalario.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtSalario.setEnabled(false);
         getContentPane().add(jtSalario, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 510, 108, -1));
 
@@ -286,6 +299,7 @@ public class JIFTeste extends javax.swing.JInternalFrame {
         jtEndereco.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jtEndereco.setToolTipText("");
         jtEndereco.setBorder(null);
+        jtEndereco.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtEndereco.setEnabled(false);
         getContentPane().add(jtEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 690, -1));
         getContentPane().add(jlPokemon, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 220, 170));
@@ -365,7 +379,48 @@ public void mudarIcon() {
         jtSalario.setVisible(n);
     }
 
+    public void changeToENG() {
+        obj.getEnderecoModel().setRua(obj.getEnderecoModel().getRua().replace("ç","c"));
+        obj.getEnderecoModel().setRua(obj.getEnderecoModel().getRua().replace("ã","a"));
+        obj.getEnderecoModel().setRua(obj.getEnderecoModel().getRua().replace("õ","o"));
+        obj.getEnderecoModel().setRua(obj.getEnderecoModel().getRua().trim());
+        obj.getEnderecoModel().setBairro(obj.getEnderecoModel().getBairro().replace("ç","c"));
+        obj.getEnderecoModel().setBairro(obj.getEnderecoModel().getBairro().replace("ã","a"));
+        obj.getEnderecoModel().setBairro(obj.getEnderecoModel().getBairro().replace("õ","o"));
+        obj.getEnderecoModel().setBairro(obj.getEnderecoModel().getBairro().trim());
+        obj.getEnderecoModel().setCidade(obj.getEnderecoModel().getCidade().replace("ç","c"));
+        obj.getEnderecoModel().setCidade(obj.getEnderecoModel().getCidade().replace("ã","a"));
+        obj.getEnderecoModel().setCidade(obj.getEnderecoModel().getCidade().replace("õ","o"));
+        obj.getEnderecoModel().setCidade(obj.getEnderecoModel().getCidade().trim());
+        obj.getEnderecoModel().setEstado(obj.getEnderecoModel().getEstado().replace("ç","c"));
+        obj.getEnderecoModel().setEstado(obj.getEnderecoModel().getEstado().replace("ã","a"));
+        obj.getEnderecoModel().setEstado(obj.getEnderecoModel().getEstado().replace("õ","o"));
+        obj.getEnderecoModel().setEstado(obj.getEnderecoModel().getEstado().trim());
+        obj.getEnderecoModel().setPais(obj.getEnderecoModel().getPais().replace("ç","c"));
+        obj.getEnderecoModel().setPais(obj.getEnderecoModel().getPais().replace("ã","a"));
+        obj.getEnderecoModel().setPais(obj.getEnderecoModel().getPais().replace("õ","o"));
+        obj.getEnderecoModel().setPais(obj.getEnderecoModel().getPais().trim());
+        objFunc.setCargaHoraria(objFunc.getCargaHoraria().replace("ç","c"));
+        objFunc.setCargaHoraria(objFunc.getCargaHoraria().replace("ã","a"));
+        objFunc.setCargaHoraria(objFunc.getCargaHoraria().replace("õ","o"));
+        objFunc.setCargaHoraria(objFunc.getCargaHoraria().trim());
+        objFunc.setCargo(objFunc.getCargo().replace("ç","c"));
+        objFunc.setCargo(objFunc.getCargo().replace("ã","a"));
+        objFunc.setCargo(objFunc.getCargo().replace("õ","o"));
+        objFunc.setCargo(objFunc.getCargo().trim());
+        objFunc.setEstadoCivil(objFunc.getEstadoCivil().replace("ç","c"));
+        objFunc.setEstadoCivil(objFunc.getEstadoCivil().replace("ã","a"));
+        objFunc.setEstadoCivil(objFunc.getEstadoCivil().replace("õ","o"));
+        objFunc.setEstadoCivil(objFunc.getEstadoCivil().trim());
+        obj.setNome(obj.getNome().replace("ç", "c"));
+        obj.setNome(obj.getNome().replace("ã", "a"));
+        obj.setNome(obj.getNome().replace("õ", "o"));
+        obj.setNome(obj.getNome().trim());
+        
+    }
+
     public void preencherCampos() {
+        changeToENG();
         jtId.setText("" + obj.getId());
         jtNome.setText(obj.getNome());
         jtCpf.setText(obj.getCpf());
@@ -374,7 +429,8 @@ public void mudarIcon() {
         jtTelefone.setText(obj.getTelefone());
         jtDataCadastro.setText(dateFormat.format(obj.getDataCadastro().getTime()));
         jtSexo.setText(obj.getSexo());
-        String estado = obj.getEnderecoModel().getEstado().trim();
+        String estado = obj.getEnderecoModel().getEstado().replace("ã", "a");
+        estado = estado.trim();
         jtEndereco.setText("R. " + obj.getEnderecoModel().getRua() + ", " + obj.getEnderecoModel().getNumero() + " - " + obj.getEnderecoModel().getBairro() + ", " + obj.getEnderecoModel().getCidade() + " - "
                 + estado + "  " + obj.getEnderecoModel().getCep());
         if (objFunc.getId() > 0) {
@@ -389,10 +445,13 @@ public void mudarIcon() {
         try {
             File dir = new File("C:\\Users\\Pedro\\Downloads\\pokedex\\pokemon\\main-sprites\\black-white\\");
             File[] files = dir.listFiles();
-
+            File file = null;
             Random rand = new Random(19700621 * obj.getId());
-
-            File file = files[rand.nextInt(files.length)];//files[obj.getId()];
+            if (files.length <= obj.getId()) {
+                file = files[obj.getId()];
+            } else {
+                file = files[rand.nextInt(files.length)];
+            }
             BufferedImage img = ImageIO.read(file);
             jlPokemon.setIcon(new javax.swing.ImageIcon(img));
             //jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/1490974935_Nier.gif")));

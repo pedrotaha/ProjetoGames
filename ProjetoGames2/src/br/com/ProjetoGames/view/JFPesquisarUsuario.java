@@ -28,8 +28,8 @@ import javax.swing.table.DefaultTableModel;
 public class JFPesquisarUsuario extends javax.swing.JFrame {
 
     int frameCount;
-    JIFDetalhesUsuarios janelaP = new JIFDetalhesUsuarios();
-    JIFTeste janelat = new JIFTeste();
+    //JIFDetalhesUsuarios janelaP = new JIFDetalhesUsuarios();
+    JIFDetalhesPokedex janelaT = new JIFDetalhesPokedex();
     ArrayList<UsuarioModel> dados;
     ArrayList<FuncionarioModel> dadosF;
     UsuarioModel obj, selecionado;
@@ -84,12 +84,11 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         jtPesquisar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbUsuario = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisar Usuário");
-        setMinimumSize(new java.awt.Dimension(891, 805));
-        setPreferredSize(new java.awt.Dimension(891, 805));
+        setMinimumSize(new java.awt.Dimension(960, 790));
+        setPreferredSize(new java.awt.Dimension(960, 790));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -167,55 +166,44 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbUsuario);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jdpPesquisarUser.setLayer(jbEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jbExcluir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jbDetalhes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jlPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jtPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpPesquisarUser.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jdpPesquisarUserLayout = new javax.swing.GroupLayout(jdpPesquisarUser);
         jdpPesquisarUser.setLayout(jdpPesquisarUserLayout);
         jdpPesquisarUserLayout.setHorizontalGroup(
             jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
-                .addGap(346, 346, 346)
+                .addGap(49, 49, 49)
+                .addComponent(jbEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addComponent(jbDetalhes)
-                .addContainerGap(361, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpPesquisarUserLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(70, 70, 70))
+                .addGap(171, 171, 171)
+                .addComponent(jbExcluir)
+                .addGap(63, 63, 63))
             .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
-                    .addGap(0, 16, Short.MAX_VALUE)
+                    .addGap(0, 51, Short.MAX_VALUE)
                     .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
                             .addComponent(jlPesquisar)
                             .addGap(47, 47, 47)
                             .addComponent(jtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
-                            .addComponent(jbEditar)
-                            .addGap(539, 539, 539)
-                            .addComponent(jbExcluir)))
-                    .addGap(0, 17, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 63, Short.MAX_VALUE)))
         );
         jdpPesquisarUserLayout.setVerticalGroup(
             jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpPesquisarUserLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 632, Short.MAX_VALUE)
-                .addComponent(jbDetalhes)
+                .addContainerGap(670, Short.MAX_VALUE)
+                .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbDetalhes)
+                    .addComponent(jbExcluir)
+                    .addComponent(jbEditar))
                 .addContainerGap())
             .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
@@ -227,15 +215,11 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
                         .addComponent(jtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jbEditar)
-                        .addComponent(jbExcluir))
-                    .addGap(0, 16, Short.MAX_VALUE)))
+                    .addGap(0, 91, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jdpPesquisarUser);
-        jdpPesquisarUser.setBounds(0, 0, 890, 740);
+        jdpPesquisarUser.setBounds(0, 0, 960, 740);
 
         pack();
         setLocationRelativeTo(null);
@@ -244,9 +228,9 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     private void jbDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalhesActionPerformed
         if (frameCount == 0) {
             if (selecionado.getId() > 0) {
-                jdpPesquisarUser.add(janelaP);
+                jdpPesquisarUser.add(janelaT);
                 //internoClosed();
-                janelaP.setVisible(true);
+                janelaT.setVisible(true);
                 frameCount++;
                 tratarCampos(false);
             }
@@ -257,12 +241,11 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         try {
             selecionado = dados.get(jtbUsuario.getSelectedRow());
             if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
-                janelaP = new JIFDetalhesUsuarios(selecionado);
-                janelat = new JIFTeste(selecionado);
+                janelaT = new JIFDetalhesPokedex(selecionado);
             } else {
                 FuncionarioData DAOF = new FuncionarioData();
                 selecionadoF = DAOF.pesquisarObj(selecionado);
-                janelaP = new JIFDetalhesUsuarios(selecionadoF);
+                janelaT = new JIFDetalhesPokedex(selecionadoF);
             }
             internoClosed();
         } catch (Exception e) {
@@ -299,11 +282,11 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        ImageIcon imagemTituloJanelaP = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         if (selecionado.getId() > 0 || selecionadoF.getId() > 0) {
             try {
                 if (JOptionPane.showConfirmDialog(this, "Deseja Realmente excluir o registro?",
-                        "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanelaP) == JOptionPane.YES_OPTION) {
+                        "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTitulojanelaT) == JOptionPane.YES_OPTION) {
                     if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
                         selecionado = dados.get(jtbUsuario.getSelectedRow());
                         UsuarioData DAO = new UsuarioData();
@@ -326,18 +309,6 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jbExcluirActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (frameCount == 0) {
-            if (selecionado.getId() > 0) {
-                jdpPesquisarUser.add(janelat);
-                //internoClosed();
-                janelat.setVisible(true);
-                frameCount++;
-                tratarCampos(false);
-            }
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -375,7 +346,6 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbDetalhes;
     private javax.swing.JButton jbEditar;
@@ -386,16 +356,16 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jtbUsuario;
     // End of variables declaration//GEN-END:variables
 private void setIcon() {
-        ImageIcon imagemTituloJanelaP = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
-        setIconImage(imagemTituloJanelaP.getImage());
+        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
+        setIconImage(imagemTitulojanelaT.getImage());
     }
 
     public void windowsClosing() {
-        ImageIcon imagemTituloJanelaP = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {
-                if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanelaP) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTitulojanelaT) == JOptionPane.YES_OPTION) {
                     dispose();
                     new JFPrincipal(obj).setVisible(true);
                 }
@@ -404,11 +374,11 @@ private void setIcon() {
     }
 
     public void internoClosed() {
-        janelaP.addInternalFrameListener(new InternalFrameAdapter() {
+        janelaT.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
                 tratarCampos(true);
                 frameCount--;
-                jdpPesquisarUser.remove(janelaP);
+                jdpPesquisarUser.remove(janelaT);
             }
         });
     }
