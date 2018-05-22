@@ -5,6 +5,8 @@
  */
 package br.com.ProjetoGames.view.Operacao;
 
+import br.com.ProjetoGames.data.JogosData;
+import br.com.ProjetoGames.model.JogosModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.view.JFPrincipal;
 import java.awt.Font;
@@ -15,11 +17,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-public class JFVenda extends javax.swing.JFrame {
+public class JFCadJogo extends javax.swing.JFrame {
 
+    JogosModel jogo = new JogosModel();
+    JogosData DAO = new JogosData();
     UsuarioModel obj = new UsuarioModel();
     
-    public JFVenda() {
+    public JFCadJogo() {
         initComponents();
         setIcon();
         windowsClosing();
@@ -28,7 +32,7 @@ public class JFVenda extends javax.swing.JFrame {
         UIManager.put("OptionPane.buttonFont", font);
     }
     
-    public JFVenda(UsuarioModel obj) {
+    public JFCadJogo(UsuarioModel obj) {
         initComponents();
         this.obj = obj;
         setIcon();
@@ -47,18 +51,29 @@ public class JFVenda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Realizar Venda");
+        setTitle("Cadastro Jogos");
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel1.setText("Titulo:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 506, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addContainerGap(571, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 391, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addContainerGap(430, Short.MAX_VALUE))
         );
 
         pack();
@@ -82,28 +97,29 @@ public class JFVenda extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCadJogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCadJogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCadJogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFVenda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCadJogo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFVenda().setVisible(true);
+                new JFCadJogo().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Buy_528px.png");
+        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Overwatch_528px_1.png");
         setIconImage(imagemTituloJanela.getImage());
     }
 

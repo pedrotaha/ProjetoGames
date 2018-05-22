@@ -6,6 +6,9 @@
 package br.com.ProjetoGames.view;
 
 import br.com.ProjetoGames.model.UsuarioModel;
+import br.com.ProjetoGames.view.Operacao.JFCadJogo;
+import br.com.ProjetoGames.view.Operacao.JFLocacao;
+import br.com.ProjetoGames.view.Operacao.JFVenda;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -213,15 +216,18 @@ public class JFPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCadUsuarioActionPerformed
 
     private void jbCadJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadJogoActionPerformed
-        // TODO add your handling code here:
+        new JFCadJogo(obj).setVisible(true);
+        dispose();
     }//GEN-LAST:event_jbCadJogoActionPerformed
 
     private void jbVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVendaActionPerformed
-        // TODO add your handling code here:
+        new JFVenda(obj).setVisible(true);
+        dispose();
     }//GEN-LAST:event_jbVendaActionPerformed
 
     private void jbLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLocacaoActionPerformed
-        // TODO add your handling code here:
+        new JFLocacao(obj).setVisible(true);
+        dispose();
     }//GEN-LAST:event_jbLocacaoActionPerformed
 
     private void jbRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistroActionPerformed
