@@ -29,6 +29,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
 
     int frameCount;
     JIFDetalhesUsuarios janelaP = new JIFDetalhesUsuarios();
+    JIFTeste janelat = new JIFTeste();
     ArrayList<UsuarioModel> dados;
     ArrayList<FuncionarioModel> dadosF;
     UsuarioModel obj, selecionado;
@@ -83,6 +84,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         jtPesquisar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbUsuario = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisar Usuário");
@@ -165,12 +167,20 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbUsuario);
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         jdpPesquisarUser.setLayer(jbEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jbExcluir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jbDetalhes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jlPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jtPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpPesquisarUser.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jdpPesquisarUserLayout = new javax.swing.GroupLayout(jdpPesquisarUser);
         jdpPesquisarUser.setLayout(jdpPesquisarUserLayout);
@@ -180,6 +190,10 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
                 .addGap(346, 346, 346)
                 .addComponent(jbDetalhes)
                 .addContainerGap(361, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpPesquisarUserLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(70, 70, 70))
             .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
                     .addGap(0, 16, Short.MAX_VALUE)
@@ -198,7 +212,9 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         jdpPesquisarUserLayout.setVerticalGroup(
             jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpPesquisarUserLayout.createSequentialGroup()
-                .addContainerGap(670, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 632, Short.MAX_VALUE)
                 .addComponent(jbDetalhes)
                 .addContainerGap())
             .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,6 +258,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
             selecionado = dados.get(jtbUsuario.getSelectedRow());
             if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
                 janelaP = new JIFDetalhesUsuarios(selecionado);
+                janelat = new JIFTeste(selecionado);
             } else {
                 FuncionarioData DAOF = new FuncionarioData();
                 selecionadoF = DAOF.pesquisarObj(selecionado);
@@ -310,6 +327,18 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbExcluirActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (frameCount == 0) {
+            if (selecionado.getId() > 0) {
+                jdpPesquisarUser.add(janelat);
+                //internoClosed();
+                janelat.setVisible(true);
+                frameCount++;
+                tratarCampos(false);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -346,6 +375,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbDetalhes;
     private javax.swing.JButton jbEditar;
