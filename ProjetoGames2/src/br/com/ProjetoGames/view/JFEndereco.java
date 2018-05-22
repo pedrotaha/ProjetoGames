@@ -7,6 +7,7 @@ package br.com.ProjetoGames.view;
 
 import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.UsuarioModel;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -275,6 +276,7 @@ public class JFEndereco extends javax.swing.JFrame {
     private void jtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtPesquisarActionPerformed
         Lista.setVisible(false);
         Enter = 1;
+
     }//GEN-LAST:event_jtPesquisarActionPerformed
 
     private void jtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPesquisarKeyReleased
@@ -282,6 +284,10 @@ public class JFEndereco extends javax.swing.JFrame {
             listaDePesquisa();
         } else {
             Enter = 0;
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            Lista.requestFocusInWindow();
+            Lista.setSelectedIndex(0);
         }
     }//GEN-LAST:event_jtPesquisarKeyReleased
 

@@ -12,16 +12,21 @@ import br.com.ProjetoGames.view.JFPrincipal;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class JFCadJogo extends javax.swing.JFrame {
 
     JogosModel jogo = new JogosModel();
     JogosData DAO = new JogosData();
     UsuarioModel obj = new UsuarioModel();
+    JIFBuscarImagem janela = new JIFBuscarImagem();
     
     public JFCadJogo() {
         initComponents();
@@ -30,8 +35,9 @@ public class JFCadJogo extends javax.swing.JFrame {
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        jfcBuscar.setVisible(false);
     }
-    
+
     public JFCadJogo(UsuarioModel obj) {
         initComponents();
         this.obj = obj;
@@ -40,6 +46,7 @@ public class JFCadJogo extends javax.swing.JFrame {
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        jfcBuscar.setVisible(false);
     }
 
     /**
@@ -51,34 +58,143 @@ public class JFCadJogo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jDesktopPane1 = new javax.swing.JDesktopPane();
+        jlTitulo = new javax.swing.JLabel();
+        jlGenero = new javax.swing.JLabel();
+        jlPlataforma = new javax.swing.JLabel();
+        jlDataLancamento = new javax.swing.JLabel();
+        jlPublicadora = new javax.swing.JLabel();
+        jlFaixaEtaria = new javax.swing.JLabel();
+        jlQuantVenda = new javax.swing.JLabel();
+        jlQuantLocacao = new javax.swing.JLabel();
+        jlImagem = new javax.swing.JLabel();
+        jcbFaixaEtaria = new javax.swing.JComboBox<>();
+        jtTitulo = new javax.swing.JTextField();
+        jtGenero = new javax.swing.JTextField();
+        jtPlataforma = new javax.swing.JTextField();
+        jtDataLancamento = new javax.swing.JTextField();
+        jtPublicadora = new javax.swing.JTextField();
+        jtQuantVenda = new javax.swing.JTextField();
+        jtQuantLocacao = new javax.swing.JTextField();
+        jbBuscar = new javax.swing.JButton();
+        jtDir = new javax.swing.JTextField();
+        jfcBuscar = new javax.swing.JFileChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Cadastro Jogos");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setText("Titulo:");
+        jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel1)
-                .addContainerGap(571, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(430, Short.MAX_VALUE))
-        );
+        jlTitulo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlTitulo.setText("Titulo:");
+        jDesktopPane1.add(jlTitulo);
+        jlTitulo.setBounds(20, 22, 56, 22);
+
+        jlGenero.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlGenero.setText("Gênero:");
+        jlGenero.setToolTipText("");
+        jDesktopPane1.add(jlGenero);
+        jlGenero.setBounds(205, 131, 72, 22);
+
+        jlPlataforma.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlPlataforma.setText("Plataforma:");
+        jDesktopPane1.add(jlPlataforma);
+        jlPlataforma.setBounds(240, 22, 101, 22);
+
+        jlDataLancamento.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlDataLancamento.setText("<html>Data de  <br /> Lançamento:</html>");
+        jDesktopPane1.add(jlDataLancamento);
+        jlDataLancamento.setBounds(513, 21, 115, 44);
+
+        jlPublicadora.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlPublicadora.setText("Publicadora:");
+        jDesktopPane1.add(jlPublicadora);
+        jlPublicadora.setBounds(12, 131, 110, 22);
+
+        jlFaixaEtaria.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlFaixaEtaria.setText("Faixa Etária:");
+        jDesktopPane1.add(jlFaixaEtaria);
+        jlFaixaEtaria.setBounds(471, 131, 109, 22);
+
+        jlQuantVenda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlQuantVenda.setText("Quantidade para Venda:");
+        jDesktopPane1.add(jlQuantVenda);
+        jlQuantVenda.setBounds(12, 251, 211, 22);
+
+        jlQuantLocacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlQuantLocacao.setText("Quantidade para Locação:");
+        jlQuantLocacao.setToolTipText("");
+        jDesktopPane1.add(jlQuantLocacao);
+        jlQuantLocacao.setBounds(320, 251, 228, 22);
+
+        jlImagem.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlImagem.setText("Imagem:");
+        jDesktopPane1.add(jlImagem);
+        jlImagem.setBounds(12, 347, 78, 22);
+
+        jcbFaixaEtaria.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jcbFaixaEtaria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>", "Livre", "+10", "+12", "+14", "+16", "+18" }));
+        jDesktopPane1.add(jcbFaixaEtaria);
+        jcbFaixaEtaria.setBounds(471, 171, 142, 28);
+
+        jtTitulo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jtTitulo);
+        jtTitulo.setBounds(12, 72, 159, 28);
+
+        jtGenero.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jtGenero);
+        jtGenero.setBounds(205, 171, 219, 28);
+
+        jtPlataforma.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jtPlataforma);
+        jtPlataforma.setBounds(240, 72, 171, 28);
+
+        jtDataLancamento.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jtDataLancamento);
+        jtDataLancamento.setBounds(513, 72, 56, 28);
+
+        jtPublicadora.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jtPublicadora);
+        jtPublicadora.setBounds(12, 171, 146, 28);
+
+        jtQuantVenda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jtQuantVenda);
+        jtQuantVenda.setBounds(17, 291, 88, 28);
+
+        jtQuantLocacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jtQuantLocacao);
+        jtQuantLocacao.setBounds(320, 291, 76, 28);
+
+        jbBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
+        jDesktopPane1.add(jbBuscar);
+        jbBuscar.setBounds(12, 395, 93, 31);
+
+        jtDir.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jtDir);
+        jtDir.setBounds(120, 350, 310, 28);
+
+        jfcBuscar.setCurrentDirectory(new java.io.File("C:\\Users\\Pedro\\Pictures"));
+        jfcBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jfcBuscar);
+        jfcBuscar.setBounds(0, 30, 650, 397);
+
+        getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -5, 650, 470));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        jfcBuscar.setVisible(true);
+        buscar();
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -116,7 +232,27 @@ public class JFCadJogo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JButton jbBuscar;
+    private javax.swing.JComboBox<String> jcbFaixaEtaria;
+    private javax.swing.JFileChooser jfcBuscar;
+    private javax.swing.JLabel jlDataLancamento;
+    private javax.swing.JLabel jlFaixaEtaria;
+    private javax.swing.JLabel jlGenero;
+    private javax.swing.JLabel jlImagem;
+    private javax.swing.JLabel jlPlataforma;
+    private javax.swing.JLabel jlPublicadora;
+    private javax.swing.JLabel jlQuantLocacao;
+    private javax.swing.JLabel jlQuantVenda;
+    private javax.swing.JLabel jlTitulo;
+    private javax.swing.JTextField jtDataLancamento;
+    private javax.swing.JTextField jtDir;
+    private javax.swing.JTextField jtGenero;
+    private javax.swing.JTextField jtPlataforma;
+    private javax.swing.JTextField jtPublicadora;
+    private javax.swing.JTextField jtQuantLocacao;
+    private javax.swing.JTextField jtQuantVenda;
+    private javax.swing.JTextField jtTitulo;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Overwatch_528px_1.png");
@@ -136,4 +272,30 @@ public class JFCadJogo extends javax.swing.JFrame {
         });
     }
 
+    private void campoSemNumero(java.awt.event.KeyEvent evt) {
+        String caracteres = "0987654321";
+        if (caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+
+    private void campoComNumero(java.awt.event.KeyEvent evt) {
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }
+    
+    public void buscar() {
+        FileFilter imageFilter = new FileNameExtensionFilter(
+    "Image files", ImageIO.getReaderFileSuffixes());
+        jfcBuscar.setFileFilter(imageFilter);
+        int i = jfcBuscar.showSaveDialog(null);
+        if (i == 1) {
+            jtDir.setText("");
+        } else {
+            File arquivo = jfcBuscar.getSelectedFile();
+            jtDir.setText(arquivo.getPath());
+        }
+    }
 }
