@@ -286,7 +286,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         try {
             selecionado = dados.get(jtbUsuario.getSelectedRow());
             if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
-                new JFCadCliente(selecionado, 2).setVisible(true);
+                new JFCadCliente(obj, selecionado, 2).setVisible(true);
             } else {
                 FuncionarioData DAOF = new FuncionarioData();
                 selecionadoF = DAOF.pesquisarObj(selecionado);
