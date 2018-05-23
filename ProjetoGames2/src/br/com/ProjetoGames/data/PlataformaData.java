@@ -28,7 +28,7 @@ public class PlataformaData {
 
     public Calendar calendario(String data) throws Exception {
         Calendar cal = new GregorianCalendar();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");// , Locale.ENGLISH
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");// , Locale.ENGLISH
         cal.setTime(sdf.parse(data));
         return cal;
     }

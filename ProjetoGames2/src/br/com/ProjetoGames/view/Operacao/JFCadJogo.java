@@ -80,6 +80,8 @@ public class JFCadJogo extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jscrollpPlataforma = new javax.swing.JScrollPane();
+        jlistPlataforma = new javax.swing.JList<>();
         jlTitulo = new javax.swing.JLabel();
         jlGenero = new javax.swing.JLabel();
         jlPlataforma = new javax.swing.JLabel();
@@ -91,8 +93,6 @@ public class JFCadJogo extends javax.swing.JFrame {
         jlImagem = new javax.swing.JLabel();
         jcbFaixaEtaria = new javax.swing.JComboBox<>();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jscrollpPlataforma = new javax.swing.JScrollPane();
-        jlistPlataforma = new javax.swing.JList<>();
         jtTitulo = new javax.swing.JTextField();
         jtGenero = new javax.swing.JTextField();
         jtPlataforma = new javax.swing.JTextField();
@@ -108,6 +108,22 @@ public class JFCadJogo extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
+
+        jlistPlataforma.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlistPlataforma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jlistPlataformaMousePressed(evt);
+            }
+        });
+        jlistPlataforma.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jlistPlataformaKeyReleased(evt);
+            }
+        });
+        jscrollpPlataforma.setViewportView(jlistPlataforma);
+
+        jDesktopPane1.add(jscrollpPlataforma);
+        jscrollpPlataforma.setBounds(240, 100, 370, 130);
 
         jlTitulo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlTitulo.setText("Titulo:");
@@ -128,7 +144,7 @@ public class JFCadJogo extends javax.swing.JFrame {
         jlDataLancamento.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlDataLancamento.setText("<html>Data de  <br /> Lançamento:</html>");
         jDesktopPane1.add(jlDataLancamento);
-        jlDataLancamento.setBounds(513, 21, 115, 44);
+        jlDataLancamento.setBounds(510, 240, 115, 44);
 
         jlPublicadora.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlPublicadora.setText("Publicadora:");
@@ -141,15 +157,15 @@ public class JFCadJogo extends javax.swing.JFrame {
         jlFaixaEtaria.setBounds(471, 131, 109, 22);
 
         jlQuantVenda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jlQuantVenda.setText("Quantidade para Venda:");
+        jlQuantVenda.setText("<html>Quantidade para<br \\> Venda:</html>");
         jDesktopPane1.add(jlQuantVenda);
-        jlQuantVenda.setBounds(12, 251, 211, 22);
+        jlQuantVenda.setBounds(12, 243, 143, 40);
 
         jlQuantLocacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jlQuantLocacao.setText("Quantidade para Locação:");
+        jlQuantLocacao.setText("<html>Quantidade para<br \\> Locação:</html>");
         jlQuantLocacao.setToolTipText("");
         jDesktopPane1.add(jlQuantLocacao);
-        jlQuantLocacao.setBounds(320, 251, 228, 22);
+        jlQuantLocacao.setBounds(250, 240, 143, 40);
 
         jlImagem.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlImagem.setText("Imagem:");
@@ -168,18 +184,7 @@ public class JFCadJogo extends javax.swing.JFrame {
         }
         jFormattedTextField1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jFormattedTextField1);
-        jFormattedTextField1.setBounds(520, 70, 90, 30);
-
-        jlistPlataforma.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jlistPlataforma.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jlistPlataformaMousePressed(evt);
-            }
-        });
-        jscrollpPlataforma.setViewportView(jlistPlataforma);
-
-        jDesktopPane1.add(jscrollpPlataforma);
-        jscrollpPlataforma.setBounds(240, 100, 170, 130);
+        jFormattedTextField1.setBounds(510, 290, 90, 30);
 
         jtTitulo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jtTitulo);
@@ -201,19 +206,29 @@ public class JFCadJogo extends javax.swing.JFrame {
             }
         });
         jDesktopPane1.add(jtPlataforma);
-        jtPlataforma.setBounds(240, 72, 171, 28);
+        jtPlataforma.setBounds(240, 72, 370, 28);
 
         jtPublicadora.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jtPublicadora);
         jtPublicadora.setBounds(12, 171, 146, 28);
 
         jtQuantVenda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jtQuantVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtQuantVendaKeyTyped(evt);
+            }
+        });
         jDesktopPane1.add(jtQuantVenda);
         jtQuantVenda.setBounds(17, 291, 88, 28);
 
         jtQuantLocacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jtQuantLocacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtQuantLocacaoKeyTyped(evt);
+            }
+        });
         jDesktopPane1.add(jtQuantLocacao);
-        jtQuantLocacao.setBounds(320, 291, 76, 28);
+        jtQuantLocacao.setBounds(250, 290, 76, 28);
 
         jbBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jbBuscar.setText("Buscar");
@@ -225,9 +240,10 @@ public class JFCadJogo extends javax.swing.JFrame {
         jDesktopPane1.add(jbBuscar);
         jbBuscar.setBounds(12, 395, 93, 31);
 
+        jtDir.setEditable(false);
         jtDir.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jtDir);
-        jtDir.setBounds(120, 350, 310, 28);
+        jtDir.setBounds(120, 340, 310, 28);
 
         jfcBuscar.setCurrentDirectory(new java.io.File("C:\\Users\\Pedro\\Pictures"));
         jfcBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -246,9 +262,9 @@ public class JFCadJogo extends javax.swing.JFrame {
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jtPlataformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtPlataformaActionPerformed
-        jlistPlataforma.setVisible(false);
-        jscrollpPlataforma.setVisible(false);
-        Enter = 1;
+//        jlistPlataforma.setVisible(false);
+//        jscrollpPlataforma.setVisible(false);
+//        Enter = 1;
     }//GEN-LAST:event_jtPlataformaActionPerformed
 
     private void jtPlataformaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPlataformaKeyReleased
@@ -269,6 +285,27 @@ public class JFCadJogo extends javax.swing.JFrame {
         jscrollpPlataforma.setVisible(false);
         jtPlataforma.setText(selecionado.getNome());
     }//GEN-LAST:event_jlistPlataformaMousePressed
+
+    private void jlistPlataformaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jlistPlataformaKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            mostraPesquisa();
+            jlistPlataforma.setVisible(false);
+            jscrollpPlataforma.setVisible(false);
+            jtPlataforma.setText(selecionado.getNome());
+        }
+        if(evt.getKeyCode() == KeyEvent.VK_UP && jlistPlataforma.getSelectedIndex() == 0){
+            jtPlataforma.requestFocusInWindow();
+            selecionado = new PlataformaModel();
+        }
+    }//GEN-LAST:event_jlistPlataformaKeyReleased
+
+    private void jtQuantVendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtQuantVendaKeyTyped
+        campoComNumero(evt);
+    }//GEN-LAST:event_jtQuantVendaKeyTyped
+
+    private void jtQuantLocacaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtQuantLocacaoKeyTyped
+        campoComNumero(evt);
+    }//GEN-LAST:event_jtQuantLocacaoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -398,7 +435,7 @@ public class JFCadJogo extends javax.swing.JFrame {
                     jscrollpPlataforma.setVisible(false);
                 }
             } catch (Exception e) {
-
+                JOptionPane.showMessageDialog(this, e.getMessage());
             }
         } else {
             MODELO.removeAllElements();
@@ -407,7 +444,7 @@ public class JFCadJogo extends javax.swing.JFrame {
             Enter = 1;
         }
     }
-    
+
 }
 //lista.forEach((list) -> {
 //    MODELO.addElement(list.getNome());
