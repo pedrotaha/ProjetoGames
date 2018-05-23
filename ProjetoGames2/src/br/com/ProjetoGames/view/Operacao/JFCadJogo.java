@@ -6,14 +6,19 @@
 package br.com.ProjetoGames.view.Operacao;
 
 import br.com.ProjetoGames.data.JogosData;
+import br.com.ProjetoGames.data.PlataformaData;
 import br.com.ProjetoGames.model.JogosModel;
+import br.com.ProjetoGames.model.PlataformaModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.view.JFPrincipal;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,7 +32,13 @@ public class JFCadJogo extends javax.swing.JFrame {
     JogosData DAO = new JogosData();
     UsuarioModel obj = new UsuarioModel();
     JIFBuscarImagem janela = new JIFBuscarImagem();
-    
+
+    DefaultListModel MODELO;
+    int Enter = 0;
+    ArrayList<PlataformaModel> lista = new ArrayList<>();
+    PlataformaModel selecionado = new PlataformaModel();
+    PlataformaData DAOP = new PlataformaData();
+
     public JFCadJogo() {
         initComponents();
         setIcon();
@@ -36,6 +47,11 @@ public class JFCadJogo extends javax.swing.JFrame {
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
         jfcBuscar.setVisible(false);
+        mostraPesquisa();
+        jlistPlataforma.setVisible(false);
+        jscrollpPlataforma.setVisible(false);
+        MODELO = new DefaultListModel();
+        jlistPlataforma.setModel(MODELO);
     }
 
     public JFCadJogo(UsuarioModel obj) {
@@ -47,6 +63,11 @@ public class JFCadJogo extends javax.swing.JFrame {
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
         jfcBuscar.setVisible(false);
+        mostraPesquisa();
+        jlistPlataforma.setVisible(false);
+        jscrollpPlataforma.setVisible(false);
+        MODELO = new DefaultListModel();
+        jlistPlataforma.setModel(MODELO);
     }
 
     /**
@@ -69,10 +90,12 @@ public class JFCadJogo extends javax.swing.JFrame {
         jlQuantLocacao = new javax.swing.JLabel();
         jlImagem = new javax.swing.JLabel();
         jcbFaixaEtaria = new javax.swing.JComboBox<>();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jscrollpPlataforma = new javax.swing.JScrollPane();
+        jlistPlataforma = new javax.swing.JList<>();
         jtTitulo = new javax.swing.JTextField();
         jtGenero = new javax.swing.JTextField();
         jtPlataforma = new javax.swing.JTextField();
-        jtDataLancamento = new javax.swing.JTextField();
         jtPublicadora = new javax.swing.JTextField();
         jtQuantVenda = new javax.swing.JTextField();
         jtQuantLocacao = new javax.swing.JTextField();
@@ -138,6 +161,26 @@ public class JFCadJogo extends javax.swing.JFrame {
         jDesktopPane1.add(jcbFaixaEtaria);
         jcbFaixaEtaria.setBounds(471, 171, 142, 28);
 
+        try {
+            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextField1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jFormattedTextField1);
+        jFormattedTextField1.setBounds(520, 70, 90, 30);
+
+        jlistPlataforma.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlistPlataforma.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jlistPlataformaMousePressed(evt);
+            }
+        });
+        jscrollpPlataforma.setViewportView(jlistPlataforma);
+
+        jDesktopPane1.add(jscrollpPlataforma);
+        jscrollpPlataforma.setBounds(240, 100, 170, 130);
+
         jtTitulo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jtTitulo);
         jtTitulo.setBounds(12, 72, 159, 28);
@@ -147,12 +190,18 @@ public class JFCadJogo extends javax.swing.JFrame {
         jtGenero.setBounds(205, 171, 219, 28);
 
         jtPlataforma.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jtPlataforma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtPlataformaActionPerformed(evt);
+            }
+        });
+        jtPlataforma.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtPlataformaKeyReleased(evt);
+            }
+        });
         jDesktopPane1.add(jtPlataforma);
         jtPlataforma.setBounds(240, 72, 171, 28);
-
-        jtDataLancamento.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jDesktopPane1.add(jtDataLancamento);
-        jtDataLancamento.setBounds(513, 72, 56, 28);
 
         jtPublicadora.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jtPublicadora);
@@ -196,6 +245,31 @@ public class JFCadJogo extends javax.swing.JFrame {
         buscar();
     }//GEN-LAST:event_jbBuscarActionPerformed
 
+    private void jtPlataformaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtPlataformaActionPerformed
+        jlistPlataforma.setVisible(false);
+        jscrollpPlataforma.setVisible(false);
+        Enter = 1;
+    }//GEN-LAST:event_jtPlataformaActionPerformed
+
+    private void jtPlataformaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPlataformaKeyReleased
+        if (Enter == 0) {
+            listaDePesquisa();
+        } else {
+            Enter = 0;
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            jlistPlataforma.requestFocusInWindow();
+            jlistPlataforma.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jtPlataformaKeyReleased
+
+    private void jlistPlataformaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlistPlataformaMousePressed
+        mostraPesquisa();
+        jlistPlataforma.setVisible(false);
+        jscrollpPlataforma.setVisible(false);
+        jtPlataforma.setText(selecionado.getNome());
+    }//GEN-LAST:event_jlistPlataformaMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -233,6 +307,7 @@ public class JFCadJogo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JComboBox<String> jcbFaixaEtaria;
     private javax.swing.JFileChooser jfcBuscar;
@@ -245,7 +320,8 @@ public class JFCadJogo extends javax.swing.JFrame {
     private javax.swing.JLabel jlQuantLocacao;
     private javax.swing.JLabel jlQuantVenda;
     private javax.swing.JLabel jlTitulo;
-    private javax.swing.JTextField jtDataLancamento;
+    private javax.swing.JList<String> jlistPlataforma;
+    private javax.swing.JScrollPane jscrollpPlataforma;
     private javax.swing.JTextField jtDir;
     private javax.swing.JTextField jtGenero;
     private javax.swing.JTextField jtPlataforma;
@@ -285,10 +361,10 @@ public class JFCadJogo extends javax.swing.JFrame {
             evt.consume();
         }
     }
-    
+
     public void buscar() {
         FileFilter imageFilter = new FileNameExtensionFilter(
-    "Image files", ImageIO.getReaderFileSuffixes());
+                "Image files", ImageIO.getReaderFileSuffixes());
         jfcBuscar.setFileFilter(imageFilter);
         int i = jfcBuscar.showSaveDialog(null);
         if (i == 1) {
@@ -298,4 +374,41 @@ public class JFCadJogo extends javax.swing.JFrame {
             jtDir.setText(arquivo.getPath());
         }
     }
+
+    public void mostraPesquisa() {
+        int Linha = jlistPlataforma.getSelectedIndex();
+        if (Linha >= 0) {
+            selecionado = lista.get(Linha);
+        }
+    }
+
+    public void listaDePesquisa() {
+        if (jtPlataforma.getText().length() > 1) {
+            try {
+                MODELO.removeAllElements();
+                lista = DAOP.pesquisar(jtPlataforma.getText());
+                for (PlataformaModel list : lista) {
+                    MODELO.addElement(list.getNome());
+                }
+                if (lista.size() >= 1) {
+                    jlistPlataforma.setVisible(true);
+                    jscrollpPlataforma.setVisible(true);
+                } else {
+                    jlistPlataforma.setVisible(false);
+                    jscrollpPlataforma.setVisible(false);
+                }
+            } catch (Exception e) {
+
+            }
+        } else {
+            MODELO.removeAllElements();
+            jlistPlataforma.setVisible(false);
+            jscrollpPlataforma.setVisible(false);
+            Enter = 1;
+        }
+    }
+    
 }
+//lista.forEach((list) -> {
+//    MODELO.addElement(list.getNome());
+//});

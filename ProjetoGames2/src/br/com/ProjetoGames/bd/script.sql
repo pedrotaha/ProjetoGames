@@ -97,6 +97,12 @@ create table if not exists tbJogoLocad(
  idJogo integer not null references tbjogos ON DELETE CASCADE,
  quantidade integer not null
 );
+
+create table if not exists tbPlataformas(
+ idplataforma serial not null primary key,
+ nomeplataforma varchar(50) not null,
+ dataLancamento varchar(12) not null
+);
  
  insert into tbtipousuarios (descricao, nivel) values ('Cliente',0);
  insert into tbtipousuarios (descricao, nivel) values ('Funcionario',1);
