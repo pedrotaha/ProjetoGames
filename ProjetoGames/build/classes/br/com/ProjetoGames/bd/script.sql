@@ -30,8 +30,8 @@ create table if not exists tbJogos(
  idJogos serial primary key not null,
  titulo varchar(40) not null,
  genero varchar(40) not null,
- estado varchar(20) not null,
- situacao varchar(20) not null,
+ --estado varchar(20) not null, --não será controlado
+ --situacao varchar(20) not null, --controlada pela operacao
  descricao varchar(900) not null,
  plataforma varchar(13) not null,
  dataLancamento varchar(12) not null,
@@ -96,6 +96,12 @@ create table if not exists tbJogoLocad(
  idLocacao integer not null references tblocacao ON DELETE CASCADE,
  idJogo integer not null references tbjogos ON DELETE CASCADE,
  quantidade integer not null
+);
+
+create table if not exists tbPlataformas(
+ idplataforma serial not null primary key,
+ nomeplataforma varchar(50) not null,
+ dataLancamento varchar(12) not null
 );
  
  insert into tbtipousuarios (descricao, nivel) values ('Cliente',0);

@@ -7,6 +7,7 @@ package br.com.ProjetoGames.view;
 
 import br.com.ProjetoGames.data.localizar.LocalData;
 import br.com.ProjetoGames.model.EnderecoModel;
+import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.model.localizar.LocalModel;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import javax.swing.UIManager;
  */
 public class JIFEndereco extends javax.swing.JInternalFrame {
 
+    UsuarioModel obj;
     ArrayList<LocalModel> listaP = new ArrayList<>();
     ArrayList<LocalModel> listaE = new ArrayList<>();
     ArrayList<LocalModel> listaC = new ArrayList<>();
@@ -28,6 +30,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
 
     public JIFEndereco() {
         initComponents();
+        obj = new UsuarioModel();
         this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
@@ -39,6 +42,27 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         jcbEstado.setVisible(false);
         try {
             local();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
+        }
+
+    }
+
+    public JIFEndereco(UsuarioModel obj) {
+        initComponents();
+        this.obj = obj;
+        this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+        mudarIcon();
+        jtCidade.setVisible(false);
+        jtEstado.setVisible(false);
+        jcbCidade.setVisible(false);
+        jcbEstado.setVisible(false);
+        try {
+            local();
+            carregarCamposEdit();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage());
         }
@@ -363,11 +387,11 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtNumero;
     private javax.swing.JTextField jtRua;
     // End of variables declaration//GEN-END:variables
-   public void mudarIcon(){
-       ImageIcon icon = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\icons8_Map_Pokemon_144px.png");
-       this.setFrameIcon(icon);
-   }
-    
+   public void mudarIcon() {
+        ImageIcon icon = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\icons8_Map_Pokemon_144px.png");
+        this.setFrameIcon(icon);
+    }
+
     public boolean validar() throws Exception {
         String msg = new String();
         if (jtRua.getText().equals("")) {
@@ -432,7 +456,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         if (jcbPais.getSelectedItem().equals("Brazil")) {
             end.setEstado(jcbEstado.getItemAt(jcbEstado.getSelectedIndex()));
             end.setCidade(jcbCidade.getItemAt(jcbCidade.getSelectedIndex()));
-        }else{
+        } else {
             end.setEstado(jtEstado.getText());
             end.setCidade(jtCidade.getText());
         }
@@ -449,7 +473,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao validar: \n"+e.getMessage(), "Voltar", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erro ao validar: \n" + e.getMessage(), "Voltar", JOptionPane.ERROR_MESSAGE);
             }
 
         }
@@ -475,7 +499,8 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
             jcbPais.addItem(local.getNome());
         }
     }
-    void limparCampos(){
+
+    void limparCampos() {
         jtBairro.setText("");
         jtCidade.setText("");
         jtComplemento.setText("");
@@ -486,5 +511,22 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
         jcbCidade.setSelectedIndex(0);
         jcbEstado.setSelectedIndex(0);
         jcbPais.setSelectedIndex(0);
+    }
+
+    public void carregarCamposEdit() {
+        jtBairro.setText(obj.getEnderecoModel().getBairro());
+        jtComplemento.setText(obj.getEnderecoModel().getComplemento());
+        jtNumero.setText("" + obj.getEnderecoModel().getNumero());
+        jtRua.setText(obj.getEnderecoModel().getRua());
+        jftCep.setText(obj.getEnderecoModel().getCep());
+        jcbPais.setSelectedItem(obj.getEnderecoModel().getPais());
+        if (obj.getEnderecoModel().getPais().equals("Brazil")) {
+            jcbEstado.setSelectedItem(obj.getEnderecoModel().getEstado());
+            jcbCidade.setSelectedItem(obj.getEnderecoModel().getCidade());
+        } else {
+            jtEstado.setText(obj.getEnderecoModel().getEstado());
+            jtCidade.setText(obj.getEnderecoModel().getCidade());
+        }
+
     }
 }

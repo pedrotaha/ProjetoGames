@@ -5,7 +5,9 @@
  */
 package br.com.ProjetoGames.view;
 
+import br.com.ProjetoGames.data.FuncionarioData;
 import br.com.ProjetoGames.model.FuncionarioModel;
+import br.com.ProjetoGames.model.UsuarioModel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
@@ -17,17 +19,36 @@ import javax.swing.UIManager;
  * @author Pedro
  */
 public class JIFFuncionario extends javax.swing.JInternalFrame {
-    FuncionarioModel obj = new FuncionarioModel();
-    /**
-     * Creates new form JIFFuncionario
-     */
+
+    FuncionarioModel objF;
+    UsuarioModel obj;
+
     public JIFFuncionario() {
-        initComponents();        
+        initComponents();
+        obj = new UsuarioModel();
+        objF = new FuncionarioModel();
         this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
         mudarIcon();
+    }
+
+    public JIFFuncionario(UsuarioModel obj) {
+        initComponents();
+        this.obj = obj;
+        this.setDefaultCloseOperation(JInternalFrame.DO_NOTHING_ON_CLOSE);
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+        mudarIcon();
+        try {
+            FuncionarioData DAO = new FuncionarioData();
+            objF = DAO.pesquisarObj(obj);
+            carregarCamposEdit();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao editar: "+e.getMessage());
+        }
     }
 
     /**
@@ -165,10 +186,11 @@ public class JIFFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtCargo;
     private javax.swing.JTextField jtSalario;
     // End of variables declaration//GEN-END:variables
-    public void mudarIcon(){
-       ImageIcon icon = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\icons8_Map_Pokemon_144px.png");
-       this.setFrameIcon(icon);
-   }
+    public void mudarIcon() {
+        ImageIcon icon = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\icons8_Map_Pokemon_144px.png");
+        this.setFrameIcon(icon);
+    }
+
     public void sair() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nVoltar?", "Botão Voltar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
@@ -179,13 +201,13 @@ public class JIFFuncionario extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao validar: \n"+e.getMessage(), "Voltar", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Erro ao validar: \n" + e.getMessage(), "Voltar", JOptionPane.ERROR_MESSAGE);
             }
 
         }
     }
-    
-    public boolean validar() throws Exception{
+
+    public boolean validar() throws Exception {
         String msg = new String();
         if (jtCargaHoraria.getText().equals("")) {
             msg = "O campo Carga Horária deve ser preenchido\n";
@@ -213,15 +235,15 @@ public class JIFFuncionario extends javax.swing.JInternalFrame {
             throw new Exception(msg);
         }
     }
-    
-    public FuncionarioModel preencherObjeto(FuncionarioModel func){
+
+    public FuncionarioModel preencherObjeto(FuncionarioModel func) {
         func.setCargo(jtCargo.getText());
         func.setSalario(Float.parseFloat(jtSalario.getText()));
         func.setCargaHoraria(jtCargaHoraria.getText());
         func.setEstadoCivil(jcbEstadoCivil.getItemAt(jcbEstadoCivil.getSelectedIndex()));
         return func;
     }
-    
+
     private void campoSemNumero(java.awt.event.KeyEvent evt) {
         String caracteres = "0987654321";
         if (caracteres.contains(evt.getKeyChar() + "")) {
@@ -235,11 +257,18 @@ public class JIFFuncionario extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }
-    
-    public void limparCampos(){
+
+    public void limparCampos() {
         jtCargaHoraria.setText("");
         jtCargo.setText("");
         jtSalario.setText("");
         jcbEstadoCivil.setSelectedIndex(0);
+    }
+
+    public void carregarCamposEdit() {
+        jtCargaHoraria.setText(objF.getCargaHoraria());
+        jtCargo.setText(objF.getCargo());
+        jtSalario.setText(""+objF.getSalario());
+        jcbEstadoCivil.setToolTipText(objF.getEstadoCivil());
     }
 }

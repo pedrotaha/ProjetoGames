@@ -16,6 +16,7 @@ import br.com.ProjetoGames.view.control.Criptografar;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,16 +37,16 @@ public class JFCadCliente extends javax.swing.JFrame {
     EnderecoModel end = new EnderecoModel();
     int frameCount;
     int frameCountF;
-    JIFEndereco janela = new JIFEndereco();
-    JIFFuncionario janelaF = new JIFFuncionario();
+    JIFEndereco janela;
+    JIFFuncionario janelaF;
     int loge;
-    UsuarioModel obj;
+    UsuarioModel obj, atual;
     FuncionarioModel objFunc;
     private ArrayList<TipoUsuarioModel> dadosTipoUsuario;
     Calendar cal = Calendar.getInstance();
     int anoAtual = cal.get(Calendar.YEAR);
 
-    public JFCadCliente() {
+    public JFCadCliente() {//Inicio normal
         initComponents();
         frameCount = 0;
         frameCountF = 0;
@@ -53,6 +54,9 @@ public class JFCadCliente extends javax.swing.JFrame {
         jbFuncionario.setVisible(false);
         loge = 0;
         obj = new UsuarioModel();
+        atual = new UsuarioModel();
+        janela = new JIFEndereco();
+        janelaF = new JIFFuncionario();
         setIcon();
         windowsClosing();
         internoClosed();
@@ -63,7 +67,7 @@ public class JFCadCliente extends javax.swing.JFrame {
 
     }
 
-    public JFCadCliente(int log) {
+    public JFCadCliente(int log) {//Cadastro, sem o login
         initComponents();
         frameCount = 0;
         frameCountF = 0;
@@ -71,6 +75,9 @@ public class JFCadCliente extends javax.swing.JFrame {
         jbFuncionario.setVisible(false);
         loge = log;
         obj = new UsuarioModel();
+        atual = new UsuarioModel();
+        janela = new JIFEndereco();
+        janelaF = new JIFFuncionario();
         setIcon();
         windowsClosing();
         internoClosed();
@@ -80,14 +87,17 @@ public class JFCadCliente extends javax.swing.JFrame {
         UIManager.put("OptionPane.buttonFont", font);
     }
 
-    public JFCadCliente(UsuarioModel obj, int log) {
+    public JFCadCliente(UsuarioModel atual, int log) {//Cadastro, usando o login
         initComponents();
         frameCount = 0;
         frameCountF = 0;
         jtEndereco.setText("Clique aqui!");
         jbFuncionario.setVisible(false);
         loge = log;
-        this.obj = obj;
+        obj = new UsuarioModel();
+        janela = new JIFEndereco();
+        janelaF = new JIFFuncionario();
+        this.atual = atual;
         setIcon();
         windowsClosing();
         internoClosed();
@@ -95,6 +105,33 @@ public class JFCadCliente extends javax.swing.JFrame {
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+    }
+
+    public JFCadCliente(UsuarioModel atual, UsuarioModel obj, int log) {//Editar
+        initComponents();
+        jpfSenha.setEnabled(false);
+        jpfSenha.setEditable(false);
+        frameCount = 0;
+        frameCountF = 0;
+        jtEndereco.setText("Editar?");
+        jbFuncionario.setVisible(false);
+        loge = log;
+        this.obj = obj;
+        this.atual = atual;
+        janela = new JIFEndereco(obj);
+        janelaF = new JIFFuncionario(obj);
+        setIcon();
+        windowsClosing();
+        internoClosed();
+        carregarTipo();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+        carregarCamposEdit();
+        janela.carregarCamposEdit();
+        if (obj.getTipoUsuarioModel().getNivel() > 0) {
+            janelaF.carregarCamposEdit();
+        }
     }
 
     /**
@@ -361,7 +398,7 @@ public class JFCadCliente extends javax.swing.JFrame {
                     FuncionarioData DAOF = new FuncionarioData();
                     if (obj.getId() <= 0) {
                         if (DAO.usuarioUnico(obj)) {
-                            if(jcbTipo.getSelectedIndex() <= 1){//if (obj.getTipoUsuarioModel().getNivel() <= 1) {
+                            if (jcbTipo.getSelectedIndex() <= 1) {//if (obj.getTipoUsuarioModel().getNivel() <= 1) {
                                 if (DAO.incluir(obj)) {
                                     JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
                                     jbLimparActionPerformed(evt);
@@ -553,12 +590,12 @@ public class JFCadCliente extends javax.swing.JFrame {
     public void sair() {
         dispose();
         if (loge == 1) {
-            new JFPrincipal().setVisible(true);
+            new JFPrincipal(atual).setVisible(true);
         } else {
             if (loge == 0) {
                 new JFLogin().setVisible(true);
             } else if (loge == 2) {
-                //new JFPesquisarUser().setVisible(true);
+                new JFPesquisarUsuario(atual).setVisible(true);
             }
         }
     }
@@ -568,7 +605,14 @@ public class JFCadCliente extends javax.swing.JFrame {
             TipoUsuarioData DAOTipo = new TipoUsuarioData();
             dadosTipoUsuario = DAOTipo.carregarCombo();
             for (TipoUsuarioModel tipo : dadosTipoUsuario) {
-                jcbTipo.addItem(tipo.getDescricao());
+                if (atual.getTipoUsuarioModel().getNivel() > 0) {
+                    jcbTipo.addItem(tipo.getDescricao());
+                } else {
+                    if (tipo.getNivel() <= 0) {
+                        jcbTipo.addItem(tipo.getDescricao());
+                        break;
+                    }
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro:" + e.getMessage());
@@ -636,11 +680,13 @@ public class JFCadCliente extends javax.swing.JFrame {
                 msg += "O Usuário deve ter entre 3 e 40 caracteres\n";
             }
         }
-        if (jpfSenha.getText().equals("")) {
-            msg += "A senha deve ser preenchida\n";
-        } else {
-            if (jpfSenha.getText().length() < 8 || jpfSenha.getText().length() > 50) {
-                msg += "A senha deve conter entre 8 e 50 caracteres\n";
+        if (loge != 2) {
+            if (jpfSenha.getText().equals("")) {
+                msg += "A senha deve ser preenchida\n";
+            } else {
+                if (jpfSenha.getText().length() < 8 || jpfSenha.getText().length() > 50) {
+                    msg += "A senha deve conter entre 8 e 50 caracteres\n";
+                }
             }
         }
         if (jftDataNasc.getText().equals("  /  /    ")) {
@@ -781,6 +827,29 @@ public class JFCadCliente extends javax.swing.JFrame {
         }
 
         return true;
+    }
+
+    public void verificar() {
+        try {
+            if (obj.getTipoUsuarioModel().getNivel() > 0) {
+                FuncionarioData DAOF = new FuncionarioData();
+                objFunc = DAOF.pesquisarObj(obj);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao verificar usuário: " + e.getMessage());
+        }
+    }
+
+    public void carregarCamposEdit() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        jftCpf.setText(obj.getCpf());
+        jtEmail.setText(obj.getEmail());
+        jtNome.setText(obj.getNome());
+        jtTelefone.setText(obj.getTelefone());
+        jtUsuario.setText(obj.getLogin());
+        jcbSexo.setSelectedItem(obj.getSexo());
+        jcbTipo.setSelectedItem(obj.getTipoUsuarioModel().getDescricao());
+        jftDataNasc.setText(dateFormat.format(obj.getDataNasc().getTime()));
     }
 }
 

@@ -5,8 +5,10 @@
  */
 package br.com.ProjetoGames.view;
 
-import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
+import br.com.ProjetoGames.view.Operacao.JFCadJogo;
+import br.com.ProjetoGames.view.Operacao.JFLocacao;
+import br.com.ProjetoGames.view.Operacao.JFVenda;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -40,7 +42,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     public JFPrincipal(UsuarioModel obj) {
         initComponents();
         this.obj = obj;
-        jlInfo.setText("Login : "+obj.getNome()+"\nTipo: "+obj.getTipoUsuarioModel().getDescricao());
+        jlInfo.setText("Login : "+obj.getNome()+"Tipo: "+obj.getTipoUsuarioModel().getDescricao());
         setIcon();
         tempo();
         windowsClosing();
@@ -49,18 +51,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         UIManager.put("OptionPane.buttonFont", font);
     }
     
-    public JFPrincipal(FuncionarioModel obj) {
-        initComponents();
-        this.obj = obj;
-        jlInfo.setText("Login : "+obj.getNome()+" Tipo: "+obj.getTipoUsuarioModel().getDescricao()+" salario: " + obj.getSalario());
-        setIcon();
-        tempo();
-        windowsClosing();
-        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
-        UIManager.put("OptionPane.messageFont", font);
-        UIManager.put("OptionPane.buttonFont", font);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,8 +72,10 @@ public class JFPrincipal extends javax.swing.JFrame {
         jlFFxv = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jmUsuario = new javax.swing.JMenuItem();
+        jmJogo = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Garnet Games");
@@ -172,7 +164,7 @@ public class JFPrincipal extends javax.swing.JFrame {
         jlInfo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlInfo.setText("Login: ");
         jdpPrincipal.add(jlInfo);
-        jlInfo.setBounds(540, 180, 290, 370);
+        jlInfo.setBounds(340, 510, 490, 30);
 
         jlFFxv.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jlFFxv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/cxdkpvuxuaazxj8_8h6c.jpg"))); // NOI18N
@@ -185,20 +177,32 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Pesquisar");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem1.setText("Usuário");
+        jmUsuario.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.ALT_MASK));
+        jmUsuario.setText("Usuário");
+        jmUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmUsuario);
+
+        jmJogo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.ALT_MASK));
+        jmJogo.setText("Jogo");
+        jMenu1.add(jmJogo);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Opções");
+
+        jMenuItem1.setText("Alterar Senha");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu2.add(jMenuItem1);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem2.setText("Jogo");
-        jMenu1.add(jMenuItem2);
-
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -207,20 +211,23 @@ public class JFPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbCadUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadUsuarioActionPerformed
-        new JFCadCliente(1).setVisible(true);
+        new JFCadCliente(obj,1).setVisible(true);
         setVisible(false);
     }//GEN-LAST:event_jbCadUsuarioActionPerformed
 
     private void jbCadJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadJogoActionPerformed
-        // TODO add your handling code here:
+        new JFCadJogo(obj).setVisible(true);
+        dispose();
     }//GEN-LAST:event_jbCadJogoActionPerformed
 
     private void jbVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbVendaActionPerformed
-        // TODO add your handling code here:
+        new JFVenda(obj).setVisible(true);
+        dispose();
     }//GEN-LAST:event_jbVendaActionPerformed
 
     private void jbLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLocacaoActionPerformed
-        // TODO add your handling code here:
+        new JFLocacao(obj).setVisible(true);
+        dispose();
     }//GEN-LAST:event_jbLocacaoActionPerformed
 
     private void jbRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistroActionPerformed
@@ -230,6 +237,11 @@ public class JFPrincipal extends javax.swing.JFrame {
     private void jbRenovarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRenovarActionPerformed
 
     }//GEN-LAST:event_jbRenovarActionPerformed
+
+    private void jmUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmUsuarioActionPerformed
+        new JFPesquisarUsuario(obj).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jmUsuarioActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -272,9 +284,9 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JButton jbCadJogo;
     private javax.swing.JButton jbCadUsuario;
     private javax.swing.JButton jbLocacao;
@@ -285,6 +297,8 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jlFFxv;
     private javax.swing.JLabel jlInfo;
     private javax.swing.JLabel jlTime;
+    private javax.swing.JMenuItem jmJogo;
+    private javax.swing.JMenuItem jmUsuario;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\video-game-controller-icon.png");
@@ -328,7 +342,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                     } else {
                         ssecond = "" + second;
                     }
-                    jlTime.setText("Time: " + sday + "/" + smonth + "/" + year + " " + shour + ":" + sminute + ":" + ssecond);
+                    jlTime.setText("Data: " + sday + "/" + smonth + "/" + year + " " + shour + ":" + sminute + ":" + ssecond);
                     try {
                         sleep(1000);
                     } catch (InterruptedException ex) {

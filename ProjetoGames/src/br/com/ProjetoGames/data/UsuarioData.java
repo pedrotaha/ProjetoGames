@@ -63,6 +63,7 @@ public class UsuarioData {
             throw new Exception("Erro ao salvar");
         }
     }
+
     public Conexao incluirC(UsuarioModel obj) throws Exception {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Conexao c = new Conexao();
@@ -197,17 +198,18 @@ public class UsuarioData {
         ps1.setString(8, obj.getEnderecoModel().getComplemento());
         ps1.setInt(9, obj.getId());
         if (ps1.executeUpdate() > 0) {
-            String sql2 = "Update tbusuarios set nome=?, cpf=?, telefone=?, email=?, sexo=?, datanasc=?, login=?, senha=?, datacadastro=? where id=?";
+            String sql2 = "Update tbusuarios set nome=?, cpf=?, telefone=?, email=?, sexo=?, datanasc=?, login=?, idtipo=?, datacadastro=? where id=?";
             PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
             ps2.setString(1, obj.getNome());
             ps2.setString(2, obj.getCpf());
             ps2.setString(3, obj.getTelefone());
-            ps2.setString(4, obj.getSexo());
-            ps2.setString(5, dateFormat.format(obj.getDataNasc().getTime()));
-            ps2.setString(6, obj.getLogin());
-            ps2.setString(7, obj.getSenha());
-            ps2.setString(8, dateFormat.format(obj.getDataCadastro().getTime()));
-            ps2.setInt(9, obj.getId());
+            ps2.setString(4, obj.getEmail());
+            ps2.setString(5, obj.getSexo());
+            ps2.setString(6, dateFormat.format(obj.getDataNasc().getTime()));
+            ps2.setString(7, obj.getLogin());
+            ps2.setInt(8, obj.getTipoUsuarioModel().getId());
+            ps2.setString(9, dateFormat.format(obj.getDataCadastro().getTime()));
+            ps2.setInt(10, obj.getId());
             if (ps2.executeUpdate() > 0) {
                 c.getConexao().commit();
                 c.getConexao().setAutoCommit(true);
@@ -272,5 +274,23 @@ public class UsuarioData {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");// , Locale.ENGLISH
         cal.setTime(sdf.parse(data));
         return cal;
+    }
+
+    public boolean alterarSenha(UsuarioModel obj) throws Exception {
+        Conexao c = new Conexao();
+        c.getConexao().setAutoCommit(false);
+        String sql1 = "Update tbusuarios set senha=? where idusuario=?";
+        PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
+        ps1.setString(1, obj.getSenha());
+        ps1.setInt(2, obj.getId());
+        if (ps1.executeUpdate() > 0) {
+            c.getConexao().commit();
+            c.getConexao().setAutoCommit(true);
+            return true;
+        } else {
+            c.getConexao().rollback();
+            c.getConexao().setAutoCommit(true);
+            throw new Exception("Não foi possível atualizar.");
+        }
     }
 }

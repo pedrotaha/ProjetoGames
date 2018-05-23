@@ -314,12 +314,7 @@ private void setIcon() {
     private void login() {
         try {
             obj = DAO.validarUsuario(jtUsuario.getText(), Criptografar.encriptografar(jpfSenha.getText()));
-            if (obj.getTipoUsuarioModel().getNivel() > 0) {
-                objF = DAOF.validarFuncionarioObj(obj);
-                new JFPrincipal(objF).setVisible(true);
-            } else {
-                new JFPrincipal(obj).setVisible(true);
-            }
+            new JFPrincipal(obj).setVisible(true);
             dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Falha no Login: \n" + e.getMessage(),

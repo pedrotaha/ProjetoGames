@@ -28,11 +28,12 @@ import javax.swing.table.DefaultTableModel;
 public class JFPesquisarUsuario extends javax.swing.JFrame {
 
     int frameCount;
-    JIFDetalhesUsuarios janela = new JIFDetalhesUsuarios();
+    //JIFDetalhesUsuarios janelaP = new JIFDetalhesUsuarios();
+    JIFDetalhesPokedex janelaT = new JIFDetalhesPokedex();
     ArrayList<UsuarioModel> dados;
     ArrayList<FuncionarioModel> dadosF;
     UsuarioModel obj, selecionado;
-    FuncionarioModel selecionadoF;
+    FuncionarioModel objF, selecionadoF;
 
     public JFPesquisarUsuario() {
         initComponents();
@@ -44,13 +45,13 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         dadosF = new ArrayList<>();
         setIcon();
         windowsClosing();
-        internoClosed();
+        //internoClosed();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
     }
 
-    public JFPesquisarUsuario(UsuarioModel obj) {
+    public JFPesquisarUsuario(UsuarioModel obj) {//Atual
         initComponents();
         frameCount = 0;
         dados = new ArrayList<>();
@@ -60,7 +61,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         dadosF = new ArrayList<>();
         setIcon();
         windowsClosing();
-        internoClosed();
+        //internoClosed();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
@@ -76,27 +77,48 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         jdpPesquisarUser = new javax.swing.JDesktopPane();
+        jbEditar = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
         jbDetalhes = new javax.swing.JButton();
         jlPesquisar = new javax.swing.JLabel();
         jtPesquisar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbUsuario = new javax.swing.JTable();
-        jbEditar = new javax.swing.JButton();
-        jbExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisar Usuário");
-        setMinimumSize(new java.awt.Dimension(891, 805));
-        setPreferredSize(new java.awt.Dimension(891, 805));
+        setMinimumSize(new java.awt.Dimension(960, 790));
+        setPreferredSize(new java.awt.Dimension(960, 790));
         setResizable(false);
         getContentPane().setLayout(null);
 
         jdpPesquisarUser.setBackground(new java.awt.Color(255, 255, 255));
         jdpPesquisarUser.setForeground(new java.awt.Color(255, 255, 255));
 
+        jbEditar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Edit_Property_48px.png"))); // NOI18N
+        jbEditar.setText("Editar");
+        jbEditar.setEnabled(false);
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
+
+        jbExcluir.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Trash_Can_48px.png"))); // NOI18N
+        jbExcluir.setText("Excluir");
+        jbExcluir.setEnabled(false);
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
+
         jbDetalhes.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbDetalhes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Pokedex_48px_1.png"))); // NOI18N
         jbDetalhes.setText("Detalhes");
+        jbDetalhes.setEnabled(false);
         jbDetalhes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbDetalhesActionPerformed(evt);
@@ -144,49 +166,44 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbUsuario);
 
-        jbEditar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jbEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Edit_Property_48px.png"))); // NOI18N
-        jbEditar.setText("Editar");
-
-        jbExcluir.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jbExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Trash_Can_48px.png"))); // NOI18N
-        jbExcluir.setText("Excluir");
-
+        jdpPesquisarUser.setLayer(jbEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpPesquisarUser.setLayer(jbExcluir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jbDetalhes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jlPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jtPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpPesquisarUser.setLayer(jbEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpPesquisarUser.setLayer(jbExcluir, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jdpPesquisarUserLayout = new javax.swing.GroupLayout(jdpPesquisarUser);
         jdpPesquisarUser.setLayout(jdpPesquisarUserLayout);
         jdpPesquisarUserLayout.setHorizontalGroup(
             jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
-                .addGap(346, 346, 346)
+                .addGap(49, 49, 49)
+                .addComponent(jbEditar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                 .addComponent(jbDetalhes)
-                .addContainerGap(361, Short.MAX_VALUE))
+                .addGap(171, 171, 171)
+                .addComponent(jbExcluir)
+                .addGap(63, 63, 63))
             .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
-                    .addGap(0, 16, Short.MAX_VALUE)
+                    .addGap(0, 51, Short.MAX_VALUE)
                     .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
                             .addComponent(jlPesquisar)
                             .addGap(47, 47, 47)
                             .addComponent(jtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
-                            .addComponent(jbEditar)
-                            .addGap(539, 539, 539)
-                            .addComponent(jbExcluir)))
-                    .addGap(0, 17, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(0, 63, Short.MAX_VALUE)))
         );
         jdpPesquisarUserLayout.setVerticalGroup(
             jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpPesquisarUserLayout.createSequentialGroup()
                 .addContainerGap(670, Short.MAX_VALUE)
-                .addComponent(jbDetalhes)
+                .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbDetalhes)
+                    .addComponent(jbExcluir)
+                    .addComponent(jbEditar))
                 .addContainerGap())
             .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
@@ -198,15 +215,11 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
                         .addComponent(jtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGap(18, 18, 18)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jbEditar)
-                        .addComponent(jbExcluir))
-                    .addGap(0, 16, Short.MAX_VALUE)))
+                    .addGap(0, 91, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jdpPesquisarUser);
-        jdpPesquisarUser.setBounds(0, 0, 890, 740);
+        jdpPesquisarUser.setBounds(0, 0, 960, 740);
 
         pack();
         setLocationRelativeTo(null);
@@ -215,8 +228,9 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     private void jbDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDetalhesActionPerformed
         if (frameCount == 0) {
             if (selecionado.getId() > 0) {
-                jdpPesquisarUser.add(janela);
-                janela.setVisible(true);
+                jdpPesquisarUser.add(janelaT);
+                //internoClosed();
+                janelaT.setVisible(true);
                 frameCount++;
                 tratarCampos(false);
             }
@@ -224,43 +238,77 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jbDetalhesActionPerformed
 
     private void jtbUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtbUsuarioMouseClicked
-        selecionado = dados.get(jtbUsuario.getSelectedRow());
-        if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
-            janela = new JIFDetalhesUsuarios(selecionado);
-        } else {
-            try {
+        try {
+            selecionado = dados.get(jtbUsuario.getSelectedRow());
+            if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
+                janelaT = new JIFDetalhesPokedex(selecionado);
+            } else {
                 FuncionarioData DAOF = new FuncionarioData();
                 selecionadoF = DAOF.pesquisarObj(selecionado);
-                janela = new JIFDetalhesUsuarios(selecionadoF);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
+                janelaT = new JIFDetalhesPokedex(selecionadoF);
             }
+            internoClosed();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
         }
     }//GEN-LAST:event_jtbUsuarioMouseClicked
 
     private void jtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPesquisarKeyReleased
-        if (obj.getTipoUsuarioModel().getNivel() == 0) {
+        try {
+            atualizarTabela();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
+        }
+    }//GEN-LAST:event_jtPesquisarKeyReleased
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        if (selecionado.getId() > 0 || selecionadoF.getId() > 0) {
             try {
-                UsuarioData DAO = new UsuarioData();
-                dados = DAO.pesquisar(jtPesquisar.getText());
-                DefaultTableModel mp = (DefaultTableModel) jtbUsuario.getModel();
-                mp.setNumRows(0);
-                if (jtPesquisar.getText().length() > 1) {
-                    jbEditar.setEnabled(true);
-                    jbExcluir.setEnabled(true);
-                    for (UsuarioModel usuario : dados) {
-                        mp.addRow(new String[]{usuario.getNome(), usuario.getEmail(), usuario.getTelefone(), usuario.getTipoUsuarioModel().getDescricao()});
+                selecionado = dados.get(jtbUsuario.getSelectedRow());
+                if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() <= 0) {
+                    new JFCadCliente(obj, selecionado, 2).setVisible(true);
+                } else {
+                    if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() > 0) {
+                        FuncionarioData DAOF = new FuncionarioData();
+                        selecionadoF = DAOF.pesquisarObj(selecionado);
+                        new JFCadCliente(obj, selecionadoF, 2).setVisible(true);
                     }
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
             }
+            dispose();
         }
-        if (jtPesquisar.getText().length() == 0) {
-            jbEditar.setEnabled(false);
-            jbExcluir.setEnabled(false);
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        if (selecionado.getId() > 0 || selecionadoF.getId() > 0) {
+            try {
+                if (JOptionPane.showConfirmDialog(this, "Deseja Realmente excluir o registro?",
+                        "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTitulojanelaT) == JOptionPane.YES_OPTION) {
+                    if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
+                        selecionado = dados.get(jtbUsuario.getSelectedRow());
+                        UsuarioData DAO = new UsuarioData();
+                        if (DAO.excluir(selecionado.getId())) {
+                            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                        }
+                    } else {
+                        FuncionarioData DAOF = new FuncionarioData();
+                        selecionadoF = DAOF.pesquisarObj(selecionado);
+                        if (DAOF.excluirF(selecionadoF.getId())) {
+                            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                        }
+                    }
+                }
+                selecionado = new UsuarioModel();
+                selecionadoF = new FuncionarioModel();
+                atualizarTabela();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir:" + e.getMessage());
+            }
         }
-    }//GEN-LAST:event_jtPesquisarKeyReleased
+    }//GEN-LAST:event_jbExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,29 +356,29 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jtbUsuario;
     // End of variables declaration//GEN-END:variables
 private void setIcon() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
-        setIconImage(imagemTituloJanela.getImage());
+        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
+        setIconImage(imagemTitulojanelaT.getImage());
     }
 
     public void windowsClosing() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {
-                if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+                if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTitulojanelaT) == JOptionPane.YES_OPTION) {
                     dispose();
-                    new JFPrincipal().setVisible(true);
+                    new JFPrincipal(obj).setVisible(true);
                 }
             }
         });
     }
 
     public void internoClosed() {
-        janela.addInternalFrameListener(new InternalFrameAdapter() {
+        janelaT.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
                 tratarCampos(true);
                 frameCount--;
-                jdpPesquisarUser.remove(janela);
+                jdpPesquisarUser.remove(janelaT);
             }
         });
     }
@@ -342,5 +390,36 @@ private void setIcon() {
         jbDetalhes.setEnabled(n);
         jbEditar.setEnabled(n);
         jbExcluir.setEnabled(n);
+    }
+
+    public void atualizarTabela() throws Exception {
+        UsuarioData DAO = new UsuarioData();
+        dados = DAO.pesquisar(jtPesquisar.getText());
+        DefaultTableModel mp = (DefaultTableModel) jtbUsuario.getModel();
+        mp.setNumRows(0);
+        if (jtPesquisar.getText().length() > 1) {
+            jbEditar.setEnabled(true);
+            jbExcluir.setEnabled(true);
+            jbDetalhes.setEnabled(true);
+            for (int i = 0; i < dados.size(); i++) {
+                if (obj.getTipoUsuarioModel().getNivel() > 0) {
+                    mp.addRow(new String[]{dados.get(i).getNome(), dados.get(i).getEmail(), dados.get(i).getTelefone(), dados.get(i).getTipoUsuarioModel().getDescricao()});
+                } else {
+                    if (dados.get(i).getTipoUsuarioModel().getNivel() <= 0) {
+                        mp.addRow(new String[]{dados.get(i).getNome(), dados.get(i).getEmail(), dados.get(i).getTelefone(), dados.get(i).getTipoUsuarioModel().getDescricao()});
+                    } else {
+                        dados.remove(i);
+                        i--;
+                    }
+                }
+            }
+        }
+        if (jtPesquisar.getText().length() == 0) {
+            jbEditar.setEnabled(false);
+            jbExcluir.setEnabled(false);
+            jbDetalhes.setEnabled(false);
+            selecionado = new UsuarioModel();
+            selecionadoF = new FuncionarioModel();
+        }
     }
 }

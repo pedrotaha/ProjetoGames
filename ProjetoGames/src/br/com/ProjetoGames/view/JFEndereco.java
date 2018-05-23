@@ -5,8 +5,13 @@
  */
 package br.com.ProjetoGames.view;
 
+import br.com.ProjetoGames.data.UsuarioData;
+import br.com.ProjetoGames.model.UsuarioModel;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,13 +22,22 @@ import javax.swing.JOptionPane;
  */
 public class JFEndereco extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JFEndereco
-     */
+    DefaultListModel MODELO;
+    UsuarioData DAO = new UsuarioData();
+    int Enter = 0;
+    String[] codig;
+    ArrayList<UsuarioModel> lista = new ArrayList<>();
+    UsuarioModel selecionado = new UsuarioModel();
+    UsuarioModel selecionadoKey = new UsuarioModel();
+
     public JFEndereco() {
         initComponents();
+        mostraPesquisa();
+        Lista.setVisible(false);
+        MODELO = new DefaultListModel();
         setIcon();
         windowsClosing();
+        Lista.setModel(MODELO);
     }
 
     /**
@@ -53,32 +67,53 @@ public class JFEndereco extends javax.swing.JFrame {
         jftCep = new javax.swing.JFormattedTextField();
         jbSalvar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
+        jtPesquisar = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Lista = new javax.swing.JList<>();
 
         setTitle("Endereço");
+        setMinimumSize(new java.awt.Dimension(805, 495));
+        getContentPane().setLayout(null);
 
         jlRua.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlRua.setText("Rua:");
+        getContentPane().add(jlRua);
+        jlRua.setBounds(12, 34, 31, 17);
 
         jlNumero.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlNumero.setText("N°:");
+        getContentPane().add(jlNumero);
+        jlNumero.setBounds(182, 34, 20, 17);
 
         jlBairro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlBairro.setText("Bairro:");
+        getContentPane().add(jlBairro);
+        jlBairro.setBounds(272, 34, 47, 17);
 
         jlCidade.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlCidade.setText("Cidade:");
+        getContentPane().add(jlCidade);
+        jlCidade.setBounds(463, 34, 53, 17);
 
         jlUf.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlUf.setText("UF:");
+        getContentPane().add(jlUf);
+        jlUf.setBounds(12, 128, 23, 17);
 
         jlPais.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlPais.setText("Pais:");
+        getContentPane().add(jlPais);
+        jlPais.setBounds(151, 130, 33, 17);
 
         jlCep.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlCep.setText("CEP:");
+        getContentPane().add(jlCep);
+        jlCep.setBounds(300, 130, 32, 17);
 
         jlComplemento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlComplemento.setText("Complemento:");
+        getContentPane().add(jlComplemento);
+        jlComplemento.setBounds(433, 135, 101, 17);
 
         jtNumero.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jtNumero.addActionListener(new java.awt.event.ActionListener() {
@@ -86,6 +121,8 @@ public class JFEndereco extends javax.swing.JFrame {
                 jtNumeroActionPerformed(evt);
             }
         });
+        getContentPane().add(jtNumero);
+        jtNumero.setBounds(182, 69, 42, 23);
 
         jtBairro.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jtBairro.addActionListener(new java.awt.event.ActionListener() {
@@ -93,6 +130,8 @@ public class JFEndereco extends javax.swing.JFrame {
                 jtBairroActionPerformed(evt);
             }
         });
+        getContentPane().add(jtBairro);
+        jtBairro.setBounds(272, 69, 144, 23);
 
         jtCidade.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jtCidade.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +139,8 @@ public class JFEndereco extends javax.swing.JFrame {
                 jtCidadeActionPerformed(evt);
             }
         });
+        getContentPane().add(jtCidade);
+        jtCidade.setBounds(463, 70, 151, 23);
 
         jtRua.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jtRua.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +148,8 @@ public class JFEndereco extends javax.swing.JFrame {
                 jtRuaActionPerformed(evt);
             }
         });
+        getContentPane().add(jtRua);
+        jtRua.setBounds(12, 69, 132, 23);
 
         jtComplemento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jtComplemento.addActionListener(new java.awt.event.ActionListener() {
@@ -114,12 +157,18 @@ public class JFEndereco extends javax.swing.JFrame {
                 jtComplementoActionPerformed(evt);
             }
         });
+        getContentPane().add(jtComplemento);
+        jtComplemento.setBounds(433, 165, 151, 23);
 
         jcbUf.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jcbUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
+        getContentPane().add(jcbUf);
+        jcbUf.setBounds(12, 164, 114, 23);
 
         jcbPais.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jcbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
+        getContentPane().add(jcbPais);
+        jcbPais.setBounds(151, 164, 114, 23);
 
         try {
             jftCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -127,6 +176,8 @@ public class JFEndereco extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jftCep.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        getContentPane().add(jftCep);
+        jftCep.setBounds(300, 164, 92, 23);
 
         jbSalvar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Save_48px.png"))); // NOI18N
@@ -136,6 +187,8 @@ public class JFEndereco extends javax.swing.JFrame {
                 jbSalvarActionPerformed(evt);
             }
         });
+        getContentPane().add(jbSalvar);
+        jbSalvar.setBounds(47, 425, 155, 57);
 
         jbCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Cancel_48px.png"))); // NOI18N
@@ -145,109 +198,44 @@ public class JFEndereco extends javax.swing.JFrame {
                 jbCancelarActionPerformed(evt);
             }
         });
+        getContentPane().add(jbCancelar);
+        jbCancelar.setBounds(285, 425, 251, 57);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jcbUf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlUf))
-                                .addGap(25, 25, 25)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jcbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(jftCep, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jlPais)
-                                        .addGap(116, 116, 116)
-                                        .addComponent(jlCep)))
-                                .addGap(41, 41, 41)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlComplemento)
-                                    .addComponent(jtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jtRua, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(jtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jlRua)
-                                        .addGap(139, 139, 139)
-                                        .addComponent(jlNumero)))
-                                .addGap(48, 48, 48)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jlBairro))
-                                .addGap(47, 47, 47)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlCidade)
-                                    .addComponent(jtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jbSalvar)
-                        .addGap(83, 83, 83)
-                        .addComponent(jbCancelar)))
-                .addContainerGap(100, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlRua)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jlNumero)
-                                .addComponent(jlBairro)))
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jlCidade)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlUf)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jlCep)
-                                    .addComponent(jlPais))))
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbUf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jcbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jftCep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jlComplemento)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbSalvar)
-                    .addComponent(jbCancelar))
-                .addContainerGap())
-        );
+        jtPesquisar.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtPesquisarActionPerformed(evt);
+            }
+        });
+        jtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtPesquisarKeyReleased(evt);
+            }
+        });
+        getContentPane().add(jtPesquisar);
+        jtPesquisar.setBounds(47, 232, 499, 40);
+
+        Lista.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        Lista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ListaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ListaMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ListaMousePressed(evt);
+            }
+        });
+        Lista.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                ListaValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Lista);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(47, 268, 499, 150);
 
         pack();
         setLocationRelativeTo(null);
@@ -275,15 +263,51 @@ public class JFEndereco extends javax.swing.JFrame {
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Deseja Realmente Cancelar?",
-                        "Botão Sair", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                "Botão Sair", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             new JFLogin().setVisible(true);
             dispose();
         }
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
-        
+
     }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtPesquisarActionPerformed
+        Lista.setVisible(false);
+        Enter = 1;
+
+    }//GEN-LAST:event_jtPesquisarActionPerformed
+
+    private void jtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtPesquisarKeyReleased
+        if (Enter == 0) {
+            listaDePesquisa();
+        } else {
+            Enter = 0;
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            Lista.requestFocusInWindow();
+            Lista.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jtPesquisarKeyReleased
+
+    private void ListaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaMousePressed
+        mostraPesquisa();
+        Lista.setVisible(false);
+        jtPesquisar.setText(selecionado.getNome());
+    }//GEN-LAST:event_ListaMousePressed
+
+    private void ListaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ListaValueChanged
+
+    }//GEN-LAST:event_ListaValueChanged
+
+    private void ListaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaMouseEntered
+
+    }//GEN-LAST:event_ListaMouseEntered
+
+    private void ListaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaMouseExited
+
+    }//GEN-LAST:event_ListaMouseExited
 
     /**
      * @param args the command line arguments
@@ -321,6 +345,8 @@ public class JFEndereco extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> Lista;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JComboBox<String> jcbPais;
@@ -338,12 +364,14 @@ public class JFEndereco extends javax.swing.JFrame {
     private javax.swing.JTextField jtCidade;
     private javax.swing.JTextField jtComplemento;
     private javax.swing.JTextField jtNumero;
+    private javax.swing.JTextField jtPesquisar;
     private javax.swing.JTextField jtRua;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Add_User_Male_96px.png");
         setIconImage(imagemTituloJanela.getImage());
     }
+
     public void windowsClosing() {
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -354,5 +382,37 @@ public class JFEndereco extends javax.swing.JFrame {
                 }
             }
         });
+    }
+
+    public void mostraPesquisa() {
+        int Linha = Lista.getSelectedIndex();
+        if (Linha >= 0) {
+            selecionado = lista.get(Linha);
+        }
+    }
+
+    public void listaDePesquisa() {
+        if (jtPesquisar.getText().length() > 1) {
+            try {
+                MODELO.removeAllElements();
+                codig = new String[4];
+                lista = DAO.pesquisar(jtPesquisar.getText());
+                for (UsuarioModel list : lista) {
+                    MODELO.addElement(list.getNome());
+                }
+                if (lista.size() >= 1) {
+                    Lista.setVisible(true);
+                } else {
+                    Lista.setVisible(false);
+                }
+                //resultadoPesquisa();
+            } catch (Exception e) {
+
+            }
+        } else {
+            MODELO.removeAllElements();
+            Lista.setVisible(false);
+            Enter = 1;
+        }
     }
 }
