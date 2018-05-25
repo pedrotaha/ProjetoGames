@@ -14,3 +14,9 @@ JInternalFrame para dados específicos do funcionário
 esquema para bloquear campos de end fora do brasil(deixar só o país informado)
 
 arrumar banco e model de vendas (tabela extra?, arraylist?) para venda com mais de um produto diferente
+
+esquecer senha? - gerar String random como senha, armazenar criptograf. no banco e mandar e-mail. solicitar login e e-mail.
+
+confirmar senha ao cadastrar - jopinputdialog
+
+adicionar botoes de salvar limpar e voltar ao cadastro de jogos
