@@ -279,6 +279,7 @@ public class UsuarioData {
     public boolean alterarSenha(UsuarioModel obj) throws Exception {
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
+        //Inserir senha aleatória
         String sql1 = "Update tbusuarios set senha=? where idusuario=?";
         PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
         ps1.setString(1, obj.getSenha());
@@ -291,6 +292,26 @@ public class UsuarioData {
             c.getConexao().rollback();
             c.getConexao().setAutoCommit(true);
             throw new Exception("Não foi possível atualizar.");
+        }
+    }
+
+    public UsuarioModel verEmailLogin(String login, String email) throws Exception{
+        UsuarioModel obj = null;
+        Conexao c = new Conexao();
+        String sql = "Select * from tbusuarios u, tbendereco e, tbtipousuarios t where u.id = e.idusuario "
+                + "and u.idtipo = t.idtipo and login=? and email=?";
+        PreparedStatement ps = c.getConexao().prepareStatement(sql);
+        ps.setString(1, login);
+        ps.setString(2, email);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            TipoUsuarioModel tp = new TipoUsuarioModel(rs.getInt("idtipo"), rs.getString("descricao"), rs.getInt("nivel"));
+            EnderecoModel end = new EnderecoModel(rs.getString("pais"), rs.getString("estado"), rs.getString("cidade"), rs.getString("bairro"), rs.getString("rua"), rs.getInt("numero"), rs.getString("cep"), rs.getString("complemento"));
+            obj = new UsuarioModel(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("email"),
+                    rs.getString("sexo"), end, calendario(rs.getString("datanasc")), rs.getString("login"), "", calendario(rs.getString("datacadastro")), tp);
+            return obj;
+        } else {
+            throw new Exception("Login Inválido.");
         }
     }
 }

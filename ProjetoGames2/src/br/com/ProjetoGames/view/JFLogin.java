@@ -232,7 +232,16 @@ public class JFLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jlEsquecerMouseExited
 
     private void jlEsquecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlEsquecerMouseClicked
-
+        String email = JOptionPane.showInputDialog("Informe o seu e-mail:");
+        String login = JOptionPane.showInputDialog("Informe o login");
+        try {
+            obj = DAO.verEmailLogin(login, email);
+            //Inserir senha aleatória
+            DAO.alterarSenha(obj);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Login ou E-mail inexistentes! \n" + e.getMessage(),
+                    "Recuperar Senha", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jlEsquecerMouseClicked
 
     private void jlCadastrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlCadastrarMouseEntered
