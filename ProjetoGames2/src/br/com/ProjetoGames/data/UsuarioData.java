@@ -279,8 +279,7 @@ public class UsuarioData {
     public boolean alterarSenha(UsuarioModel obj) throws Exception {
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
-        //Inserir senha aleatória
-        String sql1 = "Update tbusuarios set senha=? where idusuario=?";
+        String sql1 = "Update tbusuarios set senha=? where id=?";
         PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
         ps1.setString(1, obj.getSenha());
         ps1.setInt(2, obj.getId());

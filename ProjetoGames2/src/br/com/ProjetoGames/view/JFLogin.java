@@ -10,15 +10,20 @@ import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.view.control.Criptografar;
+import br.com.ProjetoGames.view.control.EmailSender;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+
 
 /**
  *
@@ -26,6 +31,7 @@ import javax.swing.UIManager;
  */
 public class JFLogin extends javax.swing.JFrame {
 
+    Calendar cal = new GregorianCalendar();
     UsuarioData DAO;
     UsuarioModel obj;
     FuncionarioModel objF;
@@ -39,6 +45,7 @@ public class JFLogin extends javax.swing.JFrame {
         objF = new FuncionarioModel();
         DAOF = new FuncionarioData();
         windowsClosing();
+        cal = Calendar.getInstance();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
@@ -232,11 +239,15 @@ public class JFLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jlEsquecerMouseExited
 
     private void jlEsquecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlEsquecerMouseClicked
+        EmailSender em = new EmailSender();
+        em.puts();
         String email = JOptionPane.showInputDialog("Informe o seu e-mail:");
         String login = JOptionPane.showInputDialog("Informe o login");
         try {
             obj = DAO.verEmailLogin(login, email);
-            //Inserir senha aleatória
+            obj.setSenha(aleatorio());
+            sendEmail();
+            obj.setSenha(Criptografar.encriptografar(obj.getSenha()));
             DAO.alterarSenha(obj);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Login ou E-mail inexistentes! \n" + e.getMessage(),
@@ -343,4 +354,91 @@ private void setIcon() {
             }
         });
     }
+
+    public String aleatorio() {
+        Random gerador = new Random(19700621 * cal.get(Calendar.DAY_OF_MONTH));
+        Random rand = new Random(19700621);//Random float
+        float result = ((10 + rand.nextInt(30)) + (rand.nextFloat())) * gerador.nextInt(900) * cal.get(Calendar.DAY_OF_MONTH) * cal.get(Calendar.HOUR) * cal.get(Calendar.MINUTE) * cal.get(Calendar.SECOND);
+        String caracteresSalgados = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";//Random String
+        StringBuilder sao = new StringBuilder();
+        Random geradorS = new Random(cal.get(Calendar.HOUR) * cal.get(Calendar.DAY_OF_MONTH));
+        while (sao.length() < 18) { // tamanho da String aleatória
+            int index = (int) (geradorS.nextFloat() * caracteresSalgados.length());
+            sao.append(caracteresSalgados.charAt(index));
+        }
+        String stringSalgada = sao.toString();
+        String resultS = "" + result;
+        final int aLength = stringSalgada.length();
+        final int bLength = resultS.length();
+        final int min = Math.min(aLength, bLength);
+        final StringBuilder sb = new StringBuilder(aLength + bLength);
+        for (int i = 0; i < min; i++) {
+            sb.append(stringSalgada.charAt(i));
+            sb.append(resultS.charAt(i));
+        }
+        if (aLength > bLength) {
+            sb.append(stringSalgada, bLength, aLength);
+        } else if (aLength < bLength) {
+            sb.append(resultS, aLength, bLength);
+        }
+        return sb.toString();
+    }
+
+    public void sendEmail() {
+        // Recipient's email ID needs to be mentioned.
+        String to = obj.getEmail();
+
+        // Sender's email ID needs to be mentioned
+        String from = "pedro.m.taha@gmail.com";
+
+        // Assuming you are sending email from localhost
+        String host = "localhost";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // Setup mail server
+        properties.setProperty("mail.smtp.host", host);
+
+        // Get the default Session object.
+        //Session session = Session.getDefaultInstance(properties);
+        final String username = "pedro.m.taha@gmail.com";
+        final String password = "";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(username));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject("Recuperação de senha - Garnet Games!");
+
+            // Now set the actual message
+            message.setText("Sua senha temporária é: " + obj.getSenha() + "\nAcesse usando ela e altere a senha em seguida.");
+
+            // Send message
+            Transport.send(message);
+            JOptionPane.showMessageDialog(this, "Uma mensagem de recuperação foi enviada para seu e-mail!");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+    }
+    
 }
