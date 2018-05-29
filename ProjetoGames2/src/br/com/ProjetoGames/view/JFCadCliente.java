@@ -28,7 +28,6 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
-
 /**
  *
  * @author Pedro
@@ -662,6 +661,10 @@ public class JFCadCliente extends javax.swing.JFrame {
         } else {
             if (jftCpf.getText().contains(" ")) {
                 msg += "Há campos vazios no CPF\n";
+            }else{
+                if(!isCPF(jftCpf.getText())){
+                    msg += "CPF inválido\n";
+                }
             }
         }
         if (jtTelefone.getText().equals("")) {
@@ -853,8 +856,11 @@ public class JFCadCliente extends javax.swing.JFrame {
         jftDataNasc.setText(dateFormat.format(obj.getDataNasc().getTime()));
     }
 
-    public static boolean isCPF(String CPF) {
-// considera-se erro CPF's formados por uma sequencia de numeros iguais
+    public boolean isCPF(String CPF) {
+        String cpf = CPF.replace(".", "");
+        cpf = cpf.replace("-", "");
+        cpf = cpf.trim();
+        CPF = cpf;
         if (CPF.equals("00000000000") || CPF.equals("11111111111")
                 || CPF.equals("22222222222") || CPF.equals("33333333333")
                 || CPF.equals("44444444444") || CPF.equals("55555555555")
@@ -914,7 +920,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         }
     }
 
-    public static String imprimeCPF(String CPF) {
+    public String imprimeCPF(String CPF) {
         return (CPF.substring(0, 3) + "." + CPF.substring(3, 6) + "."
                 + CPF.substring(6, 9) + "-" + CPF.substring(9, 11));
     }

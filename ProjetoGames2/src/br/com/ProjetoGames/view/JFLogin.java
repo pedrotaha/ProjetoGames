@@ -17,6 +17,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.*;
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.swing.ImageIcon;
@@ -240,7 +243,6 @@ public class JFLogin extends javax.swing.JFrame {
 
     private void jlEsquecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlEsquecerMouseClicked
         EmailSender em = new EmailSender();
-        em.puts();
         String email = JOptionPane.showInputDialog("Informe o seu e-mail:");
         String login = JOptionPane.showInputDialog("Informe o login");
         try {
@@ -384,26 +386,17 @@ private void setIcon() {
         return sb.toString();
     }
 
-    public void sendEmail() {
+     public void sendEmail() {
         // Recipient's email ID needs to be mentioned.
         String to = obj.getEmail();
 
         // Sender's email ID needs to be mentioned
         String from = "pedro.m.taha@gmail.com";
+        final String username = "pedro.m.taha@gmail.com";//change accordingly
+        final String password = "P@34221467";//change accordingly
 
-        // Assuming you are sending email from localhost
+        // Assuming you are sending email through relay.jangosmtp.net
         String host = "localhost";
-
-        // Get system properties
-        Properties properties = System.getProperties();
-
-        // Setup mail server
-        properties.setProperty("mail.smtp.host", host);
-
-        // Get the default Session object.
-        //Session session = Session.getDefaultInstance(properties);
-        final String username = "pedro.m.taha@gmail.com";
-        final String password = "";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -417,27 +410,54 @@ private void setIcon() {
                 return new PasswordAuthentication(username, password);
             }
         });
+
         try {
+
             // Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
+            Message message = new MimeMessage(session);
 
             // Set From: header field of the header.
-            message.setFrom(new InternetAddress(username));
+            message.setFrom(new InternetAddress(from));
 
             // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(to));
 
             // Set Subject: header field
-            message.setSubject("Recuperação de senha - Garnet Games!");
+            message.setSubject("Recuperação de senha - Garnet Games");
 
-            // Now set the actual message
-            message.setText("Sua senha temporária é: " + obj.getSenha() + "\nAcesse usando ela e altere a senha em seguida.");
+            // This mail has 2 part, the BODY and the embedded image
+            MimeMultipart multipart = new MimeMultipart("related");
 
+            // first part (the html)
+            BodyPart messageBodyPart = new MimeBodyPart();//WIDTH = \"229\" HEIGHT = \"300\"
+            String htmlText = "<H2 ALIGN = \"left\" STYLE = \" font-family = Arial; font-size: 12pt\"><img src=\"cid:image\" ALIGN = \"top\" >Ol&aacute; "+obj.getNome()+", esta &eacute; uma mensagem de recupera&ccedil;&atilde;o de senha da <BIG><BLINK>Garnet Games!</BLINK></BIG><br />Use esta senha tempor&aacute;ria: <BIG>"+obj.getSenha()+"</BIG></H2><br /><br />"
+                    + "<H3 ALIGN = \"left\" STYLE = \" font-family = Arial; font-size: 12pt\">N&atilde;o foi voc&ecirc;? Entre no sistema com a senha tempor&aacute;ria e mude a senha para uma diferente da antiga.<br /><br /><br /><br /><br /><br />"
+                    + "<HR SIZE = 2 WIDTH = 100% NOSHADE><br />Para entrar em contado com administrador do sistema envie um e-mail para <BIG><ADDRESS>pedro.m.taha@gmail.com</ADDRESS></BIG></H3>";
+            messageBodyPart.setContent(htmlText, "text/html");
+            // add it
+            multipart.addBodyPart(messageBodyPart);
+
+            // second part (the image)
+            messageBodyPart = new MimeBodyPart();
+            DataSource fds = new FileDataSource(
+                    "C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\GarnetGames Logo.jpg");
+
+            messageBodyPart.setDataHandler(new DataHandler(fds));
+            messageBodyPart.setHeader("Content-ID", "<image>");
+
+            // add image to the multipart
+            multipart.addBodyPart(messageBodyPart);
+
+            // put everything together
+            message.setContent(multipart);
             // Send message
             Transport.send(message);
-            JOptionPane.showMessageDialog(this, "Uma mensagem de recuperação foi enviada para seu e-mail!");
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
+
+            JOptionPane.showMessageDialog(this,"Uma mensagem foi enviada para sua caixa de e-mails.");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
     }
     
