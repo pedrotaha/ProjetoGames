@@ -31,7 +31,6 @@ public class JFCadJogo extends javax.swing.JFrame {
     JogosModel jogo = new JogosModel();
     JogosData DAO = new JogosData();
     UsuarioModel obj = new UsuarioModel();
-    JIFBuscarImagem janela = new JIFBuscarImagem();
 
     DefaultListModel MODELO;
     int Enter = 0;

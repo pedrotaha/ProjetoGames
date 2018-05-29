@@ -441,7 +441,7 @@ private void setIcon() {
             // second part (the image)
             messageBodyPart = new MimeBodyPart();
             DataSource fds = new FileDataSource(
-                    "C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\GarnetGames Logo.jpg");
+                    "C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\GarnetGamesLogo.jpg");
 
             messageBodyPart.setDataHandler(new DataHandler(fds));
             messageBodyPart.setHeader("Content-ID", "<image>");
