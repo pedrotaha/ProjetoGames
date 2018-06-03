@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -399,9 +400,13 @@ public class JFCadJogo extends javax.swing.JFrame {
     }
 
     public void buscar() {
+        jfcBuscar.removeChoosableFileFilter(jfcBuscar.getAcceptAllFileFilter());
         FileFilter imageFilter = new FileNameExtensionFilter(
                 "Image files", ImageIO.getReaderFileSuffixes());
+        jfcBuscar.addChoosableFileFilter(imageFilter);
         jfcBuscar.setFileFilter(imageFilter);
+        jfcBuscar.setMultiSelectionEnabled(false);
+        jfcBuscar.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int i = jfcBuscar.showSaveDialog(null);
         if (i == 1) {
             jtDir.setText("");
