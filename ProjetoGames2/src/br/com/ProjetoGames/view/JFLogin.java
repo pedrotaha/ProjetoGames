@@ -10,7 +10,6 @@ import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.view.control.Criptografar;
-import br.com.ProjetoGames.view.control.EmailSender;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
@@ -242,7 +241,6 @@ public class JFLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jlEsquecerMouseExited
 
     private void jlEsquecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlEsquecerMouseClicked
-        EmailSender em = new EmailSender();
         String email = JOptionPane.showInputDialog("Informe o seu e-mail:");
         String login = JOptionPane.showInputDialog("Informe o login");
         try {

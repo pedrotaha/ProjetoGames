@@ -82,9 +82,9 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         jbDetalhes = new javax.swing.JButton();
         jlPesquisar = new javax.swing.JLabel();
         jtPesquisar = new javax.swing.JTextField();
-        jlPikachu = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbUsuario = new javax.swing.JTable();
+        jlPikachu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisar Usuário");
@@ -136,8 +136,6 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
             }
         });
 
-        jlPikachu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Detective_Pikachu.jpg"))); // NOI18N
-
         jtbUsuario.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jtbUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -169,13 +167,15 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jtbUsuario);
 
+        jlPikachu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Detective_Pika.png"))); // NOI18N
+
         jdpPesquisarUser.setLayer(jbEditar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jbExcluir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jbDetalhes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jlPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jtPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpPesquisarUser.setLayer(jlPikachu, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpPesquisarUser.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpPesquisarUser.setLayer(jlPikachu, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jdpPesquisarUserLayout = new javax.swing.GroupLayout(jdpPesquisarUser);
         jdpPesquisarUser.setLayout(jdpPesquisarUserLayout);
@@ -183,15 +183,15 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
             jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpPesquisarUserLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(jbEditar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addComponent(jbEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
                 .addComponent(jbDetalhes)
-                .addGap(171, 171, 171)
+                .addGap(152, 152, 152)
                 .addComponent(jbExcluir)
-                .addGap(131, 131, 131))
+                .addGap(64, 64, 64))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpPesquisarUserLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jlPikachu, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jlPikachu, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jdpPesquisarUserLayout.createSequentialGroup()
                     .addGap(0, 51, Short.MAX_VALUE)
@@ -206,8 +206,8 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         jdpPesquisarUserLayout.setVerticalGroup(
             jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpPesquisarUserLayout.createSequentialGroup()
-                .addComponent(jlPikachu, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
+                .addComponent(jlPikachu, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 508, Short.MAX_VALUE)
                 .addGroup(jdpPesquisarUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbDetalhes)
                     .addComponent(jbExcluir)
