@@ -20,6 +20,9 @@ public class LocalData {
             obj.setSigla("sl_sigla");
             dados.add(obj);
         }
+        c.getConexao().close();
+        ps.close();
+        rs.close();
         return dados;
     }
 
@@ -36,6 +39,9 @@ public class LocalData {
             obj.setSigla("uf_sigla");
             dados.add(obj);
         }
+        c.getConexao().close();
+        ps.close();
+        rs.close();
         return dados;
     }
     
@@ -52,6 +58,9 @@ public class LocalData {
             obj.setSigla("ct_sigla");
             dados.add(obj);
         }
+        c.getConexao().close();
+        ps.close();
+        rs.close();
         return dados;
     }
 }

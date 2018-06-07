@@ -103,7 +103,7 @@ create table if not exists tbPlataformas(
  nomeplataforma varchar(50) not null,
  dataLancamento varchar(12) not null
 );
-select * from tbPlataformas;
+select * from tbusuarios;
  
  insert into tbtipousuarios (descricao, nivel) values ('Cliente',0);
  insert into tbtipousuarios (descricao, nivel) values ('Funcionario',1);

@@ -51,12 +51,22 @@ public class UsuarioData {
             if (ps3.executeUpdate() == 0) {
                 c.getConexao().rollback();
                 c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps.close();
+                ps2.close();
+                ps3.close();
+                rs.close();
                 throw new Exception("Ocorreu erro ao salvar o Endereço");
             } else {
                 if (obj.getTipoUsuarioModel().getNivel() < 1) {
                     c.getConexao().commit();
                     c.getConexao().setAutoCommit(true);
+                    c.getConexao().close();
                 }
+                ps.close();
+                ps2.close();
+                ps3.close();
+                rs.close();
                 return true;
             }
         } else {
@@ -102,12 +112,22 @@ public class UsuarioData {
             if (ps3.executeUpdate() == 0) {
                 c.getConexao().rollback();
                 c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps.close();
+                ps2.close();
+                ps3.close();
+                rs.close();
                 throw new Exception("Ocorreu erro ao salvar o Endereço");
             } else {
                 if (obj.getTipoUsuarioModel().getNivel() < 1) {
                     c.getConexao().commit();
                     c.getConexao().setAutoCommit(true);
+                    c.getConexao().close();
                 }
+                ps.close();
+                ps2.close();
+                ps3.close();
+                rs.close();
                 return c;
             }
         } else {
@@ -138,6 +158,9 @@ public class UsuarioData {
             obj.setEnderecoModel(new EnderecoModel(rs.getString("pais"), rs.getString("estado"), rs.getString("cidade"), rs.getString("bairro"), rs.getString("rua"), rs.getInt("numero"), rs.getString("cep"), rs.getString("complemento")));
             dados.add(obj);
         }
+        c.getConexao().close();
+        ps.close();
+        rs.close();
         return dados;
     }
 
@@ -156,6 +179,9 @@ public class UsuarioData {
             obj.setLogin(rs.getString("login"));
             dados.add(obj);
         }
+        c.getConexao().close();
+        ps.close();
+        rs.close();
         return dados;
     }
 
@@ -172,10 +198,16 @@ public class UsuarioData {
             if (ps2.executeUpdate() > 0) {
                 c.getConexao().commit();
                 c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps1.close();
+                ps2.close();
                 return true;
             } else {
                 c.getConexao().rollback();
                 c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps1.close();
+                ps2.close();
                 throw new Exception("Não foi possível excluir.");
             }
         }
@@ -213,10 +245,16 @@ public class UsuarioData {
             if (ps2.executeUpdate() > 0) {
                 c.getConexao().commit();
                 c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps1.close();
+                ps2.close();
                 return true;
             } else {
                 c.getConexao().rollback();
                 c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps1.close();
+                ps2.close();
                 throw new Exception("Não foi possível atualizar.");
             }
         } else {
@@ -240,8 +278,14 @@ public class UsuarioData {
             EnderecoModel end = new EnderecoModel(rs.getString("pais"), rs.getString("estado"), rs.getString("cidade"), rs.getString("bairro"), rs.getString("rua"), rs.getInt("numero"), rs.getString("cep"), rs.getString("complemento"));
             obj = new UsuarioModel(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("email"),
                     rs.getString("sexo"), end, calendario(rs.getString("datanasc")), rs.getString("login"), "", calendario(rs.getString("datacadastro")), tp);
+            c.getConexao().close();
+            ps.close();
+            rs.close();
             return obj;
         } else {
+            c.getConexao().close();
+            ps.close();
+            rs.close();
             throw new Exception("Login Inválido.");
         }
     }
@@ -286,15 +330,19 @@ public class UsuarioData {
         if (ps1.executeUpdate() > 0) {
             c.getConexao().commit();
             c.getConexao().setAutoCommit(true);
+            c.getConexao().close();
+            ps1.close();
             return true;
         } else {
             c.getConexao().rollback();
             c.getConexao().setAutoCommit(true);
+            c.getConexao().close();
+            ps1.close();
             throw new Exception("Não foi possível atualizar.");
         }
     }
 
-    public UsuarioModel verEmailLogin(String login, String email) throws Exception{
+    public UsuarioModel verEmailLogin(String login, String email) throws Exception {
         UsuarioModel obj = null;
         Conexao c = new Conexao();
         String sql = "Select * from tbusuarios u, tbendereco e, tbtipousuarios t where u.id = e.idusuario "
@@ -308,8 +356,14 @@ public class UsuarioData {
             EnderecoModel end = new EnderecoModel(rs.getString("pais"), rs.getString("estado"), rs.getString("cidade"), rs.getString("bairro"), rs.getString("rua"), rs.getInt("numero"), rs.getString("cep"), rs.getString("complemento"));
             obj = new UsuarioModel(rs.getInt("id"), rs.getString("nome"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("email"),
                     rs.getString("sexo"), end, calendario(rs.getString("datanasc")), rs.getString("login"), "", calendario(rs.getString("datacadastro")), tp);
+            c.getConexao().close();
+            ps.close();
+            rs.close();
             return obj;
         } else {
+            c.getConexao().close();
+            ps.close();
+            rs.close();
             throw new Exception("Login Inválido.");
         }
     }

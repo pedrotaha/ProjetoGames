@@ -30,10 +30,18 @@ public class FuncionarioData extends UsuarioData {
             if (ps.executeUpdate() > 0) {
                 c.getConexao().commit();
                 c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps.close();
+                ps2.close();
+                rs.close();
                 return true;
             } else {
                 c.getConexao().rollback();
                 c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps.close();
+                ps2.close();
+                rs.close();
                 throw new Exception("Ocorreu erro ao salvar o Funcionário");
             }
         } catch (Exception e) {
@@ -74,8 +82,12 @@ public class FuncionarioData extends UsuarioData {
                     obj.setSalario(rs.getFloat("salario"));
                 }
                 listaF.add(obj);
+                ps.close();
+                rs.close();
             }
         }
+        c.getConexao().close();
+
         return listaF;
     }
 
@@ -91,6 +103,9 @@ public class FuncionarioData extends UsuarioData {
             obj.setEstadoCivil(rs.getString("estadocivil"));
             obj.setSalario(rs.getFloat("salario"));
         }
+        c.getConexao().close();
+        ps.close();
+        rs.close();
         return obj;
     }
 
@@ -108,10 +123,18 @@ public class FuncionarioData extends UsuarioData {
                 if (ps1.executeUpdate() > 0) {
                     c.getConexao().commit();
                     c.getConexao().setAutoCommit(true);
+                    c.getConexao().close();
+                    ps.close();
+                    ps1.close();
+                    rs.close();
                     return true;
                 } else {
                     c.getConexao().rollback();
                     c.getConexao().setAutoCommit(true);
+                    c.getConexao().close();
+                    ps.close();
+                    ps1.close();
+                    rs.close();
                     throw new Exception("Não foi possível excluir o Funcionário.");
                 }
             }
@@ -137,15 +160,20 @@ public class FuncionarioData extends UsuarioData {
             if (ps.executeUpdate() > 0) {
                 c.getConexao().commit();
                 c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps.close();
                 return true;
             } else {
                 c.getConexao().rollback();
                 c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps.close();
                 throw new Exception("Não foi possível atualizar o Funcionário.");
             }
         } else {
             c.getConexao().rollback();
             c.getConexao().setAutoCommit(true);
+            c.getConexao().close();
             throw new Exception("Não foi possível atualizar.");
         }
 
@@ -168,6 +196,9 @@ public class FuncionarioData extends UsuarioData {
                 func.setSalario(rs.getFloat("salario"));
                 return func;
             }
+            c.getConexao().close();
+            ps.close();
+            rs.close();
         } catch (Exception e) {
             throw new Exception("Login Inválido.");
         }
@@ -186,6 +217,9 @@ public class FuncionarioData extends UsuarioData {
                 func = new FuncionarioModel(obj, rs.getFloat("salario"), rs.getString("cargo"), rs.getString("cargahoraria"), rs.getString("estadocivil"));
                 return func;
             }
+            c.getConexao().close();
+            ps.close();
+            rs.close();
         } catch (Exception e) {
             throw new Exception("Login Inválido.");
         }

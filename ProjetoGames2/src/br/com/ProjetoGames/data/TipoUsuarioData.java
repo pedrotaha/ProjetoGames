@@ -19,6 +19,9 @@ public class TipoUsuarioData {
             obj.setNivel(rs.getInt("nivel"));
             dados.add(obj); //<-- Adiciona o objeto à lista
         }
+        c.getConexao().close();
+        ps.close();
+        rs.close();
         return dados;
     }
 }

@@ -23,6 +23,9 @@ public class PlataformaData {
             obj.setDataLancamento(calendario(rs.getString("datalancamento")));
             dados.add(obj);
         }
+        c.getConexao().close();
+        ps.close();
+        rs.close();
         return dados;
     }
 
