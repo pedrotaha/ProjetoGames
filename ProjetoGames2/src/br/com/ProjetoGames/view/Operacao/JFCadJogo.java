@@ -123,7 +123,7 @@ public class JFCadJogo extends javax.swing.JFrame {
         jscrollpPlataforma.setViewportView(jlistPlataforma);
 
         jDesktopPane1.add(jscrollpPlataforma);
-        jscrollpPlataforma.setBounds(240, 100, 370, 130);
+        jscrollpPlataforma.setBounds(240, 100, 380, 130);
 
         jlTitulo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlTitulo.setText("Titulo:");
@@ -206,7 +206,7 @@ public class JFCadJogo extends javax.swing.JFrame {
             }
         });
         jDesktopPane1.add(jtPlataforma);
-        jtPlataforma.setBounds(240, 72, 370, 28);
+        jtPlataforma.setBounds(240, 72, 380, 28);
 
         jtPublicadora.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jtPublicadora);
@@ -293,7 +293,7 @@ public class JFCadJogo extends javax.swing.JFrame {
             jscrollpPlataforma.setVisible(false);
             jtPlataforma.setText(selecionado.getNome());
         }
-        if(evt.getKeyCode() == KeyEvent.VK_UP && jlistPlataforma.getSelectedIndex() == 0){
+        if (evt.getKeyCode() == KeyEvent.VK_UP && jlistPlataforma.getSelectedIndex() == 0) {
             jtPlataforma.requestFocusInWindow();
             selecionado = new PlataformaModel();
         }
@@ -412,7 +412,14 @@ public class JFCadJogo extends javax.swing.JFrame {
             jtDir.setText("");
         } else {
             File arquivo = jfcBuscar.getSelectedFile();
-            jtDir.setText(arquivo.getPath());
+            File file = jfcBuscar.getSelectedFile();
+            long fileSize = file.length();
+            if ((fileSize / 1024) > 1024) {
+                JOptionPane.showMessageDialog(this, "Arquivo muito grande, escolha um com até 1MB","Arquivo Grande",JOptionPane.INFORMATION_MESSAGE);
+                jtDir.setText("");
+            } else {
+                jtDir.setText(arquivo.getPath());
+            }
         }
     }
 

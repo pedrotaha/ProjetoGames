@@ -137,7 +137,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
 
         jlCidade.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlCidade.setText("Cidade:");
-        getContentPane().add(jlCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 276, -1, -1));
+        getContentPane().add(jlCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 276, -1, -1));
 
         jlEstado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jlEstado.setText("Estado:");
@@ -196,7 +196,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
 
         jcbCidade.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jcbCidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
-        getContentPane().add(jcbCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, -1, -1));
+        getContentPane().add(jcbCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, -1, -1));
 
         jtCidade.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jtCidade.addActionListener(new java.awt.event.ActionListener() {
@@ -209,7 +209,7 @@ public class JIFEndereco extends javax.swing.JInternalFrame {
                 jtCidadeKeyTyped(evt);
             }
         });
-        getContentPane().add(jtCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 312, 151, -1));
+        getContentPane().add(jtCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 312, 151, -1));
 
         jcbEstado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jcbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));

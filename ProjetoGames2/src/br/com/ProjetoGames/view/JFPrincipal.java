@@ -42,7 +42,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     public JFPrincipal(UsuarioModel obj) {
         initComponents();
         this.obj = obj;
-        jlInfo.setText("Login : "+obj.getNome()+"Tipo: "+obj.getTipoUsuarioModel().getDescricao());
+        jlInfo.setText("Login : "+obj.getNome()+" Tipo: "+obj.getTipoUsuarioModel().getDescricao());
         setIcon();
         tempo();
         windowsClosing();
@@ -87,7 +87,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         jlTime.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jdpPrincipal.add(jlTime);
-        jlTime.setBounds(450, 0, 390, 70);
+        jlTime.setBounds(260, 30, 390, 70);
 
         jbRenovar.setBackground(new java.awt.Color(107, 164, 194));
         jbRenovar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -161,10 +161,10 @@ public class JFPrincipal extends javax.swing.JFrame {
         jdpPrincipal.add(jbCadUsuario);
         jbCadUsuario.setBounds(0, 0, 250, 50);
 
-        jlInfo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlInfo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jlInfo.setText("Login: ");
         jdpPrincipal.add(jlInfo);
-        jlInfo.setBounds(340, 510, 490, 30);
+        jlInfo.setBounds(260, 0, 590, 30);
 
         jlFFxv.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jlFFxv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/cxdkpvuxuaazxj8_8h6c.jpg"))); // NOI18N
