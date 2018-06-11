@@ -102,6 +102,8 @@ public class JFCadJogo extends javax.swing.JFrame {
         jbBuscar = new javax.swing.JButton();
         jtDir = new javax.swing.JTextField();
         jfcBuscar = new javax.swing.JFileChooser();
+        jbSalvar = new javax.swing.JButton();
+        jbCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Cadastro Jogos");
@@ -168,9 +170,9 @@ public class JFCadJogo extends javax.swing.JFrame {
         jlQuantLocacao.setBounds(250, 240, 143, 40);
 
         jlImagem.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jlImagem.setText("Imagem:");
+        jlImagem.setText("Imagem da capa:");
         jDesktopPane1.add(jlImagem);
-        jlImagem.setBounds(12, 347, 78, 22);
+        jlImagem.setBounds(12, 347, 160, 22);
 
         jcbFaixaEtaria.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jcbFaixaEtaria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>", "Livre", "+10", "+12", "+14", "+16", "+18" }));
@@ -243,12 +245,34 @@ public class JFCadJogo extends javax.swing.JFrame {
         jtDir.setEditable(false);
         jtDir.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jtDir);
-        jtDir.setBounds(120, 340, 310, 28);
+        jtDir.setBounds(170, 340, 310, 28);
 
         jfcBuscar.setCurrentDirectory(new java.io.File("C:\\Users\\Pedro\\Pictures"));
         jfcBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jfcBuscar);
-        jfcBuscar.setBounds(0, 30, 650, 397);
+        jfcBuscar.setBounds(580, 400, 650, 397);
+
+        jbSalvar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Save_48px.png"))); // NOI18N
+        jbSalvar.setText("Salvar");
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarActionPerformed(evt);
+            }
+        });
+        jDesktopPane1.add(jbSalvar);
+        jbSalvar.setBounds(140, 410, 170, 50);
+
+        jbCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Cancel_48px.png"))); // NOI18N
+        jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
+        jDesktopPane1.add(jbCancelar);
+        jbCancelar.setBounds(350, 410, 190, 50);
 
         getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -5, 650, 470));
 
@@ -307,6 +331,18 @@ public class JFCadJogo extends javax.swing.JFrame {
         campoComNumero(evt);
     }//GEN-LAST:event_jtQuantLocacaoKeyTyped
 
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nCancelar?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+        dispose();
+        new JFPrincipal(obj).setVisible(true);
+        }
+    }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
+        //validar campos, preencher objeto, verificar se jogo já esta cadastrado, manda para o banco, preparar pra editar
+        
+    }//GEN-LAST:event_jbSalvarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -346,6 +382,8 @@ public class JFCadJogo extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbSalvar;
     private javax.swing.JComboBox<String> jcbFaixaEtaria;
     private javax.swing.JFileChooser jfcBuscar;
     private javax.swing.JLabel jlDataLancamento;
@@ -415,7 +453,7 @@ public class JFCadJogo extends javax.swing.JFrame {
             File file = jfcBuscar.getSelectedFile();
             long fileSize = file.length();
             if ((fileSize / 1024) > 1024) {
-                JOptionPane.showMessageDialog(this, "Arquivo muito grande, escolha um com até 1MB","Arquivo Grande",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Arquivo muito grande, escolha um com até 1MB", "Arquivo Grande", JOptionPane.INFORMATION_MESSAGE);
                 jtDir.setText("");
             } else {
                 jtDir.setText(arquivo.getPath());
@@ -455,7 +493,47 @@ public class JFCadJogo extends javax.swing.JFrame {
             Enter = 1;
         }
     }
-
+    public boolean validar(){
+        String msg = new String();
+        if(jtTitulo.getText().equals("")){
+            msg = "O título deve ser preenchido\n";
+        }else{
+            if(jtTitulo.getText().length() < 3 || jtTitulo.getText().length() > 40){
+                msg = "O título deve conter entre 3 e 40 caracteres\n";
+            }
+        }
+        if(jtQuantVenda.getText().equals("")){
+            msg += "Insira uma quantidade para venda\n";
+        }
+        if(jtQuantLocacao.getText().equals("")){
+            msg += "Insira uma quantidade para locação\n";
+        }
+        if(jtPublicadora.getText().equals("")){
+            msg += "Informe qual a publicadora\n";
+        }else{
+            if(jtPublicadora.getText().length() < 3 || jtPublicadora.getText().length() > 40){
+                msg += "A publicadora deve conter entre 3 e 40 caracteres\n";
+            }
+        }
+        if(jtPlataforma.getText().equals("")){
+            msg += "Informe a plataforma do jogo\n";
+        }else{
+            if(jtPlataforma.getText().length() < 3 || jtPlataforma.getText().length() > 40){
+                msg += "A plataforma deve conter entre 3 e 40 caracteres\n";
+            }
+        }
+        if(jtGenero.getText().equals("")){
+            msg += "Informe o genêro do jogo\n";
+        }else{
+            if(jtGenero.getText().length() < 3 || jtGenero.getText().length() > 40){
+                msg += "O gênero deve conter entre 3 e 40 caracteres\n";
+            }
+        }
+        if(jtDir.equals("")){
+            msg += "Selecione uma imagem da capa do jogo\n";
+        }
+        return true;
+    }
 }
 //lista.forEach((list) -> {
 //    MODELO.addElement(list.getNome());
