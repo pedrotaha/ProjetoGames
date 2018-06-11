@@ -71,6 +71,7 @@ public class JFRecuperacaoSenha extends javax.swing.JFrame {
         jbCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Recuperação de Senha");
 
         jlLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/GarnetGamesLogo.jpg"))); // NOI18N
         jlLogo.setText(",");
@@ -239,7 +240,7 @@ private void setIcon() {
         float result = ((10 + rand.nextInt(30)) + (rand.nextFloat())) * gerador.nextInt(900) * cal.get(Calendar.DAY_OF_MONTH) * cal.get(Calendar.HOUR) * cal.get(Calendar.MINUTE) * cal.get(Calendar.SECOND);
         String caracteresSalgados = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";//Random String
         StringBuilder sao = new StringBuilder();
-        Random geradorS = new Random(cal.get(Calendar.HOUR) * cal.get(Calendar.DAY_OF_MONTH));
+        Random geradorS = new Random(cal.get(Calendar.MILLISECOND) * cal.get(Calendar.MINUTE) * cal.get(Calendar.HOUR) * cal.get(Calendar.DAY_OF_MONTH) * 19700621);
         while (sao.length() < 18) { // tamanho da String aleatória
             int index = (int) (geradorS.nextFloat() * caracteresSalgados.length());
             sao.append(caracteresSalgados.charAt(index));
@@ -307,7 +308,7 @@ private void setIcon() {
 
             // first part (the html)
             BodyPart messageBodyPart = new MimeBodyPart();//WIDTH = \"229\" HEIGHT = \"300\"
-            String htmlText = "<H2 ALIGN = \"left\" STYLE = \" font-family = Arial; font-size: 12pt\"><img src=\"cid:image\" ALIGN = \"top\" >Ol&aacute; " + obj.getNome() + ", esta &eacute; uma mensagem de recupera&ccedil;&atilde;o de senha da <BIG><BLINK>Garnet Games!</BLINK></BIG><br />Use esta senha tempor&aacute;ria: <BIG>" + obj.getSenha() + "</BIG></H2><br /><br />"
+            String htmlText = "<img src=\"cid:image\"><H2 ALIGN = \"left\" STYLE = \" font-family = Arial; font-size: 12pt\">Ol&aacute; " + obj.getNome() + ", esta &eacute; uma mensagem de recupera&ccedil;&atilde;o de senha da <BIG><BLINK>Garnet Games!</BLINK></BIG><br />Use esta senha tempor&aacute;ria: <BIG>" + obj.getSenha() + "</BIG></H2><br /><br />"
                     + "<H3 ALIGN = \"left\" STYLE = \" font-family = Arial; font-size: 12pt\">N&atilde;o foi voc&ecirc;? Entre no sistema com a senha tempor&aacute;ria e mude a senha para uma diferente da antiga.<br /><br /><br /><br /><br /><br />"
                     + "<HR SIZE = 2 WIDTH = 100% NOSHADE><br />Para entrar em contado com administrador do sistema envie um e-mail para <BIG><ADDRESS>pedro.m.taha@gmail.com</ADDRESS></BIG></H3>";
             messageBodyPart.setContent(htmlText, "text/html");

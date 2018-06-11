@@ -50,17 +50,63 @@ public class JFTrocarSenha extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jlSenhaAntiga = new javax.swing.JLabel();
+        jlSenhaNova = new javax.swing.JLabel();
+        jlRedigite = new javax.swing.JLabel();
+        jpfSenhaAntiga = new javax.swing.JPasswordField();
+        jpfSenhaNova = new javax.swing.JPasswordField();
+        jpfRedigite = new javax.swing.JPasswordField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Trocar a Senha");
+
+        jlSenhaAntiga.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlSenhaAntiga.setText("Senha Antiga:");
+
+        jlSenhaNova.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlSenhaNova.setText("Senha Nova:");
+
+        jlRedigite.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlRedigite.setText("Redigite a nova:");
+
+        jpfSenhaAntiga.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
+        jpfSenhaNova.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
+        jpfRedigite.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jpfRedigite, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpfSenhaNova, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jpfSenhaAntiga, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jlRedigite)
+                        .addComponent(jlSenhaNova, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jlSenhaAntiga, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 563, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(180, Short.MAX_VALUE)
+                .addComponent(jlSenhaAntiga)
+                .addGap(18, 18, 18)
+                .addComponent(jpfSenhaAntiga, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(jlSenhaNova)
+                .addGap(18, 18, 18)
+                .addComponent(jpfSenhaNova, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(jlRedigite)
+                .addGap(18, 18, 18)
+                .addComponent(jpfRedigite, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
         );
 
         pack();
@@ -102,6 +148,12 @@ public class JFTrocarSenha extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jlRedigite;
+    private javax.swing.JLabel jlSenhaAntiga;
+    private javax.swing.JLabel jlSenhaNova;
+    private javax.swing.JPasswordField jpfRedigite;
+    private javax.swing.JPasswordField jpfSenhaAntiga;
+    private javax.swing.JPasswordField jpfSenhaNova;
     // End of variables declaration//GEN-END:variables
 private void setIcon() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Forgot_Password_528px.png");
