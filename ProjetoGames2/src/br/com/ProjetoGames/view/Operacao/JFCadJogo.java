@@ -16,7 +16,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -32,12 +37,17 @@ public class JFCadJogo extends javax.swing.JFrame {
     JogosModel jogo = new JogosModel();
     JogosData DAO = new JogosData();
     UsuarioModel obj = new UsuarioModel();
-
+    Calendar cal = Calendar.getInstance();
+    int anoAtual = cal.get(Calendar.YEAR);
+    int mesAtual = cal.get(Calendar.MONTH) + 1;
+    int diaAtual = cal.get(Calendar.DAY_OF_MONTH);
     DefaultListModel MODELO;
-    int Enter = 0;
+    int Enter = 0, log;
     ArrayList<PlataformaModel> lista = new ArrayList<>();
     PlataformaModel selecionado = new PlataformaModel();
     PlataformaData DAOP = new PlataformaData();
+    FileInputStream fis;
+    File file;
 
     public JFCadJogo() {
         initComponents();
@@ -52,6 +62,7 @@ public class JFCadJogo extends javax.swing.JFrame {
         jscrollpPlataforma.setVisible(false);
         MODELO = new DefaultListModel();
         jlistPlataforma.setModel(MODELO);
+        log = 0;
     }
 
     public JFCadJogo(UsuarioModel obj) {
@@ -68,6 +79,27 @@ public class JFCadJogo extends javax.swing.JFrame {
         jscrollpPlataforma.setVisible(false);
         MODELO = new DefaultListModel();
         jlistPlataforma.setModel(MODELO);
+        log = 0;
+    }
+
+    public JFCadJogo(UsuarioModel obj, int log, JogosModel jogo) {
+        initComponents();
+        this.obj = obj;
+        setIcon();
+        windowsClosing();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+        jfcBuscar.setVisible(false);
+        mostraPesquisa();
+        jlistPlataforma.setVisible(false);
+        jscrollpPlataforma.setVisible(false);
+        MODELO = new DefaultListModel();
+        jlistPlataforma.setModel(MODELO);
+        this.log = log;
+        this.jogo = jogo;
+        jbBuscar.setEnabled(false);
+        carregarCamposEdit();
     }
 
     /**
@@ -92,7 +124,7 @@ public class JFCadJogo extends javax.swing.JFrame {
         jlQuantLocacao = new javax.swing.JLabel();
         jlImagem = new javax.swing.JLabel();
         jcbFaixaEtaria = new javax.swing.JComboBox<>();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        jftDataLancamento = new javax.swing.JFormattedTextField();
         jtTitulo = new javax.swing.JTextField();
         jtGenero = new javax.swing.JTextField();
         jtPlataforma = new javax.swing.JTextField();
@@ -104,6 +136,14 @@ public class JFCadJogo extends javax.swing.JFrame {
         jfcBuscar = new javax.swing.JFileChooser();
         jbSalvar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
+        jlPrecoVenda = new javax.swing.JLabel();
+        jtPrecoVenda = new javax.swing.JTextField();
+        jlPrecoLocacao = new javax.swing.JLabel();
+        jtPrecoLocacao = new javax.swing.JTextField();
+        jlSifraLocacao = new javax.swing.JLabel();
+        jlSifraVenda = new javax.swing.JLabel();
+        jtFundoLocacao = new javax.swing.JTextField();
+        jtFundoVenda = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Cadastro Jogos");
@@ -167,7 +207,7 @@ public class JFCadJogo extends javax.swing.JFrame {
         jlQuantLocacao.setText("<html>Quantidade para<br \\> Locação:</html>");
         jlQuantLocacao.setToolTipText("");
         jDesktopPane1.add(jlQuantLocacao);
-        jlQuantLocacao.setBounds(250, 240, 143, 40);
+        jlQuantLocacao.setBounds(270, 240, 143, 40);
 
         jlImagem.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlImagem.setText("Imagem da capa:");
@@ -180,13 +220,13 @@ public class JFCadJogo extends javax.swing.JFrame {
         jcbFaixaEtaria.setBounds(471, 171, 142, 28);
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            jftDataLancamento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextField1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jDesktopPane1.add(jFormattedTextField1);
-        jFormattedTextField1.setBounds(510, 290, 90, 30);
+        jftDataLancamento.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jftDataLancamento);
+        jftDataLancamento.setBounds(510, 290, 100, 30);
 
         jtTitulo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jtTitulo);
@@ -230,7 +270,7 @@ public class JFCadJogo extends javax.swing.JFrame {
             }
         });
         jDesktopPane1.add(jtQuantLocacao);
-        jtQuantLocacao.setBounds(250, 290, 76, 28);
+        jtQuantLocacao.setBounds(270, 290, 76, 28);
 
         jbBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jbBuscar.setText("Buscar");
@@ -250,7 +290,7 @@ public class JFCadJogo extends javax.swing.JFrame {
         jfcBuscar.setCurrentDirectory(new java.io.File("C:\\Users\\Pedro\\Pictures"));
         jfcBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jfcBuscar);
-        jfcBuscar.setBounds(580, 400, 650, 397);
+        jfcBuscar.setBounds(550, 390, 650, 397);
 
         jbSalvar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Save_48px.png"))); // NOI18N
@@ -273,6 +313,55 @@ public class JFCadJogo extends javax.swing.JFrame {
         });
         jDesktopPane1.add(jbCancelar);
         jbCancelar.setBounds(350, 410, 190, 50);
+
+        jlPrecoVenda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlPrecoVenda.setText("Preço:");
+        jDesktopPane1.add(jlPrecoVenda);
+        jlPrecoVenda.setBounds(150, 270, 80, 22);
+
+        jtPrecoVenda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jtPrecoVenda);
+        jtPrecoVenda.setBounds(150, 290, 80, 30);
+
+        jlPrecoLocacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlPrecoLocacao.setText("Preço:");
+        jDesktopPane1.add(jlPrecoLocacao);
+        jlPrecoLocacao.setBounds(390, 270, 80, 20);
+
+        jtPrecoLocacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jDesktopPane1.add(jtPrecoLocacao);
+        jtPrecoLocacao.setBounds(390, 290, 80, 30);
+
+        jlSifraLocacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlSifraLocacao.setText("R$");
+        jDesktopPane1.add(jlSifraLocacao);
+        jlSifraLocacao.setBounds(360, 290, 23, 22);
+
+        jlSifraVenda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlSifraVenda.setText("R$");
+        jDesktopPane1.add(jlSifraVenda);
+        jlSifraVenda.setBounds(120, 290, 30, 16);
+
+        jtFundoLocacao.setEditable(false);
+        jtFundoLocacao.setBackground(new java.awt.Color(204, 255, 255));
+        jtFundoLocacao.setAutoscrolls(false);
+        jtFundoLocacao.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jtFundoLocacao.setEnabled(false);
+        jtFundoLocacao.setFocusable(false);
+        jtFundoLocacao.setRequestFocusEnabled(false);
+        jtFundoLocacao.setVerifyInputWhenFocusTarget(false);
+        jDesktopPane1.add(jtFundoLocacao);
+        jtFundoLocacao.setBounds(260, 240, 230, 90);
+
+        jtFundoVenda.setEditable(false);
+        jtFundoVenda.setBackground(new java.awt.Color(204, 204, 255));
+        jtFundoVenda.setAutoscrolls(false);
+        jtFundoVenda.setEnabled(false);
+        jtFundoVenda.setFocusable(false);
+        jtFundoVenda.setRequestFocusEnabled(false);
+        jtFundoVenda.setVerifyInputWhenFocusTarget(false);
+        jDesktopPane1.add(jtFundoVenda);
+        jtFundoVenda.setBounds(0, 240, 240, 90);
 
         getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -5, 650, 470));
 
@@ -332,15 +421,37 @@ public class JFCadJogo extends javax.swing.JFrame {
     }//GEN-LAST:event_jtQuantLocacaoKeyTyped
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nCancelar?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
-        dispose();
-        new JFPrincipal(obj).setVisible(true);
+        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+            sair();
         }
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         //validar campos, preencher objeto, verificar se jogo já esta cadastrado, manda para o banco, preparar pra editar
-        
+        try {
+            if (validar()) {
+                if (preencherObjeto()) {
+                    if (log == 0) {
+                        if (DAO.incluir(jogo, file, fis)) {
+                            JOptionPane.showMessageDialog(this, "Salvo com sucesso!");
+                            fis.close();
+                            sair();
+                        }
+                    }
+                    if (log == 1) {
+                        if (DAO.editar(jogo, file, fis)) {
+                            JOptionPane.showMessageDialog(this, "Editado com sucesso!");
+                            fis.close();
+                            sair();
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar: \n" + e.getMessage(), "botão salvar", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     /**
@@ -380,26 +491,34 @@ public class JFCadJogo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JComboBox<String> jcbFaixaEtaria;
     private javax.swing.JFileChooser jfcBuscar;
+    private javax.swing.JFormattedTextField jftDataLancamento;
     private javax.swing.JLabel jlDataLancamento;
     private javax.swing.JLabel jlFaixaEtaria;
     private javax.swing.JLabel jlGenero;
     private javax.swing.JLabel jlImagem;
     private javax.swing.JLabel jlPlataforma;
+    private javax.swing.JLabel jlPrecoLocacao;
+    private javax.swing.JLabel jlPrecoVenda;
     private javax.swing.JLabel jlPublicadora;
     private javax.swing.JLabel jlQuantLocacao;
     private javax.swing.JLabel jlQuantVenda;
+    private javax.swing.JLabel jlSifraLocacao;
+    private javax.swing.JLabel jlSifraVenda;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JList<String> jlistPlataforma;
     private javax.swing.JScrollPane jscrollpPlataforma;
     private javax.swing.JTextField jtDir;
+    private javax.swing.JTextField jtFundoLocacao;
+    private javax.swing.JTextField jtFundoVenda;
     private javax.swing.JTextField jtGenero;
     private javax.swing.JTextField jtPlataforma;
+    private javax.swing.JTextField jtPrecoLocacao;
+    private javax.swing.JTextField jtPrecoVenda;
     private javax.swing.JTextField jtPublicadora;
     private javax.swing.JTextField jtQuantLocacao;
     private javax.swing.JTextField jtQuantVenda;
@@ -416,11 +535,22 @@ public class JFCadJogo extends javax.swing.JFrame {
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {
                 if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
-                    dispose();
-                    new JFPrincipal(obj).setVisible(true);
+                    sair();
                 }
             }
         });
+    }
+
+    public void sair() {
+        dispose();
+        if (log == 0) {
+            new JFPrincipal(obj).setVisible(true);
+        } else {
+            if (log == 1) {
+                //new JFPesquisarJogo(obj).setVisible(true);
+            }
+
+        }
     }
 
     private void campoSemNumero(java.awt.event.KeyEvent evt) {
@@ -493,46 +623,166 @@ public class JFCadJogo extends javax.swing.JFrame {
             Enter = 1;
         }
     }
-    public boolean validar(){
+
+    public boolean validar() throws Exception {
         String msg = new String();
-        if(jtTitulo.getText().equals("")){
+        if (jtTitulo.getText().equals("")) {
             msg = "O título deve ser preenchido\n";
-        }else{
-            if(jtTitulo.getText().length() < 3 || jtTitulo.getText().length() > 40){
+        } else {
+            if (jtTitulo.getText().length() < 3 || jtTitulo.getText().length() > 40) {
                 msg = "O título deve conter entre 3 e 40 caracteres\n";
             }
         }
-        if(jtQuantVenda.getText().equals("")){
+        if (jtQuantVenda.getText().equals("")) {
             msg += "Insira uma quantidade para venda\n";
         }
-        if(jtQuantLocacao.getText().equals("")){
+        if (jtQuantLocacao.getText().equals("")) {
             msg += "Insira uma quantidade para locação\n";
         }
-        if(jtPublicadora.getText().equals("")){
+        if (jtPublicadora.getText().equals("")) {
             msg += "Informe qual a publicadora\n";
-        }else{
-            if(jtPublicadora.getText().length() < 3 || jtPublicadora.getText().length() > 40){
+        } else {
+            if (jtPublicadora.getText().length() < 3 || jtPublicadora.getText().length() > 40) {
                 msg += "A publicadora deve conter entre 3 e 40 caracteres\n";
             }
         }
-        if(jtPlataforma.getText().equals("")){
+        if (jtPlataforma.getText().equals("")) {
             msg += "Informe a plataforma do jogo\n";
-        }else{
-            if(jtPlataforma.getText().length() < 3 || jtPlataforma.getText().length() > 40){
+        } else {
+            if (jtPlataforma.getText().length() < 3 || jtPlataforma.getText().length() > 40) {
                 msg += "A plataforma deve conter entre 3 e 40 caracteres\n";
             }
         }
-        if(jtGenero.getText().equals("")){
+        if (jtGenero.getText().equals("")) {
             msg += "Informe o genêro do jogo\n";
-        }else{
-            if(jtGenero.getText().length() < 3 || jtGenero.getText().length() > 40){
+        } else {
+            if (jtGenero.getText().length() < 3 || jtGenero.getText().length() > 40) {
                 msg += "O gênero deve conter entre 3 e 40 caracteres\n";
             }
         }
-        if(jtDir.equals("")){
-            msg += "Selecione uma imagem da capa do jogo\n";
+        if (jcbFaixaEtaria.getSelectedIndex() == 0) {
+            msg += "Selecione uma faixa etária para o jogo\n";
         }
+        if (log == 0) {
+            if (jtDir.getText().equals("")) {
+                msg += "Selecione uma imagem da capa do jogo\n";
+            }
+        }
+        if (jftDataLancamento.getText().equals("  /  /    ")) {
+            msg += "Informe uma data de lançamento\n";
+        } else {
+            if (!validaData(jftDataLancamento.getText())) {
+                msg += "Data de lançamento Inválida\n";
+            }
+        }
+        if (msg.length() == 0) {
+            return true;
+        } else {
+            throw new Exception(msg);
+        }
+    }
+
+    public boolean validaData(String data) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        int dia = 0, mes = 0, ano = 0;
+        String diaStr = data.substring(0, 2);
+        String mesStr = data.substring(3, 5);
+        String anoStr = data.substring(6, 10);
+        try {
+            dia = Integer.parseInt(diaStr);
+            mes = Integer.parseInt(mesStr);
+            ano = Integer.parseInt(anoStr);
+        } catch (Exception e) {
+            return false;
+        }
+        if (ano > anoAtual) {
+            return false;
+        } else if (ano == anoAtual && mes > mesAtual) {
+            return false;
+        } else if (ano == anoAtual && mes == mesAtual && dia > diaAtual) {
+            return false;
+        } else if (dia < 1 || mes < 1 || ano < 1) {
+            return false;
+        } else if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) {
+            if (dia <= 31) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+            if (dia <= 30) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (mes == 2) {
+            if (calendar.isLeapYear(ano)) {
+                if (dia <= 29) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (dia <= 28) {
+                return true;
+            } else {
+                return false;
+            }
+        } else if (mes > 12) {
+            return false;
+        }
+
         return true;
+    }
+
+    public boolean preencherObjeto() throws Exception {
+        String valorVenda = new String(), valorAlugar = new String();
+        valorVenda = jtPrecoVenda.getText().replace(",", ".");
+        valorAlugar = jtPrecoLocacao.getText().replace(",", ".");
+        valorVenda = valorVenda.trim();
+        valorAlugar = valorAlugar.trim();
+        jogo.setDataLancamento(calendario(jftDataLancamento.getText()));
+        jogo.setGenero(jtGenero.getText());
+        jogo.setPlataforma(jtPlataforma.getText());
+        jogo.setPublisher(jtPublicadora.getText());
+        jogo.setTitulo(jtTitulo.getText());
+        jogo.setDescricao("");
+        jogo.setEstado("Novo");
+        jogo.setFaixaEtaria("" + jcbFaixaEtaria.getSelectedItem());
+        jogo.setSituacao("Diponível");
+        jogo.getQuantidadeDisponivel().setQuantidadeAlugar(Integer.parseInt(jtQuantLocacao.getText()));
+        jogo.getQuantidadeDisponivel().setQuantidadeVender(Integer.parseInt(jtQuantVenda.getText()));
+        jogo.getQuantidadeDisponivel().setValorVender(Float.parseFloat(valorVenda));
+        jogo.getQuantidadeDisponivel().setValorAlugar(Float.parseFloat(valorAlugar));
+        if (log == 0) {
+            file = new File(jtDir.getText());
+            fis = new FileInputStream(file);
+        }
+        //jogo.setImagem(imagem);
+        return true;
+    }
+
+    public Calendar calendario(String data) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");// , Locale.ENGLISH
+            cal.setTime(sdf.parse(data));// all done
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro: " + e.getMessage(), "Data de Nascimento", JOptionPane.ERROR_MESSAGE);
+        }
+        return cal;
+    }
+
+    public void carregarCamposEdit() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        jtTitulo.setText(jogo.getTitulo());
+        jtGenero.setText(jogo.getGenero());
+        jtPlataforma.setText(jogo.getPlataforma());
+        jtPrecoLocacao.setText("" + jogo.getQuantidadeDisponivel().getValorAlugar());
+        jtPrecoVenda.setText("" + jogo.getQuantidadeDisponivel().getValorVender());
+        jcbFaixaEtaria.setSelectedItem(jogo.getFaixaEtaria());
+        jtPublicadora.setText(jogo.getPublisher());
+        jftDataLancamento.setText(dateFormat.format(jogo.getDataLancamento().getTime()));
+        jtQuantLocacao.setText("" + jogo.getQuantidadeDisponivel().getQuantidadeAlugar());
+        jtQuantVenda.setText("" + jogo.getQuantidadeDisponivel().getQuantidadeVender());
     }
 }
 //lista.forEach((list) -> {
