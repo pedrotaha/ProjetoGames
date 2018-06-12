@@ -459,7 +459,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         ImageIcon capa = new ImageIcon(imagem);
         
         Image image = capa.getImage(); 
-        Image newimg = image.getScaledInstance(220, 320, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        Image newimg = image.getScaledInstance(220, 290, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         capa = new ImageIcon(newimg);  
         jlImagemCapa.setIcon(capa);
     }
