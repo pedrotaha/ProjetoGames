@@ -350,7 +350,7 @@ public class JIFDetalhesPokedex extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtTelefone;
     private javax.swing.JTextField jtTipo;
     // End of variables declaration//GEN-END:variables
-public void mudarIcon() {
+    public void mudarIcon() {
         ImageIcon icon = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Pokedex_528px.png");
         this.setFrameIcon(icon);
     }

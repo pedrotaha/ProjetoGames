@@ -5,9 +5,12 @@
  */
 package br.com.ProjetoGames.view;
 
+import br.com.ProjetoGames.data.FuncionarioData;
+import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.view.Operacao.JFCadJogo;
 import br.com.ProjetoGames.view.Operacao.JFLocacao;
+import br.com.ProjetoGames.view.Operacao.JFPesquisarJogo;
 import br.com.ProjetoGames.view.Operacao.JFVenda;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -75,7 +78,8 @@ public class JFPrincipal extends javax.swing.JFrame {
         jmUsuario = new javax.swing.JMenuItem();
         jmJogo = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jmAlterarSenha = new javax.swing.JMenuItem();
+        jmEditarDados = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Garnet Games");
@@ -188,19 +192,32 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         jmJogo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.ALT_MASK));
         jmJogo.setText("Jogo");
+        jmJogo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmJogoActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmJogo);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Opções");
 
-        jMenuItem1.setText("Alterar Senha");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jmAlterarSenha.setText("Alterar Senha");
+        jmAlterarSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmAlterarSenhaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(jmAlterarSenha);
+
+        jmEditarDados.setText("Editar Dados");
+        jmEditarDados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmEditarDadosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmEditarDados);
 
         jMenuBar1.add(jMenu2);
 
@@ -243,9 +260,35 @@ public class JFPrincipal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jmUsuarioActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void jmAlterarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAlterarSenhaActionPerformed
+        new JFTrocarSenha(obj).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jmAlterarSenhaActionPerformed
+
+    private void jmJogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmJogoActionPerformed
+        new JFPesquisarJogo(obj).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jmJogoActionPerformed
+
+    private void jmEditarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmEditarDadosActionPerformed
+        if (obj.getId() > 0) {
+            try {
+                if (obj.getTipoUsuarioModel().getNivel() <= 0) {
+                    new JFCadCliente(obj, obj, 1).setVisible(true);
+                } else {
+                    if (obj.getTipoUsuarioModel().getNivel() > 0) {
+                        FuncionarioData DAOF = new FuncionarioData();
+                        FuncionarioModel objF = new FuncionarioModel();
+                        objF = DAOF.pesquisarObj(obj);
+                        new JFCadCliente(obj, objF, 1).setVisible(true);
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao editar: " + e.getMessage());
+            }
+            dispose();
+        }
+    }//GEN-LAST:event_jmEditarDadosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,7 +329,6 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JButton jbCadJogo;
     private javax.swing.JButton jbCadUsuario;
     private javax.swing.JButton jbLocacao;
@@ -297,6 +339,8 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jlFFxv;
     private javax.swing.JLabel jlInfo;
     private javax.swing.JLabel jlTime;
+    private javax.swing.JMenuItem jmAlterarSenha;
+    private javax.swing.JMenuItem jmEditarDados;
     private javax.swing.JMenuItem jmJogo;
     private javax.swing.JMenuItem jmUsuario;
     // End of variables declaration//GEN-END:variables

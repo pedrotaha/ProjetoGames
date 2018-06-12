@@ -364,7 +364,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField jtPesquisar;
     private javax.swing.JTable jtbUsuario;
     // End of variables declaration//GEN-END:variables
-private void setIcon() {
+    private void setIcon() {
         ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
         setIconImage(imagemTitulojanelaT.getImage());
     }

@@ -31,12 +31,41 @@ public class JogosData {
         ps.setString(9, obj.getFaixaEtaria());
         ps.setBinaryStream(10, fis, (int) file.length());
         if (ps.executeUpdate() > 0) {
-            c.getConexao().commit();
-            c.getConexao().setAutoCommit(true);
-            c.getConexao().close();
-            ps.close();
-            fis.close();
-            return true;
+            String sql2 = "select max(idjogos) as idjogos from tbjogos";
+            PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
+            ResultSet rs = ps2.executeQuery();
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt("idjogos");
+            }
+            String sql3 = "Insert into tbquantidade (idjogo,quantidadeAlugar,quantidadeVender,valorAlugar,valorVender) values(?,?,?,?,?)";
+            PreparedStatement ps3 = c.getConexao().prepareStatement(sql3);
+            ps3.setInt(1, id);
+            ps3.setInt(2, obj.getQuantidadeDisponivel().getQuantidadeAlugar());
+            ps3.setInt(3, obj.getQuantidadeDisponivel().getQuantidadeVender());
+            ps3.setFloat(4, obj.getQuantidadeDisponivel().getValorAlugar());
+            ps3.setFloat(5, obj.getQuantidadeDisponivel().getValorVender());
+            if (ps3.executeUpdate() == 0) {
+                c.getConexao().rollback();
+                c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps.close();
+                ps2.close();
+                ps3.close();
+                rs.close();
+                fis.close();
+                throw new Exception("Ocorreu erro ao salvar o Endereço");
+            } else {
+                c.getConexao().commit();
+                c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps.close();
+                ps2.close();
+                ps3.close();
+                rs.close();
+                fis.close();
+                return true;
+            }
         } else {
             c.getConexao().rollback();
             c.getConexao().setAutoCommit(true);
@@ -55,7 +84,7 @@ public class JogosData {
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             JogosModel obj = new JogosModel();
-            obj.setIdJogos(rs.getInt("id"));
+            obj.setIdJogos(rs.getInt("idjogos"));
             obj.setTitulo(rs.getString("titulo"));
             obj.setDescricao(rs.getString("descricao"));
             obj.setDataLancamento(calendario(rs.getString("datalancamento")));

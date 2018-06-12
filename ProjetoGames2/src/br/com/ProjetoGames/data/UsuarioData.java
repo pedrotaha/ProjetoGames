@@ -319,7 +319,22 @@ public class UsuarioData {
         cal.setTime(sdf.parse(data));
         return cal;
     }
-
+    
+    public UsuarioModel pegarSenha(UsuarioModel obj)throws Exception{
+        Conexao c = new Conexao();
+        String sql = "select * from tbusuarios where id = ?";
+        PreparedStatement ps = c.getConexao().prepareStatement(sql);
+        ps.setInt(1, obj.getId());
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            obj.setSenha(rs.getString("senha"));
+        }
+        ps.close();
+        rs.close();
+        c.getConexao().close();
+        return obj;
+    }
+    
     public boolean alterarSenha(UsuarioModel obj) throws Exception {
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);

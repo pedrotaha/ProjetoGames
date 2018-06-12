@@ -82,7 +82,7 @@ public class JFCadJogo extends javax.swing.JFrame {
         log = 0;
     }
 
-    public JFCadJogo(UsuarioModel obj, int log, JogosModel jogo) {
+    public JFCadJogo(UsuarioModel obj, JogosModel jogo , int log) {
         initComponents();
         this.obj = obj;
         setIcon();
@@ -114,14 +114,14 @@ public class JFCadJogo extends javax.swing.JFrame {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jscrollpPlataforma = new javax.swing.JScrollPane();
         jlistPlataforma = new javax.swing.JList<>();
+        jlQuantLocacao = new javax.swing.JLabel();
+        jlQuantVenda = new javax.swing.JLabel();
         jlTitulo = new javax.swing.JLabel();
         jlGenero = new javax.swing.JLabel();
         jlPlataforma = new javax.swing.JLabel();
         jlDataLancamento = new javax.swing.JLabel();
         jlPublicadora = new javax.swing.JLabel();
         jlFaixaEtaria = new javax.swing.JLabel();
-        jlQuantVenda = new javax.swing.JLabel();
-        jlQuantLocacao = new javax.swing.JLabel();
         jlImagem = new javax.swing.JLabel();
         jcbFaixaEtaria = new javax.swing.JComboBox<>();
         jftDataLancamento = new javax.swing.JFormattedTextField();
@@ -142,8 +142,8 @@ public class JFCadJogo extends javax.swing.JFrame {
         jtPrecoLocacao = new javax.swing.JTextField();
         jlSifraLocacao = new javax.swing.JLabel();
         jlSifraVenda = new javax.swing.JLabel();
-        jtFundoLocacao = new javax.swing.JTextField();
         jtFundoVenda = new javax.swing.JTextField();
+        jtFundoLocacao = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Cadastro Jogos");
@@ -166,6 +166,17 @@ public class JFCadJogo extends javax.swing.JFrame {
 
         jDesktopPane1.add(jscrollpPlataforma);
         jscrollpPlataforma.setBounds(240, 100, 380, 130);
+
+        jlQuantLocacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlQuantLocacao.setText("<html>Quantidade para<br \\> Locação:</html>");
+        jlQuantLocacao.setToolTipText("");
+        jDesktopPane1.add(jlQuantLocacao);
+        jlQuantLocacao.setBounds(270, 240, 143, 40);
+
+        jlQuantVenda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlQuantVenda.setText("<html>Quantidade para<br \\> Venda:</html>");
+        jDesktopPane1.add(jlQuantVenda);
+        jlQuantVenda.setBounds(12, 243, 143, 40);
 
         jlTitulo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlTitulo.setText("Titulo:");
@@ -197,17 +208,6 @@ public class JFCadJogo extends javax.swing.JFrame {
         jlFaixaEtaria.setText("Faixa Etária:");
         jDesktopPane1.add(jlFaixaEtaria);
         jlFaixaEtaria.setBounds(471, 131, 109, 22);
-
-        jlQuantVenda.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jlQuantVenda.setText("<html>Quantidade para<br \\> Venda:</html>");
-        jDesktopPane1.add(jlQuantVenda);
-        jlQuantVenda.setBounds(12, 243, 143, 40);
-
-        jlQuantLocacao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jlQuantLocacao.setText("<html>Quantidade para<br \\> Locação:</html>");
-        jlQuantLocacao.setToolTipText("");
-        jDesktopPane1.add(jlQuantLocacao);
-        jlQuantLocacao.setBounds(270, 240, 143, 40);
 
         jlImagem.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlImagem.setText("Imagem da capa:");
@@ -342,26 +342,35 @@ public class JFCadJogo extends javax.swing.JFrame {
         jDesktopPane1.add(jlSifraVenda);
         jlSifraVenda.setBounds(120, 290, 30, 16);
 
-        jtFundoLocacao.setEditable(false);
-        jtFundoLocacao.setBackground(new java.awt.Color(204, 255, 255));
-        jtFundoLocacao.setAutoscrolls(false);
-        jtFundoLocacao.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jtFundoLocacao.setEnabled(false);
-        jtFundoLocacao.setFocusable(false);
-        jtFundoLocacao.setRequestFocusEnabled(false);
-        jtFundoLocacao.setVerifyInputWhenFocusTarget(false);
-        jDesktopPane1.add(jtFundoLocacao);
-        jtFundoLocacao.setBounds(260, 240, 230, 90);
-
         jtFundoVenda.setEditable(false);
         jtFundoVenda.setBackground(new java.awt.Color(204, 204, 255));
+        jtFundoVenda.setForeground(new java.awt.Color(255, 255, 255));
         jtFundoVenda.setAutoscrolls(false);
         jtFundoVenda.setEnabled(false);
         jtFundoVenda.setFocusable(false);
+        jtFundoVenda.setOpaque(false);
         jtFundoVenda.setRequestFocusEnabled(false);
+        jtFundoVenda.setSelectionColor(new java.awt.Color(255, 255, 255));
         jtFundoVenda.setVerifyInputWhenFocusTarget(false);
         jDesktopPane1.add(jtFundoVenda);
-        jtFundoVenda.setBounds(0, 240, 240, 90);
+        jtFundoVenda.setBounds(10, 240, 230, 90);
+
+        jtFundoLocacao.setEditable(false);
+        jtFundoLocacao.setBackground(new java.awt.Color(204, 255, 255));
+        jtFundoLocacao.setForeground(new java.awt.Color(255, 255, 255));
+        jtFundoLocacao.setAutoscrolls(false);
+        jtFundoLocacao.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jtFundoLocacao.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        jtFundoLocacao.setEnabled(false);
+        jtFundoLocacao.setFocusable(false);
+        jtFundoLocacao.setHighlighter(null);
+        jtFundoLocacao.setKeymap(null);
+        jtFundoLocacao.setOpaque(false);
+        jtFundoLocacao.setRequestFocusEnabled(false);
+        jtFundoLocacao.setSelectionColor(new java.awt.Color(255, 255, 255));
+        jtFundoLocacao.setVerifyInputWhenFocusTarget(false);
+        jDesktopPane1.add(jtFundoLocacao);
+        jtFundoLocacao.setBounds(260, 240, 230, 90);
 
         getContentPane().add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, -5, 650, 470));
 

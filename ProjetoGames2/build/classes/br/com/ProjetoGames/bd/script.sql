@@ -33,7 +33,7 @@ create table if not exists tbJogos(
  --estado varchar(20) not null, --não será controlado
  --situacao varchar(20) not null, --controlada pela operacao
  descricao varchar(900) not null,
- plataforma varchar(13) not null,
+ plataforma varchar(40) not null,
  dataLancamento varchar(12) not null,
  publisher varchar(40) not null,
  faixaEtaria varchar(10) not null,
