@@ -6,7 +6,6 @@
 package br.com.ProjetoGames.view.Operacao;
 
 import br.com.ProjetoGames.data.JogosData;
-import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.JogosModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.view.JFPrincipal;
@@ -204,6 +203,8 @@ public class JFPesquisarJogo extends javax.swing.JFrame {
                     janela.setVisible(true);
                     frameCount++;
                     tratarCampos(false);
+                    jpdJogo.setSize(1003, 800);
+                    setSize(1000, 800);
                 }
             }
         } catch (Exception e) {
@@ -218,7 +219,7 @@ public class JFPesquisarJogo extends javax.swing.JFrame {
                 if (JOptionPane.showConfirmDialog(this, "Deseja Realmente excluir o registro?",
                         "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTitulojanelaT) == JOptionPane.YES_OPTION) {
                     selecionado = dados.get(jtbJogo.getSelectedRow());
-                    UsuarioData DAO = new UsuarioData();
+                    JogosData DAO = new JogosData();
                     if (DAO.excluir(selecionado.getIdJogos())) {
                         JOptionPane.showMessageDialog(this, "Excluido com sucesso");
                     }
@@ -235,7 +236,7 @@ public class JFPesquisarJogo extends javax.swing.JFrame {
         if (selecionado.getIdJogos() > 0) {
             try {
                 selecionado = dados.get(jtbJogo.getSelectedRow());
-                new JFCadJogo(obj, selecionado, 2).setVisible(true);
+                new JFCadJogo(obj, selecionado, 1).setVisible(true);
                 dispose();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Erro ao pesquisar" + e.getMessage());
@@ -323,6 +324,8 @@ public class JFPesquisarJogo extends javax.swing.JFrame {
                 tratarCampos(true);
                 frameCount--;
                 jpdJogo.remove(janela);
+                setSize(930, 800);
+                jpdJogo.setSize(983, 800);
             }
         });
     }

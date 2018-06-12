@@ -449,9 +449,8 @@ public class JFCadJogo extends javax.swing.JFrame {
                         }
                     }
                     if (log == 1) {
-                        if (DAO.editar(jogo, file, fis)) {
+                        if (DAO.editar(jogo)) {
                             JOptionPane.showMessageDialog(this, "Editado com sucesso!");
-                            fis.close();
                             sair();
                         }
                     }
@@ -556,7 +555,7 @@ public class JFCadJogo extends javax.swing.JFrame {
             new JFPrincipal(obj).setVisible(true);
         } else {
             if (log == 1) {
-                //new JFPesquisarJogo(obj).setVisible(true);
+                new JFPesquisarJogo(obj).setVisible(true);
             }
 
         }

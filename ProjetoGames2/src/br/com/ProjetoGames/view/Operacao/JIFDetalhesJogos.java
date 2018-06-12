@@ -7,8 +7,11 @@ package br.com.ProjetoGames.view.Operacao;
 
 import br.com.ProjetoGames.model.JogosModel;
 import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
@@ -80,6 +83,18 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtFaixaEtaria = new javax.swing.JTextField();
         jtDescricao = new javax.swing.JTextField();
         jlImagemCapa = new javax.swing.JLabel();
+        jlQuantidadeVenda = new javax.swing.JLabel();
+        jtQuantidadeVenda = new javax.swing.JTextField();
+        jlQuantidadeAluga = new javax.swing.JLabel();
+        jtQuantidadeAluga = new javax.swing.JTextField();
+        jlPrecoVenda = new javax.swing.JLabel();
+        jtPrecoVenda = new javax.swing.JTextField();
+        jlPrecoAlugar = new javax.swing.JLabel();
+        jtPrecoAlugar = new javax.swing.JTextField();
+        jlSifraVenda = new javax.swing.JLabel();
+        jlSifraAluga = new javax.swing.JLabel();
+        jtBackAlugar = new javax.swing.JTextField();
+        jtBackVender = new javax.swing.JTextField();
         jlPokedex = new javax.swing.JLabel();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -118,7 +133,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
 
         jlSituacao.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jlSituacao.setText("Situacao:");
-        getContentPane().add(jlSituacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, 107, -1));
+        getContentPane().add(jlSituacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 270, 107, -1));
 
         jlTitulo.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jlTitulo.setText("Título");
@@ -130,7 +145,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
 
         jlEstado.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jlEstado.setText("Estado:");
-        getContentPane().add(jlEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 310, 86, -1));
+        getContentPane().add(jlEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, 86, -1));
 
         jlDataLancamento.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jlDataLancamento.setText("<html>Data de<br />Lancamento:</html>");
@@ -138,7 +153,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
 
         jlGenero.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jlGenero.setText("Gênero:");
-        getContentPane().add(jlGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 67, -1));
+        getContentPane().add(jlGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 130, 80, -1));
 
         jlFaixaEtaria.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jlFaixaEtaria.setText("Faixa Etária:");
@@ -164,7 +179,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtTitulo.setBorder(null);
         jtTitulo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtTitulo.setEnabled(false);
-        getContentPane().add(jtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 80, 132, -1));
+        getContentPane().add(jtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 80, 210, -1));
 
         jtPublisher.setEditable(false);
         jtPublisher.setBackground(new java.awt.Color(248, 248, 248));
@@ -173,7 +188,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtPublisher.setBorder(null);
         jtPublisher.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtPublisher.setEnabled(false);
-        getContentPane().add(jtPublisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 130, 117, -1));
+        getContentPane().add(jtPublisher, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 130, 190, -1));
 
         jtSituacao.setEditable(false);
         jtSituacao.setBackground(new java.awt.Color(248, 248, 248));
@@ -182,7 +197,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtSituacao.setBorder(null);
         jtSituacao.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtSituacao.setEnabled(false);
-        getContentPane().add(jtSituacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 270, 120, -1));
+        getContentPane().add(jtSituacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 270, 250, -1));
 
         jtPlataforma.setEditable(false);
         jtPlataforma.setBackground(new java.awt.Color(248, 152, 216));
@@ -191,7 +206,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtPlataforma.setBorder(null);
         jtPlataforma.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtPlataforma.setEnabled(false);
-        getContentPane().add(jtPlataforma, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 210, 113, -1));
+        getContentPane().add(jtPlataforma, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 210, 170, -1));
 
         jtDataLancamento.setEditable(false);
         jtDataLancamento.setBackground(new java.awt.Color(168, 112, 248));
@@ -200,7 +215,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtDataLancamento.setBorder(null);
         jtDataLancamento.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtDataLancamento.setEnabled(false);
-        getContentPane().add(jtDataLancamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 90, 30));
+        getContentPane().add(jtDataLancamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 200, 150, 30));
 
         jtEstado.setEditable(false);
         jtEstado.setBackground(new java.awt.Color(248, 248, 248));
@@ -209,7 +224,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtEstado.setBorder(null);
         jtEstado.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtEstado.setEnabled(false);
-        getContentPane().add(jtEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 320, 120, -1));
+        getContentPane().add(jtEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 250, -1));
 
         jtGenero.setEditable(false);
         jtGenero.setBackground(new java.awt.Color(248, 248, 248));
@@ -218,7 +233,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtGenero.setBorder(null);
         jtGenero.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtGenero.setEnabled(false);
-        getContentPane().add(jtGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 163, -1));
+        getContentPane().add(jtGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 180, -1));
 
         jtFaixaEtaria.setEditable(false);
         jtFaixaEtaria.setBackground(new java.awt.Color(248, 248, 248));
@@ -227,7 +242,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtFaixaEtaria.setBorder(null);
         jtFaixaEtaria.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtFaixaEtaria.setEnabled(false);
-        getContentPane().add(jtFaixaEtaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 560, 194, -1));
+        getContentPane().add(jtFaixaEtaria, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 560, 140, -1));
 
         jtDescricao.setEditable(false);
         jtDescricao.setBackground(new java.awt.Color(248, 248, 248));
@@ -236,17 +251,88 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtDescricao.setBorder(null);
         jtDescricao.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtDescricao.setEnabled(false);
-        getContentPane().add(jtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 690, -1));
+        getContentPane().add(jtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 730, 100));
+        getContentPane().add(jlImagemCapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 260, 310));
 
-        jlImagemCapa.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jlImagemCapaMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jlImagemCapaMouseExited(evt);
-            }
-        });
-        getContentPane().add(jlImagemCapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 400, 340));
+        jlQuantidadeVenda.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
+        jlQuantidadeVenda.setText("<html>Quantidade<br />Venda:</html>");
+        getContentPane().add(jlQuantidadeVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 510, 110, -1));
+
+        jtQuantidadeVenda.setEditable(false);
+        jtQuantidadeVenda.setBackground(new java.awt.Color(248, 248, 248));
+        jtQuantidadeVenda.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
+        jtQuantidadeVenda.setToolTipText("");
+        jtQuantidadeVenda.setBorder(null);
+        jtQuantidadeVenda.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jtQuantidadeVenda.setEnabled(false);
+        getContentPane().add(jtQuantidadeVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 560, 50, -1));
+
+        jlQuantidadeAluga.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
+        jlQuantidadeAluga.setText("<html>Quantidade<br />Alugar:</html>");
+        getContentPane().add(jlQuantidadeAluga, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 510, 100, -1));
+
+        jtQuantidadeAluga.setEditable(false);
+        jtQuantidadeAluga.setBackground(new java.awt.Color(248, 248, 248));
+        jtQuantidadeAluga.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
+        jtQuantidadeAluga.setToolTipText("");
+        jtQuantidadeAluga.setBorder(null);
+        jtQuantidadeAluga.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jtQuantidadeAluga.setEnabled(false);
+        getContentPane().add(jtQuantidadeAluga, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 560, 70, -1));
+
+        jlPrecoVenda.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
+        jlPrecoVenda.setText("<html>Preco<br />Venda:</html>");
+        getContentPane().add(jlPrecoVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 510, 60, -1));
+
+        jtPrecoVenda.setEditable(false);
+        jtPrecoVenda.setBackground(new java.awt.Color(248, 248, 248));
+        jtPrecoVenda.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
+        jtPrecoVenda.setToolTipText("");
+        jtPrecoVenda.setBorder(null);
+        jtPrecoVenda.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jtPrecoVenda.setEnabled(false);
+        getContentPane().add(jtPrecoVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 560, 80, -1));
+
+        jlPrecoAlugar.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
+        jlPrecoAlugar.setText("<html>Preco<br />Alugar:</html>");
+        getContentPane().add(jlPrecoAlugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 510, 100, -1));
+
+        jtPrecoAlugar.setEditable(false);
+        jtPrecoAlugar.setBackground(new java.awt.Color(248, 248, 248));
+        jtPrecoAlugar.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
+        jtPrecoAlugar.setToolTipText("");
+        jtPrecoAlugar.setBorder(null);
+        jtPrecoAlugar.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jtPrecoAlugar.setEnabled(false);
+        getContentPane().add(jtPrecoAlugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 560, 90, -1));
+
+        jlSifraVenda.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
+        jlSifraVenda.setText("R$");
+        getContentPane().add(jlSifraVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 560, -1, -1));
+
+        jlSifraAluga.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
+        jlSifraAluga.setText("R$");
+        getContentPane().add(jlSifraAluga, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 560, -1, -1));
+
+        jtBackAlugar.setEditable(false);
+        jtBackAlugar.setAutoscrolls(false);
+        jtBackAlugar.setEnabled(false);
+        jtBackAlugar.setFocusable(false);
+        jtBackAlugar.setOpaque(false);
+        jtBackAlugar.setRequestFocusEnabled(false);
+        jtBackAlugar.setSelectionColor(new java.awt.Color(255, 255, 255));
+        jtBackAlugar.setVerifyInputWhenFocusTarget(false);
+        getContentPane().add(jtBackAlugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 510, 290, 80));
+
+        jtBackVender.setEditable(false);
+        jtBackVender.setAutoscrolls(false);
+        jtBackVender.setEnabled(false);
+        jtBackVender.setFocusable(false);
+        jtBackVender.setOpaque(false);
+        jtBackVender.setRequestFocusEnabled(false);
+        jtBackVender.setSelectionColor(new java.awt.Color(255, 255, 255));
+        jtBackVender.setVerifyInputWhenFocusTarget(false);
+        getContentPane().add(jtBackVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 510, 280, 80));
 
         jlPokedex.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Pokedex Entry empty.png"))); // NOI18N
         getContentPane().add(jlPokedex, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -262,14 +348,6 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         sair();
     }//GEN-LAST:event_formInternalFrameClosing
 
-    private void jlImagemCapaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlImagemCapaMouseEntered
-        jlImagemCapa.setBounds(0, 40, 500, 400);
-    }//GEN-LAST:event_jlImagemCapaMouseEntered
-
-    private void jlImagemCapaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlImagemCapaMouseExited
-        jlImagemCapa.setBounds(0, 40, 400, 340);
-    }//GEN-LAST:event_jlImagemCapaMouseExited
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jlDataLancamento;
@@ -281,10 +359,18 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlImagemCapa;
     private javax.swing.JLabel jlPlataforma;
     private javax.swing.JLabel jlPokedex;
+    private javax.swing.JLabel jlPrecoAlugar;
+    private javax.swing.JLabel jlPrecoVenda;
     private javax.swing.JLabel jlPublisher;
+    private javax.swing.JLabel jlQuantidadeAluga;
+    private javax.swing.JLabel jlQuantidadeVenda;
+    private javax.swing.JLabel jlSifraAluga;
+    private javax.swing.JLabel jlSifraVenda;
     private javax.swing.JLabel jlSituacao;
     private javax.swing.JLabel jlTitulo;
     private javax.swing.JLabel jlVoltar;
+    private javax.swing.JTextField jtBackAlugar;
+    private javax.swing.JTextField jtBackVender;
     private javax.swing.JTextField jtDataLancamento;
     private javax.swing.JTextField jtDescricao;
     private javax.swing.JTextField jtEstado;
@@ -292,7 +378,11 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtGenero;
     private javax.swing.JTextField jtIdJogos;
     private javax.swing.JTextField jtPlataforma;
+    private javax.swing.JTextField jtPrecoAlugar;
+    private javax.swing.JTextField jtPrecoVenda;
     private javax.swing.JTextField jtPublisher;
+    private javax.swing.JTextField jtQuantidadeAluga;
+    private javax.swing.JTextField jtQuantidadeVenda;
     private javax.swing.JTextField jtSituacao;
     private javax.swing.JTextField jtTitulo;
     // End of variables declaration//GEN-END:variables
@@ -361,8 +451,16 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtPlataforma.setText(obj.getPlataforma());
         jtDescricao.setText(obj.getDescricao());
         jtFaixaEtaria.setText(obj.getFaixaEtaria());
+        jtPrecoAlugar.setText(""+obj.getQuantidadeDisponivel().getValorAlugar());
+        jtPrecoVenda.setText(""+obj.getQuantidadeDisponivel().getValorVender());
+        jtQuantidadeVenda.setText(""+obj.getQuantidadeDisponivel().getQuantidadeVender());
+        jtQuantidadeAluga.setText(""+obj.getQuantidadeDisponivel().getQuantidadeAlugar());
         BufferedImage imagem = byteArrayToImage(obj.getImagem());
         ImageIcon capa = new ImageIcon(imagem);
+        
+        Image image = capa.getImage(); 
+        Image newimg = image.getScaledInstance(220, 320, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        capa = new ImageIcon(newimg);  
         jlImagemCapa.setIcon(capa);
     }
 
@@ -377,21 +475,56 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         return bufferedImage;
     }
 
-//    public void opaMeu() {
-//         // read in the original image from an input stream
-//        SeekableStream s = SeekableStream.wrapInputStream(
-//                inputStream, true);
-//        RenderedOp image = JAI.create("stream", s);
-//        ((OpImage) image.getRendering()).setTileCache(null);
-//
-//// now resize the image
-//        float scale = newWidth / image.getWidth();
-//
-//        RenderedOp resizedImage = JAI.create("SubsampleAverage",
-//                image, scale, scale, qualityHints);
-//
-//// lastly, write the newly-resized image to an
-//// output stream, in a specific encoding
-//        JAI.create("encode", resizedImage, outputStream, "PNG", null);
-//    }
+    /**
+     * Resizes an image to a absolute width and height (the image may not be
+     * proportional)
+     *
+     * @param inputImagePath Path of the original image
+     * @param outputImagePath Path to save the resized image
+     * @param scaledWidth absolute width in pixels
+     * @param scaledHeight absolute height in pixels
+     * @throws IOException
+     */
+    public static void resize(String inputImagePath,
+            String outputImagePath, int scaledWidth, int scaledHeight)
+            throws IOException {
+        // reads input image
+        File inputFile = new File(inputImagePath);
+        BufferedImage inputImage = ImageIO.read(inputFile);
+
+        // creates output image
+        BufferedImage outputImage = new BufferedImage(scaledWidth,
+                scaledHeight, inputImage.getType());
+
+        // scales the input image to the output image
+        Graphics2D g2d = outputImage.createGraphics();
+        g2d.drawImage(inputImage, 0, 0, scaledWidth, scaledHeight, null);
+        g2d.dispose();
+
+        // extracts extension of output file
+        String formatName = outputImagePath.substring(outputImagePath
+                .lastIndexOf(".") + 1);
+
+        // writes to output file
+        ImageIO.write(outputImage, formatName, new File(outputImagePath));
+    }
+
+    /**
+     * Resizes an image by a percentage of original size (proportional).
+     *
+     * @param inputImagePath Path of the original image
+     * @param outputImagePath Path to save the resized image
+     * @param percent a double number specifies percentage of the output image
+     * over the input image.
+     * @throws IOException
+     */
+    public static void resize(String inputImagePath,
+            String outputImagePath, double percent) throws IOException {
+        File inputFile = new File(inputImagePath);
+        BufferedImage inputImage = ImageIO.read(inputFile);
+        int scaledWidth = (int) (inputImage.getWidth() * percent);
+        int scaledHeight = (int) (inputImage.getHeight() * percent);
+        resize(inputImagePath, outputImagePath, scaledWidth, scaledHeight);
+    }
+
 }

@@ -211,7 +211,7 @@ public class UsuarioData {
                 throw new Exception("Não foi possível excluir.");
             }
         }
-        return false;
+        throw new Exception("Não foi possível excluir.");
     }
 
     public boolean editar(UsuarioModel obj) throws Exception {

@@ -149,10 +149,10 @@ public class JogosData {
         c.getConexao().setAutoCommit(true);
         c.getConexao().close();
         ps1.close();
-        return false;
+        throw new Exception("Não foi possível excluir.");
     }
 
-    public boolean editar(JogosModel obj, File file, FileInputStream fis) throws Exception {
+    public boolean editar(JogosModel obj) throws Exception {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
@@ -164,7 +164,7 @@ public class JogosData {
         ps1.setFloat(4, obj.getQuantidadeDisponivel().getValorVender());
         ps1.setInt(5, obj.getIdJogos());
         if (ps1.executeUpdate() > 0) {
-            String sql2 = "Update tbjogos set titulo=?, genero=?, estado=?, situacao=?, descricao=?, plataforma=?, datalancamento=?, publisher=?, faixaetaria=?, imagem=? where idjogos=?";
+            String sql2 = "Update tbjogos set titulo=?, genero=?, estado=?, situacao=?, descricao=?, plataforma=?, datalancamento=?, publisher=?, faixaetaria=? where idjogos=?";
             PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
             ps2.setString(1, obj.getTitulo());
             ps2.setString(2, obj.getGenero());
@@ -175,15 +175,13 @@ public class JogosData {
             ps2.setString(7, dateFormat.format(obj.getDataLancamento().getTime()));
             ps2.setString(8, obj.getPublisher());
             ps2.setString(9, obj.getFaixaEtaria());
-            ps2.setBinaryStream(10, fis, (int) file.length());
-            ps2.setInt(11, obj.getIdJogos());
+            ps2.setInt(10, obj.getIdJogos());
             if (ps2.executeUpdate() > 0) {
                 c.getConexao().commit();
                 c.getConexao().setAutoCommit(true);
                 c.getConexao().close();
                 ps1.close();
                 ps2.close();
-                fis.close();
                 return true;
             } else {
                 c.getConexao().rollback();
@@ -191,13 +189,11 @@ public class JogosData {
                 c.getConexao().close();
                 ps1.close();
                 ps2.close();
-                fis.close();
                 throw new Exception("Não foi possível atualizar.");
             }
         } else {
             c.getConexao().rollback();
             c.getConexao().setAutoCommit(true);
-            fis.close();
             throw new Exception("Não foi possível atualizar, erro no Endereço.");
         }
     }
