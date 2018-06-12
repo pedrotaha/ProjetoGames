@@ -13,6 +13,7 @@ import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.TipoUsuarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.view.control.Criptografar;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -232,6 +233,12 @@ public class JFCadCliente extends javax.swing.JFrame {
         jtEndereco.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtEnderecoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jtEnderecoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jtEnderecoMouseExited(evt);
             }
         });
         jdpPrincipal.add(jtEndereco);
@@ -485,6 +492,14 @@ public class JFCadCliente extends javax.swing.JFrame {
             tratarCampos(false);
         }
     }//GEN-LAST:event_jbFuncionarioActionPerformed
+
+    private void jtEnderecoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtEnderecoMouseEntered
+        jtEndereco.setForeground(Color.RED);
+    }//GEN-LAST:event_jtEnderecoMouseEntered
+
+    private void jtEnderecoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtEnderecoMouseExited
+        jtEndereco.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jtEnderecoMouseExited
 
     /**
      * @param args the command line arguments

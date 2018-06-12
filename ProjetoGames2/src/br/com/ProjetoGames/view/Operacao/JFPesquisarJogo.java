@@ -83,11 +83,15 @@ public class JFPesquisarJogo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisar Jogos");
-        setMinimumSize(new java.awt.Dimension(983, 800));
+        setMaximumSize(new java.awt.Dimension(930, 800));
+        setMinimumSize(new java.awt.Dimension(930, 800));
+        setPreferredSize(new java.awt.Dimension(930, 800));
         setResizable(false);
         getContentPane().setLayout(null);
 
         jpdJogo.setBackground(new java.awt.Color(255, 255, 255));
+        jpdJogo.setMaximumSize(new java.awt.Dimension(983, 800));
+        jpdJogo.setMinimumSize(new java.awt.Dimension(983, 800));
 
         jtbJogo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jtbJogo.setModel(new javax.swing.table.DefaultTableModel(
@@ -212,18 +216,18 @@ public class JFPesquisarJogo extends javax.swing.JFrame {
         if (selecionado.getIdJogos() > 0) {
             try {
                 if (JOptionPane.showConfirmDialog(this, "Deseja Realmente excluir o registro?",
-                    "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTitulojanelaT) == JOptionPane.YES_OPTION) {
-                selecionado = dados.get(jtbJogo.getSelectedRow());
-                UsuarioData DAO = new UsuarioData();
-                if (DAO.excluir(selecionado.getIdJogos())) {
-                    JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                        "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTitulojanelaT) == JOptionPane.YES_OPTION) {
+                    selecionado = dados.get(jtbJogo.getSelectedRow());
+                    UsuarioData DAO = new UsuarioData();
+                    if (DAO.excluir(selecionado.getIdJogos())) {
+                        JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                    }
                 }
+                selecionado = new JogosModel();
+                atualizarTabela();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir:" + e.getMessage());
             }
-            selecionado = new JogosModel();
-            atualizarTabela();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao excluir:" + e.getMessage());
-        }
         }
     }//GEN-LAST:event_jbExcluirActionPerformed
 

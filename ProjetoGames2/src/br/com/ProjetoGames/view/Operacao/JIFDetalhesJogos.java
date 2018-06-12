@@ -237,6 +237,15 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtDescricao.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jtDescricao.setEnabled(false);
         getContentPane().add(jtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 690, -1));
+
+        jlImagemCapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jlImagemCapaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jlImagemCapaMouseExited(evt);
+            }
+        });
         getContentPane().add(jlImagemCapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 400, 340));
 
         jlPokedex.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Pokedex Entry empty.png"))); // NOI18N
@@ -252,6 +261,14 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
         sair();
     }//GEN-LAST:event_formInternalFrameClosing
+
+    private void jlImagemCapaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlImagemCapaMouseEntered
+        jlImagemCapa.setBounds(0, 40, 500, 400);
+    }//GEN-LAST:event_jlImagemCapaMouseEntered
+
+    private void jlImagemCapaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlImagemCapaMouseExited
+        jlImagemCapa.setBounds(0, 40, 400, 340);
+    }//GEN-LAST:event_jlImagemCapaMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -360,4 +377,21 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         return bufferedImage;
     }
 
+//    public void opaMeu() {
+//         // read in the original image from an input stream
+//        SeekableStream s = SeekableStream.wrapInputStream(
+//                inputStream, true);
+//        RenderedOp image = JAI.create("stream", s);
+//        ((OpImage) image.getRendering()).setTileCache(null);
+//
+//// now resize the image
+//        float scale = newWidth / image.getWidth();
+//
+//        RenderedOp resizedImage = JAI.create("SubsampleAverage",
+//                image, scale, scale, qualityHints);
+//
+//// lastly, write the newly-resized image to an
+//// output stream, in a specific encoding
+//        JAI.create("encode", resizedImage, outputStream, "PNG", null);
+//    }
 }
