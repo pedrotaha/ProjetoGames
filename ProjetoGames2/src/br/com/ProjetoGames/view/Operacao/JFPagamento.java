@@ -88,6 +88,7 @@ public class JFPagamento extends javax.swing.JFrame {
         jftDataValidadeC = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Finalizar Pagamento");
 
         jrbAvista.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jrbAvista.setText("À vista");
@@ -221,6 +222,7 @@ public class JFPagamento extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jrbAvistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbAvistaActionPerformed
@@ -254,7 +256,7 @@ public class JFPagamento extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
