@@ -107,6 +107,7 @@ public class JIFDetalhesPokedex extends javax.swing.JInternalFrame {
         jlPokedex = new javax.swing.JLabel();
 
         setClosable(true);
+        setTitle("Detalhes do Usuário");
         setMinimumSize(new java.awt.Dimension(1032, 660));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {

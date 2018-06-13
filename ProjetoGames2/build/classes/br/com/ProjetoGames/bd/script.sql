@@ -14,7 +14,7 @@
 
 create table if not exists tbFuncionarios(
  idUsuario integer primary key not null references tbUsuarios ON DELETE CASCADE,
- salario float not null,
+ salario float not null,  -- numeric(15,2)
  cargo varchar(40) not null,
  cargaHoraria varchar(40) not null,
  estadoCivil varchar(30) not null
@@ -48,8 +48,8 @@ create table if not exists tblocacao(
  dataLocacao varchar(12) not null,
  hora varchar(12) not null,
  dataDevolucao varchar(12) not null,
- valor float not null,
- formaPagamento varchar(40) not null
+ valor float not null,  -- numeric(15,2)
+ formaPagamento varchar(40) not null --cupom?
  --,constraint fk_tblocacao_tbjogos foreign key (idJogo) references tbJogos
 );
 
@@ -60,9 +60,9 @@ create table if not exists tbvendas(
  --idJogo integer not null,
  dataCompra varchar(12) not null,
  hora varchar(12) not null,
- valor float not null,
+ valor float not null, -- numeric(15,2)
  formaPagamento varchar(40) not null,
- tipo varchar(20) not null
+ tipo varchar(20) not null --cupom?
  --,constraint fk_tblocacao_tbjogos foreign key (idJogo) references tbJogos
 );
 
@@ -82,8 +82,8 @@ create table if not exists tbQuantidade(
  idJogo integer primary key not null references tbJogos ON DELETE CASCADE,
  quantidadeAlugar integer not null,
  quantidadeVender integer not null,
- valorAlugar float not null,
- valorVender float not null 
+ valorAlugar float not null,  -- numeric(15,2)
+ valorVender float not null   -- numeric(15,2)
  );
 
 create table if not exists tbJogoVend(

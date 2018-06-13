@@ -12,8 +12,8 @@ public class LocacaoModel extends OperacaoModel{
         dataDevolucao = new GregorianCalendar();
     }
 
-    public LocacaoModel(int id, UsuarioModel clienteModel, FuncionarioModel funcionarioModel, JogosModel jogosModel, Calendar dataOperacao, float valor, String formaPagamento, ArrayList<JogosOperacaoModel> jogosOperacaoModel,Calendar dataDevolucao) {
-        super(id, clienteModel, funcionarioModel, jogosModel, dataOperacao, valor, formaPagamento, jogosOperacaoModel);
+    public LocacaoModel(int id, UsuarioModel clienteModel, FuncionarioModel funcionarioModel, JogosModel jogosModel, Calendar dataOperacao, float valor, String formaPagamento, ArrayList<JogosOperacaoModel> jogosOperacaoModel,int desconto,Calendar dataDevolucao) {
+        super(id, clienteModel, funcionarioModel, jogosModel, dataOperacao, valor, formaPagamento, jogosOperacaoModel, desconto);
         this.dataDevolucao = dataDevolucao;
     }
 

@@ -13,6 +13,7 @@ public class OperacaoModel {
     private float valor;
     private String formaPagamento;
     private ArrayList<JogosOperacaoModel> jogosOperacaoModel;
+    private int desconto;
 
     public OperacaoModel() {
         id = 0;
@@ -23,9 +24,10 @@ public class OperacaoModel {
         valor = 0;
         formaPagamento = new String();
         jogosOperacaoModel = new ArrayList<>();
+        desconto = 0;
     }
 
-    public OperacaoModel(int id, UsuarioModel clienteModel, FuncionarioModel funcionarioModel, JogosModel jogosModel, Calendar dataOperacao, float valor, String formaPagamento, ArrayList<JogosOperacaoModel> jogosOperacaoModel) {
+    public OperacaoModel(int id, UsuarioModel clienteModel, FuncionarioModel funcionarioModel, JogosModel jogosModel, Calendar dataOperacao, float valor, String formaPagamento, ArrayList<JogosOperacaoModel> jogosOperacaoModel, int desconto) {
         this.id = id;
         this.clienteModel = clienteModel;
         this.funcionarioModel = funcionarioModel;
@@ -34,6 +36,7 @@ public class OperacaoModel {
         this.valor = valor;
         this.formaPagamento = formaPagamento;
         this.jogosOperacaoModel = jogosOperacaoModel;
+        this.desconto = desconto;
     }
 
     public int getId() {
@@ -98,6 +101,14 @@ public class OperacaoModel {
 
     public void setJogosOperacaoModel(ArrayList<JogosOperacaoModel> jogosOperacaoModel) {
         this.jogosOperacaoModel = jogosOperacaoModel;
+    }
+
+    public int getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(int desconto) {
+        this.desconto = desconto;
     }
 
     

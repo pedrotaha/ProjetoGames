@@ -11,8 +11,8 @@ public class VendaModel extends OperacaoModel{
         tipo = new String();
     }
 
-    public VendaModel(int id, UsuarioModel clienteModel, FuncionarioModel funcionarioModel, JogosModel jogosModel, Calendar dataOperacao, float valor, String formaPagamento, ArrayList<JogosOperacaoModel> jogosOperacaoModel, String tipo) {
-        super(id, clienteModel, funcionarioModel, jogosModel, dataOperacao, valor, formaPagamento, jogosOperacaoModel);
+    public VendaModel(int id, UsuarioModel clienteModel, FuncionarioModel funcionarioModel, JogosModel jogosModel, Calendar dataOperacao, float valor, String formaPagamento, ArrayList<JogosOperacaoModel> jogosOperacaoModel, int desconto, String tipo) {
+        super(id, clienteModel, funcionarioModel, jogosModel, dataOperacao, valor, formaPagamento, jogosOperacaoModel, desconto);
         this.tipo = tipo;
     }
 

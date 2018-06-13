@@ -97,6 +97,8 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
         jtBackVender = new javax.swing.JTextField();
         jlPokedex = new javax.swing.JLabel();
 
+        setTitle("Detalhes do Jogo");
+        setToolTipText("");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
