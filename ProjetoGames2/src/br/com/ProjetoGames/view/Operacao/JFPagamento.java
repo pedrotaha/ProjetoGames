@@ -24,13 +24,16 @@ import javax.swing.UIManager;
  * @author Pedro
  */
 public class JFPagamento extends javax.swing.JFrame {
-    
+
     UsuarioModel obj = new UsuarioModel();
     VendaModel venda = new VendaModel();
     Calendar cal = Calendar.getInstance();
     int anoAtual = cal.get(Calendar.YEAR);
+    int diaAtual = cal.get(Calendar.DAY_OF_MONTH);
+    int mesAtual = cal.get(Calendar.MONTH) + 1;
     int log;
-    
+    int recebido;
+
     public JFPagamento() {
         initComponents();
         log = 0;
@@ -39,8 +42,9 @@ public class JFPagamento extends javax.swing.JFrame {
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        setFake();
     }
-    
+
     public JFPagamento(UsuarioModel obj) {
         initComponents();
         this.obj = obj;
@@ -50,8 +54,9 @@ public class JFPagamento extends javax.swing.JFrame {
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        setFake();
     }
-    
+
     public JFPagamento(UsuarioModel obj, VendaModel venda, int log) {
         initComponents();
         this.obj = obj;
@@ -62,6 +67,7 @@ public class JFPagamento extends javax.swing.JFrame {
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+        setFake();
     }
 
     /**
@@ -86,9 +92,27 @@ public class JFPagamento extends javax.swing.JFrame {
         jftCpfCartao = new javax.swing.JFormattedTextField();
         jlDataValidadeC = new javax.swing.JLabel();
         jftDataValidadeC = new javax.swing.JFormattedTextField();
+        jlTotal = new javax.swing.JLabel();
+        jtRecebido = new javax.swing.JTextField();
+        jlSifraRecebido = new javax.swing.JLabel();
+        jlRecebido = new javax.swing.JLabel();
+        jlSifraTotal = new javax.swing.JLabel();
+        jtTotal = new javax.swing.JTextField();
+        jlTroco = new javax.swing.JLabel();
+        jlSifraTroco = new javax.swing.JLabel();
+        jtTroco = new javax.swing.JTextField();
+        jlCvc = new javax.swing.JLabel();
+        jtCvc = new javax.swing.JTextField();
+        jbFinalizar = new javax.swing.JButton();
+        jbCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Finalizar Pagamento");
+        setMaximumSize(new java.awt.Dimension(690, 620));
+        setMinimumSize(new java.awt.Dimension(690, 620));
+        setPreferredSize(new java.awt.Dimension(690, 620));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jrbAvista.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jrbAvista.setText("À vista");
@@ -97,6 +121,7 @@ public class JFPagamento extends javax.swing.JFrame {
                 jrbAvistaActionPerformed(evt);
             }
         });
+        getContentPane().add(jrbAvista, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 80, -1, -1));
 
         jrbCartao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jrbCartao.setText("Cartão de Crédito");
@@ -105,9 +130,11 @@ public class JFPagamento extends javax.swing.JFrame {
                 jrbCartaoActionPerformed(evt);
             }
         });
+        getContentPane().add(jrbCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(134, 80, -1, -1));
 
         jlFormaPagamento.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlFormaPagamento.setText("Forma de Pagamento:");
+        getContentPane().add(jlFormaPagamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 26, -1, -1));
 
         jtNumeroCartao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jtNumeroCartao.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -115,18 +142,23 @@ public class JFPagamento extends javax.swing.JFrame {
                 jtNumeroCartaoKeyTyped(evt);
             }
         });
+        getContentPane().add(jtNumeroCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 157, 267, -1));
 
         jlNumeroCartao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlNumeroCartao.setText("Número do Cartão:");
+        getContentPane().add(jlNumeroCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 160, -1, -1));
 
         jlParcelas.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlParcelas.setText("Parcelas:");
+        getContentPane().add(jlParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 223, -1, -1));
 
         jcbParcelas.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jcbParcelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>", "X1", "X2", "X3", "X4", "X5" }));
+        getContentPane().add(jcbParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 220, -1, -1));
 
         jlNomeCartao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlNomeCartao.setText("Nome Impresso no Cartão:");
+        getContentPane().add(jlNomeCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 285, -1, -1));
 
         jtNomeCartao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jtNomeCartao.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -134,9 +166,11 @@ public class JFPagamento extends javax.swing.JFrame {
                 jtNomeCartaoKeyTyped(evt);
             }
         });
+        getContentPane().add(jtNomeCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(265, 282, 267, -1));
 
         jlCpfCartao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlCpfCartao.setText("CPF do Portador do Cartão:");
+        getContentPane().add(jlCpfCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 342, -1, -1));
 
         try {
             jftCpfCartao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -144,9 +178,11 @@ public class JFPagamento extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jftCpfCartao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        getContentPane().add(jftCpfCartao, new org.netbeans.lib.awtextra.AbsoluteConstraints(263, 339, 175, -1));
 
         jlDataValidadeC.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlDataValidadeC.setText("Data de Validade do Cartão:");
+        getContentPane().add(jlDataValidadeC, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 413, -1, -1));
 
         try {
             jftDataValidadeC.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -154,87 +190,93 @@ public class JFPagamento extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jftDataValidadeC.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        getContentPane().add(jftDataValidadeC, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 410, 79, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jrbAvista)
-                        .addGap(33, 33, 33)
-                        .addComponent(jrbCartao))
-                    .addComponent(jlFormaPagamento)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jlNumeroCartao)
-                            .addComponent(jlParcelas))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jcbParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtNumeroCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlNomeCartao)
-                        .addGap(18, 18, 18)
-                        .addComponent(jtNomeCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlCpfCartao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jftCpfCartao, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jlDataValidadeC)
-                        .addGap(18, 18, 18)
-                        .addComponent(jftDataValidadeC, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(158, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jlFormaPagamento)
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jrbAvista)
-                    .addComponent(jrbCartao))
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtNumeroCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlNumeroCartao))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlParcelas)
-                    .addComponent(jcbParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlNomeCartao)
-                    .addComponent(jtNomeCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlCpfCartao)
-                    .addComponent(jftCpfCartao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlDataValidadeC)
-                    .addComponent(jftDataValidadeC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
-        );
+        jlTotal.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlTotal.setText("Total à pagar:");
+        getContentPane().add(jlTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, -1));
+
+        jtRecebido.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jtRecebido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtRecebidoKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtRecebido, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 60, -1));
+
+        jlSifraRecebido.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlSifraRecebido.setText("R$");
+        getContentPane().add(jlSifraRecebido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
+
+        jlRecebido.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlRecebido.setText("Recebido:");
+        getContentPane().add(jlRecebido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, -1, -1));
+
+        jlSifraTotal.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlSifraTotal.setText("R$");
+        getContentPane().add(jlSifraTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
+
+        jtTotal.setEditable(false);
+        jtTotal.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jtTotal.setEnabled(false);
+        getContentPane().add(jtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 60, -1));
+
+        jlTroco.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlTroco.setText("Troco:");
+        getContentPane().add(jlTroco, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, -1, -1));
+
+        jlSifraTroco.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlSifraTroco.setText("R$");
+        getContentPane().add(jlSifraTroco, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, -1, -1));
+
+        jtTroco.setEditable(false);
+        jtTroco.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jtTroco.setEnabled(false);
+        getContentPane().add(jtTroco, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 60, -1));
+
+        jlCvc.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlCvc.setText("CVC:");
+        getContentPane().add(jlCvc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 470, -1, -1));
+
+        jtCvc.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jtCvc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtCvcKeyTyped(evt);
+            }
+        });
+        getContentPane().add(jtCvc, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 470, 60, -1));
+
+        jbFinalizar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Card_Payment_48px_1.png"))); // NOI18N
+        jbFinalizar.setText("Finalizar");
+        getContentPane().add(jbFinalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 520, -1, -1));
+
+        jbCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Cancel_48px.png"))); // NOI18N
+        jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jbCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 520, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jrbAvistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbAvistaActionPerformed
-        if(jrbCartao.isSelected()){
+        if (jrbCartao.isSelected()) {
             jrbCartao.setSelected(false);
         }
+        tratarCampos(false);
     }//GEN-LAST:event_jrbAvistaActionPerformed
 
     private void jrbCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbCartaoActionPerformed
-        if(jrbAvista.isSelected()){
+        if (jrbAvista.isSelected()) {
             jrbAvista.setSelected(false);
         }
+        tratarCampos(true);
     }//GEN-LAST:event_jrbCartaoActionPerformed
 
     private void jtNumeroCartaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNumeroCartaoKeyTyped
@@ -244,6 +286,22 @@ public class JFPagamento extends javax.swing.JFrame {
     private void jtNomeCartaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtNomeCartaoKeyTyped
         campoSemNumero(evt);
     }//GEN-LAST:event_jtNomeCartaoKeyTyped
+
+    private void jtCvcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtCvcKeyTyped
+        campoComNumero(evt);
+    }//GEN-LAST:event_jtCvcKeyTyped
+
+    private void jtRecebidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtRecebidoKeyTyped
+        campoComNumero(evt);
+    }//GEN-LAST:event_jtRecebidoKeyTyped
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nCancelar?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+            dispose();
+            new JFPrincipal(obj).setVisible(true);
+        }
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,19 +339,32 @@ public class JFPagamento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jbCancelar;
+    private javax.swing.JButton jbFinalizar;
     private javax.swing.JComboBox<String> jcbParcelas;
     private javax.swing.JFormattedTextField jftCpfCartao;
     private javax.swing.JFormattedTextField jftDataValidadeC;
     private javax.swing.JLabel jlCpfCartao;
+    private javax.swing.JLabel jlCvc;
     private javax.swing.JLabel jlDataValidadeC;
     private javax.swing.JLabel jlFormaPagamento;
     private javax.swing.JLabel jlNomeCartao;
     private javax.swing.JLabel jlNumeroCartao;
     private javax.swing.JLabel jlParcelas;
+    private javax.swing.JLabel jlRecebido;
+    private javax.swing.JLabel jlSifraRecebido;
+    private javax.swing.JLabel jlSifraTotal;
+    private javax.swing.JLabel jlSifraTroco;
+    private javax.swing.JLabel jlTotal;
+    private javax.swing.JLabel jlTroco;
     private javax.swing.JRadioButton jrbAvista;
     private javax.swing.JRadioButton jrbCartao;
+    private javax.swing.JTextField jtCvc;
     private javax.swing.JTextField jtNomeCartao;
     private javax.swing.JTextField jtNumeroCartao;
+    private javax.swing.JTextField jtRecebido;
+    private javax.swing.JTextField jtTotal;
+    private javax.swing.JTextField jtTroco;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Card_Payment_528px_1.png");
@@ -312,8 +383,73 @@ public class JFPagamento extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void tratarCampos(boolean n){
+
+    public boolean validar() throws Exception {
+        String msg = new String();
+        if ((!jrbAvista.isSelected()) && (!jrbCartao.isSelected())) {
+            throw new Exception("Selecione um método de pagamento");
+        }
+        if (jrbAvista.isSelected()) {
+            if (jtRecebido.getText().equals("")) {
+                msg = "O campo Recebido deve ser preenchido\ncom a quantidade em dinheiro que o cliente pagou.\n";
+            }
+            String recebidoSt = jtRecebido.getText().replace(",", ".");
+            recebidoSt = jtRecebido.getText().trim();
+            recebido = Integer.parseInt(recebidoSt);
+            if (recebido - Integer.parseInt(jtTotal.getText()) > 0) {
+                msg += "O valor recebido não paga o total.\n";
+            }
+        } else {
+            if (jrbCartao.isSelected()) {
+                if (jtCvc.getText().equals("")) {
+                    msg += "O campo CVC deve ser preenchido\n";
+                } else {
+                    if (jtCvc.getText().length() < 3 || jtCvc.getText().length() > 3) {
+                        msg += "O campo CVC deve conter 3 números\n";
+                    }
+                }
+                if (jtNomeCartao.getText().equals("")) {
+                    msg += "O campo Nome deve ser preenchido\n";
+                } else {
+                    if (jtNomeCartao.getText().length() < 3 || jtNomeCartao.getText().length() > 40) {
+                        msg += "O campo Nome deve conter entre 3 e 40 caracteres\n";
+                    }
+                }
+                if (jtNumeroCartao.getText().equals("")) {
+                    msg += "O campo Número do Cartão deve ser preenchido\n";
+                }
+                if (jftCpfCartao.getText().equals("   .   .   -  ")) {
+                    msg += "O campo CPF deve ser preenchido\n";
+                } else {
+                    if (!isCPF(jftCpfCartao.getText())) {
+                        msg += "CPF inválido\n";
+                    }
+                }
+                if (jftDataValidadeC.getText().equals("  /  /    ")) {
+                    msg += "A Data de Vencimento deve ser preenchida\n";
+                } else {
+                    if (!validaData(jftDataValidadeC.getText())) {
+                        msg += "Data inválida\n";
+                    }
+                }
+                if (jcbParcelas.getSelectedIndex() == 0) {
+                    msg += "Selecione um número de parcelas\n";
+                }
+            }
+        }
+        if (msg.length() == 0) {
+            return true;
+        } else {
+            throw new Exception(msg);
+        }
+    }
+
+    public boolean preencherObj() throws Exception {
+        venda.setDataOperacao(dataAtual());
+        return true;
+    }
+
+    public void tratarCampos(boolean n) {
         jtNomeCartao.setVisible(n);
         jtNumeroCartao.setVisible(n);
         jlCpfCartao.setVisible(n);
@@ -324,8 +460,55 @@ public class JFPagamento extends javax.swing.JFrame {
         jcbParcelas.setVisible(n);
         jftCpfCartao.setVisible(n);
         jftDataValidadeC.setVisible(n);
+        jtCvc.setVisible(n);
+        jlCvc.setVisible(n);
+        if (n) {
+            jlTotal.setVisible(false);
+            jlTroco.setVisible(false);
+            jlSifraTroco.setVisible(false);
+            jlSifraTotal.setVisible(false);
+            jlSifraRecebido.setVisible(false);
+            jlRecebido.setVisible(false);
+            jtTotal.setVisible(false);
+            jtTroco.setVisible(false);
+            jtRecebido.setVisible(false);
+        } else {
+            jlTotal.setVisible(true);
+            jlTroco.setVisible(true);
+            jlSifraTroco.setVisible(true);
+            jlSifraTotal.setVisible(true);
+            jlSifraRecebido.setVisible(true);
+            jlRecebido.setVisible(true);
+            jtTotal.setVisible(true);
+            jtTroco.setVisible(true);
+            jtRecebido.setVisible(true);
+        }
     }
-    
+
+    public void setFake() {
+        jtNomeCartao.setVisible(false);
+        jtNumeroCartao.setVisible(false);
+        jlCpfCartao.setVisible(false);
+        jlDataValidadeC.setVisible(false);
+        jlNomeCartao.setVisible(false);
+        jlNumeroCartao.setVisible(false);
+        jlParcelas.setVisible(false);
+        jcbParcelas.setVisible(false);
+        jftCpfCartao.setVisible(false);
+        jftDataValidadeC.setVisible(false);
+        jtCvc.setVisible(false);
+        jlCvc.setVisible(false);
+        jlTotal.setVisible(false);
+        jlTroco.setVisible(false);
+        jlSifraTroco.setVisible(false);
+        jlSifraTotal.setVisible(false);
+        jlSifraRecebido.setVisible(false);
+        jlRecebido.setVisible(false);
+        jtTotal.setVisible(false);
+        jtTroco.setVisible(false);
+        jtRecebido.setVisible(false);
+    }
+
     public boolean validaData(String data) {
         GregorianCalendar calendar = new GregorianCalendar();
         int dia = 0, mes = 0, ano = 0;
@@ -339,7 +522,11 @@ public class JFPagamento extends javax.swing.JFrame {
         } catch (Exception e) {
             return false;
         }
-        if (ano > (anoAtual - 1)) {
+        if (ano < anoAtual) {
+            return false;
+        } else if (ano <= anoAtual && mes < mesAtual) {
+            return false;
+        } else if (ano <= anoAtual && mes <= mesAtual && dia <= diaAtual) {
             return false;
         } else if (dia < 1 || mes < 1 || ano < 1) {
             return false;
@@ -373,7 +560,7 @@ public class JFPagamento extends javax.swing.JFrame {
 
         return true;
     }
-    
+
     private void campoSemNumero(java.awt.event.KeyEvent evt) {
         String caracteres = "0987654321";
         if (caracteres.contains(evt.getKeyChar() + "")) {
@@ -387,12 +574,12 @@ public class JFPagamento extends javax.swing.JFrame {
             evt.consume();
         }
     }
-    
+
     public Calendar dataAtual() {
         Calendar calen = Calendar.getInstance();
         return calen;
     }
-    
+
     public boolean isCPF(String CPF) {
         String cpf = CPF.replace(".", "");
         cpf = cpf.replace("-", "");

@@ -56,7 +56,7 @@ create table if not exists tblocacao(
 create table if not exists tbvendas(
  idVenda serial primary key not null,
  idCli integer not null references tbUsuarios ON DELETE CASCADE,
- idFunc integer not null references tbFuncionarios ON DELETE CASCADE,
+ idFunc integer not null references tbFuncionarios ON DELETE CASCADE, --remove not null
  --idJogo integer not null,
  dataCompra varchar(12) not null,
  hora varchar(12) not null,
@@ -103,8 +103,19 @@ create table if not exists tbPlataformas(
  nomeplataforma varchar(50) not null,
  dataLancamento varchar(12) not null
 );
+
+create table if not exists tbCupons(
+ idCupom serial not null primary key,
+ nomeCupom varchar(50) not null,
+ percent integer not null
+);
+
+create table if not exists tbCuponsAtivados(
+ idCupom integer not null references tbCupons ON DELETE CASCADE,
+ idCli integer not null references tbUsuarios ON DELETE CASCADE
+);
+
 select * from tbusuarios;
- 
  insert into tbtipousuarios (descricao, nivel) values ('Cliente',0);
  insert into tbtipousuarios (descricao, nivel) values ('Funcionario',1);
  insert into tbtipousuarios (descricao, nivel) values ('Administrador',2);
