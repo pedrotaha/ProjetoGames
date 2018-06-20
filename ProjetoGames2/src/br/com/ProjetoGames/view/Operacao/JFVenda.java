@@ -34,9 +34,6 @@ public class JFVenda extends javax.swing.JFrame {
 
     public JFVenda() {
         initComponents();
-        float total = 400;
-        total = total - (((20 / 100)) * total);
-        JOptionPane.showMessageDialog(null, ""+total);
         frameCount = 0;
         dados = new ArrayList<>();
         this.obj = new UsuarioModel();
@@ -302,6 +299,7 @@ public class JFVenda extends javax.swing.JFrame {
                 jogoOp.setJogosModel(selecionado);
                 jogoOp.setQuantidade(Integer.parseInt(jtQuantidade.getText()));
                 lista.add(jogoOp);
+                JOptionPane.showMessageDialog(this, "Jogo "+selecionado.getTitulo()+"\nAdicionado com Sucesso!");
             } else {
                 JOptionPane.showMessageDialog(this, "Quantidade maior que estoque disponível.");
             }

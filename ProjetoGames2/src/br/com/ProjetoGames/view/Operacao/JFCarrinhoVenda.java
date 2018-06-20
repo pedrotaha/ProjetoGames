@@ -345,6 +345,8 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
             if (percent > 0) {
                 jtDesconto.setText("" + percent);
                 attDesconto();
+                jtDesconto.setEnabled(false);
+                jlAplicar.setEnabled(false);
             } else {
                 jtCupom.setText("");
             }
@@ -471,7 +473,7 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
     }
 
     public void attDesconto() {
-        total = (subTotal * ((100 - percent) / 100));
+        total = subTotal - ((subTotal * percent) / 100);
         jtTotal.setText("" + total);
     }
 }
