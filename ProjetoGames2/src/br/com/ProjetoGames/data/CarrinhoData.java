@@ -47,7 +47,8 @@ public class CarrinhoData {
         boolean ver = true;
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
-        String sql1 = "create table if not exists tbjogovend_tmp"+obj.getId()+" as select * from tbjogovend where idvenda is null;";
+        //String sql1 = "create table if not exists tbjogovend_tmp" + obj.getId() + " as select * from tbjogovend where idvenda is null;";
+        String sql1 = "create table if not exists tbjogovend_tmp" + obj.getId() + " (idjogo integer, quantidade integer);";
         PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
         if (ps1.executeUpdate() > 0) {
             for (JogosOperacaoModel list : op) {
