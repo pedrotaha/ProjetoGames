@@ -34,13 +34,15 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
     ArrayList<String> opa = new ArrayList<>();
     int log;
     DefaultTableModel mp;
-    int total = 0;
-    int subTotal = 0;
+    float total;
+    float subTotal;
 
     public JFCarrinhoVenda() {
         initComponents();
         lista = new ArrayList<>();
         log = 0;
+        total = 0;
+        subTotal = 0;
         setIcon();
         windowsClosing();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
@@ -54,6 +56,8 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         lista = new ArrayList<>();
         this.log = log;
         this.obj = obj;
+        total = 0;
+        subTotal = 0;
         setIcon();
         windowsClosing();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
@@ -67,6 +71,8 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         this.lista = lista;
         this.log = log;
         this.obj = obj;
+        total = 0;
+        subTotal = 0;
         setIcon();
         windowsClosing();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
@@ -311,9 +317,13 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         try {
             if (!lista.isEmpty()) {
                 CarrinhoData DAO = new CarrinhoData();
-                for (JogosOperacaoModel list : lista) {
-                    DAO.inserirCarrinho(list, obj);
-                }
+                carrinhoBanco();
+                venda.setClienteModel(obj);
+                venda.setDesconto(percent);
+                venda.setValor(total);
+                venda.setTipo("Entrega");
+                new JFPagamento(obj, venda, 1).setVisible(true);
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
             }
@@ -336,7 +346,7 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
                 jtDesconto.setText("" + percent);
                 attDesconto();
             } else {
-                JOptionPane.showMessageDialog(this, "Cupom não encontrado!");
+                jtCupom.setText("");
             }
         }
     }//GEN-LAST:event_jlAplicarMouseClicked
@@ -452,15 +462,16 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
 
     public void carrinhoBanco() throws Exception {
         CarrinhoData DAO = new CarrinhoData();
-        for (JogosOperacaoModel list : lista) {
-            if (!DAO.inserirCarrinho(list, obj)) {
-                throw new Exception("Não foi possível inserir no carrinho de sua conta!");
-            }
-        }
+        DAO.inserirCarrinhoCompleto(lista, obj);
+//        for (JogosOperacaoModel list : lista) {
+//            if (!DAO.inserirCarrinho(list, obj)) {
+//                throw new Exception("Não foi possível inserir no carrinho de sua conta!");
+//            }
+//        }
     }
 
     public void attDesconto() {
-        total = subTotal * ((100 - percent) / 100);
+        total = (subTotal * ((100 - percent) / 100));
         jtTotal.setText("" + total);
     }
 }

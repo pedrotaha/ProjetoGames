@@ -124,3 +124,5 @@ select * from tbusuarios;
 
 truncate table tbusuarios; 
 ALTER SEQUENCE tbusuario_id_seq RESTART WITH 1;
+
+truncate table tbCuponsAtivados;

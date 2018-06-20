@@ -43,6 +43,39 @@ public class CarrinhoData {
         throw new Exception("Erro ao inserir no carrinho.");
     }
 
+    public boolean inserirCarrinhoCompleto(ArrayList<JogosOperacaoModel> op, UsuarioModel obj) throws Exception {
+        boolean ver = true;
+        Conexao c = new Conexao();
+        c.getConexao().setAutoCommit(false);
+        String sql1 = "create table if not exists tbjogovend_tmp" + obj.getId() + " as select * from tbjogovend where idvenda is null;";
+        PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
+        if (ps1.executeUpdate() > 0) {
+            for (JogosOperacaoModel list : op) {
+                String sql2 = "insert into tbjogovend_tmp" + obj.getId() + " (idjogo, quantidade) values (?,?)";
+                PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
+                ps2.setInt(1, list.getJogosModel().getIdJogos());
+                ps2.setInt(2, list.getQuantidade());
+                if (!(ps2.executeUpdate() > 0)) {
+                    ver = false;
+                    break;
+                }
+                ps2.close();
+            }
+            if (ver) {
+                c.getConexao().commit();
+                c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps1.close();
+                return true;
+            }
+        }
+        c.getConexao().rollback();
+        c.getConexao().setAutoCommit(true);
+        c.getConexao().close();
+        ps1.close();
+        throw new Exception("Erro ao inserir no carrinho.");
+    }
+
     public ArrayList<JogosOperacaoModel> getCarrinho(UsuarioModel obj) throws Exception {
         ArrayList<JogosOperacaoModel> carrinho = new ArrayList<>();
         JogosModel jogo = new JogosModel();
@@ -141,7 +174,7 @@ public class CarrinhoData {
             throw new Exception("Cupom já ativado");
         }
     }
-    
+
     public Calendar calendario(String data) throws Exception {
         Calendar cal = new GregorianCalendar();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");// , Locale.ENGLISH

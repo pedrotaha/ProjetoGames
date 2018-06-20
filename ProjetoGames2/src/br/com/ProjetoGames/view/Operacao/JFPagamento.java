@@ -7,7 +7,6 @@ package br.com.ProjetoGames.view.Operacao;
 
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.model.VendaModel;
-import br.com.ProjetoGames.view.JFPrincipal;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -378,7 +377,7 @@ public class JFPagamento extends javax.swing.JFrame {
             public void windowClosing(WindowEvent we) {
                 if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
                     dispose();
-                    new JFPrincipal(obj).setVisible(true);
+                    new JFCarrinhoVenda(obj, 1).setVisible(true);
                 }
             }
         });

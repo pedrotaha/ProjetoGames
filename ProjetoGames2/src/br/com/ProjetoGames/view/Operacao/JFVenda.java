@@ -34,6 +34,9 @@ public class JFVenda extends javax.swing.JFrame {
 
     public JFVenda() {
         initComponents();
+        float total = 400;
+        total = total - (((20 / 100)) * total);
+        JOptionPane.showMessageDialog(null, ""+total);
         frameCount = 0;
         dados = new ArrayList<>();
         this.obj = new UsuarioModel();
@@ -285,7 +288,7 @@ public class JFVenda extends javax.swing.JFrame {
 
     private void jbCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCarrinhoActionPerformed
         if(!lista.isEmpty()){
-            new JFCarrinhoVenda(obj, 1).setVisible(true);
+            new JFCarrinhoVenda(obj, 1, lista).setVisible(true);
             dispose();
         }else{
             JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
@@ -295,8 +298,10 @@ public class JFVenda extends javax.swing.JFrame {
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarActionPerformed
         if (!jtQuantidade.getText().equals("")) {
             if ((selecionado.getQuantidadeDisponivel().getQuantidadeVender() - Integer.parseInt(jtQuantidade.getText()) >= 0)) {
-                lista.get(lista.size()).setJogosModel(selecionado);
-                lista.get(lista.size()).setQuantidade(Integer.parseInt(jtQuantidade.getText()));
+                JogosOperacaoModel jogoOp = new JogosOperacaoModel();
+                jogoOp.setJogosModel(selecionado);
+                jogoOp.setQuantidade(Integer.parseInt(jtQuantidade.getText()));
+                lista.add(jogoOp);
             } else {
                 JOptionPane.showMessageDialog(this, "Quantidade maior que estoque disponível.");
             }
