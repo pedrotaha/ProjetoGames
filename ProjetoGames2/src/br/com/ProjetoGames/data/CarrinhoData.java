@@ -20,7 +20,7 @@ public class CarrinhoData {
     public boolean inserirCarrinho(JogosOperacaoModel op, UsuarioModel obj) throws Exception {
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
-        String sql1 = "create table tbjogovend_tmp" + obj.getId() + " as select * from tbjogovend where idvenda is null;";
+        String sql1 = "create table if not exists tbjogovend_tmp" + obj.getId() + " as select * from tbjogovend where idvenda is null;";
         PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
         if (ps1.executeUpdate() > 0) {
             String sql2 = "insert into tbjogovend_tmp" + obj.getId() + " (idjogo, quantidade) values (?,?)";

@@ -299,7 +299,7 @@ public class JFPagamento extends javax.swing.JFrame {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nCancelar?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
             dispose();
-            new JFPrincipal(obj).setVisible(true);
+            new JFCarrinhoVenda(obj, 1).setVisible(true);
         }
     }//GEN-LAST:event_jbCancelarActionPerformed
 

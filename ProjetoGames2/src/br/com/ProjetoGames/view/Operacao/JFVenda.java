@@ -7,6 +7,7 @@ package br.com.ProjetoGames.view.Operacao;
 
 import br.com.ProjetoGames.data.JogosData;
 import br.com.ProjetoGames.model.JogosModel;
+import br.com.ProjetoGames.model.JogosOperacaoModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.view.JFPrincipal;
 import java.awt.Font;
@@ -22,33 +23,34 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
 
 public class JFVenda extends javax.swing.JFrame {
-    
+
     UsuarioModel obj = new UsuarioModel();
-    int frameCount, frameCountC;
+    int frameCount;
     JIFDetalhesJogos janela = new JIFDetalhesJogos();
     JIFCarrinhoVenda janelaC = new JIFCarrinhoVenda();
     ArrayList<JogosModel> dados;
+    ArrayList<JogosOperacaoModel> lista;
     JogosModel selecionado;
-    
+
     public JFVenda() {
         initComponents();
         frameCount = 0;
-        frameCountC = 0;
         dados = new ArrayList<>();
         this.obj = new UsuarioModel();
         selecionado = new JogosModel();
+        lista = new ArrayList<>();
         setIcon();
         windowsClosing();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
     }
-    
+
     public JFVenda(UsuarioModel obj) {
         initComponents();
         frameCount = 0;
-        frameCountC = 0;
         dados = new ArrayList<>();
+        lista = new ArrayList<>();
         this.obj = obj;
         selecionado = new JogosModel();
         setIcon();
@@ -282,24 +284,20 @@ public class JFVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_jtbPesquisarMouseClicked
 
     private void jbCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCarrinhoActionPerformed
-        try {
-            if (frameCount == 0) {
-                internoClosedC();
-                jdpVenda.add(janelaC);
-                janelaC.setVisible(true);
-                frameCountC++;
-                tratarCampos(false);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+        if(!lista.isEmpty()){
+            new JFCarrinhoVenda(obj, 1).setVisible(true);
+            dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
         }
     }//GEN-LAST:event_jbCarrinhoActionPerformed
 
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarActionPerformed
         if (!jtQuantidade.getText().equals("")) {
-            if((selecionado.getQuantidadeDisponivel().getQuantidadeVender() - Integer.parseInt(jtQuantidade.getText()) >= 0)){
-                
-            }else{
+            if ((selecionado.getQuantidadeDisponivel().getQuantidadeVender() - Integer.parseInt(jtQuantidade.getText()) >= 0)) {
+                lista.get(lista.size()).setJogosModel(selecionado);
+                lista.get(lista.size()).setQuantidade(Integer.parseInt(jtQuantidade.getText()));
+            } else {
                 JOptionPane.showMessageDialog(this, "Quantidade maior que estoque disponível.");
             }
         } else {
@@ -359,7 +357,7 @@ public class JFVenda extends javax.swing.JFrame {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Buy_528px.png");
         setIconImage(imagemTituloJanela.getImage());
     }
-    
+
     public void windowsClosing() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -372,7 +370,7 @@ public class JFVenda extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void internoClosed() {
         janela.addInternalFrameListener(new InternalFrameAdapter() {
             public void internalFrameClosed(InternalFrameEvent e) {
@@ -382,31 +380,21 @@ public class JFVenda extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void internoClosedC() {
-        janelaC.addInternalFrameListener(new InternalFrameAdapter() {
-            public void internalFrameClosed(InternalFrameEvent e) {
-                tratarCampos(true);
-                frameCountC--;
-                jdpVenda.remove(janelaC);
-            }
-        });
-    }
-    
+
     private void campoSemNumero(java.awt.event.KeyEvent evt) {
         String caracteres = "0987654321";
         if (caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }
-    
+
     private void campoComNumero(java.awt.event.KeyEvent evt) {
         String caracteres = "0987654321";
         if (!caracteres.contains(evt.getKeyChar() + "")) {
             evt.consume();
         }
     }
-    
+
     public void tratarCampos(boolean n) {
         jdpVenda.setEnabled(n);
         jtPesquisar.setEnabled(n);
@@ -417,7 +405,7 @@ public class JFVenda extends javax.swing.JFrame {
         jbCarrinho.setEnabled(n);
         jbDetalhes.setEnabled(n);
     }
-    
+
     public void atualizarT() throws Exception {
         JogosData DAO = new JogosData();
         dados = DAO.pesquisar(jtPesquisar.getText());
