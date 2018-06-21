@@ -78,7 +78,7 @@ public class CarrinhoData {
 
     public ArrayList<JogosOperacaoModel> getCarrinho(UsuarioModel obj) throws Exception {
         ArrayList<JogosOperacaoModel> carrinho = new ArrayList<>();
-        JogosOperacaoModel jogoVend = new JogosOperacaoModel();
+        
         JogosModel jogo = new JogosModel();
         Conexao c = new Conexao();
         String sqla = "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'tbjogovend_tmp" + obj.getId() + "');";
@@ -90,7 +90,7 @@ public class CarrinhoData {
                 PreparedStatement ps = c.getConexao().prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    JogosOperacaoModel car = new JogosOperacaoModel();
+                    JogosOperacaoModel jogoVend = new JogosOperacaoModel();
                     String sql1 = "select * from tbjogos j, tbquantidade q where j.idjogos = q.idjogo and idjogos = " + rs.getInt("idjogo") + ";";
                     PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
                     ResultSet rs1 = ps1.executeQuery();

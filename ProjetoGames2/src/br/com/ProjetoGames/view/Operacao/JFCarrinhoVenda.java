@@ -99,7 +99,7 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro ao carregar o carrinho", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     public JFCarrinhoVenda(UsuarioModel obj, int log, ArrayList<JogosOperacaoModel> car, int dif) {
         initComponents();
         this.car = car;
@@ -120,7 +120,7 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
             jtSubTotal.setText("" + subTotal);
             total = subTotal;
             jtTotal.setText("" + total);
-            if(!car.isEmpty()){
+            if (!car.isEmpty()) {
                 jbFinalizarCompra.setEnabled(true);
                 jbRemover.setEnabled(true);
             }
@@ -358,8 +358,8 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
                     if (!car.isEmpty()) {
                         CarrinhoData DAO = new CarrinhoData();
                         if (DAO.removeItem(obj, car.get(jtbCarrinho.getSelectedRow()))) {
-                            subTotal -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-                            total -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+                            subTotal -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+                            total -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
                             car.remove(jtbCarrinho.getSelectedRow());
                             mp.removeRow(jtbCarrinho.getSelectedRow());
                             attDesconto();
@@ -386,7 +386,7 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
-        if(car.isEmpty() && lista.isEmpty()){
+        if (car.isEmpty() && lista.isEmpty()) {
             jbFinalizarCompra.setEnabled(false);
             jbRemover.setEnabled(false);
         }
@@ -537,7 +537,11 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         jbRemover.setEnabled(true);
         for (JogosOperacaoModel list : lista) {
             subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade();
-            mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
+            if (list.getJogosModel().getTitulo().equals(mp.getValueAt(mp.getRowCount() - 1, 0))) {//errou
+                mp.setValueAt(obj, log, log);
+            } else {
+                mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
+            }
         }
         getCarrinho();
     }
@@ -550,7 +554,7 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
             mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
         }
         if (!lista.isEmpty()) {
-            for(JogosOperacaoModel list : lista){
+            for (JogosOperacaoModel list : lista) {
                 united.add(list);
             }
             for (JogosOperacaoModel list : car) {
