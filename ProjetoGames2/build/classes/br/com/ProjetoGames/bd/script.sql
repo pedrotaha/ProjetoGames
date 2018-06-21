@@ -127,3 +127,11 @@ ALTER SEQUENCE tbusuario_id_seq RESTART WITH 1;
 
 truncate table tbCuponsAtivados;
 drop table if exists tbjogovend_tmp1;
+
+SELECT EXISTS (
+   SELECT 1
+   FROM   information_schema.tables
+   WHERE  table_schema = 'public'
+   AND    table_name = 'tbjogovend_tmp1'
+   );
+

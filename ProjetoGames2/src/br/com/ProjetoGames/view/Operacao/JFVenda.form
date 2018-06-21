@@ -172,6 +172,7 @@
               <Image iconType="3" name="/br/com/ProjetoGames/imagens/Icones/icons8_Buy_48px.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Adicionar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbAdicionarActionPerformed"/>
@@ -186,6 +187,7 @@
               <Image iconType="3" name="/br/com/ProjetoGames/imagens/Icones/icons8_Pokedex_48px_1.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Detalhes"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbDetalhesActionPerformed"/>

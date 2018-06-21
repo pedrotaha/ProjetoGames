@@ -4,6 +4,7 @@ import br.com.ProjetoGames.model.JogosModel;
 import br.com.ProjetoGames.model.JogosOperacaoModel;
 import br.com.ProjetoGames.model.QuantidadeModel;
 import br.com.ProjetoGames.model.UsuarioModel;
+import br.com.ProjetoGames.model.VendaModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -47,28 +48,26 @@ public class CarrinhoData {
         boolean ver = true;
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
-        //String sql1 = "create table if not exists tbjogovend_tmp" + obj.getId() + " as select * from tbjogovend where idvenda is null;";
-        String sql1 = "create table if not exists tbjogovend_tmp" + obj.getId() + " (idjogo integer, quantidade integer);";
+        String sql1 = "create table if not exists tbjogovend_tmp" + obj.getId() + " as select * from tbjogovend where idvenda is null;";
         PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
-        if (ps1.executeUpdate() > 0) {
-            for (JogosOperacaoModel list : op) {
-                String sql2 = "insert into tbjogovend_tmp" + obj.getId() + " (idjogo, quantidade) values (?,?)";
-                PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
-                ps2.setInt(1, list.getJogosModel().getIdJogos());
-                ps2.setInt(2, list.getQuantidade());
-                if (!(ps2.executeUpdate() > 0)) {
-                    ver = false;
-                    break;
-                }
-                ps2.close();
+        ps1.executeUpdate();
+        for (JogosOperacaoModel list : op) {
+            String sql2 = "insert into tbjogovend_tmp" + obj.getId() + " (idjogo, quantidade) values (?,?)";
+            PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
+            ps2.setInt(1, list.getJogosModel().getIdJogos());
+            ps2.setInt(2, list.getQuantidade());
+            if (!(ps2.executeUpdate() > 0)) {
+                ver = false;
+                break;
             }
-            if (ver) {
-                c.getConexao().commit();
-                c.getConexao().setAutoCommit(true);
-                c.getConexao().close();
-                ps1.close();
-                return true;
-            }
+            ps2.close();
+        }
+        if (ver) {
+            c.getConexao().commit();
+            c.getConexao().setAutoCommit(true);
+            c.getConexao().close();
+            ps1.close();
+            return true;
         }
         c.getConexao().rollback();
         c.getConexao().setAutoCommit(true);
@@ -79,44 +78,55 @@ public class CarrinhoData {
 
     public ArrayList<JogosOperacaoModel> getCarrinho(UsuarioModel obj) throws Exception {
         ArrayList<JogosOperacaoModel> carrinho = new ArrayList<>();
+        JogosOperacaoModel jogoVend = new JogosOperacaoModel();
         JogosModel jogo = new JogosModel();
         Conexao c = new Conexao();
-        String sql = "select * from tbjogovend_tmp" + obj.getId() + ";";
-        PreparedStatement ps = c.getConexao().prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            JogosOperacaoModel car = new JogosOperacaoModel();
-            String sql1 = "select * from tbjogos j, tbquantidade q where j.idjogos = q.idjogo and idjogos = " + rs.getInt("idjogo") + ";";
-            PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
-            ResultSet rs1 = ps1.executeQuery();
-            while (rs1.next()) {
-                jogo = new JogosModel();
-                jogo.setDescricao(rs1.getString("descricao"));
-                jogo.setEstado(rs1.getString("estado"));
-                jogo.setFaixaEtaria(rs1.getString("faixaetaria"));
-                jogo.setGenero(rs1.getString("genero"));
-                jogo.setIdJogos(rs1.getInt("idJogos"));
-                jogo.setPlataforma(rs1.getString("plataforma"));
-                jogo.setPublisher(rs1.getString("publisher"));
-                jogo.setSituacao(rs1.getString("situacao"));
-                jogo.setTitulo(rs1.getString("titulo"));
-                QuantidadeModel qnt = new QuantidadeModel();
-                qnt.setQuantidadeAlugar(rs1.getInt("quantidadeAlugar"));
-                qnt.setQuantidadeVender(rs1.getInt("quantidadeVender"));
-                qnt.setValorAlugar(rs1.getFloat("valorAlugar"));
-                qnt.setValorVender(rs1.getFloat("valorVender"));
-                jogo.setQuantidadeDisponivel(qnt);
-                jogo.setDataLancamento(calendario(rs1.getString("datalancamento")));
-                jogo.setImagem(rs1.getBytes("imagem"));
+        String sqla = "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'tbjogovend_tmp" + obj.getId() + "');";
+        PreparedStatement psa = c.getConexao().prepareStatement(sqla);
+        ResultSet rsa = psa.executeQuery();
+        if (rsa.next()) {
+            if (rsa.getBoolean("exists")) {
+                String sql = "select * from tbjogovend_tmp" + obj.getId() + ";";
+                PreparedStatement ps = c.getConexao().prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    JogosOperacaoModel car = new JogosOperacaoModel();
+                    String sql1 = "select * from tbjogos j, tbquantidade q where j.idjogos = q.idjogo and idjogos = " + rs.getInt("idjogo") + ";";
+                    PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
+                    ResultSet rs1 = ps1.executeQuery();
+                    while (rs1.next()) {
+                        jogo = new JogosModel();
+                        jogo.setDescricao(rs1.getString("descricao"));
+                        jogo.setEstado(rs1.getString("estado"));
+                        jogo.setFaixaEtaria(rs1.getString("faixaetaria"));
+                        jogo.setGenero(rs1.getString("genero"));
+                        jogo.setIdJogos(rs1.getInt("idJogos"));
+                        jogo.setPlataforma(rs1.getString("plataforma"));
+                        jogo.setPublisher(rs1.getString("publisher"));
+                        jogo.setSituacao(rs1.getString("situacao"));
+                        jogo.setTitulo(rs1.getString("titulo"));
+                        QuantidadeModel qnt = new QuantidadeModel();
+                        qnt.setQuantidadeAlugar(rs1.getInt("quantidadeAlugar"));
+                        qnt.setQuantidadeVender(rs1.getInt("quantidadeVender"));
+                        qnt.setValorAlugar(rs1.getFloat("valorAlugar"));
+                        qnt.setValorVender(rs1.getFloat("valorVender"));
+                        jogo.setQuantidadeDisponivel(qnt);
+                        jogo.setDataLancamento(calendario(rs1.getString("datalancamento")));
+                        jogo.setImagem(rs1.getBytes("imagem"));
+                    }
+                    jogoVend.setJogosModel(jogo);
+                    jogoVend.setQuantidade(rs.getInt("quantidade"));
+                    ps1.close();
+                    rs1.close();
+                    carrinho.add(jogoVend);
+                }
+                c.getConexao().close();
+                ps.close();
+                rs.close();
             }
-            car.setJogosModel(jogo);
-            car.setQuantidade(rs.getInt("quantidade"));
-            ps1.close();
-            rs1.close();
+            psa.close();
+            rsa.close();
         }
-        c.getConexao().close();
-        ps.close();
-        rs.close();
         return carrinho;
     }
 
@@ -174,6 +184,31 @@ public class CarrinhoData {
             ps1.close();
             throw new Exception("Cupom já ativado");
         }
+    }
+
+    public boolean removeItem(UsuarioModel obj, JogosOperacaoModel lista) throws Exception {
+        Conexao c = new Conexao();
+        String sql = "delete from tbjogovend_tmp" + obj.getId() + " where idjogo = ?;";
+        PreparedStatement ps = c.getConexao().prepareStatement(sql);
+        ps.setInt(1, lista.getJogosModel().getIdJogos());
+        if (ps.executeUpdate() > 0) {
+            ps.close();
+            c.getConexao().close();
+            return true;
+        }
+        ps.close();
+        c.getConexao().close();
+        throw new Exception("Erro ao remover o item do carrinho!");
+    }
+
+    public boolean finalizarCompra(VendaModel venda, JogosOperacaoModel lista, UsuarioModel obj) {
+        //insere na tabela tbvendas os detalhes
+        //select * from tbjogovend_tmp+obj.getId()+";"
+        //resultado: insert on table tbjogovend
+        //select idjogos da tbjogovend_tmp+obj.getId()+";"
+        //para atualizar a quantidade restante em estoque na tabela tbquantidade
+        //"drop table tbjogovend_tmp+obj.getId()+";"
+        return true;
     }
 
     public Calendar calendario(String data) throws Exception {
