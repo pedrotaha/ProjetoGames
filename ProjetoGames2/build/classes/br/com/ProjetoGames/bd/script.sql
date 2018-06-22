@@ -56,13 +56,14 @@ create table if not exists tblocacao(
 create table if not exists tbvendas(
  idVenda serial primary key not null,
  idCli integer not null references tbUsuarios ON DELETE CASCADE,
- idFunc integer not null references tbFuncionarios ON DELETE CASCADE, --remove not null
+ --idFunc integer not null references tbFuncionarios ON DELETE CASCADE, --remove not null
  --idJogo integer not null,
  dataCompra varchar(12) not null,
  hora varchar(12) not null,
- valor float not null, -- numeric(15,2)
- formaPagamento varchar(40) not null,
- tipo varchar(20) not null --cupom?
+ valor numeric(15,2) not null, --float not null, -- numeric(15,2)
+ formaPagamento varchar(100) not null,
+ tipo varchar(20) not null, --cupom?
+ desconto integer
  --,constraint fk_tblocacao_tbjogos foreign key (idJogo) references tbJogos
 );
 
@@ -127,7 +128,8 @@ ALTER SEQUENCE tbusuario_id_seq RESTART WITH 1;
 
 truncate table tbCuponsAtivados;
 drop table if exists tbjogovend_tmp1;
-
+select * from tbjogovend_tmp2;
+truncate table tbjogovend_tmp2 if exists;
 SELECT EXISTS (
    SELECT 1
    FROM   information_schema.tables

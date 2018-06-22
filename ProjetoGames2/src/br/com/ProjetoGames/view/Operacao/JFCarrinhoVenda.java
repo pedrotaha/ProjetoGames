@@ -67,7 +67,8 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         mp = (DefaultTableModel) jtbCarrinho.getModel();
         try {
             mp.setNumRows(0);
-            getCarrinho();
+            //getCarrinho();
+            getCarrinhoUlt();
             if (!car.isEmpty()) {
                 jbFinalizarCompra.setEnabled(true);
                 jbRemover.setEnabled(true);
@@ -91,7 +92,8 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         UIManager.put("OptionPane.buttonFont", font);
         mp = (DefaultTableModel) jtbCarrinho.getModel();
         try {
-            carregarCarrinho();
+            //carregarCarrinho();
+            getCarrinhoUlt();
             jtSubTotal.setText("" + subTotal);
             total = subTotal;
             jtTotal.setText("" + total);
@@ -115,8 +117,8 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         UIManager.put("OptionPane.buttonFont", font);
         mp = (DefaultTableModel) jtbCarrinho.getModel();
         try {
-            mp.setNumRows(0);
-            getCarrinho();
+            //getCarrinho();
+            getCarrinhoUlt();
             jtSubTotal.setText("" + subTotal);
             total = subTotal;
             jtTotal.setText("" + total);
@@ -164,14 +166,14 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Título", "Plataforma", "Quantidade", "Total"
+                "Título", "Plataforma", "Unidade", "Quantidade", "Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -345,43 +347,54 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
 
     private void jbRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoverActionPerformed
         try {
-            if (united.isEmpty()) {
-                if (!lista.isEmpty()) {
-                    subTotal -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-                    total -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-                    lista.remove(jtbCarrinho.getSelectedRow());
-                    mp.removeRow(jtbCarrinho.getSelectedRow());
-                    attDesconto();
-                    jtSubTotal.setText("" + subTotal);
-                    jtTotal.setText("" + total);
-                } else {
-                    if (!car.isEmpty()) {
-                        CarrinhoData DAO = new CarrinhoData();
-                        if (DAO.removeItem(obj, car.get(jtbCarrinho.getSelectedRow()))) {
-                            subTotal -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-                            total -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-                            car.remove(jtbCarrinho.getSelectedRow());
-                            mp.removeRow(jtbCarrinho.getSelectedRow());
-                            attDesconto();
-                            jtSubTotal.setText("" + subTotal);
-                            jtTotal.setText("" + total);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
-                    }
-                }
+//            if (united.isEmpty()) {
+//                if (!lista.isEmpty()) {
+//                    subTotal -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                    total -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                    lista.remove(jtbCarrinho.getSelectedRow());
+//                    mp.removeRow(jtbCarrinho.getSelectedRow());
+//                    attDesconto();
+//                    jtSubTotal.setText("" + subTotal);
+//                    jtTotal.setText("" + total);
+//                } else {
+//                    if (!car.isEmpty()) {
+//                        CarrinhoData DAO = new CarrinhoData();
+//                        if (DAO.removeItem(obj, car.get(jtbCarrinho.getSelectedRow()))) {
+//                            subTotal -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                            total -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                            car.remove(jtbCarrinho.getSelectedRow());
+//                            mp.removeRow(jtbCarrinho.getSelectedRow());
+//                            attDesconto();
+//                            jtSubTotal.setText("" + subTotal);
+//                            jtTotal.setText("" + total);
+//                        }
+//                    } else {
+//                        JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
+//                    }
+//                }
+//            } else {
+//                CarrinhoData DAO = new CarrinhoData();
+//                JogosOperacaoModel selecionado = united.get(jtbCarrinho.getSelectedRow() - (lista.size() - 1));
+//                if (DAO.removeItem(obj, selecionado)) {
+//                    subTotal -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorVender() * selecionado.getQuantidade();
+//                    total -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorVender() * selecionado.getQuantidade();
+//                    united.remove(jtbCarrinho.getSelectedRow());
+//                    mp.removeRow(jtbCarrinho.getSelectedRow());
+//                    attDesconto();
+//                    jtSubTotal.setText("" + subTotal);
+//                    jtTotal.setText("" + total);
+//                }
+//            }
+            if (!united.isEmpty()) {
+                subTotal -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+                total -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+                united.remove(jtbCarrinho.getSelectedRow());
+                mp.removeRow(jtbCarrinho.getSelectedRow());
+                attDesconto();
+                jtSubTotal.setText("" + subTotal);
+                jtTotal.setText("" + total);
             } else {
-                CarrinhoData DAO = new CarrinhoData();
-                JogosOperacaoModel selecionado = united.get(jtbCarrinho.getSelectedRow() - (lista.size() - 1));
-                if (DAO.removeItem(obj, selecionado)) {
-                    subTotal -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorVender() * selecionado.getQuantidade();
-                    total -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorVender() * selecionado.getQuantidade();
-                    united.remove(jtbCarrinho.getSelectedRow());
-                    mp.removeRow(jtbCarrinho.getSelectedRow());
-                    attDesconto();
-                    jtSubTotal.setText("" + subTotal);
-                    jtTotal.setText("" + total);
-                }
+                JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -395,8 +408,9 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
     private void jbFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFinalizarCompraActionPerformed
         try {
             if (!lista.isEmpty() || !car.isEmpty()) {
-                CarrinhoData DAO = new CarrinhoData();
-                carrinhoBanco();
+                //CarrinhoData DAO = new CarrinhoData();
+                //carrinhoBanco();
+                inserirCarBanco();
                 venda.setClienteModel(obj);
                 venda.setDesconto(percent);
                 venda.setValor(total);
@@ -531,16 +545,47 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         return true;
     }
 
+    public void getCarrinhoUlt() throws Exception {
+        mp.setNumRows(0);
+        CarrinhoData DAO = new CarrinhoData();
+        car = DAO.getCarrinho(obj);
+        for (JogosOperacaoModel list : car) {
+            united.add(list);
+        }
+        for (JogosOperacaoModel list : lista) {
+            united.add(list);
+        }
+        for (int i = 0; i < united.size() - 1; i++) {
+            for (int n = i + 1; n < united.size(); n++) {
+                if (n != i && united.get(i).getJogosModel().getIdJogos() == united.get(n).getJogosModel().getIdJogos()) {
+                    united.get(i).setQuantidade(united.get(i).getQuantidade() + united.get(n).getQuantidade());
+                    united.remove(n);
+                }
+            }
+        }
+        jbFinalizarCompra.setEnabled(true);
+        jbRemover.setEnabled(true);
+        for (JogosOperacaoModel list : united) {
+            subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade();
+            mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "R$" + list.getJogosModel().getQuantidadeDisponivel().getValorVender(), "" + list.getQuantidade(), "R$" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
+        }
+    }
+
     public void carregarCarrinho() throws Exception {
         mp.setNumRows(0);
         jbFinalizarCompra.setEnabled(true);
         jbRemover.setEnabled(true);
         for (JogosOperacaoModel list : lista) {
+            boolean ver = true;
             subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade();
-            if (list.getJogosModel().getTitulo().equals(mp.getValueAt(mp.getRowCount() - 1, 0))) {//errou
-                mp.setValueAt(obj, log, log);
-            } else {
-                mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
+            for (int i = 0; i < mp.getRowCount(); i++) {
+                if (list.getJogosModel().getTitulo().equals(mp.getValueAt(i, 0))) {
+                    mp.setValueAt(list.getQuantidade(), i, 2);
+                    ver = false;
+                }
+            }
+            if (ver) {
+                mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
             }
         }
         getCarrinho();
@@ -550,8 +595,17 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         CarrinhoData DAO = new CarrinhoData();
         car = DAO.getCarrinho(obj);
         for (JogosOperacaoModel list : car) {
+            boolean ver = true;
             subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade();
-            mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
+            for (int i = 0; i < mp.getRowCount(); i++) {
+                if (list.getJogosModel().getTitulo().equals(mp.getValueAt(i, 0))) {
+                    mp.setValueAt(list.getQuantidade(), i, 2);
+                    ver = false;
+                }
+            }
+            if (ver) {
+                mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
+            }
         }
         if (!lista.isEmpty()) {
             for (JogosOperacaoModel list : lista) {
@@ -571,6 +625,27 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
 //                throw new Exception("Não foi possível inserir no carrinho de sua conta!");
 //            }
 //        }
+    }
+
+    public void inserirCarBanco() throws Exception {
+        if (united.isEmpty()) {
+            for (JogosOperacaoModel list : car) {
+                united.add(list);
+            }
+            for (JogosOperacaoModel list : lista) {
+                united.add(list);
+            }
+        }
+        for (int i = 0; i < united.size() - 1; i++) {
+            for (int n = i + 1; n < united.size(); n++) {
+                if (n != i && united.get(i).getJogosModel().getIdJogos() == united.get(n).getJogosModel().getIdJogos()) {
+                    united.get(i).setQuantidade(united.get(i).getQuantidade() + united.get(n).getQuantidade());
+                    united.remove(n);
+                }
+            }
+        }
+        CarrinhoData DAO = new CarrinhoData();
+        DAO.inserirCar(united, obj);
     }
 
     public void attDesconto() {

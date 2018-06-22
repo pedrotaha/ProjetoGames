@@ -7,6 +7,9 @@ package br.com.ProjetoGames.view.Operacao;
 
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.model.VendaModel;
+import static br.com.ProjetoGames.view.control.ValidarCartaoCred.getCardID;
+import static br.com.ProjetoGames.view.control.ValidarCartaoCred.getCardName;
+import static br.com.ProjetoGames.view.control.ValidarCartaoCred.validCC;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -67,6 +70,8 @@ public class JFPagamento extends javax.swing.JFrame {
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
         setFake();
+        jtTotal.setText("" + venda.getValor());
+        carregarCombo();
     }
 
     /**
@@ -152,7 +157,7 @@ public class JFPagamento extends javax.swing.JFrame {
         getContentPane().add(jlParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(96, 223, -1, -1));
 
         jcbParcelas.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jcbParcelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>", "X1", "X2", "X3", "X4", "X5" }));
+        jcbParcelas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione>" }));
         getContentPane().add(jcbParcelas, new org.netbeans.lib.awtextra.AbsoluteConstraints(196, 220, -1, -1));
 
         jlNomeCartao.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -248,6 +253,11 @@ public class JFPagamento extends javax.swing.JFrame {
         jbFinalizar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jbFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Card_Payment_48px_1.png"))); // NOI18N
         jbFinalizar.setText("Finalizar");
+        jbFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbFinalizarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jbFinalizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 520, -1, -1));
 
         jbCancelar.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -301,6 +311,18 @@ public class JFPagamento extends javax.swing.JFrame {
             new JFCarrinhoVenda(obj, 1).setVisible(true);
         }
     }//GEN-LAST:event_jbCancelarActionPerformed
+
+    private void jbFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFinalizarActionPerformed
+        try {
+            if (validar()) {
+                if(preencherObj()){
+                    
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_jbFinalizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -383,6 +405,13 @@ public class JFPagamento extends javax.swing.JFrame {
         });
     }
 
+    public void carregarCombo() {
+        for (int i = 1; i < 6; i++) {
+            float total = venda.getValor() / i;
+            jcbParcelas.addItem(i + "X " + "R$ " + Math.round(total));
+        }
+    }
+
     public boolean validar() throws Exception {
         String msg = new String();
         if ((!jrbAvista.isSelected()) && (!jrbCartao.isSelected())) {
@@ -434,6 +463,9 @@ public class JFPagamento extends javax.swing.JFrame {
                 if (jcbParcelas.getSelectedIndex() == 0) {
                     msg += "Selecione um número de parcelas\n";
                 }
+                if (validarCartao().equals("This card is invalid or unsupported!")) {
+                    msg += "Cartão inválido ou não suportado\n";
+                }
             }
         }
         if (msg.length() == 0) {
@@ -445,6 +477,13 @@ public class JFPagamento extends javax.swing.JFrame {
 
     public boolean preencherObj() throws Exception {
         venda.setDataOperacao(dataAtual());
+        if (jrbCartao.isSelected()) {
+            venda.setFormaPagamento(validarCartao() + " " + jcbParcelas.getSelectedItem());
+        } else {
+            if (jrbAvista.isSelected()) {
+                venda.setFormaPagamento("À Vista: "+jtRecebido.getText()+" - Troco: "+jtTroco.getText());
+            }
+        }
         return true;
     }
 
@@ -577,6 +616,21 @@ public class JFPagamento extends javax.swing.JFrame {
     public Calendar dataAtual() {
         Calendar calen = Calendar.getInstance();
         return calen;
+    }
+
+    public String validarCartao() throws Exception {
+        String aCard = jtNumeroCartao.getText();
+        if (getCardID(aCard) > -1) {
+            String goodBad = new String();
+            if (validCC(aCard)) {
+                goodBad = "good";
+            } else {
+                goodBad = "bad";
+            }
+            return "This card is supported\nThis a " + getCardName(getCardID(aCard)) + "\nThe card number " + aCard + " is " + goodBad;
+        } else {
+            return ("This card is invalid or unsupported!");
+        }
     }
 
     public boolean isCPF(String CPF) {

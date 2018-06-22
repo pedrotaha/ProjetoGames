@@ -4,7 +4,6 @@ import br.com.ProjetoGames.model.JogosModel;
 import br.com.ProjetoGames.model.JogosOperacaoModel;
 import br.com.ProjetoGames.model.QuantidadeModel;
 import br.com.ProjetoGames.model.UsuarioModel;
-import br.com.ProjetoGames.model.VendaModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -78,7 +77,7 @@ public class CarrinhoData {
 
     public ArrayList<JogosOperacaoModel> getCarrinho(UsuarioModel obj) throws Exception {
         ArrayList<JogosOperacaoModel> carrinho = new ArrayList<>();
-        
+
         JogosModel jogo = new JogosModel();
         Conexao c = new Conexao();
         String sqla = "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'tbjogovend_tmp" + obj.getId() + "');";
@@ -201,14 +200,41 @@ public class CarrinhoData {
         throw new Exception("Erro ao remover o item do carrinho!");
     }
 
-    public boolean finalizarCompra(VendaModel venda, JogosOperacaoModel lista, UsuarioModel obj) {
-        //insere na tabela tbvendas os detalhes
-        //select * from tbjogovend_tmp+obj.getId()+";"
-        //resultado: insert on table tbjogovend
-        //select idjogos da tbjogovend_tmp+obj.getId()+";"
-        //para atualizar a quantidade restante em estoque na tabela tbquantidade
-        //"drop table tbjogovend_tmp+obj.getId()+";"
-        return true;
+    public boolean inserirCar(ArrayList<JogosOperacaoModel> op, UsuarioModel obj) throws Exception {
+        boolean ver = true;
+        Conexao c = new Conexao();
+        c.getConexao().setAutoCommit(false);
+        String sql1 = "create table if not exists tbjogovend_tmp" + obj.getId() + " as select * from tbjogovend where idvenda is null;";
+        PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
+        ps1.executeUpdate();
+        String sqla = "truncate table tbjogovend_tmp" + obj.getId() + ";";
+        PreparedStatement psa = c.getConexao().prepareStatement(sqla);
+        psa.executeUpdate();
+        for (JogosOperacaoModel list : op) {
+            String sql2 = "insert into tbjogovend_tmp" + obj.getId() + " (idjogo, quantidade) values (?,?)";
+            PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
+            ps2.setInt(1, list.getJogosModel().getIdJogos());
+            ps2.setInt(2, list.getQuantidade());
+            if (!(ps2.executeUpdate() > 0)) {
+                ver = false;
+                break;
+            }
+            ps2.close();
+        }
+        if (ver) {
+            c.getConexao().commit();
+            c.getConexao().setAutoCommit(true);
+            c.getConexao().close();
+            ps1.close();
+            psa.close();
+            return true;
+        }
+        c.getConexao().rollback();
+        c.getConexao().setAutoCommit(true);
+        c.getConexao().close();
+        ps1.close();
+        psa.close();
+        throw new Exception("Erro ao inserir no carrinho.");
     }
 
     public Calendar calendario(String data) throws Exception {
