@@ -64,6 +64,17 @@ public class VendaData extends OperacaoData {
                 ps4.executeUpdate();
                 ps4.close();
             }
+            for (JogosOperacaoModel list : lista) {
+                String sql6 = "update tbquantidade set quantidadeVender = quantidadeVender - ? where idjogo = ?";
+                PreparedStatement ps6 = c.getConexao().prepareStatement(sql6);
+                ps6.setInt(1, list.getQuantidade());
+                ps6.setInt(2, list.getJogosModel().getIdJogos());
+                ps6.executeUpdate();
+            }
+            String sql5 = "drop table if exists tbjogovend_tmp" + venda.getClienteModel().getId() + ";";
+            PreparedStatement ps5 = c.getConexao().prepareStatement(sql5);
+            ps5.executeUpdate();
+            ps5.close();
             c.getConexao().commit();
             c.getConexao().setAutoCommit(true);
             c.getConexao().close();

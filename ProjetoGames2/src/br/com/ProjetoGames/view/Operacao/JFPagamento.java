@@ -5,8 +5,10 @@
  */
 package br.com.ProjetoGames.view.Operacao;
 
+import br.com.ProjetoGames.data.VendaData;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.model.VendaModel;
+import br.com.ProjetoGames.view.JFPrincipal;
 import static br.com.ProjetoGames.view.control.ValidarCartaoCred.getCardID;
 import static br.com.ProjetoGames.view.control.ValidarCartaoCred.getCardName;
 import static br.com.ProjetoGames.view.control.ValidarCartaoCred.validCC;
@@ -316,7 +318,12 @@ public class JFPagamento extends javax.swing.JFrame {
         try {
             if (validar()) {
                 if(preencherObj()){
-                    
+                    VendaData DAO = new VendaData();
+                    if(DAO.finalizarCompra(venda)){
+                        JOptionPane.showMessageDialog(this, "Obrigado pela preferência!!!");
+                        dispose();
+                        new JFPrincipal(obj).setVisible(true);
+                    }
                 }
             }
         } catch (Exception e) {
