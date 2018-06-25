@@ -36,7 +36,7 @@ public class JFPagamento extends javax.swing.JFrame {
     int diaAtual = cal.get(Calendar.DAY_OF_MONTH);
     int mesAtual = cal.get(Calendar.MONTH) + 1;
     int log;
-    int recebido;
+    float recebido, troco;
 
     public JFPagamento() {
         initComponents();
@@ -317,9 +317,9 @@ public class JFPagamento extends javax.swing.JFrame {
     private void jbFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFinalizarActionPerformed
         try {
             if (validar()) {
-                if(preencherObj()){
+                if (preencherObj()) {
                     VendaData DAO = new VendaData();
-                    if(DAO.finalizarCompra(venda)){
+                    if (DAO.finalizarCompra(venda)) {
                         JOptionPane.showMessageDialog(this, "Obrigado pela preferência!!!");
                         dispose();
                         new JFPrincipal(obj).setVisible(true);
@@ -427,12 +427,16 @@ public class JFPagamento extends javax.swing.JFrame {
         if (jrbAvista.isSelected()) {
             if (jtRecebido.getText().equals("")) {
                 msg = "O campo Recebido deve ser preenchido\ncom a quantidade em dinheiro que o cliente pagou.\n";
-            }
-            String recebidoSt = jtRecebido.getText().replace(",", ".");
-            recebidoSt = jtRecebido.getText().trim();
-            recebido = Integer.parseInt(recebidoSt);
-            if (recebido - Integer.parseInt(jtTotal.getText()) > 0) {
-                msg += "O valor recebido não paga o total.\n";
+            } else {
+                String recebidoSt = jtRecebido.getText().replace(",", ".");
+                recebidoSt = jtRecebido.getText().trim();
+                recebido = Float.parseFloat(recebidoSt);
+                if (recebido - Float.parseFloat(jtTotal.getText()) < 0) {
+                    msg += "O valor recebido não paga o total.\n";
+                }else{
+                    troco = recebido - Float.parseFloat(jtTotal.getText());
+                    jtTroco.setText(""+troco);
+                }
             }
         } else {
             if (jrbCartao.isSelected()) {
@@ -488,7 +492,7 @@ public class JFPagamento extends javax.swing.JFrame {
             venda.setFormaPagamento(validarCartao() + " " + jcbParcelas.getSelectedItem());
         } else {
             if (jrbAvista.isSelected()) {
-                venda.setFormaPagamento("À Vista: "+jtRecebido.getText()+" - Troco: "+jtTroco.getText());
+                venda.setFormaPagamento("À Vista: " + jtRecebido.getText() + " - Troco: " + jtTroco.getText());
             }
         }
         return true;

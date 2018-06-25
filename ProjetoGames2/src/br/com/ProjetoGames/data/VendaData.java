@@ -32,8 +32,8 @@ public class VendaData extends OperacaoData {
         String sql1 = "insert into tbvendas (idcli,datacompra,hora,valor,formapagamento,tipo, desconto) values (?,?,?,?,?,?,?);";
         PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
         ps1.setInt(1, venda.getClienteModel().getId());
-        ps1.setString(2, dateFormat.format(venda.getDataOperacao()));
-        ps1.setString(3, fmt.format(venda.getDataOperacao()));
+        ps1.setString(2, dateFormat.format(venda.getDataOperacao().getTime())); 
+        ps1.setString(3, fmt.format(venda.getDataOperacao().getTime()));
         ps1.setFloat(4, venda.getValor());
         ps1.setString(5, venda.getFormaPagamento());
         ps1.setString(6, venda.getTipo());
@@ -56,7 +56,7 @@ public class VendaData extends OperacaoData {
                 lista.add(jogoOp);
             }
             for (JogosOperacaoModel list : lista) {
-                String sql4 = "insert into tbjogovend (idvenda, idjogo quantidade) values (?,?,?)";
+                String sql4 = "insert into tbJogoVend (idVenda, idJogo, quantidade) values (?,?,?)";
                 PreparedStatement ps4 = c.getConexao().prepareStatement(sql4);
                 ps4.setInt(1, id);
                 ps4.setInt(2, list.getJogosModel().getIdJogos());
