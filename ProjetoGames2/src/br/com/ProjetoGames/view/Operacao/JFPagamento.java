@@ -5,6 +5,7 @@
  */
 package br.com.ProjetoGames.view.Operacao;
 
+import br.com.ProjetoGames.data.Conexao;
 import br.com.ProjetoGames.data.VendaData;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.model.VendaModel;
@@ -22,6 +23,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -321,6 +327,7 @@ public class JFPagamento extends javax.swing.JFrame {
                     VendaData DAO = new VendaData();
                     if (DAO.finalizarCompra(venda)) {
                         JOptionPane.showMessageDialog(this, "Obrigado pela preferência!!!");
+                        gerarRelatorio();
                         dispose();
                         new JFPrincipal(obj).setVisible(true);
                     }
@@ -705,6 +712,19 @@ public class JFPagamento extends javax.swing.JFrame {
             }
         } catch (InputMismatchException erro) {
             return (false);
+        }
+    }
+    
+    public void gerarRelatorio(){
+        try {
+            Conexao con = new Conexao();
+            JasperReport relatorio = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\relatorio\\relatorioVenda.jasper");
+            JasperPrint impressao = JasperFillManager.fillReport(relatorio,
+                    null, con.getConexao());
+            JasperViewer visualizador = new JasperViewer(impressao, false);
+            visualizador.setVisible(true);
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Erro =" + erro.getMessage());
         }
     }
 }

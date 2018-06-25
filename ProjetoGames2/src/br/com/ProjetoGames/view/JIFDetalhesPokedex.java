@@ -444,7 +444,7 @@ public class JIFDetalhesPokedex extends javax.swing.JInternalFrame {
 
     public void randomImages() {
         try {
-            File dir = new File("C:\\Users\\Pedro\\Downloads\\Project content\\pokedex\\pokemon\\main-sprites\\black-white\\");
+            File dir = new File("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\black-white");
             File[] files = dir.listFiles();
             File file = null;
             Random rand = new Random(19700621 * obj.getId());
