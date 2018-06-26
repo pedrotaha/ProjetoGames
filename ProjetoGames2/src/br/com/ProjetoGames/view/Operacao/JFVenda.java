@@ -313,7 +313,11 @@ public class JFVenda extends javax.swing.JFrame {
                 jogoOp.setJogosModel(selecionado);
                 jogoOp.setQuantidade(Integer.parseInt(jtQuantidade.getText()));
                 lista.add(jogoOp);
-                JOptionPane.showMessageDialog(this, "Jogo " + selecionado.getTitulo() + "\nAdicionado com Sucesso!");
+                if (verEstoque()) {
+                    JOptionPane.showMessageDialog(this, "Jogo " + selecionado.getTitulo() + "\nAdicionado com Sucesso!");
+                }else{
+                    lista.remove(lista.size() - 1);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Quantidade maior que estoque disponível.");
             }
@@ -441,4 +445,20 @@ public class JFVenda extends javax.swing.JFrame {
             selecionado = new JogosModel();
         }
     }
+
+    public boolean verEstoque() {
+        try {
+            CarrinhoData DAO = new CarrinhoData();
+            if (DAO.verEstoque(lista.get(lista.size() - 1), obj)) {
+                return true;
+            } else {
+                JOptionPane.showMessageDialog(this, "Quantidade indisponível em estoque!", "Estoque", JOptionPane.INFORMATION_MESSAGE);
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+        return false;
+    }
+
 }

@@ -519,6 +519,7 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         try {
             ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
             if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nVoltar?", "Botão Voltar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+                attCarrinho();
                 dispose();
                 if (log == 0) {
                     new JFPrincipal(obj).setVisible(true);
@@ -652,4 +653,15 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
         total = subTotal - ((subTotal * percent) / 100);
         jtTotal.setText("" + total);
     }
+
+    public void attCarrinho() {
+        try {
+            if (!lista.isEmpty() || !car.isEmpty()) {
+                inserirCarBanco();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Finalizar Compra", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }
