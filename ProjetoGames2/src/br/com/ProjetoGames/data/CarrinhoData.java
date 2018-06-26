@@ -241,38 +241,45 @@ public class CarrinhoData {
         Conexao c = new Conexao();
         int quantidadeEstoque = 0;
         int quantidadeCar = 0;
-        String sql1 = "select idjogo, quantidade from tbjogovend_tmp" + obj.getId() + " where idjogo = " + jogoOp.getJogosModel().getIdJogos() + ";";
-        PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
-        ResultSet rs1 = ps1.executeQuery();
-        if (rs1.next()) {
-            quantidadeCar = rs1.getInt("quantidade");
-            quantidadeCar += jogoOp.getQuantidade();
-            String sql2 = "select quantidadevender from tbquantidade where idjogo = " + jogoOp.getJogosModel().getIdJogos() + ";";
-            PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
-            ResultSet rs2 = ps2.executeQuery();
-            while (rs2.next()) {
-                quantidadeEstoque = rs2.getInt("quantidadevender");
-                if ((quantidadeEstoque - quantidadeCar) < 0) {
-                    c.getConexao().close();
-                    ps1.close();
-                    rs1.close();
-                    ps2.close();
-                    rs2.close();
-                    return false;
+        String sqla = "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'tbjogovend_tmp" + obj.getId() + "');";
+        PreparedStatement psa = c.getConexao().prepareStatement(sqla);
+        ResultSet rsa = psa.executeQuery();
+        if (rsa.next()) {
+            if (rsa.getBoolean("exists")) {
+                String sql1 = "select idjogo, quantidade from tbjogovend_tmp" + obj.getId() + " where idjogo = " + jogoOp.getJogosModel().getIdJogos() + ";";
+                PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
+                ResultSet rs1 = ps1.executeQuery();
+                if (rs1.next()) {
+                    quantidadeCar = rs1.getInt("quantidade");
+                    quantidadeCar += jogoOp.getQuantidade();
+                    String sql2 = "select quantidadevender from tbquantidade where idjogo = " + jogoOp.getJogosModel().getIdJogos() + ";";
+                    PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
+                    ResultSet rs2 = ps2.executeQuery();
+                    while (rs2.next()) {
+                        quantidadeEstoque = rs2.getInt("quantidadevender");
+                        if ((quantidadeEstoque - quantidadeCar) < 0) {
+                            c.getConexao().close();
+                            ps1.close();
+                            rs1.close();
+                            ps2.close();
+                            rs2.close();
+                            return false;
+                        } else {
+                            c.getConexao().close();
+                            ps1.close();
+                            rs1.close();
+                            ps2.close();
+                            rs2.close();
+                            return true;
+                        }
+                    }
                 } else {
                     c.getConexao().close();
                     ps1.close();
                     rs1.close();
-                    ps2.close();
-                    rs2.close();
                     return true;
                 }
             }
-        } else {
-            c.getConexao().close();
-            ps1.close();
-            rs1.close();
-            return true;
         }
         return true;
     }

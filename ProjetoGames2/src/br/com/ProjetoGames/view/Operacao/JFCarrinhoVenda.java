@@ -72,6 +72,9 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
             if (!car.isEmpty()) {
                 jbFinalizarCompra.setEnabled(true);
                 jbRemover.setEnabled(true);
+                jtSubTotal.setText("" + subTotal);
+                total = subTotal;
+                jtTotal.setText("" + total);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
@@ -392,7 +395,7 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
                 mp.removeRow(jtbCarrinho.getSelectedRow());
                 attDesconto();
                 jtSubTotal.setText("" + subTotal);
-                jtTotal.setText("" + total);
+                jtTotal.setText("" + Math.round(total));
             } else {
                 JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
             }
@@ -651,7 +654,7 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
 
     public void attDesconto() {
         total = subTotal - ((subTotal * percent) / 100);
-        jtTotal.setText("" + total);
+        jtTotal.setText("" + Math.round(total));
     }
 
     public void attCarrinho() {

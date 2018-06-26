@@ -202,7 +202,7 @@ public class JFPagamento extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         jftDataValidadeC.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        getContentPane().add(jftDataValidadeC, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 410, 79, -1));
+        getContentPane().add(jftDataValidadeC, new org.netbeans.lib.awtextra.AbsoluteConstraints(273, 410, 100, -1));
 
         jlTotal.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlTotal.setText("Total à pagar:");
@@ -496,7 +496,7 @@ public class JFPagamento extends javax.swing.JFrame {
     public boolean preencherObj() throws Exception {
         venda.setDataOperacao(dataAtual());
         if (jrbCartao.isSelected()) {
-            venda.setFormaPagamento(validarCartao() + " " + jcbParcelas.getSelectedItem());
+            venda.setFormaPagamento(validarCartao() + " - " + jcbParcelas.getSelectedItem().toString());
         } else {
             if (jrbAvista.isSelected()) {
                 venda.setFormaPagamento("À Vista: " + jtRecebido.getText() + " - Troco: " + jtTroco.getText());
