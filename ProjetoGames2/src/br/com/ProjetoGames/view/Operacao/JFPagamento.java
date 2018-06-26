@@ -496,7 +496,8 @@ public class JFPagamento extends javax.swing.JFrame {
     public boolean preencherObj() throws Exception {
         venda.setDataOperacao(dataAtual());
         if (jrbCartao.isSelected()) {
-            venda.setFormaPagamento(validarCartao() + " - " + jcbParcelas.getSelectedItem().toString());
+            String cartao = validarCartao();
+            venda.setFormaPagamento("À Prazo: "+cartao +" - "+ jcbParcelas.getSelectedItem().toString());
         } else {
             if (jrbAvista.isSelected()) {
                 venda.setFormaPagamento("À Vista: " + jtRecebido.getText() + " - Troco: " + jtTroco.getText());
@@ -645,7 +646,7 @@ public class JFPagamento extends javax.swing.JFrame {
             } else {
                 goodBad = "bad";
             }
-            return "This card is supported\nThis a " + getCardName(getCardID(aCard)) + "\nThe card number " + aCard + " is " + goodBad;
+            return ("É um " + getCardName(getCardID(aCard)) + " - Número " + aCard);// + " " + goodBad;
         } else {
             return ("This card is invalid or unsupported!");
         }

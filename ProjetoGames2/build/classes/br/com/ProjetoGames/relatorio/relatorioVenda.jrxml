@@ -39,8 +39,8 @@ WHERE
 	<field name="imagem" class="java.lang.Object"/>
 	<field name="quantidadealugar" class="java.lang.Integer"/>
 	<field name="quantidadevender" class="java.lang.Integer"/>
-	<field name="valoralugar" class="java.lang.Double"/>
-	<field name="valorvender" class="java.lang.Double"/>
+	<field name="valoralugar" class="java.math.BigDecimal"/>
+	<field name="valorvender" class="java.math.BigDecimal"/>
 	<field name="id" class="java.lang.Integer"/>
 	<field name="nome" class="java.lang.String"/>
 	<field name="cpf" class="java.lang.String"/>
@@ -54,7 +54,7 @@ WHERE
 	<field name="idtipo" class="java.lang.Integer"/>
 	<field name="nivel" class="java.lang.Integer"/>
 	<field name="descriptionuser" class="java.lang.String"/>
-	<field name="totalLinha" class="java.lang.Double"/>
+	<field name="totalLinha" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
