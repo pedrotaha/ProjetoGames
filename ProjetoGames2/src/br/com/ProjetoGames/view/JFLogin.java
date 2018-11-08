@@ -26,7 +26,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
-
 /**
  *
  * @author Pedro
@@ -51,6 +50,7 @@ public class JFLogin extends javax.swing.JFrame {
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
+
     }
 
     /**
@@ -241,8 +241,8 @@ public class JFLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jlEsquecerMouseExited
 
     private void jlEsquecerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlEsquecerMouseClicked
-          new JFRecuperacaoSenha().setVisible(true);
-          dispose();
+        new JFRecuperacaoSenha().setVisible(true);
+        dispose();
 //        String email = JOptionPane.showInputDialog("Informe o seu e-mail:");
 //        String login = JOptionPane.showInputDialog("Informe o login");
 //        try {
@@ -328,7 +328,8 @@ public class JFLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField jpfSenha;
     private javax.swing.JTextField jtUsuario;
     // End of variables declaration//GEN-END:variables
-private void setIcon() {
+
+    private void setIcon() {
         ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\video-game-controller-icon.png");
         setIconImage(imagemTituloJanela.getImage());
     }
@@ -386,7 +387,7 @@ private void setIcon() {
         return sb.toString();
     }
 
-     public void sendEmail() {
+    public void sendEmail() {
         // Recipient's email ID needs to be mentioned.
         String to = obj.getEmail();
 
@@ -431,7 +432,7 @@ private void setIcon() {
 
             // first part (the html)
             BodyPart messageBodyPart = new MimeBodyPart();//WIDTH = \"229\" HEIGHT = \"300\"
-            String htmlText = "<H2 ALIGN = \"left\" STYLE = \" font-family = Arial; font-size: 12pt\"><img src=\"cid:image\" ALIGN = \"top\" >Ol&aacute; "+obj.getNome()+", esta &eacute; uma mensagem de recupera&ccedil;&atilde;o de senha da <BIG><BLINK>Garnet Games!</BLINK></BIG><br />Use esta senha tempor&aacute;ria: <BIG>"+obj.getSenha()+"</BIG></H2><br /><br />"
+            String htmlText = "<H2 ALIGN = \"left\" STYLE = \" font-family = Arial; font-size: 12pt\"><img src=\"cid:image\" ALIGN = \"top\" >Ol&aacute; " + obj.getNome() + ", esta &eacute; uma mensagem de recupera&ccedil;&atilde;o de senha da <BIG><BLINK>Garnet Games!</BLINK></BIG><br />Use esta senha tempor&aacute;ria: <BIG>" + obj.getSenha() + "</BIG></H2><br /><br />"
                     + "<H3 ALIGN = \"left\" STYLE = \" font-family = Arial; font-size: 12pt\">N&atilde;o foi voc&ecirc;? Entre no sistema com a senha tempor&aacute;ria e mude a senha para uma diferente da antiga.<br /><br /><br /><br /><br /><br />"
                     + "<HR SIZE = 2 WIDTH = 100% NOSHADE><br />Para entrar em contado com administrador do sistema envie um e-mail para <BIG><ADDRESS>pedro.m.taha@gmail.com</ADDRESS></BIG></H3>";
             messageBodyPart.setContent(htmlText, "text/html");
@@ -454,11 +455,11 @@ private void setIcon() {
             // Send message
             Transport.send(message);
 
-            JOptionPane.showMessageDialog(this,"Uma mensagem foi enviada para sua caixa de e-mails.");
+            JOptionPane.showMessageDialog(this, "Uma mensagem foi enviada para sua caixa de e-mails.");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
-    
+
 }

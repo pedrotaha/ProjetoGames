@@ -719,7 +719,7 @@ public class JFPagamento extends javax.swing.JFrame {
     public void gerarRelatorio(){
         try {
             Conexao con = new Conexao();
-            JasperReport relatorio = (JasperReport) JRLoader.loadObjectFromFile("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\relatorio\\relatorioVenda.jasper");
+            JasperReport relatorio = (JasperReport) JRLoader.loadObjectFromFile("src\\br\\com\\ProjetoGames\\relatorio\\relatorioVenda.jasper");
             JasperPrint impressao = JasperFillManager.fillReport(relatorio,
                     null, con.getConexao());
             JasperViewer visualizador = new JasperViewer(impressao, false);
