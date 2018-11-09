@@ -28,7 +28,6 @@ public class JFLocacao extends javax.swing.JFrame {
    UsuarioModel obj = new UsuarioModel();
     int frameCount;
     JIFDetalhesJogos janela = new JIFDetalhesJogos();
-   // JIFCarrinhoVenda janelaC = new JIFCarrinhoVenda();
     ArrayList<JogosModel> dados;
     ArrayList<JogosOperacaoModel> lista;
     JogosModel selecionado;
@@ -268,7 +267,7 @@ public class JFLocacao extends javax.swing.JFrame {
 
     private void jbAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAdicionarActionPerformed
         if (!jtQuantidade.getText().equals("")) {
-            if ((selecionado.getQuantidadeDisponivel().getQuantidadeVender() - Integer.parseInt(jtQuantidade.getText()) >= 0)) {
+            if ((selecionado.getQuantidadeDisponivel().getQuantidadeAlugar() - Integer.parseInt(jtQuantidade.getText()) >= 0)) {
                 JogosOperacaoModel jogoOp = new JogosOperacaoModel();
                 jogoOp.setJogosModel(selecionado);
                 jogoOp.setQuantidade(Integer.parseInt(jtQuantidade.getText()));
@@ -435,7 +434,7 @@ public class JFLocacao extends javax.swing.JFrame {
             jbAdicionar.setEnabled(true);
             jbDetalhes.setEnabled(true);
             for (JogosModel lista : dados) {
-                mp.addRow(new String[]{lista.getTitulo(), lista.getGenero(), lista.getPlataforma(), "R$ " + lista.getQuantidadeDisponivel().getValorVender()});
+                mp.addRow(new String[]{lista.getTitulo(), lista.getGenero(), lista.getPlataforma(), "R$ " + lista.getQuantidadeDisponivel().getValorAlugar()});
             }
         }
         if (jtPesquisar.getText().length() == 0) {

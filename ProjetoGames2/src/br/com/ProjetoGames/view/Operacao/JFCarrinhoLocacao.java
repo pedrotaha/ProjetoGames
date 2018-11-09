@@ -6,6 +6,7 @@
 package br.com.ProjetoGames.view.Operacao;
 
 import br.com.ProjetoGames.data.CarrinhoData;
+import br.com.ProjetoGames.data.CarrinhoLocacaoData;
 import br.com.ProjetoGames.model.JogosOperacaoModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.model.VendaModel;
@@ -38,7 +39,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
     float subTotal;
     ArrayList<JogosOperacaoModel> car = new ArrayList<>();
 
-public JFCarrinhoLocacao() {
+    public JFCarrinhoLocacao() {
         initComponents();
         lista = new ArrayList<>();
         log = 0;
@@ -51,7 +52,7 @@ public JFCarrinhoLocacao() {
         UIManager.put("OptionPane.buttonFont", font);
         mp = (DefaultTableModel) jtbCarrinho.getModel();
     }
-    
+
     public JFCarrinhoLocacao(UsuarioModel obj, int log) {
         initComponents();
         lista = new ArrayList<>();
@@ -133,6 +134,7 @@ public JFCarrinhoLocacao() {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Erro ao carregar o carrinho", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -368,52 +370,66 @@ public JFCarrinhoLocacao() {
 
     private void jbRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoverActionPerformed
         try {
-            //            if (united.isEmpty()) {
-            //                if (!lista.isEmpty()) {
-            //                    subTotal -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-            //                    total -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-            //                    lista.remove(jtbCarrinho.getSelectedRow());
-            //                    mp.removeRow(jtbCarrinho.getSelectedRow());
-            //                    attDesconto();
-            //                    jtSubTotal.setText("" + subTotal);
-            //                    jtTotal.setText("" + total);
-            //                } else {
-            //                    if (!car.isEmpty()) {
-            //                        CarrinhoData DAO = new CarrinhoData();
-            //                        if (DAO.removeItem(obj, car.get(jtbCarrinho.getSelectedRow()))) {
-            //                            subTotal -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-            //                            total -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-            //                            car.remove(jtbCarrinho.getSelectedRow());
-            //                            mp.removeRow(jtbCarrinho.getSelectedRow());
-            //                            attDesconto();
-            //                            jtSubTotal.setText("" + subTotal);
-            //                            jtTotal.setText("" + total);
-            //                        }
-            //                    } else {
-            //                        JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
-            //                    }
-            //                }
-            //            } else {
-            //                CarrinhoData DAO = new CarrinhoData();
-            //                JogosOperacaoModel selecionado = united.get(jtbCarrinho.getSelectedRow() - (lista.size() - 1));
-            //                if (DAO.removeItem(obj, selecionado)) {
-            //                    subTotal -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorVender() * selecionado.getQuantidade();
-            //                    total -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorVender() * selecionado.getQuantidade();
-            //                    united.remove(jtbCarrinho.getSelectedRow());
-            //                    mp.removeRow(jtbCarrinho.getSelectedRow());
-            //                    attDesconto();
-            //                    jtSubTotal.setText("" + subTotal);
-            //                    jtTotal.setText("" + total);
-            //                }
-            //            }
+//            if (united.isEmpty()) {
+//                if (!lista.isEmpty()) {
+//                    subTotal -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                    total -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                    lista.remove(jtbCarrinho.getSelectedRow());
+//                    mp.removeRow(jtbCarrinho.getSelectedRow());
+//                    attDesconto();
+//                    jtSubTotal.setText("" + subTotal);
+//                    jtTotal.setText("" + total);
+//                } else {
+//                    if (!car.isEmpty()) {
+//                        CarrinhoData DAO = new CarrinhoData();
+//                        if (DAO.removeItem(obj, car.get(jtbCarrinho.getSelectedRow()))) {
+//                            subTotal -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                            total -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                            car.remove(jtbCarrinho.getSelectedRow());
+//                            mp.removeRow(jtbCarrinho.getSelectedRow());
+//                            attDesconto();
+//                            jtSubTotal.setText("" + subTotal);
+//                            jtTotal.setText("" + total);
+//                        }
+//                    } else {
+//                        JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
+//                    }
+//                }
+//            } else {
+//                CarrinhoData DAO = new CarrinhoData();
+//                JogosOperacaoModel selecionado = united.get(jtbCarrinho.getSelectedRow() - (lista.size() - 1));
+//                if (DAO.removeItem(obj, selecionado)) {
+//                    subTotal -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorVender() * selecionado.getQuantidade();
+//                    total -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorVender() * selecionado.getQuantidade();
+//                    united.remove(jtbCarrinho.getSelectedRow());
+//                    mp.removeRow(jtbCarrinho.getSelectedRow());
+//                    attDesconto();
+//                    jtSubTotal.setText("" + subTotal);
+//                    jtTotal.setText("" + total);
+//                }
+//            }
+
             if (!united.isEmpty()) {
-                subTotal -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-                total -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-                united.remove(jtbCarrinho.getSelectedRow());
-                mp.removeRow(jtbCarrinho.getSelectedRow());
-                attDesconto();
-                jtSubTotal.setText("" + subTotal);
-                jtTotal.setText("" + Math.round(total));
+                if (jtbCarrinho.getSelectedRow() >= 0) {
+                    subTotal -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+                    total -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+                    united.remove(jtbCarrinho.getSelectedRow());
+                    mp.removeRow(jtbCarrinho.getSelectedRow());
+                    attDesconto();
+                    jtSubTotal.setText("" + subTotal);
+                    jtTotal.setText("" + Math.round(total));
+                    if (united.isEmpty()) {
+                        lista = new ArrayList<>();
+                        united = new ArrayList<>();
+                        car = new ArrayList<>();
+                        CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
+                        DAO.esvaziarCar(obj);
+                        jbFinalizarCompra.setEnabled(false);
+                        jbRemover.setEnabled(false);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Selecione o item novamente!");
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
             }
