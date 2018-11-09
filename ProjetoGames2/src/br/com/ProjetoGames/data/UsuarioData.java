@@ -218,49 +218,55 @@ public class UsuarioData {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
-        String sql1 = "Update tbendereco set pais=?, estado=?, cidade=?,bairro=?, rua=?, numero=?, cep=?, complemento=? where idusuario=?";
-        PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
-        ps1.setString(1, obj.getEnderecoModel().getPais());
-        ps1.setString(2, obj.getEnderecoModel().getEstado());
-        ps1.setString(3, obj.getEnderecoModel().getCidade());
-        ps1.setString(4, obj.getEnderecoModel().getBairro());
-        ps1.setString(5, obj.getEnderecoModel().getRua());
-        ps1.setInt(6, obj.getEnderecoModel().getNumero());
-        ps1.setString(7, obj.getEnderecoModel().getCep());
-        ps1.setString(8, obj.getEnderecoModel().getComplemento());
-        ps1.setInt(9, obj.getId());
-        if (ps1.executeUpdate() > 0) {
-            String sql2 = "Update tbusuarios set nome=?, cpf=?, telefone=?, email=?, sexo=?, datanasc=?, login=?, idtipo=?, datacadastro=? where id=?";
-            PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
-            ps2.setString(1, obj.getNome());
-            ps2.setString(2, obj.getCpf());
-            ps2.setString(3, obj.getTelefone());
-            ps2.setString(4, obj.getEmail());
-            ps2.setString(5, obj.getSexo());
-            ps2.setString(6, dateFormat.format(obj.getDataNasc().getTime()));
-            ps2.setString(7, obj.getLogin());
-            ps2.setInt(8, obj.getTipoUsuarioModel().getId());
-            ps2.setString(9, dateFormat.format(obj.getDataCadastro().getTime()));
-            ps2.setInt(10, obj.getId());
-            if (ps2.executeUpdate() > 0) {
-                c.getConexao().commit();
-                c.getConexao().setAutoCommit(true);
-                c.getConexao().close();
-                ps1.close();
-                ps2.close();
-                return true;
+        if (usuarioUnico(obj, obj.getId())) {
+            String sql1 = "Update tbendereco set pais=?, estado=?, cidade=?,bairro=?, rua=?, numero=?, cep=?, complemento=? where idusuario=?";
+            PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
+            ps1.setString(1, obj.getEnderecoModel().getPais());
+            ps1.setString(2, obj.getEnderecoModel().getEstado());
+            ps1.setString(3, obj.getEnderecoModel().getCidade());
+            ps1.setString(4, obj.getEnderecoModel().getBairro());
+            ps1.setString(5, obj.getEnderecoModel().getRua());
+            ps1.setInt(6, obj.getEnderecoModel().getNumero());
+            ps1.setString(7, obj.getEnderecoModel().getCep());
+            ps1.setString(8, obj.getEnderecoModel().getComplemento());
+            ps1.setInt(9, obj.getId());
+            if (ps1.executeUpdate() > 0) {
+                String sql2 = "Update tbusuarios set nome=?, cpf=?, telefone=?, email=?, sexo=?, datanasc=?, login=?, idtipo=?, datacadastro=? where id=?";
+                PreparedStatement ps2 = c.getConexao().prepareStatement(sql2);
+                ps2.setString(1, obj.getNome());
+                ps2.setString(2, obj.getCpf());
+                ps2.setString(3, obj.getTelefone());
+                ps2.setString(4, obj.getEmail());
+                ps2.setString(5, obj.getSexo());
+                ps2.setString(6, dateFormat.format(obj.getDataNasc().getTime()));
+                ps2.setString(7, obj.getLogin());
+                ps2.setInt(8, obj.getTipoUsuarioModel().getId());
+                ps2.setString(9, dateFormat.format(obj.getDataCadastro().getTime()));
+                ps2.setInt(10, obj.getId());
+                if (ps2.executeUpdate() > 0) {
+                    c.getConexao().commit();
+                    c.getConexao().setAutoCommit(true);
+                    c.getConexao().close();
+                    ps1.close();
+                    ps2.close();
+                    return true;
+                } else {
+                    c.getConexao().rollback();
+                    c.getConexao().setAutoCommit(true);
+                    c.getConexao().close();
+                    ps1.close();
+                    ps2.close();
+                    throw new Exception("Não foi possível atualizar.");
+                }
             } else {
                 c.getConexao().rollback();
                 c.getConexao().setAutoCommit(true);
-                c.getConexao().close();
-                ps1.close();
-                ps2.close();
-                throw new Exception("Não foi possível atualizar.");
+                throw new Exception("Não foi possível atualizar, erro no Endereço.");
             }
         } else {
             c.getConexao().rollback();
             c.getConexao().setAutoCommit(true);
-            throw new Exception("Não foi possível atualizar, erro no Endereço.");
+            throw new Exception("Não foi possível atualizar, e-mail ou login já existentes.");
         }
     }
 
@@ -290,23 +296,25 @@ public class UsuarioData {
         }
     }
 
-    public boolean usuarioUnico(UsuarioModel obj) throws Exception {
+    public boolean usuarioUnico(UsuarioModel obj, int except) throws Exception {
         ArrayList<UsuarioModel> lista = pesquisarTudo();
         String msg = new String();
         for (UsuarioModel list : lista) {
-            if (list.getLogin().equals(obj.getLogin())) {
-                msg += "Login já cadastrado!\n";
-                if (list.getEmail().equals(obj.getEmail())) {
-                    msg += "E-mail já cadastrado!\n";
-                }
-                throw new Exception(msg);
-            } else {
-                if (list.getEmail().equals(obj.getEmail())) {
-                    msg += "E-mail já cadastrado!\n";
-                    if (list.getLogin().equals(obj.getLogin())) {
-                        msg += "Login já cadastrado!\n";
+            if (list.getId() != except) {
+                if (list.getLogin().equals(obj.getLogin())) {
+                    msg += "Login já cadastrado!\n";
+                    if (list.getEmail().equals(obj.getEmail())) {
+                        msg += "E-mail já cadastrado!\n";
                     }
                     throw new Exception(msg);
+                } else {
+                    if (list.getEmail().equals(obj.getEmail())) {
+                        msg += "E-mail já cadastrado!\n";
+                        if (list.getLogin().equals(obj.getLogin())) {
+                            msg += "Login já cadastrado!\n";
+                        }
+                        throw new Exception(msg);
+                    }
                 }
             }
         }
@@ -319,14 +327,14 @@ public class UsuarioData {
         cal.setTime(sdf.parse(data));
         return cal;
     }
-    
-    public UsuarioModel pegarSenha(UsuarioModel obj)throws Exception{
+
+    public UsuarioModel pegarSenha(UsuarioModel obj) throws Exception {
         Conexao c = new Conexao();
         String sql = "select * from tbusuarios where id = ?";
         PreparedStatement ps = c.getConexao().prepareStatement(sql);
         ps.setInt(1, obj.getId());
         ResultSet rs = ps.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             obj.setSenha(rs.getString("senha"));
         }
         ps.close();
@@ -334,7 +342,7 @@ public class UsuarioData {
         c.getConexao().close();
         return obj;
     }
-    
+
     public boolean alterarSenha(UsuarioModel obj) throws Exception {
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);

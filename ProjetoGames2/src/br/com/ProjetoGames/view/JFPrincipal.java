@@ -369,7 +369,7 @@ public class JFPrincipal extends javax.swing.JFrame {
                     if (month < 10) {
                         smonth = "0" + month;
                     } else {
-                        smonth = "0" + month;
+                        smonth = "" + month;
                     }
                     if (hour < 10) {
                         shour = "0" + hour;

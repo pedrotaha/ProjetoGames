@@ -34,7 +34,7 @@ import javax.swing.event.InternalFrameEvent;
  * @author Pedro
  */
 public class JFCadCliente extends javax.swing.JFrame {
-
+    boolean edit;
     EnderecoModel end = new EnderecoModel();
     int frameCount;
     int frameCountF;
@@ -58,6 +58,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         atual = new UsuarioModel();
         janela = new JIFEndereco();
         janelaF = new JIFFuncionario();
+        edit = false;
         setIcon();
         windowsClosing();
         internoClosed();
@@ -79,6 +80,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         atual = new UsuarioModel();
         janela = new JIFEndereco();
         janelaF = new JIFFuncionario();
+        edit = false;
         setIcon();
         windowsClosing();
         internoClosed();
@@ -99,6 +101,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         janela = new JIFEndereco();
         janelaF = new JIFFuncionario();
         this.atual = atual;
+        edit = false;
         setIcon();
         windowsClosing();
         internoClosed();
@@ -119,6 +122,7 @@ public class JFCadCliente extends javax.swing.JFrame {
         loge = log;
         this.obj = obj;
         this.atual = atual;
+        edit = true;
         janela = new JIFEndereco(obj);
         janelaF = new JIFFuncionario(obj);
         setIcon();
@@ -404,7 +408,7 @@ public class JFCadCliente extends javax.swing.JFrame {
                     UsuarioData DAO = new UsuarioData();
                     FuncionarioData DAOF = new FuncionarioData();
                     if (obj.getId() <= 0) {
-                        if (DAO.usuarioUnico(obj)) {
+                        if (DAO.usuarioUnico(obj , -1)) {
                             if (jcbTipo.getSelectedIndex() <= 1) {//if (obj.getTipoUsuarioModel().getNivel() <= 1) {
                                 if (DAO.incluir(obj)) {
                                     JOptionPane.showMessageDialog(this, "Salvo com Sucesso\n", "Salvar", JOptionPane.INFORMATION_MESSAGE);
@@ -699,7 +703,7 @@ public class JFCadCliente extends javax.swing.JFrame {
                 msg += "O Usuário deve ter entre 3 e 40 caracteres\n";
             }
         }
-        if (loge != 2) {
+        if (!edit) {
             if (jpfSenha.getText().equals("")) {
                 msg += "A senha deve ser preenchida\n";
             } else {
