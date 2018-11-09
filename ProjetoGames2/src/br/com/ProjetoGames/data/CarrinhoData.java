@@ -77,7 +77,6 @@ public class CarrinhoData {
 
     public ArrayList<JogosOperacaoModel> getCarrinho(UsuarioModel obj) throws Exception {
         ArrayList<JogosOperacaoModel> carrinho = new ArrayList<>();
-
         JogosModel jogo = new JogosModel();
         Conexao c = new Conexao();
         String sqla = "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'tbjogovend_tmp" + obj.getId() + "');";
@@ -235,6 +234,38 @@ public class CarrinhoData {
         ps1.close();
         psa.close();
         throw new Exception("Erro ao inserir no carrinho.");
+    }
+
+    public boolean esvaziarCar(UsuarioModel obj) throws Exception {
+        Conexao c = new Conexao();
+        c.getConexao().setAutoCommit(false);
+        String sql1 = "SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'tbjogovend_tmp" + obj.getId() + "');";
+        PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
+        ResultSet rs1 = ps1.executeQuery();
+        if (rs1.next()) {
+            if (rs1.getBoolean("exists")) {
+                String sqla = "truncate table tbjogovend_tmp" + obj.getId() + ";";
+                PreparedStatement psa = c.getConexao().prepareStatement(sqla);
+                psa.executeUpdate();
+                String sql5 = "drop table if exists tbjogovend_tmp" + obj.getId() + ";";
+                PreparedStatement ps5 = c.getConexao().prepareStatement(sql5);
+                ps5.executeUpdate();
+                c.getConexao().commit();
+                c.getConexao().setAutoCommit(true);
+                c.getConexao().close();
+                ps1.close();
+                psa.close();
+                ps5.close();
+                rs1.close();
+                return true;
+            }
+        }
+        c.getConexao().commit();
+        c.getConexao().setAutoCommit(true);
+        c.getConexao().close();
+        ps1.close();
+        rs1.close();
+        return false;
     }
 
     public boolean verEstoque(JogosOperacaoModel jogoOp, UsuarioModel obj) throws Exception {

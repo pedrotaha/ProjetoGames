@@ -388,14 +388,28 @@ public class JFCarrinhoVenda extends javax.swing.JFrame {
 //                    jtTotal.setText("" + total);
 //                }
 //            }
+
             if (!united.isEmpty()) {
-                subTotal -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-                total -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-                united.remove(jtbCarrinho.getSelectedRow());
-                mp.removeRow(jtbCarrinho.getSelectedRow());
-                attDesconto();
-                jtSubTotal.setText("" + subTotal);
-                jtTotal.setText("" + Math.round(total));
+                if (jtbCarrinho.getSelectedRow() >= 0) {
+                    subTotal -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+                    total -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+                    united.remove(jtbCarrinho.getSelectedRow());
+                    mp.removeRow(jtbCarrinho.getSelectedRow());
+                    attDesconto();
+                    jtSubTotal.setText("" + subTotal);
+                    jtTotal.setText("" + Math.round(total));
+                    if (united.isEmpty()) {
+                        lista = new ArrayList<>();
+                        united = new ArrayList<>();
+                        car = new ArrayList<>();
+                        CarrinhoData DAO = new CarrinhoData();
+                        DAO.esvaziarCar(obj);
+                        jbFinalizarCompra.setEnabled(false);
+                        jbRemover.setEnabled(false);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Selecione o item novamente!");
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
             }

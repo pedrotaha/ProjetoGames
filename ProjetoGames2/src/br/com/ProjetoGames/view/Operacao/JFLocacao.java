@@ -28,7 +28,7 @@ public class JFLocacao extends javax.swing.JFrame {
    UsuarioModel obj = new UsuarioModel();
     int frameCount;
     JIFDetalhesJogos janela = new JIFDetalhesJogos();
-    JIFCarrinhoVenda janelaC = new JIFCarrinhoVenda();
+   // JIFCarrinhoVenda janelaC = new JIFCarrinhoVenda();
     ArrayList<JogosModel> dados;
     ArrayList<JogosOperacaoModel> lista;
     JogosModel selecionado;
