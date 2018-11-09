@@ -8,8 +8,8 @@ package br.com.ProjetoGames.view.Operacao;
 import br.com.ProjetoGames.data.CarrinhoData;
 import br.com.ProjetoGames.data.CarrinhoLocacaoData;
 import br.com.ProjetoGames.model.JogosOperacaoModel;
+import br.com.ProjetoGames.model.LocacaoModel;
 import br.com.ProjetoGames.model.UsuarioModel;
-import br.com.ProjetoGames.model.VendaModel;
 import br.com.ProjetoGames.view.JFPrincipal;
 import java.awt.Color;
 import java.awt.Font;
@@ -30,7 +30,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
 
     int percent;
     UsuarioModel obj = new UsuarioModel();
-    VendaModel venda = new VendaModel();
+    LocacaoModel locacao = new LocacaoModel();
     ArrayList<JogosOperacaoModel> lista;
     ArrayList<JogosOperacaoModel> united = new ArrayList<>();
     int log;
@@ -71,7 +71,8 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
             //getCarrinho();
             getCarrinhoUlt();
             if (!car.isEmpty()) {
-                jbFinalizarCompra.setEnabled(true);
+                jbFinalizarLocacao.setEnabled(true);
+                jbBuscarCliente.setEnabled(true);
                 jbRemover.setEnabled(true);
                 jtSubTotal.setText("" + subTotal);
                 total = subTotal;
@@ -127,7 +128,8 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
             total = subTotal;
             jtTotal.setText("" + total);
             if (!car.isEmpty()) {
-                jbFinalizarCompra.setEnabled(true);
+                jbFinalizarLocacao.setEnabled(true);
+                jbBuscarCliente.setEnabled(true);
                 jbRemover.setEnabled(true);
             }
         } catch (Exception e) {
@@ -151,7 +153,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         jlTotal = new javax.swing.JLabel();
         jlSubTotal = new javax.swing.JLabel();
         jtCupom = new javax.swing.JTextField();
-        jbFinalizarCompra = new javax.swing.JButton();
+        jbFinalizarLocacao = new javax.swing.JButton();
         jbRemover = new javax.swing.JButton();
         jlSifraSubTotal = new javax.swing.JLabel();
         jlCupom = new javax.swing.JLabel();
@@ -161,6 +163,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         jlDesconto = new javax.swing.JLabel();
         jtSubTotal = new javax.swing.JTextField();
         jlAplicar = new javax.swing.JLabel();
+        jbBuscarCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -205,13 +208,13 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
 
         jtCupom.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
 
-        jbFinalizarCompra.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jbFinalizarCompra.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Checkout_48px.png"))); // NOI18N
-        jbFinalizarCompra.setText("Finalizar Compra");
-        jbFinalizarCompra.setEnabled(false);
-        jbFinalizarCompra.addActionListener(new java.awt.event.ActionListener() {
+        jbFinalizarLocacao.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbFinalizarLocacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Checkout_48px.png"))); // NOI18N
+        jbFinalizarLocacao.setText("Finalizar Locação\n");
+        jbFinalizarLocacao.setEnabled(false);
+        jbFinalizarLocacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbFinalizarCompraActionPerformed(evt);
+                jbFinalizarLocacaoActionPerformed(evt);
             }
         });
 
@@ -264,6 +267,16 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
             }
         });
 
+        jbBuscarCliente.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jbBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Find_User_Male_48px.png"))); // NOI18N
+        jbBuscarCliente.setText("Pesquisar Cliente");
+        jbBuscarCliente.setEnabled(false);
+        jbBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarClienteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,109 +284,118 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jspCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbFinalizarCompra, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jbRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(40, 40, 40)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbBuscarCliente)
+                        .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlSifraTotal)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jlTotal)
-                            .addComponent(jlDesconto)
+                                .addGap(0, 47, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jbRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(50, 50, 50))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jlSifraTotal)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jlTotal)
+                                            .addComponent(jlDesconto)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jlMenos)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jlPorcentagem))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jtCupom, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jlCupom, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                                    .addComponent(jlSifraSubTotal)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(jtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(jlSubTotal, javax.swing.GroupLayout.Alignment.LEADING)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jlAplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jlMenos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jlPorcentagem))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jtCupom, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jlCupom, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jlSifraSubTotal)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jlSubTotal, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jlAplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jbFinalizarLocacao)
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jbRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jlSubTotal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlSifraSubTotal)
-                            .addComponent(jtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addComponent(jlCupom)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtCupom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlAplicar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jlDesconto)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jlPorcentagem)
-                            .addComponent(jlMenos))
-                        .addGap(36, 36, 36)
-                        .addComponent(jlTotal)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlSifraTotal)
-                            .addComponent(jtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jbFinalizarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jspCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addComponent(jbRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jlSubTotal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlSifraSubTotal)
+                    .addComponent(jtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(jlCupom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtCupom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlAplicar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jlDesconto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlPorcentagem)
+                    .addComponent(jlMenos))
+                .addGap(36, 36, 36)
+                .addComponent(jlTotal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlSifraTotal)
+                    .addComponent(jtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jbBuscarCliente)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jbFinalizarLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jspCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFinalizarCompraActionPerformed
+    private void jbFinalizarLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFinalizarLocacaoActionPerformed
         try {
             if (!lista.isEmpty() || !car.isEmpty()) {
+                //if(valCliente){
                 //CarrinhoData DAO = new CarrinhoData();
                 //carrinhoBanco();
                 inserirCarBanco();
-                venda.setClienteModel(obj);
-                venda.setDesconto(percent);
-                venda.setValor(total);
-                venda.setTipo("Entrega");
-                new JFPagamento(obj, venda, 1).setVisible(true);
+                locacao.setClienteModel(obj);
+                locacao.setDesconto(percent);
+                locacao.setValor(total);
+                //new JFPagamento(obj, locacao, 1).setVisible(true);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Finalizar Compra", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Finalizar Locação", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jbFinalizarCompraActionPerformed
+    }//GEN-LAST:event_jbFinalizarLocacaoActionPerformed
 
     private void jbRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRemoverActionPerformed
         try {
 //            if (united.isEmpty()) {
 //                if (!lista.isEmpty()) {
-//                    subTotal -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-//                    total -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                    subTotal -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorAlugar() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                    total -= lista.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorAlugar() * lista.get(jtbCarrinho.getSelectedRow()).getQuantidade();
 //                    lista.remove(jtbCarrinho.getSelectedRow());
 //                    mp.removeRow(jtbCarrinho.getSelectedRow());
 //                    attDesconto();
@@ -383,8 +405,8 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
 //                    if (!car.isEmpty()) {
 //                        CarrinhoData DAO = new CarrinhoData();
 //                        if (DAO.removeItem(obj, car.get(jtbCarrinho.getSelectedRow()))) {
-//                            subTotal -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-//                            total -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                            subTotal -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorAlugar() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+//                            total -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorAlugar() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
 //                            car.remove(jtbCarrinho.getSelectedRow());
 //                            mp.removeRow(jtbCarrinho.getSelectedRow());
 //                            attDesconto();
@@ -399,8 +421,8 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
 //                CarrinhoData DAO = new CarrinhoData();
 //                JogosOperacaoModel selecionado = united.get(jtbCarrinho.getSelectedRow() - (lista.size() - 1));
 //                if (DAO.removeItem(obj, selecionado)) {
-//                    subTotal -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorVender() * selecionado.getQuantidade();
-//                    total -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorVender() * selecionado.getQuantidade();
+//                    subTotal -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorAlugar() * selecionado.getQuantidade();
+//                    total -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorAlugar() * selecionado.getQuantidade();
 //                    united.remove(jtbCarrinho.getSelectedRow());
 //                    mp.removeRow(jtbCarrinho.getSelectedRow());
 //                    attDesconto();
@@ -411,8 +433,8 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
 
             if (!united.isEmpty()) {
                 if (jtbCarrinho.getSelectedRow() >= 0) {
-                    subTotal -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
-                    total -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorVender() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+                    subTotal -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorAlugar() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
+                    total -= united.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorAlugar() * united.get(jtbCarrinho.getSelectedRow()).getQuantidade();
                     united.remove(jtbCarrinho.getSelectedRow());
                     mp.removeRow(jtbCarrinho.getSelectedRow());
                     attDesconto();
@@ -424,7 +446,8 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
                         car = new ArrayList<>();
                         CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
                         DAO.esvaziarCar(obj);
-                        jbFinalizarCompra.setEnabled(false);
+                        jbFinalizarLocacao.setEnabled(false);
+                        jbBuscarCliente.setEnabled(false);
                         jbRemover.setEnabled(false);
                     }
                 } else {
@@ -437,7 +460,8 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
         if (car.isEmpty() && lista.isEmpty()) {
-            jbFinalizarCompra.setEnabled(false);
+            jbFinalizarLocacao.setEnabled(false);
+            jbBuscarCliente.setEnabled(false);
             jbRemover.setEnabled(false);
         }
     }//GEN-LAST:event_jbRemoverActionPerformed
@@ -463,6 +487,12 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         jlAplicar.setForeground(Color.BLACK);
     }//GEN-LAST:event_jlAplicarMouseExited
 
+    private void jbBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarClienteActionPerformed
+        //new JFPesquisarUsuario(log, search = true).setVisible(true);
+        //dispose();
+        
+    }//GEN-LAST:event_jbBuscarClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -474,7 +504,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -499,7 +529,8 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbFinalizarCompra;
+    private javax.swing.JButton jbBuscarCliente;
+    private javax.swing.JButton jbFinalizarLocacao;
     private javax.swing.JButton jbRemover;
     private javax.swing.JLabel jlAplicar;
     private javax.swing.JLabel jlCupom;
@@ -541,7 +572,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
                     new JFPrincipal(obj).setVisible(true);
                 } else {
                     if (log == 1) {
-                        new JFVenda(obj).setVisible(true);
+                        new JFLocacao(obj).setVisible(true);
                     }
                 }
             }
@@ -580,21 +611,23 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
                 }
             }
         }
-        jbFinalizarCompra.setEnabled(true);
+        jbFinalizarLocacao.setEnabled(true);
+        jbBuscarCliente.setEnabled(true);
         jbRemover.setEnabled(true);
         for (JogosOperacaoModel list : united) {
-            subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade();
-            mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "R$" + list.getJogosModel().getQuantidadeDisponivel().getValorVender(), "" + list.getQuantidade(), "R$" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
+            subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorAlugar() * list.getQuantidade();
+            mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "R$" + list.getJogosModel().getQuantidadeDisponivel().getValorAlugar(), "" + list.getQuantidade(), "R$" + list.getJogosModel().getQuantidadeDisponivel().getValorAlugar() * list.getQuantidade()});
         }
     }
 
     public void carregarCarrinho() throws Exception {
         mp.setNumRows(0);
-        jbFinalizarCompra.setEnabled(true);
+        jbFinalizarLocacao.setEnabled(true);
+        jbBuscarCliente.setEnabled(true);
         jbRemover.setEnabled(true);
         for (JogosOperacaoModel list : lista) {
             boolean ver = true;
-            subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade();
+            subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorAlugar() * list.getQuantidade();
             for (int i = 0; i < mp.getRowCount(); i++) {
                 if (list.getJogosModel().getTitulo().equals(mp.getValueAt(i, 0))) {
                     mp.setValueAt(list.getQuantidade(), i, 2);
@@ -602,7 +635,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
                 }
             }
             if (ver) {
-                mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
+                mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorAlugar(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorAlugar() * list.getQuantidade()});
             }
         }
         getCarrinho();
@@ -613,7 +646,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         car = DAO.getCarrinho(obj);
         for (JogosOperacaoModel list : car) {
             boolean ver = true;
-            subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade();
+            subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorAlugar() * list.getQuantidade();
             for (int i = 0; i < mp.getRowCount(); i++) {
                 if (list.getJogosModel().getTitulo().equals(mp.getValueAt(i, 0))) {
                     mp.setValueAt(list.getQuantidade(), i, 2);
@@ -621,7 +654,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
                 }
             }
             if (ver) {
-                mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorVender() * list.getQuantidade()});
+                mp.addRow(new String[]{list.getJogosModel().getTitulo(), list.getJogosModel().getPlataforma(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorAlugar(), "" + list.getQuantidade(), "" + list.getJogosModel().getQuantidadeDisponivel().getValorAlugar() * list.getQuantidade()});
             }
         }
         if (!lista.isEmpty()) {
@@ -676,7 +709,12 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
                 inserirCarBanco();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Finalizar Compra", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Finalizar Locação", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    
+    public boolean valCliente(){
+        
+        return true;
     }
 }

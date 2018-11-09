@@ -34,10 +34,12 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     ArrayList<FuncionarioModel> dadosF;
     UsuarioModel obj, selecionado;
     FuncionarioModel objF, selecionadoF;
+    boolean search;
 
     public JFPesquisarUsuario() {
         initComponents();
         frameCount = 0;
+        search = false;
         dados = new ArrayList<>();
         this.obj = new UsuarioModel();
         selecionado = new UsuarioModel();
@@ -54,11 +56,33 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     public JFPesquisarUsuario(UsuarioModel obj) {//Atual
         initComponents();
         frameCount = 0;
+        search = false;
         dados = new ArrayList<>();
         this.obj = obj;
         selecionado = new UsuarioModel();
         selecionadoF = new FuncionarioModel();
         dadosF = new ArrayList<>();
+        setIcon();
+        windowsClosing();
+        //internoClosed();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+    }
+
+    public JFPesquisarUsuario(int log, boolean search) {//Buscar Cliente para locacao
+        initComponents();
+        frameCount = 0;
+        this.search = search;
+        dados = new ArrayList<>();
+        this.obj = obj;
+        selecionado = new UsuarioModel();
+        selecionadoF = new FuncionarioModel();
+        dadosF = new ArrayList<>();
+        jbEditar.setVisible(false);
+        jbExcluir.setText("Selecionar");
+        ImageIcon imagemTitulojanelaT = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Add_User_Male_48px.png");
+        jbExcluir.setIcon(imagemTitulojanelaT);
         setIcon();
         windowsClosing();
         //internoClosed();
@@ -290,31 +314,36 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
-        if (selecionado.getId() > 0 || selecionadoF.getId() > 0) {
-            try {
-                if (JOptionPane.showConfirmDialog(this, "Deseja Realmente excluir o registro?",
-                        "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTitulojanelaT) == JOptionPane.YES_OPTION) {
-                    if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
-                        selecionado = dados.get(jtbUsuario.getSelectedRow());
-                        UsuarioData DAO = new UsuarioData();
-                        if (DAO.excluir(selecionado.getId())) {
-                            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
-                        }
-                    } else {
-                        FuncionarioData DAOF = new FuncionarioData();
-                        selecionadoF = DAOF.pesquisarObj(selecionado);
-                        if (DAOF.excluirF(selecionadoF.getId())) {
-                            JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+        if (!search) {
+            ImageIcon imagemTitulojanelaT = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+            if (selecionado.getId() > 0 || selecionadoF.getId() > 0) {
+                try {
+                    if (JOptionPane.showConfirmDialog(this, "Deseja Realmente excluir o registro?",
+                            "Botão excluir", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTitulojanelaT) == JOptionPane.YES_OPTION) {
+                        if (dados.get(jtbUsuario.getSelectedRow()).getTipoUsuarioModel().getNivel() == 0) {
+                            selecionado = dados.get(jtbUsuario.getSelectedRow());
+                            UsuarioData DAO = new UsuarioData();
+                            if (DAO.excluir(selecionado.getId())) {
+                                JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                            }
+                        } else {
+                            FuncionarioData DAOF = new FuncionarioData();
+                            selecionadoF = DAOF.pesquisarObj(selecionado);
+                            if (DAOF.excluirF(selecionadoF.getId())) {
+                                JOptionPane.showMessageDialog(this, "Excluido com sucesso");
+                            }
                         }
                     }
+                    selecionado = new UsuarioModel();
+                    selecionadoF = new FuncionarioModel();
+                    atualizarTabela();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Erro ao excluir:" + e.getMessage());
                 }
-                selecionado = new UsuarioModel();
-                selecionadoF = new FuncionarioModel();
-                atualizarTabela();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Erro ao excluir:" + e.getMessage());
             }
+        }else{
+            //new JFCarrinhoLocacao(UsuarioModel, log).setVisible(true);
+            //dispose();
         }
     }//GEN-LAST:event_jbExcluirActionPerformed
 
@@ -365,12 +394,12 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jtbUsuario;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
-        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
+        ImageIcon imagemTitulojanelaT = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
         setIconImage(imagemTitulojanelaT.getImage());
     }
 
     public void windowsClosing() {
-        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTitulojanelaT = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {

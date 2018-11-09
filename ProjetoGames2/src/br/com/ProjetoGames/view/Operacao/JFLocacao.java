@@ -69,7 +69,7 @@ public class JFLocacao extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jdpVenda = new javax.swing.JDesktopPane();
+        jdpLocad = new javax.swing.JDesktopPane();
         jlPesquisar = new javax.swing.JLabel();
         jtPesquisar = new javax.swing.JTextField();
         jlReaper = new javax.swing.JLabel();
@@ -84,7 +84,7 @@ public class JFLocacao extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Realizar Locação");
 
-        jdpVenda.setBackground(new java.awt.Color(255, 255, 255));
+        jdpLocad.setBackground(new java.awt.Color(255, 255, 255));
 
         jlPesquisar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlPesquisar.setText("Pesquisar:");
@@ -168,35 +168,35 @@ public class JFLocacao extends javax.swing.JFrame {
             }
         });
 
-        jdpVenda.setLayer(jlPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpVenda.setLayer(jtPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpVenda.setLayer(jlReaper, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpVenda.setLayer(jspPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpVenda.setLayer(jbAdicionar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpVenda.setLayer(jbDetalhes, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpVenda.setLayer(jlQuantidade, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpVenda.setLayer(jtQuantidade, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jdpVenda.setLayer(jbCarrinho, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jlPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jtPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jlReaper, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jspPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jbAdicionar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jbDetalhes, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jlQuantidade, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jtQuantidade, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jbCarrinho, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jdpVendaLayout = new javax.swing.GroupLayout(jdpVenda);
-        jdpVenda.setLayout(jdpVendaLayout);
-        jdpVendaLayout.setHorizontalGroup(
-            jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jdpVendaLayout.createSequentialGroup()
+        javax.swing.GroupLayout jdpLocadLayout = new javax.swing.GroupLayout(jdpLocad);
+        jdpLocad.setLayout(jdpLocadLayout);
+        jdpLocadLayout.setHorizontalGroup(
+            jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdpLocadLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jdpVendaLayout.createSequentialGroup()
-                        .addGroup(jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jdpLocadLayout.createSequentialGroup()
+                        .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jspPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbCarrinho))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                        .addGroup(jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jbDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jlReaper))
                         .addGap(35, 35, 35))
-                    .addGroup(jdpVendaLayout.createSequentialGroup()
+                    .addGroup(jdpLocadLayout.createSequentialGroup()
                         .addComponent(jlPesquisar)
                         .addGap(18, 18, 18)
                         .addComponent(jtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -206,17 +206,17 @@ public class JFLocacao extends javax.swing.JFrame {
                         .addComponent(jtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
-        jdpVendaLayout.setVerticalGroup(
-            jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jdpVendaLayout.createSequentialGroup()
+        jdpLocadLayout.setVerticalGroup(
+            jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jdpLocadLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlPesquisar)
                     .addComponent(jtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jlQuantidade)
                     .addComponent(jtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jdpVendaLayout.createSequentialGroup()
+                .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jdpLocadLayout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jbDetalhes)
                         .addGap(44, 44, 44)
@@ -224,7 +224,7 @@ public class JFLocacao extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jlReaper, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
-                    .addGroup(jdpVendaLayout.createSequentialGroup()
+                    .addGroup(jdpLocadLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jspPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
@@ -236,11 +236,11 @@ public class JFLocacao extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdpVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jdpLocad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdpVenda)
+            .addComponent(jdpLocad)
         );
 
         pack();
@@ -289,7 +289,7 @@ public class JFLocacao extends javax.swing.JFrame {
         try {
             if (frameCount == 0) {
                 if (selecionado.getIdJogos() > 0) {
-                    jdpVenda.add(janela);
+                    jdpLocad.add(janela);
                     janela.setVisible(true);
                     frameCount++;
                     tratarCampos(false);
@@ -363,7 +363,7 @@ public class JFLocacao extends javax.swing.JFrame {
     private javax.swing.JButton jbAdicionar;
     private javax.swing.JButton jbCarrinho;
     private javax.swing.JButton jbDetalhes;
-    private javax.swing.JDesktopPane jdpVenda;
+    private javax.swing.JDesktopPane jdpLocad;
     private javax.swing.JLabel jlPesquisar;
     private javax.swing.JLabel jlQuantidade;
     private javax.swing.JLabel jlReaper;
@@ -395,7 +395,7 @@ public class JFLocacao extends javax.swing.JFrame {
             public void internalFrameClosed(InternalFrameEvent e) {
                 tratarCampos(true);
                 frameCount--;
-                jdpVenda.remove(janela);
+                jdpLocad.remove(janela);
             }
         });
     }
@@ -415,7 +415,7 @@ public class JFLocacao extends javax.swing.JFrame {
     }
 
     public void tratarCampos(boolean n) {
-        jdpVenda.setEnabled(n);
+        jdpLocad.setEnabled(n);
         jtPesquisar.setEnabled(n);
         jtQuantidade.setEnabled(n);
         jtbPesquisar.setEnabled(n);
