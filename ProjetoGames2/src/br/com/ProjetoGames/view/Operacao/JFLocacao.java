@@ -5,7 +5,7 @@
  */
 package br.com.ProjetoGames.view.Operacao;
 
-import br.com.ProjetoGames.data.CarrinhoData;
+import br.com.ProjetoGames.data.CarrinhoLocacaoData;
 import br.com.ProjetoGames.data.JogosData;
 import br.com.ProjetoGames.model.JogosModel;
 import br.com.ProjetoGames.model.JogosOperacaoModel;
@@ -97,7 +97,7 @@ public class JFLocacao extends javax.swing.JFrame {
             }
         });
 
-        jlReaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/chibi_reaper_by_celestialrayna-db9xyc9 (2).png"))); // NOI18N
+        jlReaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/chibi_reaper_by_celestialrayna-db9xyc9 (loq).png"))); // NOI18N
 
         jtbPesquisar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jtbPesquisar.setModel(new javax.swing.table.DefaultTableModel(
@@ -192,12 +192,11 @@ public class JFLocacao extends javax.swing.JFrame {
                             .addComponent(jbCarrinho))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addGroup(jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jlReaper, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdpVendaLayout.createSequentialGroup()
-                                .addGroup(jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jbDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jbAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(40, 40, 40))))
+                            .addGroup(jdpVendaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jbDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbAdicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jlReaper))
+                        .addGap(35, 35, 35))
                     .addGroup(jdpVendaLayout.createSequentialGroup()
                         .addComponent(jlPesquisar)
                         .addGap(18, 18, 18)
@@ -308,14 +307,14 @@ public class JFLocacao extends javax.swing.JFrame {
 
     private void jbCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCarrinhoActionPerformed
         if (!lista.isEmpty()) {
-            new JFCarrinhoVenda(obj, 1, lista).setVisible(true);
+            new JFCarrinhoLocacao(obj, 1, lista).setVisible(true);
             dispose();
         } else {
             try {
-                CarrinhoData DAO = new CarrinhoData();
+                CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
                 ArrayList<JogosOperacaoModel> car = DAO.getCarrinho(obj);
                 if (!car.isEmpty()) {
-                    new JFCarrinhoVenda(obj, 1, car, 1).setVisible(true);
+                    new JFCarrinhoLocacao(obj, 1, car, 1).setVisible(true);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
@@ -448,7 +447,7 @@ public class JFLocacao extends javax.swing.JFrame {
 
     public boolean verEstoque() {
         try {
-            CarrinhoData DAO = new CarrinhoData();
+            CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
             if (DAO.verEstoque(lista.get(lista.size() - 1), obj)) {
                 return true;
             } else {

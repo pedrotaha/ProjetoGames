@@ -49,7 +49,8 @@ create table if not exists tblocacao(
  hora varchar(12) not null,
  dataDevolucao varchar(12) not null,
  valor float not null,  -- numeric(15,2)
- formaPagamento varchar(40) not null --cupom?
+ formaPagamento varchar(40) not null, --cupom?
+desconto integer
  --,constraint fk_tblocacao_tbjogos foreign key (idJogo) references tbJogos
 );
 
