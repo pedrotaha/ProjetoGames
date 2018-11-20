@@ -29,15 +29,16 @@ public class LocacaoData extends OperacaoData{
         SimpleDateFormat fmt = new SimpleDateFormat("HH:mm:ss");
         Conexao c = new Conexao();
         c.getConexao().setAutoCommit(false);
-        String sql1 = "insert into tblocacao (idcli,datacompra,hora,valor,formapagamento,datadevolucao, desconto) values (?,?,?,?,?,?,?);";
+        String sql1 = "insert into tblocacao (idcli,idfunc,datalocacao,hora,datadevolucao,valor,formapagamento, desconto) values (?,?,?,?,?,?,?,?);";
         PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
         ps1.setInt(1, locacao.getClienteModel().getId());
-        ps1.setString(2, dateFormat.format(locacao.getDataOperacao().getTime())); 
-        ps1.setString(3, fmt.format(locacao.getDataOperacao().getTime()));
-        ps1.setFloat(4, locacao.getValor());
-        ps1.setString(5, locacao.getFormaPagamento());
-        ps1.setString(6, dateFormat.format(locacao.getDataDevolucao().getTime())); 
-        ps1.setInt(7, locacao.getDesconto());
+        ps1.setInt(2, locacao.getFuncionarioModel().getId());
+        ps1.setString(3, dateFormat.format(locacao.getDataOperacao().getTime())); 
+        ps1.setString(4, fmt.format(locacao.getDataOperacao().getTime()));
+        ps1.setString(5, dateFormat.format(locacao.getDataDevolucao().getTime())); 
+        ps1.setFloat(6, locacao.getValor());
+        ps1.setString(7, locacao.getFormaPagamento());
+        ps1.setInt(8, locacao.getDesconto());
         if (ps1.executeUpdate() > 0) {
             int id = 0;
             String sql2 = "select max(idlocacao) as \"idlocacao\" from tblocacao;";

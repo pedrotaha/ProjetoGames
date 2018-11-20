@@ -78,7 +78,7 @@ public class JFLocacao extends javax.swing.JFrame {
         jtPesquisar.setEnabled(true);
         jtQuantidade.setEnabled(true);
         this.log = log;
-        jtAddCli.setText("Cliente: " + this.obj.getNome());
+        jtAddCli.setText("Cliente: " + this.cliente.getNome());
         setIcon();
         windowsClosing();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);

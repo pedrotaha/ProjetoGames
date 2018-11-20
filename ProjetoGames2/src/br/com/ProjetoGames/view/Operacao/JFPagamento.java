@@ -7,6 +7,7 @@ package br.com.ProjetoGames.view.Operacao;
 
 import br.com.ProjetoGames.data.Conexao;
 import br.com.ProjetoGames.data.VendaData;
+import br.com.ProjetoGames.model.LocacaoModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.model.VendaModel;
 import br.com.ProjetoGames.view.JFPrincipal;
@@ -37,6 +38,7 @@ public class JFPagamento extends javax.swing.JFrame {
 
     UsuarioModel obj = new UsuarioModel();
     VendaModel venda = new VendaModel();
+    LocacaoModel locacao = new LocacaoModel();
     Calendar cal = Calendar.getInstance();
     int anoAtual = cal.get(Calendar.YEAR);
     int diaAtual = cal.get(Calendar.DAY_OF_MONTH);
@@ -72,6 +74,21 @@ public class JFPagamento extends javax.swing.JFrame {
         this.obj = obj;
         this.log = log;
         this.venda = venda;
+        setIcon();
+        windowsClosing();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+        setFake();
+        jtTotal.setText("" + venda.getValor());
+        carregarCombo();
+    }
+
+    public JFPagamento(UsuarioModel obj, LocacaoModel locacao, int log) {
+        initComponents();
+        this.obj = obj;
+        this.log = log;
+        this.locacao = locacao;
         setIcon();
         windowsClosing();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
@@ -440,9 +457,9 @@ public class JFPagamento extends javax.swing.JFrame {
                 recebido = Float.parseFloat(recebidoSt);
                 if (recebido - Float.parseFloat(jtTotal.getText()) < 0) {
                     msg += "O valor recebido não paga o total.\n";
-                }else{
+                } else {
                     troco = recebido - Float.parseFloat(jtTotal.getText());
-                    jtTroco.setText(""+troco);
+                    jtTroco.setText("" + troco);
                 }
             }
         } else {
@@ -497,7 +514,7 @@ public class JFPagamento extends javax.swing.JFrame {
         venda.setDataOperacao(dataAtual());
         if (jrbCartao.isSelected()) {
             String cartao = validarCartao();
-            venda.setFormaPagamento("À Prazo: "+cartao +" - "+ jcbParcelas.getSelectedItem().toString());
+            venda.setFormaPagamento("À Prazo: " + cartao + " - " + jcbParcelas.getSelectedItem().toString());
         } else {
             if (jrbAvista.isSelected()) {
                 venda.setFormaPagamento("À Vista: " + jtRecebido.getText() + " - Troco: " + jtTroco.getText());
@@ -715,8 +732,8 @@ public class JFPagamento extends javax.swing.JFrame {
             return (false);
         }
     }
-    
-    public void gerarRelatorio(){
+
+    public void gerarRelatorio() {
         try {
             Conexao con = new Conexao();
             JasperReport relatorio = (JasperReport) JRLoader.loadObjectFromFile("src\\br\\com\\ProjetoGames\\relatorio\\relatorioVenda.jasper");

@@ -346,6 +346,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
             if (selecionado.getId() > 0 || selecionadoF.getId() > 0) {
                 selecionado = dados.get(jtbUsuario.getSelectedRow());
                 new JFLocacao(obj, 1, selecionado).setVisible(true);
+                dispose();
             }
         }
     }//GEN-LAST:event_jbExcluirActionPerformed

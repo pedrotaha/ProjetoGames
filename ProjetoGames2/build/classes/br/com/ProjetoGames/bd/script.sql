@@ -138,3 +138,5 @@ SELECT EXISTS (
    AND    table_name = 'tbjogovend_tmp1'
    );
 
+ALTER TABLE tblocacao ADD COLUMN desconto integer;
+
