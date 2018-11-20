@@ -10,6 +10,7 @@ import br.com.ProjetoGames.data.JogosData;
 import br.com.ProjetoGames.model.JogosModel;
 import br.com.ProjetoGames.model.JogosOperacaoModel;
 import br.com.ProjetoGames.model.UsuarioModel;
+import br.com.ProjetoGames.view.JFPesquisarUsuario;
 import br.com.ProjetoGames.view.JFPrincipal;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -26,11 +27,13 @@ import javax.swing.table.DefaultTableModel;
 public class JFLocacao extends javax.swing.JFrame {
 
    UsuarioModel obj = new UsuarioModel();
+   UsuarioModel cliente = new UsuarioModel();
     int frameCount;
     JIFDetalhesJogos janela = new JIFDetalhesJogos();
     ArrayList<JogosModel> dados;
     ArrayList<JogosOperacaoModel> lista;
     JogosModel selecionado;
+    int log;
     
     public JFLocacao() {
         initComponents();
@@ -39,6 +42,7 @@ public class JFLocacao extends javax.swing.JFrame {
         this.obj = new UsuarioModel();
         selecionado = new JogosModel();
         lista = new ArrayList<>();
+        log = 0;
         setIcon();
         windowsClosing();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
@@ -53,6 +57,28 @@ public class JFLocacao extends javax.swing.JFrame {
         lista = new ArrayList<>();
         this.obj = obj;
         selecionado = new JogosModel();
+        jtPesquisar.setEnabled(false);
+        jtQuantidade.setEnabled(false);
+        log = 0;
+        setIcon();
+        windowsClosing();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+    }
+    
+    public JFLocacao(UsuarioModel obj, int log, UsuarioModel cliente) {
+        initComponents();
+        frameCount = 0;
+        dados = new ArrayList<>();
+        lista = new ArrayList<>();
+        this.obj = obj;
+        this.cliente = cliente;
+        selecionado = new JogosModel();
+        jtPesquisar.setEnabled(true);
+        jtQuantidade.setEnabled(true);
+        this.log = log;
+        jtAddCli.setText("Cliente: " + this.obj.getNome());
         setIcon();
         windowsClosing();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
@@ -80,6 +106,8 @@ public class JFLocacao extends javax.swing.JFrame {
         jlQuantidade = new javax.swing.JLabel();
         jtQuantidade = new javax.swing.JTextField();
         jbCarrinho = new javax.swing.JButton();
+        jtAddCli = new javax.swing.JTextField();
+        jlAddCli = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Realizar Locação");
@@ -168,6 +196,19 @@ public class JFLocacao extends javax.swing.JFrame {
             }
         });
 
+        jtAddCli.setEditable(false);
+        jtAddCli.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jtAddCli.setText("Clique Aqui!");
+        jtAddCli.setEnabled(false);
+        jtAddCli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtAddCliMouseClicked(evt);
+            }
+        });
+
+        jlAddCli.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jlAddCli.setText("Adicionar ao Cliente:");
+
         jdpLocad.setLayer(jlPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpLocad.setLayer(jtPesquisar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpLocad.setLayer(jlReaper, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -177,6 +218,8 @@ public class JFLocacao extends javax.swing.JFrame {
         jdpLocad.setLayer(jlQuantidade, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpLocad.setLayer(jtQuantidade, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jdpLocad.setLayer(jbCarrinho, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jtAddCli, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdpLocad.setLayer(jlAddCli, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jdpLocadLayout = new javax.swing.GroupLayout(jdpLocad);
         jdpLocad.setLayout(jdpLocadLayout);
@@ -186,9 +229,15 @@ public class JFLocacao extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jdpLocadLayout.createSequentialGroup()
-                        .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jspPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbCarrinho))
+                            .addGroup(jdpLocadLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtAddCli, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jlAddCli))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jbCarrinho)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                         .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -227,9 +276,13 @@ public class JFLocacao extends javax.swing.JFrame {
                     .addGroup(jdpLocadLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jspPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jbCarrinho)
-                        .addContainerGap(62, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jlAddCli)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jbCarrinho)
+                            .addComponent(jtAddCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(47, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -306,14 +359,14 @@ public class JFLocacao extends javax.swing.JFrame {
 
     private void jbCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCarrinhoActionPerformed
         if (!lista.isEmpty()) {
-            new JFCarrinhoLocacao(obj, 1, lista).setVisible(true);
+            new JFCarrinhoLocacao(cliente, 1, lista, obj).setVisible(true);
             dispose();
         } else {
             try {
                 CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
-                ArrayList<JogosOperacaoModel> car = DAO.getCarrinho(obj);
+                ArrayList<JogosOperacaoModel> car = DAO.getCarrinho(cliente);
                 if (!car.isEmpty()) {
-                    new JFCarrinhoLocacao(obj, 1, car, 1).setVisible(true);
+                    new JFCarrinhoLocacao(cliente, 1, car, 1, obj).setVisible(true);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Carrinho Vazio!");
@@ -323,6 +376,11 @@ public class JFLocacao extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jbCarrinhoActionPerformed
+
+    private void jtAddCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtAddCliMouseClicked
+        new JFPesquisarUsuario(obj, 1, true).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jtAddCliMouseClicked
 
     /**
      * @param args the command line arguments
@@ -364,10 +422,12 @@ public class JFLocacao extends javax.swing.JFrame {
     private javax.swing.JButton jbCarrinho;
     private javax.swing.JButton jbDetalhes;
     private javax.swing.JDesktopPane jdpLocad;
+    private javax.swing.JLabel jlAddCli;
     private javax.swing.JLabel jlPesquisar;
     private javax.swing.JLabel jlQuantidade;
     private javax.swing.JLabel jlReaper;
     private javax.swing.JScrollPane jspPesquisar;
+    private javax.swing.JTextField jtAddCli;
     private javax.swing.JTextField jtPesquisar;
     private javax.swing.JTextField jtQuantidade;
     private javax.swing.JTable jtbPesquisar;
@@ -447,7 +507,7 @@ public class JFLocacao extends javax.swing.JFrame {
     public boolean verEstoque() {
         try {
             CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
-            if (DAO.verEstoque(lista.get(lista.size() - 1), obj)) {
+            if (DAO.verEstoque(lista.get(lista.size() - 1), cliente)) {
                 return true;
             } else {
                 JOptionPane.showMessageDialog(this, "Quantidade indisponível em estoque!", "Estoque", JOptionPane.INFORMATION_MESSAGE);

@@ -9,6 +9,7 @@ import br.com.ProjetoGames.data.FuncionarioData;
 import br.com.ProjetoGames.data.UsuarioData;
 import br.com.ProjetoGames.model.FuncionarioModel;
 import br.com.ProjetoGames.model.UsuarioModel;
+import br.com.ProjetoGames.view.Operacao.JFLocacao;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -70,7 +71,7 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
         UIManager.put("OptionPane.buttonFont", font);
     }
 
-    public JFPesquisarUsuario(int log, boolean search) {//Buscar Cliente para locacao
+    public JFPesquisarUsuario(UsuarioModel obj, int log, boolean search) {//Buscar Cliente para locacao
         initComponents();
         frameCount = 0;
         this.search = search;
@@ -341,9 +342,11 @@ public class JFPesquisarUsuario extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Erro ao excluir:" + e.getMessage());
                 }
             }
-        }else{
-            //new JFCarrinhoLocacao(UsuarioModel, log).setVisible(true);
-            //dispose();
+        } else {
+            if (selecionado.getId() > 0 || selecionadoF.getId() > 0) {
+                selecionado = dados.get(jtbUsuario.getSelectedRow());
+                new JFLocacao(obj, 1, selecionado).setVisible(true);
+            }
         }
     }//GEN-LAST:event_jbExcluirActionPerformed
 

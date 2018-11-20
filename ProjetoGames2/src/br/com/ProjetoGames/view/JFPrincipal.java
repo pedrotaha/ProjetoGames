@@ -66,7 +66,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         jdpPrincipal = new javax.swing.JDesktopPane();
         jlTime = new javax.swing.JLabel();
         jbRenovar = new javax.swing.JButton();
-        jbRegistro = new javax.swing.JButton();
         jbLocacao = new javax.swing.JButton();
         jbVenda = new javax.swing.JButton();
         jbCadJogo = new javax.swing.JButton();
@@ -104,18 +103,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         });
         jdpPrincipal.add(jbRenovar);
         jbRenovar.setBounds(0, 160, 250, 50);
-
-        jbRegistro.setBackground(new java.awt.Color(107, 164, 194));
-        jbRegistro.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jbRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Paste_40px.png"))); // NOI18N
-        jbRegistro.setText("Registros Gerais\n");
-        jbRegistro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbRegistroActionPerformed(evt);
-            }
-        });
-        jdpPrincipal.add(jbRegistro);
-        jbRegistro.setBounds(0, 400, 250, 50);
 
         jbLocacao.setBackground(new java.awt.Color(107, 164, 194));
         jbLocacao.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -247,10 +234,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jbLocacaoActionPerformed
 
-    private void jbRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRegistroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbRegistroActionPerformed
-
     private void jbRenovarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbRenovarActionPerformed
 
     }//GEN-LAST:event_jbRenovarActionPerformed
@@ -332,7 +315,6 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jbCadJogo;
     private javax.swing.JButton jbCadUsuario;
     private javax.swing.JButton jbLocacao;
-    private javax.swing.JButton jbRegistro;
     private javax.swing.JButton jbRenovar;
     private javax.swing.JButton jbVenda;
     private javax.swing.JDesktopPane jdpPrincipal;

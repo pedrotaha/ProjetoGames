@@ -30,6 +30,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
 
     int percent;
     UsuarioModel obj = new UsuarioModel();
+    UsuarioModel user = new UsuarioModel();
     LocacaoModel locacao = new LocacaoModel();
     ArrayList<JogosOperacaoModel> lista;
     ArrayList<JogosOperacaoModel> united = new ArrayList<>();
@@ -57,7 +58,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         initComponents();
         lista = new ArrayList<>();
         this.log = log;
-        this.obj = obj;
+        this.user = obj;
         total = 0;
         subTotal = 0;
         setIcon();
@@ -72,7 +73,6 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
             getCarrinhoUlt();
             if (!car.isEmpty()) {
                 jbFinalizarLocacao.setEnabled(true);
-                jbBuscarCliente.setEnabled(true);
                 jbRemover.setEnabled(true);
                 jtSubTotal.setText("" + subTotal);
                 total = subTotal;
@@ -83,11 +83,12 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         }
     }
 
-    public JFCarrinhoLocacao(UsuarioModel obj, int log, ArrayList<JogosOperacaoModel> lista) {
+    public JFCarrinhoLocacao(UsuarioModel obj, int log, ArrayList<JogosOperacaoModel> lista, UsuarioModel user) {
         initComponents();
         this.lista = lista;
         this.log = log;
         this.obj = obj;
+        this.user = user;
         total = 0;
         subTotal = 0;
         setIcon();
@@ -107,10 +108,11 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         }
     }
 
-    public JFCarrinhoLocacao(UsuarioModel obj, int log, ArrayList<JogosOperacaoModel> car, int dif) {
+    public JFCarrinhoLocacao(UsuarioModel obj, int log, ArrayList<JogosOperacaoModel> car, int dif, UsuarioModel user) {
         initComponents();
         this.car = car;
         this.log = log;
+        this.user = user;
         this.obj = obj;
         lista = new ArrayList<>();
         total = 0;
@@ -129,7 +131,6 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
             jtTotal.setText("" + total);
             if (!car.isEmpty()) {
                 jbFinalizarLocacao.setEnabled(true);
-                jbBuscarCliente.setEnabled(true);
                 jbRemover.setEnabled(true);
             }
         } catch (Exception e) {
@@ -163,7 +164,6 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         jlDesconto = new javax.swing.JLabel();
         jtSubTotal = new javax.swing.JTextField();
         jlAplicar = new javax.swing.JLabel();
-        jbBuscarCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -267,16 +267,6 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
             }
         });
 
-        jbBuscarCliente.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jbBuscarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Find_User_Male_48px.png"))); // NOI18N
-        jbBuscarCliente.setText("Pesquisar Cliente");
-        jbBuscarCliente.setEnabled(false);
-        jbBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbBuscarClienteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -284,86 +274,77 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jspCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 601, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbBuscarCliente)
-                        .addGap(24, 24, 24))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(0, 47, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 47, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jbRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(50, 50, 50))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jbRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(50, 50, 50))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jlSifraTotal)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jlTotal)
-                                            .addComponent(jlDesconto)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jlMenos)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jlPorcentagem))
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jtCupom, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jlCupom, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                    .addComponent(jlSifraSubTotal)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(jtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addComponent(jlSubTotal, javax.swing.GroupLayout.Alignment.LEADING)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jlAplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jbFinalizarLocacao)
-                                .addContainerGap())))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jlSifraTotal)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jlTotal)
+                                    .addComponent(jlDesconto)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jlMenos)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jlPorcentagem))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jtCupom, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jlCupom, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                            .addComponent(jlSifraSubTotal)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(jtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jlSubTotal, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jlAplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbFinalizarLocacao)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jbRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jlSubTotal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlSifraSubTotal)
-                    .addComponent(jtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addComponent(jlCupom)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtCupom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlAplicar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jlDesconto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jlPorcentagem)
-                    .addComponent(jlMenos))
-                .addGap(36, 36, 36)
-                .addComponent(jlTotal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jlSifraTotal)
-                    .addComponent(jtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbBuscarCliente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jbFinalizarLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jspCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(jlSubTotal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlSifraSubTotal)
+                            .addComponent(jtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addComponent(jlCupom)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtCupom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlAplicar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jlDesconto)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jtDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jlPorcentagem)
+                            .addComponent(jlMenos))
+                        .addGap(36, 36, 36)
+                        .addComponent(jlTotal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jlSifraTotal)
+                            .addComponent(jtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23)
+                        .addComponent(jbFinalizarLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jspCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -447,7 +428,6 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
                         CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
                         DAO.esvaziarCar(obj);
                         jbFinalizarLocacao.setEnabled(false);
-                        jbBuscarCliente.setEnabled(false);
                         jbRemover.setEnabled(false);
                     }
                 } else {
@@ -461,7 +441,6 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         }
         if (car.isEmpty() && lista.isEmpty()) {
             jbFinalizarLocacao.setEnabled(false);
-            jbBuscarCliente.setEnabled(false);
             jbRemover.setEnabled(false);
         }
     }//GEN-LAST:event_jbRemoverActionPerformed
@@ -486,12 +465,6 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
     private void jlAplicarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlAplicarMouseExited
         jlAplicar.setForeground(Color.BLACK);
     }//GEN-LAST:event_jlAplicarMouseExited
-
-    private void jbBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarClienteActionPerformed
-        //new JFPesquisarUsuario(log, search = true).setVisible(true);
-        //dispose();
-        
-    }//GEN-LAST:event_jbBuscarClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -529,7 +502,6 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jbBuscarCliente;
     private javax.swing.JButton jbFinalizarLocacao;
     private javax.swing.JButton jbRemover;
     private javax.swing.JLabel jlAplicar;
@@ -569,10 +541,10 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
                 attCarrinho();
                 dispose();
                 if (log == 0) {
-                    new JFPrincipal(obj).setVisible(true);
+                    new JFPrincipal(user).setVisible(true);
                 } else {
                     if (log == 1) {
-                        new JFLocacao(obj).setVisible(true);
+                        new JFLocacao(user, 1, obj).setVisible(true);
                     }
                 }
             }
@@ -612,7 +584,6 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
             }
         }
         jbFinalizarLocacao.setEnabled(true);
-        jbBuscarCliente.setEnabled(true);
         jbRemover.setEnabled(true);
         for (JogosOperacaoModel list : united) {
             subTotal += list.getJogosModel().getQuantidadeDisponivel().getValorAlugar() * list.getQuantidade();
@@ -623,7 +594,6 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
     public void carregarCarrinho() throws Exception {
         mp.setNumRows(0);
         jbFinalizarLocacao.setEnabled(true);
-        jbBuscarCliente.setEnabled(true);
         jbRemover.setEnabled(true);
         for (JogosOperacaoModel list : lista) {
             boolean ver = true;
