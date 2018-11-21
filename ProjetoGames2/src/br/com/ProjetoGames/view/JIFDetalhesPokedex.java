@@ -133,7 +133,7 @@ public class JIFDetalhesPokedex extends javax.swing.JInternalFrame {
                 jlVoltarMouseClicked(evt);
             }
         });
-        getContentPane().add(jlVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 0, 200, 50));
+        getContentPane().add(jlVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 210, 50));
 
         jlCpf.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlCpf.setText("CPF:");

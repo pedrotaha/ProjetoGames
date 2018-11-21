@@ -12,6 +12,7 @@ import br.com.ProjetoGames.model.JogosOperacaoModel;
 import br.com.ProjetoGames.model.UsuarioModel;
 import br.com.ProjetoGames.view.JFPesquisarUsuario;
 import br.com.ProjetoGames.view.JFPrincipal;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -26,15 +27,15 @@ import javax.swing.table.DefaultTableModel;
 
 public class JFLocacao extends javax.swing.JFrame {
 
-   UsuarioModel obj = new UsuarioModel();
-   UsuarioModel cliente = new UsuarioModel();
+    UsuarioModel obj = new UsuarioModel();
+    UsuarioModel cliente = new UsuarioModel();
     int frameCount;
     JIFDetalhesJogos janela = new JIFDetalhesJogos();
     ArrayList<JogosModel> dados;
     ArrayList<JogosOperacaoModel> lista;
     JogosModel selecionado;
     int log;
-    
+
     public JFLocacao() {
         initComponents();
         frameCount = 0;
@@ -49,7 +50,7 @@ public class JFLocacao extends javax.swing.JFrame {
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
     }
-    
+
     public JFLocacao(UsuarioModel obj) {
         initComponents();
         frameCount = 0;
@@ -66,7 +67,7 @@ public class JFLocacao extends javax.swing.JFrame {
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
     }
-    
+
     public JFLocacao(UsuarioModel obj, int log, UsuarioModel cliente) {
         initComponents();
         frameCount = 0;
@@ -204,6 +205,12 @@ public class JFLocacao extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtAddCliMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jtAddCliMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jtAddCliMouseExited(evt);
+            }
         });
 
         jlAddCli.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -238,7 +245,7 @@ public class JFLocacao extends javax.swing.JFrame {
                                     .addComponent(jlAddCli))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbCarrinho)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                         .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jbDetalhes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -282,14 +289,14 @@ public class JFLocacao extends javax.swing.JFrame {
                         .addGroup(jdpLocadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jbCarrinho)
                             .addComponent(jtAddCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(47, Short.MAX_VALUE))))
+                        .addContainerGap(137, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdpLocad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jdpLocad)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,7 +334,7 @@ public class JFLocacao extends javax.swing.JFrame {
                 lista.add(jogoOp);
                 if (verEstoque()) {
                     JOptionPane.showMessageDialog(this, "Jogo " + selecionado.getTitulo() + "\nAdicionado com Sucesso!");
-                }else{
+                } else {
                     lista.remove(lista.size() - 1);
                 }
             } else {
@@ -381,6 +388,14 @@ public class JFLocacao extends javax.swing.JFrame {
         new JFPesquisarUsuario(obj, 1, true).setVisible(true);
         dispose();
     }//GEN-LAST:event_jtAddCliMouseClicked
+
+    private void jtAddCliMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtAddCliMouseEntered
+        jtAddCli.setForeground(Color.RED);
+    }//GEN-LAST:event_jtAddCliMouseEntered
+
+    private void jtAddCliMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtAddCliMouseExited
+        jtAddCli.setForeground(Color.BLACK);
+    }//GEN-LAST:event_jtAddCliMouseExited
 
     /**
      * @param args the command line arguments
@@ -518,6 +533,5 @@ public class JFLocacao extends javax.swing.JFrame {
         }
         return false;
     }
-
 
 }

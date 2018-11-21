@@ -5,17 +5,42 @@
  */
 package br.com.ProjetoGames.view.Operacao;
 
+import br.com.ProjetoGames.model.UsuarioModel;
+import br.com.ProjetoGames.view.JFPrincipal;
+import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+
 /**
  *
  * @author Pedro
  */
 public class JFRenovarLocacao extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JFRenovarLocacao
-     */
+    UsuarioModel obj;
+    
     public JFRenovarLocacao() {
         initComponents();
+        obj = new UsuarioModel();
+        setIcon();
+        windowsClosing();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
+    }
+    
+    public JFRenovarLocacao(UsuarioModel obj) {
+        initComponents();
+        this.obj = obj;
+        setIcon();
+        windowsClosing();
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
+        UIManager.put("OptionPane.messageFont", font);
+        UIManager.put("OptionPane.buttonFont", font);
     }
 
     /**
@@ -81,4 +106,21 @@ public class JFRenovarLocacao extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    private void setIcon() {
+        ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Procurement_528px.png");
+        setIconImage(imagemTituloJanela.getImage());
+    }
+
+    public void windowsClosing() {
+        ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent we) {
+                if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
+                    dispose();
+                    new JFPrincipal(obj).setVisible(true);
+                }
+            }
+        });
+    }
 }

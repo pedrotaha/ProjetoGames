@@ -124,7 +124,7 @@ public class JIFDetalhesJogos extends javax.swing.JInternalFrame {
                 jlVoltarMouseClicked(evt);
             }
         });
-        getContentPane().add(jlVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 0, 200, 50));
+        getContentPane().add(jlVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 0, 210, 50));
 
         jlPublisher.setFont(new java.awt.Font("Nintendo DS BIOS", 1, 24)); // NOI18N
         jlPublisher.setText("Publicadora:");
