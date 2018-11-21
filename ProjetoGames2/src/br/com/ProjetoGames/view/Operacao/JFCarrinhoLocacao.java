@@ -54,11 +54,12 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         mp = (DefaultTableModel) jtbCarrinho.getModel();
     }
 
-    public JFCarrinhoLocacao(UsuarioModel obj, int log) {
+    public JFCarrinhoLocacao(UsuarioModel obj, int log, UsuarioModel user) {
         initComponents();
         lista = new ArrayList<>();
         this.log = log;
-        this.user = obj;
+        this.obj = obj;
+        this.user = user;
         total = 0;
         subTotal = 0;
         setIcon();
@@ -359,9 +360,10 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
                 //carrinhoBanco();
                 inserirCarBanco();
                 locacao.setClienteModel(obj);
+                locacao.setFuncionarioModel(user);
                 locacao.setDesconto(percent);
                 locacao.setValor(total);
-                //new JFPagamento(obj, locacao, 1).setVisible(true);
+                new JFPagamento(obj, locacao, 2).setVisible(true);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Carrinho Vazio!");

@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 public class OperacaoModel {
     private int id;
     private UsuarioModel clienteModel;
-    private FuncionarioModel funcionarioModel;
+    private UsuarioModel funcionarioModel;
     private JogosModel jogosModel;
     private Calendar dataOperacao;
     private float valor;
@@ -18,7 +18,7 @@ public class OperacaoModel {
     public OperacaoModel() {
         id = 0;
         clienteModel = new UsuarioModel();
-        funcionarioModel = new FuncionarioModel();
+        funcionarioModel = new UsuarioModel();
         jogosModel = new JogosModel();
         dataOperacao = new GregorianCalendar();
         valor = 0;
@@ -27,7 +27,7 @@ public class OperacaoModel {
         desconto = 0;
     }
 
-    public OperacaoModel(int id, UsuarioModel clienteModel, FuncionarioModel funcionarioModel, JogosModel jogosModel, Calendar dataOperacao, float valor, String formaPagamento, ArrayList<JogosOperacaoModel> jogosOperacaoModel, int desconto) {
+    public OperacaoModel(int id, UsuarioModel clienteModel, UsuarioModel funcionarioModel, JogosModel jogosModel, Calendar dataOperacao, float valor, String formaPagamento, ArrayList<JogosOperacaoModel> jogosOperacaoModel, int desconto) {
         this.id = id;
         this.clienteModel = clienteModel;
         this.funcionarioModel = funcionarioModel;
@@ -55,11 +55,11 @@ public class OperacaoModel {
         this.clienteModel = clienteModel;
     }
 
-    public FuncionarioModel getFuncionarioModel() {
+    public UsuarioModel getFuncionarioModel() {
         return funcionarioModel;
     }
 
-    public void setFuncionarioModel(FuncionarioModel funcionarioModel) {
+    public void setFuncionarioModel(UsuarioModel funcionarioModel) {
         this.funcionarioModel = funcionarioModel;
     }
 

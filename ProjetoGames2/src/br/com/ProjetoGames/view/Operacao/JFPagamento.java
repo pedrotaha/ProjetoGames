@@ -6,6 +6,7 @@
 package br.com.ProjetoGames.view.Operacao;
 
 import br.com.ProjetoGames.data.Conexao;
+import br.com.ProjetoGames.data.LocacaoData;
 import br.com.ProjetoGames.data.VendaData;
 import br.com.ProjetoGames.model.LocacaoModel;
 import br.com.ProjetoGames.model.UsuarioModel;
@@ -37,6 +38,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class JFPagamento extends javax.swing.JFrame {
 
     UsuarioModel obj = new UsuarioModel();
+    UsuarioModel user = new UsuarioModel();
     VendaModel venda = new VendaModel();
     LocacaoModel locacao = new LocacaoModel();
     Calendar cal = Calendar.getInstance();
@@ -89,13 +91,14 @@ public class JFPagamento extends javax.swing.JFrame {
         this.obj = obj;
         this.log = log;
         this.locacao = locacao;
+        this.user = locacao.getFuncionarioModel();
         setIcon();
         windowsClosing();
         Font font = new Font(Font.SANS_SERIF, Font.PLAIN, 30);
         UIManager.put("OptionPane.messageFont", font);
         UIManager.put("OptionPane.buttonFont", font);
         setFake();
-        jtTotal.setText("" + venda.getValor());
+        jtTotal.setText("" + locacao.getValor());
         carregarCombo();
     }
 
@@ -333,7 +336,13 @@ public class JFPagamento extends javax.swing.JFrame {
         ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nCancelar?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
             dispose();
-            new JFCarrinhoVenda(obj, 1).setVisible(true);
+            if (log == 1) {
+                new JFCarrinhoVenda(obj, 1).setVisible(true);
+            } else {
+                if (log == 2) {
+                    new JFCarrinhoLocacao(obj, 1, user).setVisible(true);
+                }
+            }
         }
     }//GEN-LAST:event_jbCancelarActionPerformed
 
@@ -341,12 +350,24 @@ public class JFPagamento extends javax.swing.JFrame {
         try {
             if (validar()) {
                 if (preencherObj()) {
-                    VendaData DAO = new VendaData();
-                    if (DAO.finalizarCompra(venda)) {
-                        JOptionPane.showMessageDialog(this, "Obrigado pela preferência!!!");
-                        gerarRelatorio();
-                        dispose();
-                        new JFPrincipal(obj).setVisible(true);
+                    if (log == 1) {
+                        VendaData DAO = new VendaData();
+                        if (DAO.finalizarCompra(venda)) {
+                            JOptionPane.showMessageDialog(this, "Obrigado pela preferência!!!");
+                            gerarRelatorio();
+                            dispose();
+                            new JFPrincipal(obj).setVisible(true);
+                        }
+                    }
+                } else {
+                    if (log == 2) {
+                        LocacaoData DAO = new LocacaoData();
+                        if (DAO.finalizarLocacao(locacao)) {
+                            JOptionPane.showMessageDialog(this, "Obrigado pela preferência!!!");
+                            gerarRelatorio();
+                            dispose();
+                            new JFPrincipal(user).setVisible(true);
+                        }
                     }
                 }
             }
@@ -437,9 +458,18 @@ public class JFPagamento extends javax.swing.JFrame {
     }
 
     public void carregarCombo() {
-        for (int i = 1; i < 6; i++) {
-            float total = venda.getValor() / i;
-            jcbParcelas.addItem(i + "X " + "R$ " + Math.round(total));
+        if (log == 1) {
+            for (int i = 1; i < 6; i++) {
+                float total = venda.getValor() / i;
+                jcbParcelas.addItem(i + "X " + "R$ " + Math.round(total));
+            }
+        } else {
+            if (log == 2) {
+                for (int i = 1; i < 6; i++) {
+                    float total = locacao.getValor() / i;
+                    jcbParcelas.addItem(i + "X " + "R$ " + Math.round(total));
+                }
+            }
         }
     }
 
@@ -511,16 +541,34 @@ public class JFPagamento extends javax.swing.JFrame {
     }
 
     public boolean preencherObj() throws Exception {
-        venda.setDataOperacao(dataAtual());
-        if (jrbCartao.isSelected()) {
-            String cartao = validarCartao();
-            venda.setFormaPagamento("À Prazo: " + cartao + " - " + jcbParcelas.getSelectedItem().toString());
+        if (log == 1) {
+            venda.setDataOperacao(dataAtual());
+            if (jrbCartao.isSelected()) {
+                String cartao = validarCartao();
+                venda.setFormaPagamento("À Prazo: " + cartao + " - " + jcbParcelas.getSelectedItem().toString());
+            } else {
+                if (jrbAvista.isSelected()) {
+                    venda.setFormaPagamento("À Vista: " + jtRecebido.getText() + " - Troco: " + jtTroco.getText());
+                }
+            }
+            return true;
         } else {
-            if (jrbAvista.isSelected()) {
-                venda.setFormaPagamento("À Vista: " + jtRecebido.getText() + " - Troco: " + jtTroco.getText());
+            if (log == 2) {
+                locacao.setDataOperacao(dataAtual());
+                locacao.setDataDevolucao(dataDevolucao());
+                if (jrbCartao.isSelected()) {
+                    String cartao = validarCartao();
+                    locacao.setFormaPagamento("À Prazo: " + cartao + " - " + jcbParcelas.getSelectedItem().toString());
+                } else {
+                    if (jrbAvista.isSelected()) {
+                        locacao.setFormaPagamento("À Vista: " + jtRecebido.getText() + " - Troco: " + jtTroco.getText());
+                    }
+                }
+                return true;
+            } else {
+                return false;
             }
         }
-        return true;
     }
 
     public void tratarCampos(boolean n) {
@@ -651,6 +699,12 @@ public class JFPagamento extends javax.swing.JFrame {
 
     public Calendar dataAtual() {
         Calendar calen = Calendar.getInstance();
+        return calen;
+    }
+    
+    public Calendar dataDevolucao() {
+        Calendar calen = Calendar.getInstance();
+        calen.add(calen.DAY_OF_MONTH, +3);
         return calen;
     }
 
