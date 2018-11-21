@@ -187,12 +187,12 @@ public class JIFFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtSalario;
     // End of variables declaration//GEN-END:variables
     public void mudarIcon() {
-        ImageIcon icon = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\icons8_Map_Pokemon_144px.png");
+        ImageIcon icon = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\icons8_Map_Pokemon_144px.png");
         this.setFrameIcon(icon);
     }
 
     public void sair() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nVoltar?", "Botão Voltar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
             try {
                 if (validar()) {

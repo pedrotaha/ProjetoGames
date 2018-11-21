@@ -327,7 +327,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmUsuario;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\video-game-controller-icon.png");
+        ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\Icones\\video-game-controller-icon.png");
         setIconImage(imagemTituloJanela.getImage());
     }
 
@@ -382,7 +382,7 @@ public class JFPrincipal extends javax.swing.JFrame {
     }
 
     public void windowsClosing() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {

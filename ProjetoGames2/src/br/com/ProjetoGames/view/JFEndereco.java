@@ -368,7 +368,7 @@ public class JFEndereco extends javax.swing.JFrame {
     private javax.swing.JTextField jtRua;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Add_User_Male_96px.png");
+        ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Add_User_Male_96px.png");
         setIconImage(imagemTituloJanela.getImage());
     }
 

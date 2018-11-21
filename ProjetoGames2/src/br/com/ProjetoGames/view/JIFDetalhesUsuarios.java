@@ -411,13 +411,13 @@ public class JIFDetalhesUsuarios extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     public void mudarIcon() {
-        ImageIcon icon = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Pokedex_528px.png");
+        ImageIcon icon = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Pokedex_528px.png");
         this.setFrameIcon(icon);
     }
 
     public void sair() {
         try {
-            ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+            ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
             if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nVoltar?", "Botão Voltar", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
                 obj = new UsuarioModel();
                 objFunc = new FuncionarioModel();

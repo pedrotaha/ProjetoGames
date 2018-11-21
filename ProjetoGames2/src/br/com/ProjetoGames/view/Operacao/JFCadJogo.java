@@ -287,7 +287,7 @@ public class JFCadJogo extends javax.swing.JFrame {
         jDesktopPane1.add(jtDir);
         jtDir.setBounds(170, 340, 310, 28);
 
-        jfcBuscar.setCurrentDirectory(new java.io.File("C:\\Users\\Pedro\\Pictures"));
+        jfcBuscar.setCurrentDirectory(new java.io.File("C:\\Users"));
         jfcBuscar.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jDesktopPane1.add(jfcBuscar);
         jfcBuscar.setBounds(550, 390, 650, 397);
@@ -430,7 +430,7 @@ public class JFCadJogo extends javax.swing.JFrame {
     }//GEN-LAST:event_jtQuantLocacaoKeyTyped
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         if (JOptionPane.showConfirmDialog(null, "Deseja \nRealmente \nSair?", "Botão Sair", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, imagemTituloJanela) == JOptionPane.YES_OPTION) {
             sair();
         }
@@ -533,12 +533,12 @@ public class JFCadJogo extends javax.swing.JFrame {
     private javax.swing.JTextField jtTitulo;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Overwatch_528px_1.png");
+        ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Overwatch_528px_1.png");
         setIconImage(imagemTituloJanela.getImage());
     }
 
     public void windowsClosing() {
-        ImageIcon imagemTituloJanela = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTituloJanela = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {

@@ -82,9 +82,7 @@ public class JFPesquisarJogo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pesquisar Jogos");
-        setMaximumSize(new java.awt.Dimension(930, 800));
         setMinimumSize(new java.awt.Dimension(930, 800));
-        setPreferredSize(new java.awt.Dimension(930, 800));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -213,7 +211,7 @@ public class JFPesquisarJogo extends javax.swing.JFrame {
     }//GEN-LAST:event_jbDetalhesActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTitulojanelaT = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         if (selecionado.getIdJogos() > 0) {
             try {
                 if (JOptionPane.showConfirmDialog(this, "Deseja Realmente excluir o registro?",
@@ -301,12 +299,12 @@ public class JFPesquisarJogo extends javax.swing.JFrame {
     private javax.swing.JTable jtbJogo;
     // End of variables declaration//GEN-END:variables
     private void setIcon() {
-        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\_Projetos\\ProjetoGames\\ProjetoGames2\\src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
+        ImageIcon imagemTitulojanelaT = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\Icones\\icons8_Find_User_Male_528px_1.png");
         setIconImage(imagemTitulojanelaT.getImage());
     }
 
     public void windowsClosing() {
-        ImageIcon imagemTitulojanelaT = new ImageIcon("C:\\Users\\Pedro\\Documents\\NetBeansProjects\\Luciene\\ProjetoGames\\src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
+        ImageIcon imagemTitulojanelaT = new ImageIcon("src\\br\\com\\ProjetoGames\\imagens\\524d20cabd4731dffd6453fb707ab1d2b2b11c52_00.gif");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent we) {
