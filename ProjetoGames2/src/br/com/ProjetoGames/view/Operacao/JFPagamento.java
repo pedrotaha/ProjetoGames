@@ -364,7 +364,7 @@ public class JFPagamento extends javax.swing.JFrame {
                         LocacaoData DAO = new LocacaoData();
                         if (DAO.finalizarLocacao(locacao)) {
                             JOptionPane.showMessageDialog(this, "Obrigado pela preferência!!!");
-                            gerarRelatorio();
+                            //gerarRelatorio();
                             dispose();
                             new JFPrincipal(user).setVisible(true);
                         }
@@ -701,7 +701,7 @@ public class JFPagamento extends javax.swing.JFrame {
         Calendar calen = Calendar.getInstance();
         return calen;
     }
-    
+
     public Calendar dataDevolucao() {
         Calendar calen = Calendar.getInstance();
         calen.add(calen.DAY_OF_MONTH, +3);
@@ -790,11 +790,21 @@ public class JFPagamento extends javax.swing.JFrame {
     public void gerarRelatorio() {
         try {
             Conexao con = new Conexao();
-            JasperReport relatorio = (JasperReport) JRLoader.loadObjectFromFile("src\\br\\com\\ProjetoGames\\relatorio\\relatorioVenda.jasper");
-            JasperPrint impressao = JasperFillManager.fillReport(relatorio,
-                    null, con.getConexao());
-            JasperViewer visualizador = new JasperViewer(impressao, false);
-            visualizador.setVisible(true);
+            if (log == 1) {
+                JasperReport relatorio = (JasperReport) JRLoader.loadObjectFromFile("src\\br\\com\\ProjetoGames\\relatorio\\relatorioVenda.jasper");
+                JasperPrint impressao = JasperFillManager.fillReport(relatorio,
+                        null, con.getConexao());
+                JasperViewer visualizador = new JasperViewer(impressao, false);
+                visualizador.setVisible(true);
+            } else {
+                if (log == 2) {
+                    JasperReport relatorio = (JasperReport) JRLoader.loadObjectFromFile("src\\br\\com\\ProjetoGames\\relatorio\\relatorioLocacao.jasper");
+                    JasperPrint impressao = JasperFillManager.fillReport(relatorio,
+                            null, con.getConexao());
+                    JasperViewer visualizador = new JasperViewer(impressao, false);
+                    visualizador.setVisible(true);
+                }
+            }
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Erro =" + erro.getMessage());
         }
