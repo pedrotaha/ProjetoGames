@@ -2,27 +2,29 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioVenda" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c06d72c6-adfd-43ad-89dc-fa9ee2795209">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="16"/>
 	<queryString>
 		<![CDATA[SELECT
      *,
-     t."descricao" AS descriptionuser, round(jv.quantidade * q.valorvender) as "totalLinha"
+     round(jv.quantidade*q.valoralugar) AS "totalLinha",
+     t."descricao" AS descriptionuser
 FROM
-     "tbvendas" v INNER JOIN "tbjogovend" jv ON v."idvenda" = jv."idvenda"
+     "tblocacao" v INNER JOIN "tbjogolocad" jv ON v."idlocacao" = jv."idlocacao"
      INNER JOIN "tbjogos" j ON jv."idjogo" = j."idjogos"
      INNER JOIN "tbquantidade" q ON j."idjogos" = q."idjogo"
      INNER JOIN "tbusuarios" u ON v."idcli" = u."id"
      INNER JOIN "tbtipousuarios" t ON u."idtipo" = t."idtipo"
 WHERE
-     v.idvenda = ( SELECT max(idvenda) FROM "tbvendas" )]]>
+     v.idlocacao = ( SELECT max(idlocacao) FROM "tblocacao" );]]>
 	</queryString>
-	<field name="idvenda" class="java.lang.Integer"/>
+	<field name="idlocacao" class="java.lang.Integer"/>
 	<field name="idcli" class="java.lang.Integer"/>
-	<field name="datacompra" class="java.lang.String"/>
+	<field name="idfunc" class="java.lang.Integer"/>
+	<field name="datalocacao" class="java.lang.String"/>
 	<field name="hora" class="java.lang.String"/>
-	<field name="valor" class="java.math.BigDecimal"/>
+	<field name="datadevolucao" class="java.lang.String"/>
+	<field name="valor" class="java.lang.Double"/>
 	<field name="formapagamento" class="java.lang.String"/>
-	<field name="tipo" class="java.lang.String"/>
 	<field name="desconto" class="java.lang.Integer"/>
 	<field name="idjogo" class="java.lang.Integer"/>
 	<field name="quantidade" class="java.lang.Integer"/>
@@ -53,8 +55,8 @@ WHERE
 	<field name="datacadastro" class="java.lang.String"/>
 	<field name="idtipo" class="java.lang.Integer"/>
 	<field name="nivel" class="java.lang.Integer"/>
-	<field name="descriptionuser" class="java.lang.String"/>
 	<field name="totalLinha" class="java.math.BigDecimal"/>
+	<field name="descriptionuser" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -195,7 +197,7 @@ WHERE
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{datacompra}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{datalocacao}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="15" y="11" width="175" height="20" uuid="92d254ff-a25d-4db2-b1e7-b06bce5ddb2d"/>
@@ -299,27 +301,41 @@ WHERE
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="117" splitType="Stretch">
+		<band height="110" splitType="Stretch">
 			<line>
 				<reportElement x="-17" y="20" width="589" height="1" uuid="a45e6d66-53d5-42af-8752-1baee19b2538"/>
 			</line>
 			<staticText>
-				<reportElement x="10" y="40" width="303" height="20" uuid="f928d174-a912-46ed-a6e2-2df6b73caf93"/>
+				<reportElement x="10" y="53" width="303" height="20" uuid="f928d174-a912-46ed-a6e2-2df6b73caf93"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Forma de Pagamento:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="10" y="60" width="547" height="30" uuid="16f4f011-b7a3-4345-b90e-f4a742155510"/>
+				<reportElement x="10" y="73" width="547" height="30" uuid="16f4f011-b7a3-4345-b90e-f4a742155510"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{formapagamento}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="-17" y="100" width="589" height="1" uuid="192725d2-1caf-4215-b43b-1097c38b0fa4"/>
+				<reportElement x="-17" y="108" width="589" height="1" uuid="192725d2-1caf-4215-b43b-1097c38b0fa4"/>
 			</line>
+			<staticText>
+				<reportElement x="10" y="20" width="142" height="20" uuid="cc7bb565-011c-4164-a394-9387c5ad0a9e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de devolução:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="177" y="20" width="126" height="20" uuid="0b525fc6-55ab-4da9-9ad3-df203e2db0d2"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datadevolucao}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
@@ -338,56 +354,56 @@ WHERE
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="124" splitType="Stretch">
+		<band height="114" splitType="Stretch">
 			<textField>
-				<reportElement x="484" y="98" width="67" height="24" uuid="233aa533-9c92-4a20-873d-68fda57a52c7"/>
+				<reportElement x="484" y="83" width="67" height="24" uuid="233aa533-9c92-4a20-873d-68fda57a52c7"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="464" y="79" width="84" height="20" uuid="5419c9c3-970d-4cea-b32e-c5cf8095c13f"/>
+				<reportElement x="464" y="64" width="84" height="20" uuid="5419c9c3-970d-4cea-b32e-c5cf8095c13f"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="464" y="32" width="84" height="20" uuid="b0de1643-f131-4790-adea-887d4c48afca"/>
+				<reportElement x="464" y="17" width="84" height="20" uuid="b0de1643-f131-4790-adea-887d4c48afca"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Desconto:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="491" y="52" width="45" height="24" uuid="8f433867-47c2-41cb-bbbf-03e0b80d0b11"/>
+				<reportElement x="491" y="37" width="45" height="24" uuid="8f433867-47c2-41cb-bbbf-03e0b80d0b11"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{desconto}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="455" y="31" width="100" height="1" uuid="37a6b309-8076-47c6-b02b-9090924e34bc"/>
+				<reportElement x="455" y="16" width="100" height="1" uuid="37a6b309-8076-47c6-b02b-9090924e34bc"/>
 			</line>
 			<line>
-				<reportElement x="455" y="32" width="1" height="92" uuid="d962d4b2-ff4c-4bad-b215-2ef7f3c4df9f"/>
+				<reportElement x="455" y="17" width="1" height="92" uuid="d962d4b2-ff4c-4bad-b215-2ef7f3c4df9f"/>
 			</line>
 			<line>
-				<reportElement x="456" y="122" width="100" height="1" uuid="7098e3ad-28e4-4282-b3c6-fb2b8a360014"/>
+				<reportElement x="456" y="107" width="100" height="1" uuid="7098e3ad-28e4-4282-b3c6-fb2b8a360014"/>
 			</line>
 			<line>
-				<reportElement x="556" y="30" width="1" height="92" uuid="4f30e5f2-e840-46a9-9f03-0dae87870e80"/>
+				<reportElement x="556" y="15" width="1" height="92" uuid="4f30e5f2-e840-46a9-9f03-0dae87870e80"/>
 			</line>
 			<staticText>
-				<reportElement x="466" y="98" width="22" height="19" uuid="5c39d237-8fb9-4e80-9c1d-1f9f708672c3"/>
+				<reportElement x="466" y="83" width="22" height="19" uuid="5c39d237-8fb9-4e80-9c1d-1f9f708672c3"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[R$]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="469" y="52" width="22" height="19" uuid="499c84c0-d410-4ab1-bbf9-a867e06eab56"/>
+				<reportElement x="469" y="37" width="22" height="19" uuid="499c84c0-d410-4ab1-bbf9-a867e06eab56"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>

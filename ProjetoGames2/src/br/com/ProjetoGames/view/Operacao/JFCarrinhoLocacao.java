@@ -5,7 +5,6 @@
  */
 package br.com.ProjetoGames.view.Operacao;
 
-import br.com.ProjetoGames.data.CarrinhoData;
 import br.com.ProjetoGames.data.CarrinhoLocacaoData;
 import br.com.ProjetoGames.model.JogosOperacaoModel;
 import br.com.ProjetoGames.model.LocacaoModel;
@@ -350,13 +349,14 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbFinalizarLocacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFinalizarLocacaoActionPerformed
         try {
             if (!lista.isEmpty() || !car.isEmpty()) {
                 //if(valCliente){
-                //CarrinhoData DAO = new CarrinhoData();
+                //CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
                 //carrinhoBanco();
                 inserirCarBanco();
                 locacao.setClienteModel(obj);
@@ -386,7 +386,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
 //                    jtTotal.setText("" + total);
 //                } else {
 //                    if (!car.isEmpty()) {
-//                        CarrinhoData DAO = new CarrinhoData();
+//                        CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
 //                        if (DAO.removeItem(obj, car.get(jtbCarrinho.getSelectedRow()))) {
 //                            subTotal -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorAlugar() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
 //                            total -= car.get(jtbCarrinho.getSelectedRow()).getJogosModel().getQuantidadeDisponivel().getValorAlugar() * car.get(jtbCarrinho.getSelectedRow()).getQuantidade();
@@ -401,7 +401,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
 //                    }
 //                }
 //            } else {
-//                CarrinhoData DAO = new CarrinhoData();
+//                CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
 //                JogosOperacaoModel selecionado = united.get(jtbCarrinho.getSelectedRow() - (lista.size() - 1));
 //                if (DAO.removeItem(obj, selecionado)) {
 //                    subTotal -= selecionado.getJogosModel().getQuantidadeDisponivel().getValorAlugar() * selecionado.getQuantidade();
@@ -558,7 +558,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
     public boolean validarCupom() {
         try {
             if (!jtCupom.getText().equals("")) {
-                CarrinhoData CDAO = new CarrinhoData();
+                CarrinhoLocacaoData CDAO = new CarrinhoLocacaoData();
                 percent = CDAO.validarCupom(jtCupom.getText(), obj);
             }
         } catch (Exception e) {
@@ -569,7 +569,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
 
     public void getCarrinhoUlt() throws Exception {
         mp.setNumRows(0);
-        CarrinhoData DAO = new CarrinhoData();
+        CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
         car = DAO.getCarrinho(obj);
         for (JogosOperacaoModel list : car) {
             united.add(list);
@@ -614,7 +614,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
     }
 
     public void getCarrinho() throws Exception {
-        CarrinhoData DAO = new CarrinhoData();
+        CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
         car = DAO.getCarrinho(obj);
         for (JogosOperacaoModel list : car) {
             boolean ver = true;
@@ -640,7 +640,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
     }
 
     public void carrinhoBanco() throws Exception {
-        CarrinhoData DAO = new CarrinhoData();
+        CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
         DAO.inserirCarrinhoCompleto(lista, obj);
 //        for (JogosOperacaoModel list : lista) {
 //            if (!DAO.inserirCarrinho(list, obj)) {
@@ -666,7 +666,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
                 }
             }
         }
-        CarrinhoData DAO = new CarrinhoData();
+        CarrinhoLocacaoData DAO = new CarrinhoLocacaoData();
         DAO.inserirCar(united, obj);
     }
 

@@ -358,15 +358,15 @@ public class JFPagamento extends javax.swing.JFrame {
                             dispose();
                             new JFPrincipal(obj).setVisible(true);
                         }
-                    }
-                } else {
-                    if (log == 2) {
-                        LocacaoData DAO = new LocacaoData();
-                        if (DAO.finalizarLocacao(locacao)) {
-                            JOptionPane.showMessageDialog(this, "Obrigado pela preferência!!!");
-                            //gerarRelatorio();
-                            dispose();
-                            new JFPrincipal(user).setVisible(true);
+                    } else {
+                        if (log == 2) {
+                            LocacaoData DAO = new LocacaoData();
+                            if (DAO.finalizarLocacao(locacao)) {
+                                JOptionPane.showMessageDialog(this, "Obrigado pela preferência!!!");
+                                //gerarRelatorio();
+                                dispose();
+                                new JFPrincipal(user).setVisible(true);
+                            }
                         }
                     }
                 }
