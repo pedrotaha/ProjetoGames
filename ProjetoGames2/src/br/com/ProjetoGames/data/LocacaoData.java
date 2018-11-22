@@ -57,11 +57,12 @@ public class LocacaoData extends OperacaoData{
                 lista.add(jogoOp);
             }
             for (JogosOperacaoModel list : lista) {
-                String sql4 = "insert into tbjogolocad (idlocacao, idJogo, quantidade) values (?,?,?)";
+                String sql4 = "insert into tbjogolocad (idlocacao, idJogo, quantidade, status) values (?,?,?,?)";
                 PreparedStatement ps4 = c.getConexao().prepareStatement(sql4);
                 ps4.setInt(1, id);
                 ps4.setInt(2, list.getJogosModel().getIdJogos());
                 ps4.setInt(3, list.getQuantidade());
+                ps4.setInt(4, 1);
                 ps4.executeUpdate();
                 ps4.close();
             }

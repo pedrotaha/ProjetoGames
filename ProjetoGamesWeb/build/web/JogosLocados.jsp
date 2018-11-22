@@ -1,12 +1,25 @@
 <%@page import="model.UsuarioModel"%>
+<%@page import="model.JogosModel"%>
+<%@page import="model.LocacaoModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="data.UsuarioData"%>
+<%@page import="data.JogosLocadosData"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/layout.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+        <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+        <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/projetoCSS.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script type="text/javascript" src="js/script.js"></script>
         <title>Página Inicial</title>
     </head>
@@ -35,49 +48,42 @@
                 <br/>
                 <span>Jogos Locados por você no momento: </span>
             </div>
-            <form action="UsuarioServlet?acao=<%=acao%>" method="post">
-                <div class='login_fields'>
-                    <div class='login_fields__user'>
-                        <div class='icon'>
-                            <img src='img/user_icon_copy.png'>
-                        </div>
-                        <input placeholder='Login' type='text' name="login" value="<%=obj.getLogin()%>" />
-                        <div class='validation'>
-                            <img src='img/tick.png'>
-                        </div>
-                    </div>
-                    <div class='login_fields__password'>
-                        <div class='icon'>
-                            <img src='img/lock_icon_copy.png'>
-                        </div>
-                        <input placeholder='Senha' type='password' name="senha" value="<%=obj.getSenha()%>" />
-                        <div class='validation'>
-                            <img src='img/tick.png'>
-                        </div>
-                    </div>
-                    <div class='login_fields__submit'>
-                        <input type='submit' value='Entrar' />
-                        <div class='forgot'>
-                            <a href='EsqueceuSenha.jsp'>Esqueceu a senha?</a>
-                        </div>
-                    </div>
+            <div class="mostrarProdutos">
+                <form action="" method="post" name="myform"> <%-- serve para o link da em cima na mostrar oque voce ta escrevendo "post"--%>
+                    <input type="hidden" name="acao" value="<%=acao%>">
+                </form>
+                <table class= "table table-bordered table-hover" id="tabelaProduto">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Tipo</th>
+                            <th>Tarja</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                            JogosModel objJogo = new JogosModel();
+                            LocacaoModel objLoc = new LocacaoModel();
+                            JogosLocadosData DAO = new JogosLocadosData();
+                            ArrayList<JogosModel> dados = DAO.pesquisar(obj);
+                            objLoc = DAO.dadosLocacao(obj);
+                            for (JogosModel c : dados) {
+                                objJogo = c;
+                        %>
+                        <tr>
+                            <td><%=objJogo.getTitulo()%></td>
+                            <td><%=objJogo.getPlataforma()%></td>
+                            <td><%=objJogo.getPublisher()%></td>
+                            <td><%=objLoc.getDataDevolucao()%></td>
+                        </tr>
+                        <% }
+                        %>
+                    </tbody>
+                </table>
+                <div class='love'>
+                    <p>Feito com <img src="img/love_copy.png" /> por Garnet Games </a></p>
                 </div>
-            </form>
-            <div class='success'>
-                <h2>Autenticado com Sucesso!</h2>
-                <p>Bem-vindo</p>
-            </div>
-            <div class='disclaimer'>
-                <p>Garnet Games</p>
-            </div>
-        </div>
-        <div class='authent'>
-            <img src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/puff.svg'>
-            <p>Autenticando...</p>
-        </div>
-        <div class='love'>
-            <p>Feito com <img src="img/love_copy.png" /> por Garnet Games </a></p>
-        </div>
 
-    </body>
-</html>
+                </body>
+                </html>

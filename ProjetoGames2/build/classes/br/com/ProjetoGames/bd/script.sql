@@ -97,7 +97,8 @@ create table if not exists tbJogoVend(
 create table if not exists tbJogoLocad(
  idLocacao integer not null references tblocacao ON DELETE CASCADE,
  idJogo integer not null references tbjogos ON DELETE CASCADE,
- quantidade integer not null
+ quantidade integer not null,
+ status integer not null -- 0 - devolvido, 1 - locado
 );
 
 create table if not exists tbPlataformas(
@@ -140,3 +141,4 @@ SELECT EXISTS (
 
 ALTER TABLE tblocacao ADD COLUMN desconto integer;
 
+ALTER TABLE tbJogoLocad ADD COLUMN status integer;
