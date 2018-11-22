@@ -363,7 +363,7 @@ public class JFPagamento extends javax.swing.JFrame {
                             LocacaoData DAO = new LocacaoData();
                             if (DAO.finalizarLocacao(locacao)) {
                                 JOptionPane.showMessageDialog(this, "Obrigado pela preferência!!!");
-                                //gerarRelatorio();
+                                gerarRelatorio();
                                 dispose();
                                 new JFPrincipal(user).setVisible(true);
                             }
