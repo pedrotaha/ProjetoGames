@@ -76,7 +76,7 @@ public class JogosLocadosData {
         return cal;
     }
 
-    public ArrayList<LocacaoModel> dadosLocacao(UsuarioModel objU) throws Exception {
+    public LocacaoModel dadosLocacao(UsuarioModel objU) throws Exception {
         LocacaoModel dado = new LocacaoModel();
         ArrayList<JogosOperacaoModel> carrinho = new ArrayList<>();
         JogosModel jogo = new JogosModel();
@@ -122,7 +122,7 @@ public class JogosLocadosData {
         c.getConexao().close();
         ps.close();
         rs.close();
-        return carrinho;
+        return dado;
     }
 
 }
