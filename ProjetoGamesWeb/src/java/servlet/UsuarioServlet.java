@@ -63,7 +63,7 @@ public class UsuarioServlet extends HttpServlet {
                 obj = DAO.validarUsuario(login, Criptografar.encriptografar(senha));
                 if (obj != null) {
                     request.setAttribute("objUser", obj);
-                    getServletContext().getRequestDispatcher("/Index.jsp").forward(request, response);
+                    getServletContext().getRequestDispatcher("/JogosLocados.jsp").forward(request, response);
                 } else {
                     msg = "Usuário ou senha inválidos";
                     request.setAttribute("msg", msg);

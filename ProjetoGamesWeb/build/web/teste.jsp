@@ -66,7 +66,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <form action="" method="post" name="myform"> <%-- serve para o link da em cima na mostrar oque voce ta escrevendo "post"--%>
-                            <input type="hidden" name="acao" value="<%=acao%>" />
+                            <input type="hidden" name="acao" value="<%=acao%>">
                         </form>
                         <table class= "table table-bordered table-hover" id="tabelaProduto">
                             <thead>
@@ -115,9 +115,7 @@
                     });
                 });
             </script>
-            <div class='love'>
-                <p>Feito com <img src="img/love_copy.png" /> por Garnet Games </a></p>
-            </div>
         </div>
     </body>
+
 </html>
