@@ -1,8 +1,8 @@
-<%@page import="model.JogosOperacaoModel"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="model.UsuarioModel"%>
 <%@page import="model.JogosModel"%>
 <%@page import="model.LocacaoModel"%>
+<%@page import="model.JogosOperacaoModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="data.UsuarioData"%>
 <%@page import="data.JogosLocadosData"%>
@@ -80,16 +80,16 @@
                             </thead>
                             <tbody>
                                 <%
-                                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                                    JogosModel objJogo = new JogosModel();
-                                    LocacaoModel objLoc = new LocacaoModel();
-                                    ArrayList<LocacaoModel> dadosLoc = new ArrayList<>();
-                                    JogosLocadosData DAO = new JogosLocadosData();
-                                    ArrayList<JogosModel> dados = DAO.pesquisar(obj);
-                                    dadosLoc = DAO.dadosLocacao(obj);
-                                    for (LocacaoModel c : dadosLoc) {
-                                        objLoc = c;
-                                        for (JogosOperacaoModel d : objLoc.getJogosOperacaoModel()) {
+                                    try {
+                                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                        JogosModel objJogo = new JogosModel();
+                                        LocacaoModel objLoc;
+                                        JogosLocadosData DAO = new JogosLocadosData();
+                                        ArrayList<JogosModel> dados = DAO.pesquisar(obj);
+                                        ArrayList<LocacaoModel> dadosLoc = DAO.dadosLocacao(obj);
+                                        for (LocacaoModel c : dadosLoc) {
+                                            objLoc = c;
+                                            for (JogosOperacaoModel d : objLoc.getJogosOperacaoModel()) {
                                 %>
                                 <tr>
                                     <td><%=d.getJogosModel().getTitulo()%></td>
@@ -98,7 +98,10 @@
                                     <td><%=dateFormat.format(objLoc.getDataDevolucao().getTime())%></td>
                                 </tr>
                                 <%
+                                            }
                                         }
+                                    } catch (Exception e) {
+                                        System.out.println(e.getMessage());
                                     }
                                 %>
                             </tbody>
@@ -120,7 +123,9 @@
                     });
                 });
             </script>
+            <div class='love'>
+                <p>Feito com <img src="img/love_copy.png" /> por Garnet Games </a></p>
+            </div>
         </div>
     </body>
-
 </html>

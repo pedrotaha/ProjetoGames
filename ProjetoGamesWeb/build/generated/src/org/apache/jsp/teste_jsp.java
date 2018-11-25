@@ -3,11 +3,11 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
-import model.JogosOperacaoModel;
 import java.text.DateFormat;
 import model.UsuarioModel;
 import model.JogosModel;
 import model.LocacaoModel;
+import model.JogosOperacaoModel;
 import java.util.ArrayList;
 import data.UsuarioData;
 import data.JogosLocadosData;
@@ -140,16 +140,16 @@ public final class teste_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                            <tbody>\n");
       out.write("                                ");
 
-                                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                                    JogosModel objJogo = new JogosModel();
-                                    LocacaoModel objLoc = new LocacaoModel();
-                                    ArrayList<LocacaoModel> dadosLoc = new ArrayList<>();
-                                    JogosLocadosData DAO = new JogosLocadosData();
-                                    ArrayList<JogosModel> dados = DAO.pesquisar(obj);
-                                    dadosLoc = DAO.dadosLocacao(obj);
-                                    for (LocacaoModel c : dadosLoc) {
-                                        objLoc = c;
-                                        for (JogosOperacaoModel d : objLoc.getJogosOperacaoModel()) {
+                                    try {
+                                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                        JogosModel objJogo = new JogosModel();
+                                        LocacaoModel objLoc;
+                                        JogosLocadosData DAO = new JogosLocadosData();
+                                        ArrayList<JogosModel> dados = DAO.pesquisar(obj);
+                                        ArrayList<LocacaoModel> dadosLoc = DAO.dadosLocacao(obj);
+                                        for (LocacaoModel c : dadosLoc) {
+                                            objLoc = c;
+                                            for (JogosOperacaoModel d : objLoc.getJogosOperacaoModel()) {
                                 
       out.write("\n");
       out.write("                                <tr>\n");
@@ -168,7 +168,10 @@ public final class teste_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                                </tr>\n");
       out.write("                                ");
 
+                                            }
                                         }
+                                    } catch (Exception e) {
+                                        System.out.println(e.getMessage());
                                     }
                                 
       out.write("\n");
@@ -191,9 +194,11 @@ public final class teste_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    });\n");
       out.write("                });\n");
       out.write("            </script>\n");
+      out.write("            <div class='love'>\n");
+      out.write("                <p>Feito com <img src=\"img/love_copy.png\" /> por Garnet Games </a></p>\n");
+      out.write("            </div>\n");
       out.write("        </div>\n");
       out.write("    </body>\n");
-      out.write("\n");
       out.write("</html>\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){

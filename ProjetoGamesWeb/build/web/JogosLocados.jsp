@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" type="text/css" href="css/layout.css" />
+        <!--<link rel="stylesheet" type="text/css" href="css/layout.css" />-->
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -21,7 +21,7 @@
         <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
         <link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap/css/bootstrap.css" />
-        <!--<link rel="stylesheet" type="text/css" href="css/projetoCSS.css" />-->
+        <link rel="stylesheet" type="text/css" href="css/projetoCSS.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <script type="text/javascript" src="js/script.js"></script>
         <title>Jogos Locados</title>
@@ -67,7 +67,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <form action="" method="post" name="myform"> <%-- serve para o link da em cima na mostrar oque voce ta escrevendo "post"--%>
-                            <input type="hidden" name="acao" value="<%=acao%>" />
+                            <input type="hidden" name="acao" value="<%=acao%>">
                         </form>
                         <table class= "table table-bordered table-hover" id="tabelaProduto">
                             <thead>
@@ -80,26 +80,29 @@
                             </thead>
                             <tbody>
                                 <%
-                                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                                    JogosModel objJogo = new JogosModel();
-                                    LocacaoModel objLoc = new LocacaoModel();
-                                    ArrayList<LocacaoModel> dadosLoc = new ArrayList<>();
-                                    JogosLocadosData DAO = new JogosLocadosData();
-                                    ArrayList<JogosModel> dados = DAO.pesquisar(obj);
-                                    dadosLoc = DAO.dadosLocacao(obj);
-                                    for (LocacaoModel c : dadosLoc) {
-                                        objLoc = c;
-                                        for(JogosOperacaoModel d : objLoc.getJogosOperacaoModel()){
+                                   // try {
+                                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                        JogosModel objJogo = new JogosModel();
+                                        LocacaoModel objLoc;
+                                        JogosLocadosData DAO = new JogosLocadosData();
+                                        //ArrayList<JogosModel> dados = DAO.pesquisar(obj);
+                                        //ArrayList<LocacaoModel> dadosLoc = DAO.dadosLocacao(obj);
+                                        //for (LocacaoModel c : dadosLoc) {
+                                            //objLoc = c;
+                                            //for (JogosOperacaoModel d : objLoc.getJogosOperacaoModel()) {
                                 %>
                                 <tr>
-                                    <td><%=d.getJogosModel().getTitulo()%></td>
-                                    <td><%=d.getJogosModel().getPlataforma()%></td>
-                                    <td><%=d.getJogosModel().getPublisher()%></td>
-                                    <td><%=dateFormat.format(objLoc.getDataDevolucao().getTime())%></td>
+                                    <td><%//=d.getJogosModel().getTitulo()%></td>
+                                    <td><%//=d.getJogosModel().getPlataforma()%></td>
+                                    <td><%//=d.getJogosModel().getPublisher()%></td>
+                                    <td><%//=dateFormat.format(objLoc.getDataDevolucao().getTime())%></td>
                                 </tr>
                                 <%
-                                      }  
-                                    }
+                                            //}
+                                       // }
+                                    //} catch (Exception e) {
+                                        //System.out.println(e.getMessage());
+                                   // }
                                 %>
                             </tbody>
                         </table>

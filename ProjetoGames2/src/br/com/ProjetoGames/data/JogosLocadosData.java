@@ -1,16 +1,16 @@
 package br.com.ProjetoGames.data;
 
+import br.com.ProjetoGames.model.JogosModel;
+import br.com.ProjetoGames.model.JogosOperacaoModel;
+import br.com.ProjetoGames.model.LocacaoModel;
+import br.com.ProjetoGames.model.QuantidadeModel;
+import br.com.ProjetoGames.model.UsuarioModel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import model.JogosModel;
-import model.JogosOperacaoModel;
-import model.LocacaoModel;
-import model.QuantidadeModel;
-import model.UsuarioModel;
 
 public class JogosLocadosData {
 
@@ -76,12 +76,15 @@ public class JogosLocadosData {
     }
 
     public ArrayList<LocacaoModel> dadosLocacao(UsuarioModel objU) throws Exception {
+        int help = 0;
         ArrayList<LocacaoModel> dados = new ArrayList<>();
-        LocacaoModel dado = new LocacaoModel();
-        ArrayList<JogosOperacaoModel> carrinho = new ArrayList<>();
-        JogosModel jogo = new JogosModel();
+        LocacaoModel dado = null;
+        JogosOperacaoModel jogoloc = null;
+        ArrayList<JogosOperacaoModel> carrinho = null;
+        JogosModel jogo = null;
         Conexao c = new Conexao();
-        String sql = "select * from tblocacao l, tbusuarios u where u.id = l.idcli and idcli = ?;";
+        String sql = "select * from tblocacao l, tbusuarios u, tbjogolocad jl where u.id = l.idcli and jl.status = 1 "
+                + "and l.idlocacao = jl.idlocacao and idcli = ? order by l.idlocacao;";
 //                "select * from tbjogolocad jl, tbusuarios u, tblocacao l, tbjogos j, tbquantidade q where u.id = l.idcli "
 //                + "and l.idlocacao = jl.idlocacao and j.idjogos = jl.idjogo and q.idjogo = j.idjogos and jl.status = 1  "
 //                + "and u.id = ?;";
@@ -89,42 +92,48 @@ public class JogosLocadosData {
         ps.setInt(1, objU.getId());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            dado.setClienteModel(objU);
-            dado.setDataDevolucao(calendario(rs.getString("datadevolucao")));
-            dado.setDataOperacao(calendario(rs.getString("datalocacao")));
-            dado.setDesconto(rs.getInt("desconto"));
-            dado.setValor(rs.getFloat("valor"));
-            dado.setFormaPagamento(rs.getString("formapagamento"));
-            dado.setId(rs.getInt("idlocacao"));
-            JogosOperacaoModel jogoloc = new JogosOperacaoModel();
-            String sql1 = "select * from tbjogolocad jl, tbusuarios u, tblocacao l, tbjogos j, tbquantidade q where u.id = l.idcli "
-                    + "and l.idlocacao = jl.idlocacao and j.idjogos = jl.idjogo and q.idjogo = j.idjogos and jl.status = 1  "
-                    + "and u.id = ?;";
-            PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
-            ps1.setInt(1, objU.getId());
-            ResultSet rs1 = ps1.executeQuery();
-            while (rs1.next()) {
-                jogo = new JogosModel();
-                jogo.setDescricao(rs1.getString("descricao"));
-                jogo.setEstado(rs1.getString("estado"));
-                jogo.setFaixaEtaria(rs1.getString("faixaetaria"));
-                jogo.setGenero(rs1.getString("genero"));
-                jogo.setIdJogos(rs1.getInt("idJogos"));
-                jogo.setPlataforma(rs1.getString("plataforma"));
-                jogo.setPublisher(rs1.getString("publisher"));
-                jogo.setSituacao(rs1.getString("situacao"));
-                jogo.setTitulo(rs1.getString("titulo"));
-                jogo.setQuantidadeDisponivel(new QuantidadeModel(rs1.getInt("quantidadeAlugar"), rs1.getInt("quantidadeVender"), rs1.getFloat("valorAlugar"), rs1.getFloat("valorVender")));
-                jogo.setDataLancamento(calendario(rs1.getString("datalancamento")));
-                jogo.setImagem(rs1.getBytes("imagem"));
-                jogoloc.setJogosModel(jogo);
-                jogoloc.setQuantidade(rs1.getInt("quantidade"));
-                carrinho.add(jogoloc);
+            dado = new LocacaoModel();
+            carrinho = new ArrayList<>();
+            if (rs.getInt("idlocacao") != help) {
+                dado.setClienteModel(objU);
+                dado.setDataDevolucao(calendario(rs.getString("datadevolucao")));
+                dado.setDataOperacao(calendario(rs.getString("datalocacao")));
+                dado.setDesconto(rs.getInt("desconto"));
+                dado.setValor(rs.getFloat("valor"));
+                dado.setFormaPagamento(rs.getString("formapagamento"));
+                dado.setId(rs.getInt("idlocacao"));
+                String sql1 = "select * from tbjogolocad jl, tbusuarios u, tblocacao l, tbjogos j, tbquantidade q where u.id = l.idcli "
+                        + "and l.idlocacao = jl.idlocacao and j.idjogos = jl.idjogo and q.idjogo = j.idjogos and jl.status = 1  "
+                        + "and u.id = ? and l.idlocacao = ?;";
+                PreparedStatement ps1 = c.getConexao().prepareStatement(sql1);
+                ps1.setInt(1, objU.getId());
+                ps1.setInt(2, dado.getId());
+                ResultSet rs1 = ps1.executeQuery();
+                while (rs1.next()) {
+                    jogoloc = new JogosOperacaoModel();
+                    jogo = new JogosModel();
+                    jogo.setDescricao(rs1.getString("descricao"));
+                    jogo.setEstado(rs1.getString("estado"));
+                    jogo.setFaixaEtaria(rs1.getString("faixaetaria"));
+                    jogo.setGenero(rs1.getString("genero"));
+                    jogo.setIdJogos(rs1.getInt("idJogos"));
+                    jogo.setPlataforma(rs1.getString("plataforma"));
+                    jogo.setPublisher(rs1.getString("publisher"));
+                    jogo.setSituacao(rs1.getString("situacao"));
+                    jogo.setTitulo(rs1.getString("titulo"));
+                    jogo.setQuantidadeDisponivel(new QuantidadeModel(rs1.getInt("quantidadeAlugar"), rs1.getInt("quantidadeVender"), rs1.getFloat("valorAlugar"), rs1.getFloat("valorVender")));
+                    jogo.setDataLancamento(calendario(rs1.getString("datalancamento")));
+                    jogo.setImagem(rs1.getBytes("imagem"));
+                    jogoloc.setJogosModel(jogo);
+                    jogoloc.setQuantidade(rs1.getInt("quantidade"));
+                    carrinho.add(jogoloc);
+                }
+                dado.setJogosOperacaoModel(carrinho);
+                dados.add(dado);
+                ps1.close();
+                rs1.close();
+                help = dado.getId();
             }
-            dado.setJogosOperacaoModel(carrinho);
-            dados.add(dado);
-            ps1.close();
-            rs1.close();
         }
         c.getConexao().close();
         ps.close();

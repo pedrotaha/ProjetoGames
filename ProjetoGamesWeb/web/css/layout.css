@@ -239,19 +239,19 @@ body .login_fields__submit input:hover {
     width: 30px;
 }
 
+.mostrarProdutos{
+    margin-top: 50px;
+    
+}
+
 table{
     font-size: 14px;
     text-align: center;
 }
 
-.mostrarProdutos{
-    margin-top: 300px;
-
-}
-
-.logoGarnet{
+/*.logoGarnet{
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-}
+}*/
