@@ -1,4 +1,4 @@
-package data;
+package br.com.ProjetoGames.data;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

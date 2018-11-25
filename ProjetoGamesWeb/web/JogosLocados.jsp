@@ -2,6 +2,7 @@
 <%@page import="model.UsuarioModel"%>
 <%@page import="model.JogosModel"%>
 <%@page import="model.LocacaoModel"%>
+<%@page import="model.JogosOperacaoModel"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="data.UsuarioData"%>
 <%@page import="data.JogosLocadosData"%>
@@ -82,19 +83,23 @@
                                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                     JogosModel objJogo = new JogosModel();
                                     LocacaoModel objLoc = new LocacaoModel();
+                                    ArrayList<LocacaoModel> dadosLoc = new ArrayList<>();
                                     JogosLocadosData DAO = new JogosLocadosData();
                                     ArrayList<JogosModel> dados = DAO.pesquisar(obj);
-                                    objLoc = DAO.dadosLocacao(obj);
-                                    for (JogosModel c : dados) {
-                                        objJogo = c;
+                                    dadosLoc = DAO.dadosLocacao(obj);
+                                    for (LocacaoModel c : dadosLoc) {
+                                        objLoc = c;
+                                        for(JogosOperacaoModel d : objLoc.getJogosOperacaoModel()){
                                 %>
                                 <tr>
-                                    <td><%=objJogo.getTitulo()%></td>
-                                    <td><%=objJogo.getPlataforma()%></td>
-                                    <td><%=objJogo.getPublisher()%></td>
+                                    <td><%=d.getJogosModel().getTitulo()%></td>
+                                    <td><%=d.getJogosModel().getPlataforma()%></td>
+                                    <td><%=d.getJogosModel().getPublisher()%></td>
                                     <td><%=dateFormat.format(objLoc.getDataDevolucao().getTime())%></td>
                                 </tr>
-                                <% }
+                                <%
+                                      }  
+                                    }
                                 %>
                             </tbody>
                         </table>

@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import model.UsuarioModel;
 import model.JogosModel;
 import model.LocacaoModel;
+import model.JogosOperacaoModel;
 import java.util.ArrayList;
 import data.UsuarioData;
 import data.JogosLocadosData;
@@ -49,6 +50,7 @@ public final class JogosLocados_jsp extends org.apache.jasper.runtime.HttpJspBas
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\n");
       out.write("\n");
       out.write("\n");
       out.write("\n");
@@ -141,29 +143,33 @@ public final class JogosLocados_jsp extends org.apache.jasper.runtime.HttpJspBas
                                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                     JogosModel objJogo = new JogosModel();
                                     LocacaoModel objLoc = new LocacaoModel();
+                                    ArrayList<LocacaoModel> dadosLoc = new ArrayList<>();
                                     JogosLocadosData DAO = new JogosLocadosData();
                                     ArrayList<JogosModel> dados = DAO.pesquisar(obj);
-                                    objLoc = DAO.dadosLocacao(obj);
-                                    for (JogosModel c : dados) {
-                                        objJogo = c;
+                                    dadosLoc = DAO.dadosLocacao(obj);
+                                    for (LocacaoModel c : dadosLoc) {
+                                        objLoc = c;
+                                        for(JogosOperacaoModel d : objLoc.getJogosOperacaoModel()){
                                 
       out.write("\n");
       out.write("                                <tr>\n");
       out.write("                                    <td>");
-      out.print(objJogo.getTitulo());
+      out.print(d.getJogosModel().getTitulo());
       out.write("</td>\n");
       out.write("                                    <td>");
-      out.print(objJogo.getPlataforma());
+      out.print(d.getJogosModel().getPlataforma());
       out.write("</td>\n");
       out.write("                                    <td>");
-      out.print(objJogo.getPublisher());
+      out.print(d.getJogosModel().getPublisher());
       out.write("</td>\n");
       out.write("                                    <td>");
       out.print(dateFormat.format(objLoc.getDataDevolucao().getTime()));
       out.write("</td>\n");
       out.write("                                </tr>\n");
       out.write("                                ");
- }
+
+                                      }  
+                                    }
                                 
       out.write("\n");
       out.write("                            </tbody>\n");

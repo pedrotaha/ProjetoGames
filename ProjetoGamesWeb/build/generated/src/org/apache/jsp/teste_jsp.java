@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import model.JogosOperacaoModel;
 import java.text.DateFormat;
 import model.UsuarioModel;
 import model.JogosModel;
@@ -58,6 +59,7 @@ public final class teste_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
@@ -78,11 +80,13 @@ public final class teste_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </head>\n");
       out.write("    <body>\n");
       out.write("        <div class=\"container\">\n");
-      out.write("            <div class=\"row\">\n");
-      out.write("                <div class=\"col-md-12\">\n");
-      out.write("                    <img src='img/GarnetGamesLogo.jpg' alt=\"Logo Garnet Games\" class=\"logoGarnet\" align=\"center\" />\n");
+      out.write("            <header>\n");
+      out.write("                <div class=\"row\">\n");
+      out.write("                    <div class=\"col-md-12\">\n");
+      out.write("                        <img src='img/GarnetGamesLogo.jpg' alt=\"Logo Garnet Games\" class=\"logoGarnet\" />\n");
+      out.write("                    </div>\n");
       out.write("                </div>\n");
-      out.write("            </div>\n");
+      out.write("            </header>\n");
       out.write("            ");
  UsuarioModel obj = new UsuarioModel();
                 obj = (UsuarioModel) request.getAttribute("objUser");
@@ -139,29 +143,33 @@ public final class teste_jsp extends org.apache.jasper.runtime.HttpJspBase
                                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                                     JogosModel objJogo = new JogosModel();
                                     LocacaoModel objLoc = new LocacaoModel();
+                                    ArrayList<LocacaoModel> dadosLoc = new ArrayList<>();
                                     JogosLocadosData DAO = new JogosLocadosData();
                                     ArrayList<JogosModel> dados = DAO.pesquisar(obj);
-                                    objLoc = DAO.dadosLocacao(obj);
-                                    for (JogosModel c : dados) {
-                                        objJogo = c;
+                                    dadosLoc = DAO.dadosLocacao(obj);
+                                    for (LocacaoModel c : dadosLoc) {
+                                        objLoc = c;
+                                        for (JogosOperacaoModel d : objLoc.getJogosOperacaoModel()) {
                                 
       out.write("\n");
       out.write("                                <tr>\n");
       out.write("                                    <td>");
-      out.print(objJogo.getTitulo());
+      out.print(d.getJogosModel().getTitulo());
       out.write("</td>\n");
       out.write("                                    <td>");
-      out.print(objJogo.getPlataforma());
+      out.print(d.getJogosModel().getPlataforma());
       out.write("</td>\n");
       out.write("                                    <td>");
-      out.print(objJogo.getPublisher());
+      out.print(d.getJogosModel().getPublisher());
       out.write("</td>\n");
       out.write("                                    <td>");
       out.print(dateFormat.format(objLoc.getDataDevolucao().getTime()));
       out.write("</td>\n");
       out.write("                                </tr>\n");
       out.write("                                ");
- }
+
+                                        }
+                                    }
                                 
       out.write("\n");
       out.write("                            </tbody>\n");
