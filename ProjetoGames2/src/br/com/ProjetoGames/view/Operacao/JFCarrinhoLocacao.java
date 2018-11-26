@@ -166,6 +166,7 @@ public class JFCarrinhoLocacao extends javax.swing.JFrame {
         jlAplicar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jlPorcentagem.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jlPorcentagem.setText("%");

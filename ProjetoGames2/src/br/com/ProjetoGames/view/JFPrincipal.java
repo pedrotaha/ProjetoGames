@@ -65,13 +65,13 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         jdpPrincipal = new javax.swing.JDesktopPane();
         jlTime = new javax.swing.JLabel();
-        jbRenovar = new javax.swing.JButton();
         jbLocacao = new javax.swing.JButton();
         jbVenda = new javax.swing.JButton();
         jbCadJogo = new javax.swing.JButton();
         jbCadUsuario = new javax.swing.JButton();
         jlInfo = new javax.swing.JLabel();
         jlFFxv = new javax.swing.JLabel();
+        jbRenovar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jmUsuario = new javax.swing.JMenuItem();
@@ -91,18 +91,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         jlTime.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jdpPrincipal.add(jlTime);
         jlTime.setBounds(260, 30, 390, 70);
-
-        jbRenovar.setBackground(new java.awt.Color(107, 164, 194));
-        jbRenovar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jbRenovar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Replace_50px.png"))); // NOI18N
-        jbRenovar.setText("Renovar Locação");
-        jbRenovar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbRenovarActionPerformed(evt);
-            }
-        });
-        jdpPrincipal.add(jbRenovar);
-        jbRenovar.setBounds(0, 160, 250, 50);
 
         jbLocacao.setBackground(new java.awt.Color(107, 164, 194));
         jbLocacao.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -126,7 +114,7 @@ public class JFPrincipal extends javax.swing.JFrame {
             }
         });
         jdpPrincipal.add(jbVenda);
-        jbVenda.setBounds(0, 320, 250, 50);
+        jbVenda.setBounds(0, 240, 250, 50);
 
         jbCadJogo.setBackground(new java.awt.Color(107, 164, 194));
         jbCadJogo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -138,7 +126,7 @@ public class JFPrincipal extends javax.swing.JFrame {
             }
         });
         jdpPrincipal.add(jbCadJogo);
-        jbCadJogo.setBounds(0, 240, 250, 50);
+        jbCadJogo.setBounds(0, 160, 250, 50);
 
         jbCadUsuario.setBackground(new java.awt.Color(107, 164, 194));
         jbCadUsuario.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -161,6 +149,19 @@ public class JFPrincipal extends javax.swing.JFrame {
         jlFFxv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/cxdkpvuxuaazxj8_8h6c.jpg"))); // NOI18N
         jdpPrincipal.add(jlFFxv);
         jlFFxv.setBounds(0, 0, 849, 1070);
+
+        jbRenovar.setBackground(new java.awt.Color(107, 164, 194));
+        jbRenovar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jbRenovar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ProjetoGames/imagens/Icones/icons8_Replace_50px.png"))); // NOI18N
+        jbRenovar.setText("Renovar Locação");
+        jbRenovar.setEnabled(false);
+        jbRenovar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbRenovarActionPerformed(evt);
+            }
+        });
+        jdpPrincipal.add(jbRenovar);
+        jbRenovar.setBounds(0, 160, 250, 50);
 
         getContentPane().add(jdpPrincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 760));
 

@@ -112,6 +112,7 @@ public class JFLocacao extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Realizar Locação");
+        setResizable(false);
 
         jdpLocad.setBackground(new java.awt.Color(255, 255, 255));
 
