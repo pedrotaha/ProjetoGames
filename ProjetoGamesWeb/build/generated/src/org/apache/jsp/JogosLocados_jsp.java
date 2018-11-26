@@ -64,6 +64,7 @@ public final class JogosLocados_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("<html>\n");
       out.write("    <head>\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n");
+      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/layout.css\" />\n");
       out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n");
       out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n");
       out.write("        <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js\"></script>\n");
@@ -72,7 +73,7 @@ public final class JogosLocados_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("        <script src=\"//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js\"></script>\n");
       out.write("        <link href=\"//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css\" rel=\"stylesheet\" />\n");
       out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/bootstrap/bootstrap/css/bootstrap.css\" />\n");
-      out.write("        <link rel=\"stylesheet\" type=\"text/css\" href=\"css/projetoCSS.css\" />\n");
+      out.write("        <!--<link rel=\"stylesheet\" type=\"text/css\" href=\"css/projetoCSS.css\" />-->\n");
       out.write("        <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" />\n");
       out.write("        <script type=\"text/javascript\" src=\"js/script.js\"></script>\n");
       out.write("        <title>Jogos Locados</title>\n");
@@ -85,6 +86,7 @@ public final class JogosLocados_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                        <img src='img/GarnetGamesLogo.jpg' alt=\"Logo Garnet Games\" class=\"logoGarnet\" />\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
+      out.write("                <div style=\"clear:both;\"></div>\n");
       out.write("            </header>\n");
       out.write("            ");
  UsuarioModel obj = new UsuarioModel();
@@ -110,8 +112,13 @@ public final class JogosLocados_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write(".</font></span>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
+      out.write("            <div style=\"clear:both;\"></div>\n");
       out.write("            <div class='login_title'>\n");
-      out.write("                <span><font color=\"white\" size=\"5\">Jogos Locados por você no momento: </font></span>\n");
+      out.write("                <div class=\"row\">\n");
+      out.write("                    <div class=\"col-md-12\">\n");
+      out.write("                        <span><font color=\"white\" size=\"5\">Jogos Locados por você no momento: </font></span>\n");
+      out.write("                    </div>\n");
+      out.write("                </div>\n");
       out.write("            </div>\n");
       out.write("            <div style=\"clear:both;\"></div>\n");
       out.write("            <div class=\"mostrarProdutos\">\n");
@@ -135,46 +142,47 @@ public final class JogosLocados_jsp extends org.apache.jasper.runtime.HttpJspBas
       out.write("                            <tbody>\n");
       out.write("                                ");
 
-                                    // try {
-                                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                                    JogosModel objJogo = new JogosModel();
-                                    LocacaoModel objLoc;
-                                    JogosLocadosData DAO = new JogosLocadosData();
-                                    //ArrayList<JogosModel> dados = DAO.pesquisar(obj);
-                                    //ArrayList<LocacaoModel> dadosLoc = DAO.dadosLocacao(obj);
-                                    //for (LocacaoModel c : dadosLoc) {
-                                    //objLoc = c;
-                                    //for (JogosOperacaoModel d : objLoc.getJogosOperacaoModel()) {
+                                    try {
+                                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                        JogosModel objJogo = new JogosModel();
+                                        LocacaoModel objLoc;
+                                        JogosLocadosData DAO = new JogosLocadosData();
+                                        ArrayList<JogosModel> dados = DAO.pesquisar(obj);
+                                        ArrayList<LocacaoModel> dadosLoc = DAO.dadosLocacao(obj);
+                                        for (LocacaoModel c : dadosLoc) {
+                                            objLoc = c;
+                                            for (JogosOperacaoModel d : objLoc.getJogosOperacaoModel()) {
                                 
       out.write("\n");
       out.write("                                <tr>\n");
       out.write("                                    <td>");
-//=d.getJogosModel().getTitulo()
+      out.print(d.getJogosModel().getTitulo());
       out.write("</td>\n");
       out.write("                                    <td>");
-//=d.getJogosModel().getPlataforma()
+      out.print(d.getJogosModel().getPlataforma());
       out.write("</td>\n");
       out.write("                                    <td>");
-//=d.getJogosModel().getPublisher()
+      out.print(d.getJogosModel().getPublisher());
       out.write("</td>\n");
       out.write("                                    <td>");
-//=dateFormat.format(objLoc.getDataDevolucao().getTime())
+      out.print(dateFormat.format(objLoc.getDataDevolucao().getTime()));
       out.write("</td>\n");
       out.write("                                </tr>\n");
       out.write("                                ");
 
-                                    //}
-                                    // }
-                                    //} catch (Exception e) {
-                                    //System.out.println(e.getMessage());
-                                    // }
-
+                                            }
+                                        }
+                                    } catch (Exception e) {
+                                        System.out.println(e.getMessage());
+                                    }
+                                
       out.write("\n");
       out.write("                            </tbody>\n");
       out.write("                        </table>\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
+      out.write("            <div style=\"clear:both;\"></div>\n");
       out.write("\n");
       out.write("            <script>\n");
       out.write("                $(document).ready(function () {\n");

@@ -86,6 +86,7 @@ public final class teste_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        <img src='img/GarnetGamesLogo.jpg' alt=\"Logo Garnet Games\" class=\"logoGarnet\" />\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
+      out.write("                <div style=\"clear:both;\"></div>\n");
       out.write("            </header>\n");
       out.write("            ");
  UsuarioModel obj = new UsuarioModel();
@@ -111,6 +112,7 @@ public final class teste_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write(".</font></span>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
+      out.write("            <div style=\"clear:both;\"></div>\n");
       out.write("            <div class='login_title'>\n");
       out.write("                <div class=\"row\">\n");
       out.write("                    <div class=\"col-md-12\">\n");
@@ -180,6 +182,7 @@ public final class teste_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("            </div>\n");
+      out.write("            <div style=\"clear:both;\"></div>\n");
       out.write("\n");
       out.write("            <script>\n");
       out.write("                $(document).ready(function () {\n");

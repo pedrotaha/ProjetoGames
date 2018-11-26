@@ -34,6 +34,7 @@
                         <img src='img/GarnetGamesLogo.jpg' alt="Logo Garnet Games" class="logoGarnet" />
                     </div>
                 </div>
+                <div style="clear:both;"></div>
             </header>
             <% UsuarioModel obj = new UsuarioModel();
                 obj = (UsuarioModel) request.getAttribute("objUser");
@@ -55,6 +56,7 @@
                     <span><font color="white" size="7">Bem-vindo, <%=obj.getNome()%>.</font></span>
                 </div>
             </div>
+            <div style="clear:both;"></div>
             <div class='login_title'>
                 <div class="row">
                     <div class="col-md-12">
@@ -109,6 +111,7 @@
                     </div>
                 </div>
             </div>
+            <div style="clear:both;"></div>
 
             <script>
                 $(document).ready(function () {
