@@ -92,7 +92,7 @@ public class JFLogin extends javax.swing.JFrame {
         jtUsuario.setBackground(null);
         jtUsuario.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jtUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        jtUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jtUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtUsuario.setOpaque(false);
         jtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
